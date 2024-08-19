@@ -1,1 +1,1 @@
-# SEP
+# SEP (=Software Engineering Praktikum)
