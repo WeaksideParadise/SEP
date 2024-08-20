@@ -1,33 +1,34 @@
-# {B1} {Events/UCS}
+# {B1} {Ressourcentags}
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
 | B1     |          |            |
 
 ### Description
-...
+Bonusanforderung. Ressourcen erhalten Tags zur Übersichtlichkeit. Diese können von berechtigten Nutzern hinzugefügt, aktualisiert oder gelöscht werden.
+Die Berechtigung richtet nach den Berechtigungen für Ressourcen allgemein.
 
 ### Rationale
-...
+Tags sollen das Suchen/Filtern von Ressourcen erleichtern.
 
 ### Originator
-...
+Kunde
 
 ### Fit Criterion
-...
+Ressourcen können Tags haben, eine Zuweisung, Aktualisierung und Löschung ist möglich
 
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| ...                  | ...                     | ...      |
+| Hoch                 | Gering                  | 0/5      |
 
 ### Supporting Material
 ...
 
 ### Conflicts
-...
+Keine
 
 ### History
-...
+Erstellt am 20.08.2024
 
 ---
