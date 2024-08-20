@@ -1,8 +1,8 @@
-# {Req-ID} {Events/UCS}
+# {B1} {Events/UCS}
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| X.X    |          |            |
+| B1     |          |            |
 
 ### Description
 ...
