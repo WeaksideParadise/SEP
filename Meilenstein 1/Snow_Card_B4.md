@@ -1,8 +1,8 @@
 # {B4} {Erfahrungsberichte}
 
-| Req-ID | Req-Type | Events/UCs |
-|--------|----------|------------|
-| B4     |Funktional|            |
+| Req-ID | Req-Type | Events/UCs                                              |
+|--------|----------|---------------------------------------------------------|
+| B4     |Funktional|Erfahrungsberichte verfassen, Erfahrungsberichte anzeigen|
 
 ### Description
 Zu einer Ressourcen sollen Erfahrungsberichte verfasst werden können. Diese müssen anonymisiert sein.
