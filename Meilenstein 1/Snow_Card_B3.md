@@ -1,8 +1,8 @@
-# {Req-ID} {Events/UCS}
+# {B3} {Bewertungsschema}
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| X.X    |          |            |
+| B3     |Funktional|            |
 
 ### Description
 ...
