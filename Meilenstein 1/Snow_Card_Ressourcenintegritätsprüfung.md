@@ -1,4 +1,4 @@
-# {RV5} {Ressourcen}
+# {RV5} {Ressourcenintegritätsprüfung}
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|

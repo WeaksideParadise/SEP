@@ -1,4 +1,4 @@
-# {RV3} {Ressourcen}
+# {RV3} {Ressourcenlöschung}
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|

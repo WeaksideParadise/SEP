@@ -1,4 +1,4 @@
-# {S1} {Ressourcen}
+# {S1} {Ressourcenfilterung}
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
