@@ -1,8 +1,8 @@
 # {B6} {Meldesystem}
 
-| Req-ID | Req-Type | Events/UCs       |
-|--------|----------|------------------|
-| B6     |Funktional| Ressourcen melden|
+| Req-ID | Req-Type | Events/UCs                            |
+|--------|----------|---------------------------------------|
+| B6     |Funktional| Ressourcen melden, Meldungen verwalten|
 
 ### Description
 Unangemessene oder irrelevante Ressourcen sollen unter Angabe von einem Grund gemeldet werden. Diese Meldungen landen im System.
