@@ -20,7 +20,7 @@ Bereitstellung der entsprechenden Rechte im Client
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| hoch                 | mittel                  | 2        |
+| mittel                 | gering                 | 2        |
 
 ### Supporting Material
 Datenbankkommunikation zum Speichern der Benutzerdaten
@@ -30,6 +30,6 @@ Frontendkommunikation zum Erfassen der Benutzerdaten
 ...
 
 ### History
-...
+Erstellt am 21.08.24
 
 ---
