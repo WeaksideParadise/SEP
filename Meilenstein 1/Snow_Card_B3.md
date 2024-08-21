@@ -1,8 +1,8 @@
 # {B3} {Bewertungsschema}
 
-| Req-ID | Req-Type | Events/UCs |
-|--------|----------|------------|
-| B3     |Funktional|            |
+| Req-ID | Req-Type | Events/UCs                                      |
+|--------|----------|-------------------------------------------------|
+| B3     |Funktional|Nutzer fügt Bewertung hinzu, Bewertungen anzeigen|
 
 ### Description
 Das Bewertungsschema soll für die Bewertung des Inhaltes von Ressourcen für Nutzer dienen. Die Wahl des genauen Schema ist dem Entwickler überlassen.
