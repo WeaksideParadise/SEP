@@ -2,7 +2,7 @@
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| B1     | Bonus    |            |
+| B1     |Funktional|            |
 
 ### Description
 Bonusanforderung. Ressourcen erhalten Tags zur Übersichtlichkeit. Diese können von berechtigten Nutzern hinzugefügt, aktualisiert oder gelöscht werden.
