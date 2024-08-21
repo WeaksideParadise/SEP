@@ -2,7 +2,7 @@
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| B1     |          |            |
+| B1     | Bonus    |            |
 
 ### Description
 Bonusanforderung. Ressourcen erhalten Tags zur Übersichtlichkeit. Diese können von berechtigten Nutzern hinzugefügt, aktualisiert oder gelöscht werden.
@@ -15,15 +15,15 @@ Tags sollen das Suchen/Filtern von Ressourcen erleichtern.
 Kunde
 
 ### Fit Criterion
-Ressourcen können Tags haben, eine Zuweisung, Aktualisierung und Löschung ist möglich
+Ressourcen können Tags haben, eine Zuweisung, Aktualisierung und Löschung ist im System möglich
 
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| Hoch                 | Gering                  | 0/5      |
+| Mittel               | Gering                  | 0/5      |
 
 ### Supporting Material
-...
+Aufgabenstellung
 
 ### Conflicts
 Keine
