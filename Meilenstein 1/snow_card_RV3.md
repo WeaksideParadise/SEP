@@ -19,7 +19,7 @@ Der Nutzer kann eine ausgewählte Ressource erfolgreich aus der Datenbank lösch
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| Hoch                 | Hoch                    | 4/5      |
+| 4/5                  | 5/5                     | 4/5      |
 
 ### Supporting Material
 Aufgabenstellung

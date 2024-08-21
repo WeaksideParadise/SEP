@@ -19,7 +19,7 @@ Man konnte jeweils bestätigen (mithilfe einer Implementierung) an einem erreich
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| Mittel               | Hoch                    | 3/5      |
+| 2/5                  | 5/5                     | 3/5      |
 
 ### Supporting Material
 Aufgabenstellung

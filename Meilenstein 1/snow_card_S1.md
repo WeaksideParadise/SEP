@@ -19,7 +19,7 @@ Ein Testnutzer kann eine Ressource anhand mindestens drei ihrer Eigenschaften er
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| Hoch                 | Hoch                    | 4/5      |
+| 5/5                  | 4/5                     | 4/5      |
 
 ### Supporting Material
 Aufgabenstellung
