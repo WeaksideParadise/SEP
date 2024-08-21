@@ -6,6 +6,7 @@
 
 ### Description
 Das Bewertungsschema soll für die Bewertung des Inhaltes von Ressourcen für Nutzer dienen. Die Wahl des genauen Schema ist dem Entwickler überlassen.
+Es sollt allerdings eindimensional sein (also "Gefällt mir"- Style).
 
 ### Rationale
 Bewertungen bieten eine Orientierung für Nutzer, wie gut/nützlich eine Ressource ist. Dies kann dem Nutzer bei der Ressource helfen, schneller die besten Ressourcen zu finden.
