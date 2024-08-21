@@ -2,7 +2,7 @@
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| B2     | Bonus    |            |
+| B2     |Funktional|            |
 
 ### Description
 Nutzer können Vorschläge zur Änderung von Ressourcen einreichen. Diese werden wie beim Vorschlag zum Hinzufügen von
