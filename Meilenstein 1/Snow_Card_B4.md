@@ -1,33 +1,36 @@
-# {Req-ID} {Events/UCS}
+# {B4} {Erfahrungsberichte}
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| X.X    |          |            |
+| B4     |Funktional|            |
 
 ### Description
-...
+Zu einer Ressourcen sollen Erfahrungsberichte verfasst werden können. Diese müssen anonymisiert sein.
+Kein Nutzer soll eine Einsicht haben, wer diese verfasst hat. Informationen hierzu sollen nicht im System gespeichert werden.
 
 ### Rationale
-...
+Erfahrungsberichte dienen der Bereicherung einer Ressource. Da es sich allerdings um teils sehr kritische Themen handeln kann, soll der Verfasser geschützt werden.
+Um Datenleaks zu vermeiden, soll diese Information nicht gespeichert werden
 
 ### Originator
-...
+Kunde
 
 ### Fit Criterion
-...
+Zu jeder Ressource kann ein Erfahrungsbericht erstellt werden, kein Nutzer (egal welche Rolle) sieht wer den Erfahrungsbericht erstellt hat.
+Daten zum Verfasser sind nirgendswo gespeichert.
 
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| ...                  | ...                     | ...      |
+| Mittel               | Gering                  | 0        |
 
 ### Supporting Material
-...
+Aufgabestellung
 
 ### Conflicts
-...
+Keine
 
 ### History
-...
+Erstellt amn 21.08.2024
 
 ---
