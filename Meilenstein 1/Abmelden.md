@@ -19,7 +19,7 @@ Entfernen der entsprechenden Rechte im Client
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| hoch                 |    mittel               | 2        |
+| mittel               |    gering              | 2        |
 
 ### Supporting Material
 
@@ -28,6 +28,6 @@ Entfernen der entsprechenden Rechte im Client
 ...
 
 ### History
-...
+Erstellt am 21.08.24
 
 ---
