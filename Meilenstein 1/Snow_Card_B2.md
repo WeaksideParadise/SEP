@@ -1,8 +1,8 @@
 # {B2} {Änderung der Ressource vorschlagen}
 
-| Req-ID | Req-Type | Events/UCs |
-|--------|----------|------------|
-| B2     |Funktional|            |
+| Req-ID | Req-Type | Events/UCs         |
+|--------|----------|--------------------|
+| B2     |Funktional|Änderung vorschlagen|
 
 ### Description
 Nutzer können Vorschläge zur Änderung von Ressourcen einreichen. Diese werden wie beim Vorschlag zum Hinzufügen von
