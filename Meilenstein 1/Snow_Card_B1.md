@@ -20,10 +20,10 @@ Ressourcen können Tags haben, eine Zuweisung, Aktualisierung und Löschung ist 
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| Mittel               | Gering                  | 0/5      |
+| 3/5                  | 0/5                     | 0/5      |
 
 ### Supporting Material
-Aufgabenstellung
+/
 
 ### Conflicts
 Keine
