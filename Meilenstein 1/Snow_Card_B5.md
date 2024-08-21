@@ -1,8 +1,8 @@
 # {B5} {Moderatorrolle}
 
-| Req-ID | Req-Type | Events/UCs |
-|--------|----------|------------|
-| B5     |Funktional|            |
+| Req-ID | Req-Type | Events/UCs          |
+|--------|----------|---------------------|
+| B5     |Funktional|Als Moderator handeln|
 
 ### Description
 Moderatoren als zusätzliche Rolle neben Adminstratoren. Diese können Ressourcen löschen, erhalten Übersicht über vorgenommene Löschungen.
