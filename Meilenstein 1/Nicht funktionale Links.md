@@ -11,7 +11,7 @@ Automatische Anwendung die testet, ob Links von Ressourcen noch abrufbar sind.
 Automatische Anwendung die testet, ob Links von Ressourcen noch abrufbar sind. Wenn nicht, werden diese Ressourcen automatisch versteckt.
 
 ### Originator
-Auftrageber
+Auftraggeber
 
 ### Fit Criterion
 Nicht Funktionale links werden innerhalb einer Stunde erkannt und dann innerhalb von 5 Sekunden versteckt.
