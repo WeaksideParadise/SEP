@@ -1,8 +1,8 @@
 # {B1} {Ressourcentags}
 
-| Req-ID | Req-Type | Events/UCs |
-|--------|----------|------------|
-| B1     |Funktional|            |
+| Req-ID | Req-Type | Events/UCs                                                                          |
+|--------|----------|-------------------------------------------------------------------------------------|
+| B1     |Funktional|Tags vergeben, Tags bearbeiten, Tags löschen, Tags anzeigen, Nach Tags filtern/suchen|
 
 ### Description
 Bonusanforderung. Ressourcen erhalten Tags zur Übersichtlichkeit. Diese können von berechtigten Nutzern hinzugefügt, aktualisiert oder gelöscht werden.
