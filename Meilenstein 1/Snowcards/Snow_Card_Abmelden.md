@@ -2,7 +2,7 @@
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| 7.3    | funktional | Abmelden von Konto|
+| BM.5    | funktional | Abmelden von Konto|
 
 ### Description
 Ausloggen aus dem Account
@@ -19,7 +19,7 @@ Entfernen der entsprechenden Rechte im Client
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| mittel               |    mittel              | 3       |
+| 3/5              |    3/5              | 3/5       |
 
 ### Supporting Material
 
@@ -28,6 +28,7 @@ Entfernen der entsprechenden Rechte im Client
 ...
 
 ### History
-Erstellt am 21.08.24
+Erstellt am 21.08.24 von Tom Seidel
+Geändert am 22.08.24 von Tom Seidel
 
 ---
