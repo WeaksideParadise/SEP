@@ -19,7 +19,7 @@ Der Nutzer erhält bei einem Vorschlag einer o.g. Ressource eine Warnung, der Vo
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| Gering               | Gering                  | 0        |
+| 1/5                  | 0/5                     | 0/5      |
 
 ### Supporting Material
 Aufgabenstellung
@@ -29,5 +29,6 @@ Keine
 
 ### History
 Erstellt am 21.08.2024
+Updated  am 22.08.2024
 
 ---
