@@ -1,8 +1,8 @@
-# {S1} {Ressourcenfilterung}
+# {RF.1} {Ressourcenfilterung}
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| S1     |Funktional|Ressourcen  |
+| RF.1   |Funktional|Ressourcen  |
 
 ### Description
 Der Nutzer muss nach Ressourcen suchen, diese sortieren und filtern können, abhängig von deren Eigenschaften.
