@@ -1,8 +1,8 @@
-### {K2 } {Überprüfen ob Nutzer vorhanden ist}
+### {BM.3 } {Überprüfen ob Nutzer vorhanden ist}
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| K2     | Funktional | Nutzerregistrierung |
+|BM.3    | Funktional | Nutzerregistrierung |
 
 ### Description
 Beim Registrieren eines neuen Nutzers prüft das System, ob der Benutzername bereits existiert, um doppelte Konten zu vermeiden.
