@@ -2,7 +2,7 @@
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| K1     | Funktional | Konto löschen |
+| BM.1   | Funktional | Konto löschen |
 
 ### Description
 Administratoren haben die Möglichkeit, Nutzerkonten zu löschen. Dies führt zur dauerhaften Entfernung des Kontos und seiner Daten aus dem System.
