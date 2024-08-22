@@ -2,7 +2,7 @@
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| 7.2    | funktional | Anmelden von Konto|
+| BM.4    | funktional | Anmelden von Konto|
 
 ### Description
 Einloggen in den Account um Rechte zu erweitern
@@ -19,7 +19,7 @@ Bereitstellung der entsprechenden Rechte im Client
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| mittel                 |mittel                  | 3     |
+| 3/5                 | 3/5                  | 3/5     |
 
 ### Supporting Material
 Frontendkommunikation zum Erfassen der Benutzerdaten
@@ -28,6 +28,7 @@ Frontendkommunikation zum Erfassen der Benutzerdaten
 ...
 
 ### History
-Erstellt am 21.08.24
+Erstellt am 21.08.24 von Tom Seidel
+Geändert am 22.08.24 von Tom Seidel
 
 ---
