@@ -2,7 +2,7 @@
 
 | Req-ID | Req-Type | Events/UCs                       |
 |--------|----------|----------------------------------|
-| 4,6    |funktional|erkennung nicht funktionaler Links|
+| RM.6   |funktional|erkennung nicht funktionaler Links|
 
 ### Description
 Automatische Anwendung die testet, ob Links von Ressourcen noch abrufbar sind.

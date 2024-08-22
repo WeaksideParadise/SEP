@@ -2,7 +2,7 @@
 
 | Req-ID | Req-Type | Events/UCs          |
 |--------|----------|---------------------|
-| 4.1    |funktional|Ressourcen hinzufügen|
+| RM.1   |funktional|Ressourcen hinzufügen|
 
 ### Description
 Funktion zum Einfügen von Ressourcen in das System für Nutzer und Administratoren.

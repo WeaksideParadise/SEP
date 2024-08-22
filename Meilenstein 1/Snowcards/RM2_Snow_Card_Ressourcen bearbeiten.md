@@ -2,7 +2,7 @@
 
 | Req-ID | Req-Type | Events/UCs          |
 |--------|----------|---------------------|
-| 4.2    |funktional|Ressourcen bearbeiten|
+| RM.2   |funktional|Ressourcen bearbeiten|
 
 ### Description
 Anwendungen zum verstecken, freischalten und bearbeiten der Ressourcen.
