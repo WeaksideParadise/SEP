@@ -21,7 +21,7 @@ Nutzer können Moderatorrechte zugewiesen werden. Die o.g. Aufgaben können von 
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| Hoch                 | Gering                  | 0        |
+| 4/5                  | 0/5                     | 0/5      |
 
 ### Supporting Material
 Aufgabenstellung
@@ -31,5 +31,6 @@ Keine
 
 ### History
 Erstellt am 21.08.2024
+Updated  am 22.08.2024
 
 ---
