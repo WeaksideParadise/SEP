@@ -22,7 +22,7 @@ können sie annehmen oder ablehnen.
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| Mittel               | Gering                  | 0        |
+| 3/5                  | 0/5                     | 0/5        |
 
 ### Supporting Material
 Aufgabestellung
@@ -32,5 +32,6 @@ Keine
 
 ### History
 Erstellt am 21.08.2024
+Updated  am 22.08.2024
 
 ---
