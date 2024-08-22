@@ -22,7 +22,7 @@ Daten zum Verfasser sind nirgendswo gespeichert.
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| Mittel               | Gering                  | 0        |
+| 3/5                  | 0/5                     | 0/5      |
 
 ### Supporting Material
 Aufgabestellung
@@ -31,6 +31,7 @@ Aufgabestellung
 Keine
 
 ### History
-Erstellt amn 21.08.2024
+Erstellt am 21.08.2024
+Updated  am 22.08.2024
 
 ---
