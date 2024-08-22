@@ -1,0 +1,31 @@
+# {E1 } {Doppelte Benutzernamen}
+
+| Req-ID | Req-Type | Events/UCs        |
+|--------|----------|-------------------|
+|  E1    |Funktional|Nutzerregistrierung|
+
+### Description
+Benutzernamen sind einzigartig. Bereits existierende Benutzernamen werden nicht vergeben.
+
+### Rationale
+Erleichert Entwicklung vom System. Dient der besseren Zuordnung von Nutzer (neben der ID)
+
+### Originator
+Entwickler (Marc)
+
+### Fit Criterion
+Wenn ein Nutzername bereits vorhanden ist, erhält der Nutzer eine Fehlermeldung und muss einen anderen Namen wählen.
+
+#### Ratings
+| Customer Satisfation | Customer Dissatisfation | Priority |
+|----------------------|-------------------------|----------|
+| 0/5                  | 0/5                     |   3/5    |
+
+### Supporting Material
+/
+
+### Conflicts
+Keine
+
+### History
+Erstellt am 22.08.2024
