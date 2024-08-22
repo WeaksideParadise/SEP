@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.24-->
+  <key attr.name="Beschreibung" attr.type="string" for="graph" id="d0"/>
+  <key for="port" id="d1" yfiles.type="portgraphics"/>
+  <key for="port" id="d2" yfiles.type="portgeometry"/>
+  <key for="port" id="d3" yfiles.type="portuserdata"/>
+  <key attr.name="url" attr.type="string" for="node" id="d4"/>
+  <key attr.name="description" attr.type="string" for="node" id="d5"/>
+  <key for="node" id="d6" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d7" yfiles.type="resources"/>
+  <key attr.name="url" attr.type="string" for="edge" id="d8"/>
+  <key attr.name="description" attr.type="string" for="edge" id="d9"/>
+  <key for="edge" id="d10" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <data key="d0" xml:space="preserve"/>
+    <node id="n0">
+      <data key="d4" xml:space="preserve"/>
+      <data key="d6">
+        <y:UMLClassNode>
+          <y:Geometry height="608.0" width="478.0" x="-808.6078749999999" y="-254.3125"/>
+          <y:Fill color="#C0C0C0" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="35.8525390625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="428.05517578125" x="24.972412109375" xml:space="preserve" y="3.0">Ressource
+{entspricht Datenbanktabelle, Aktionen im Ressourcenmanagement}<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="true">
+            <y:AttributeLabel xml:space="preserve">int        ressource_id           {DB Primärschlüssel}
+bool     is_published     	 {true falls veröffentliched und zugänglich}
+string   name
+string   description              {Maximal 240 Zeichen lang}
+string   link	                     	{Link zur originalen Ressource}
+string   created_by        	{Wer Ressource angelegt hat, Format: user_name#user_id}
+string   faculty              	 {Filterattribut}
+string   ressource_type	 {Filterattribut}
+string   times	                 	{Öffnungszeiten}
+string[] user_tags*       	{Bonusanforderung, Liste von Tags}
+int[]      likes*                      {Bonusanforderung, Liste von UserIDs}
+string[] user_reviews* 	{Bonusanforderung, Liste von Erfahrungsberichten}
+
+</y:AttributeLabel>
+            <y:MethodLabel xml:space="preserve">--------------------- Getter &amp; Setter --------------------- (DB-Operationen)
+get_ressource_id() -&gt; int
+set_ressource_id(int id) -&gt; void
+get_name() -&gt; string
+set_name(string name) -&gt; void
+get_description() -&gt; string
+set_description(string description) -&gt; void
+get_link() -&gt; string
+set_link(string link) -&gt; void
+get_created_by() -&gt; string
+set_created_by(string created_by) -&gt; void
+get_faculty() -&gt; string
+set_faculty(string faculty) -&gt; void
+get_ressource_type() -&gt; string
+set_ressource_type(string ressource_type) -&gt; void
+get_times() -&gt; string
+set_times(string times) -&gt; void
+get_user_tags() -&gt; string[]                                            {Bonusanforderung}
+set_user_tags(string[] tags) -&gt; void                              {Bonusanforderung}
+get_likes*() -&gt; int[]                                                         {Bonusanforderung}
+set_likes*(int[] likes) -&gt; void                                          {Bonusanforderung}
+get_user_reviews*() -&gt; string[]                                     {Bonusanforderung}
+set_user_reviews*(string[] user_reviews) -&gt; void        {Bonusanforderung}
+
+
+</y:MethodLabel>
+          </y:UML>
+        </y:UMLClassNode>
+      </data>
+    </node>
+    <node id="n1">
+      <data key="d4" xml:space="preserve"/>
+      <data key="d5"/>
+      <data key="d6">
+        <y:UMLClassNode>
+          <y:Geometry height="507.0" width="421.0" x="-122.76412499999992" y="-273.125"/>
+          <y:Fill color="#00FFFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="35.8525390625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="289.29541015625" x="65.852294921875" xml:space="preserve" y="3.0">Database
+{stellt Verbindung her, führt DB-Aktionen aus}<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="true">
+            <y:AttributeLabel xml:space="preserve">string db_username
+string db_password
+string host
+string database
+</y:AttributeLabel>
+            <y:MethodLabel xml:space="preserve">connect() -&gt; string
+execute_query() -&gt; Liist[Dict[string, Any]]
+</y:MethodLabel>
+          </y:UML>
+        </y:UMLClassNode>
+      </data>
+    </node>
+    <node id="n2">
+      <data key="d4" xml:space="preserve"/>
+      <data key="d5"/>
+      <data key="d6">
+        <y:UMLClassNode>
+          <y:Geometry height="679.25" width="361.25" x="464.8296250000001" y="-273.125"/>
+          <y:Fill color="#FFCC00" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="67.705078125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="271.97900390625" x="44.635498046875" xml:space="preserve" y="3.0">User_Interface
+{realisiert UI, stellt Funktionen bereit, 
+die Funktionen aus dem Management rufen
+und in der UI umsetzen}<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="true">
+            <y:AttributeLabel xml:space="preserve">.
+.
+.
+.</y:AttributeLabel>
+            <y:MethodLabel xml:space="preserve">.
+.
+.
+.</y:MethodLabel>
+          </y:UML>
+        </y:UMLClassNode>
+      </data>
+    </node>
+  </graph>
+  <data key="d7">
+    <y:Resources/>
+  </data>
+</graphml>
