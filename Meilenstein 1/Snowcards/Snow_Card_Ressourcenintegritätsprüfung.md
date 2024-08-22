@@ -1,8 +1,8 @@
-# {RV5} {Ressourcenintegritätsprüfung}
+# {RM.5} {Ressourcenintegritätsprüfung}
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| RV5    |Funktional|Ressourcen  |
+| RM.5   |Funktional|Ressourcen  |
 
 ### Description
 Überprüfen ob ein Link noch gültig (also die Seite erreichbar) ist.

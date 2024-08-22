@@ -1,8 +1,8 @@
-# {RV3} {Ressourcenlöschung}
+# {RM.3} {Ressourcenlöschung}
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| RV3    |Funktional| Ressourcen |
+| RM.3   |Funktional| Ressourcen |
 
 ### Description
 Man kann Ressourcen (aus der Datenbank) löschen.
