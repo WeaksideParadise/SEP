@@ -19,7 +19,7 @@ Nicht Funktionale links werden innerhalb einer Stunde erkannt und dann innerhalb
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| ...                  | ...                     | ...      |
+| 2/5                  | 4/5                     | 5/5      |
 
 ### Supporting Material
 ...

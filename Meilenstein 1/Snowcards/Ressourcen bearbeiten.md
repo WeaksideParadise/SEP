@@ -23,7 +23,7 @@ Diese Ressourcen sind innerhalb 5 Sekunden in der seperaten Ansicht vorhanden un
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| ...                  | ...                     | ...      |
+| 5/5                  | 5/5                     | 5/5      |
 
 ### Supporting Material
 ...
