@@ -1,8 +1,8 @@
-### {K3 } {Darstellung von Informationen zu Ressourcen}
+### {R.1} {Darstellung von Informationen zu Ressourcen}
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| K3     | Funktional | Ressourcenanzeige |
+| R.1    | Funktional | Ressourcenanzeige |
 
 ### Description
 Die Anwendung zeigt detaillierte Informationen zu jeder Ressource an, einschließlich Titel, Beschreibung, Link, Tags und anderen relevanten Metadaten.
