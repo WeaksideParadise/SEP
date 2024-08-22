@@ -2,7 +2,7 @@
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| 7.1    | funktional | Reg. von Konto|
+| BM.2    | funktional | Reg. von Konto|
 
 ### Description
 Benutzer soll Konto erstellen können
@@ -20,7 +20,7 @@ Bereitstellung der entsprechenden Rechte im Client
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| mittel                 | mittel                 | 3        |
+| 3/5                 |  3/5               | 3/5        |
 
 ### Supporting Material
 Datenbankkommunikation zum Speichern der Benutzerdaten
@@ -30,6 +30,7 @@ Frontendkommunikation zum Erfassen der Benutzerdaten
 ...
 
 ### History
-Erstellt am 21.08.24
+Erstellt am 21.08.24 von Tom Seidel
+Bearbeitet am 22.08.24 von Tom Seidel
 
 ---
