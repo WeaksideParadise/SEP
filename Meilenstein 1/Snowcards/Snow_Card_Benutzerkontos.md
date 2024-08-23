@@ -2,7 +2,7 @@
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| A1    | funktional        |   Benutzerkontos         |
+| BK1    | funktional        |   Benutzerkontos         |
 
 ### Description
 Nutzer: kann entweder ein Admin- oder ein Nutzerkonto haben. Admins verwalten
