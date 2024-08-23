@@ -2,7 +2,7 @@
 
 | Req-ID | Req-Type | Events/UCs |
 |--------|----------|------------|
-| A2    |     funktional     |    Gästezugriff        |
+| GK1    |     funktional     |    Gästezugriff        |
 
 ### Description
 Gäste können das Tool nutzen, um Ressourcen zu finden und
@@ -21,7 +21,7 @@ Gäste müssen auf die Ressourcen zugreifen und diese anzeigen können, ohne sic
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| 8                 | 5                     | 5     |
+| 4                 | 3                     | 5     |
 
 ### Supporting Material
 Öffentliche Zugriffsrechte auf bestimmte Ressourcen
