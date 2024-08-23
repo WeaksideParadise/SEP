@@ -22,7 +22,7 @@ Nutzende müssen neue Ressourcen vorschlagen können, die zur Überprüfung gese
 #### Ratings
 | Customer Satisfation | Customer Dissatisfation | Priority |
 |----------------------|-------------------------|----------|
-| 9                 | 7                     | 5      |
+| 5                 | 4                     | 5      |
 
 ### Supporting Material
 Abhängigkeit von der Implementierung eines zuverlässigen
