@@ -1,0 +1,3 @@
+Keine .env Dateien auf Github anlegen, .gitignore Datei kopieren
+.env Datei privat im eigenen Projektverzeichnis mitführen, nicht hochladen!!!!!!!!!!!!!!!
+.gitignore nicht verändern!!!!!!!!!!!
