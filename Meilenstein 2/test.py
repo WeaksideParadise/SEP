@@ -1,0 +1,3 @@
+import Database
+
+db = Database()

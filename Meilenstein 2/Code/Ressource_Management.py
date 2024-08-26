@@ -1,8 +1,9 @@
-import Ressource
 import Database
+import Ressource
+import User_Management
 
 class Ressource_Management:
-    def __init__(self, db_connection: object, user_management: object):
+    def __init__(self, db_connection: Database, user_management: User_Management):
         self.db_connection = db_connection
         self.user_management = user_management
 
@@ -64,7 +65,7 @@ class Ressource_Management:
         return True
     
     # Speichert Änderungen an einer Ressource
-    def change_ressource(self, ressource_id: int, **kwargs) -> bool:
+    #def change_ressource(self, ressource_id: int, **kwargs) -> bool:
 
         
     
