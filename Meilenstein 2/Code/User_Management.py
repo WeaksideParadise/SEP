@@ -28,7 +28,7 @@ class User_Management:
     # Name sollte eindeutig sein, da bei der Registrierung auf bereits existernden Namen geprüft wird
     def get_user_by_name(self, name) -> User:
 
-        query = "SELECT * FROM users WHERE name = %s"
+        query = """SELECT * FROM users WHERE name = %s"""
         
         try:
             result = self.db_connection.execute_query(query, (name))
