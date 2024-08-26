@@ -1,12 +1,14 @@
+import os
+from dotenv import load_dotenv
 from mysql.connector import *
 
 class Database:
     def __init__(self, user: str, password: str, host: str, database: str):
         self.config = {
-            'user': user,
-            'password': password,
-            'host': host,
-            'database': database
+            'host'    : os.getenv('DB_HOST'),
+            'database': os.getenv('DB_DATABASE'),
+            'user'    : os.getenv('DB_USERNAME'),
+            'password': os.getenv('DB_PASSWORD'),
         }
 
     def _connect(self):
