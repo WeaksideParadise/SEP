@@ -1,5 +1,3 @@
-
-
 class Ressource:
     def __init__(self, ressource_id: int, name: str, is_published: bool, description: str, link: str, created_by: str, faculty: str, ressource_type: str, opening_hours: str):
         self.ressource_id = ressource_id
@@ -23,3 +21,4 @@ class Ressource:
         self.name = name
 
     
+#TODO: Getter und Setter
