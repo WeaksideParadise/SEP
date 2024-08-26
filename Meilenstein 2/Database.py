@@ -1,16 +1,22 @@
-from mysql.connector import *
+import os
+import mysql.connector
+from mysql.connector import Error
+from dotenv import load_dotenv
+
 
 class Database:
-    def __init__(self, user: str, password: str, host: str, database: str):
+    def __init__(self):
+        load_dotenv()
         self.config = {
-            'user': user,
-            'password': password,
-            'host': host,
-            'database': database
+            'host'    : os.getenv('DB_HOST'),
+            'database': os.getenv('DB_DATABASE'),
+            'user'    : os.getenv('DB_USERNAME'),
+            'password': os.getenv('DB_PASSWORD'),
+           #'port'    : 3306
         }
 
+    # Verbindungsaufbau mit Datenbank
     def _connect(self):
-        # Stellt eine Verbindung zur Datenbank her.
         try:
             connection = mysql.connector.connect(**self.config)
             if connection.is_connected():
@@ -19,7 +25,8 @@ class Database:
             print(f"Error while connecting to MySQL: {e}")
             return None
 
-    def execute_query(self, query: str, params: tuple = ()) -> List[Dict[str, Any]]:
+    # Ausführen SQL-Query
+    def execute_query(self, query: str, params: tuple = ()) -> list[dict[str, any]]:
         """Führt eine SQL-Abfrage aus und gibt die Ergebnisse als Liste von Dictionaries zurück."""
         connection = self._connect()
         if connection is None:
