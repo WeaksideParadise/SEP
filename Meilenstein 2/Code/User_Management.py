@@ -88,18 +88,15 @@ class User_Management:
             
         # -> Bereits vorhandenen Nutzer wieder in DB speichern
         else:
-            query = """UPDATE resources SET user_id = %s,
-                                            is_logged_in = %s,
+            query = """UPDATE resources SET is_logged_in = %s,
                                             name = %s, 
-                                            link = %s, 
-                                            created_by = %s, 
-                                            faculty = %s, 
-                                            ressource_type= %s, 
-                                            opening_hours = %s 
+                                            hashed_password = %s, 
+                                            is_administrator = %s, 
+                                            is_moderator = %s, 
                                             WHERE id = %s"""
             
             try:
-                result = self.db_connection.execute_query(query, (self.name, self.is_published, self.description, self.link, self.created_by, self.faculty, self.ressource_type, self.opening_hours, self.ressource_id))
+                result = self.db_connection.execute_query(query, (user.is_logged_in, user.name, user.hashed_password, user.is_administrator, user.is_moderator, user.user_id))
             except LookupError as e:
                 return False
         
@@ -116,12 +113,20 @@ class User_Management:
 
         return False
     
-    # ------------------------- TODO ------------------------------
-    # Delete in der Form, dass außer die user_id, alle Werte auf einen Standartwert gesetzt werden
-    # -> User laden, alle Attribute bis auf user_id auf -1 / None / etc.
-    # -> User speichern
     def delete_user(self, user_id: int) -> bool:
-
+        
+        query = """UPDATE resources SET is_logged_in = %s,
+                                        name = %s, 
+                                        hashed_password = %s, 
+                                        is_administrator = %s, 
+                                        is_moderator = %s, 
+                                        WHERE id = %s"""
+            
+        try:
+            result = self.db_connection.execute_query(query, (None, "Deleted", None, False, False, user_id))
+        except LookupError as e:
+            return False
+        
         return True
     
     # Registrierungsfunktion, wird von UI gerufen
