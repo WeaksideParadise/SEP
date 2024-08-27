@@ -1,10 +1,13 @@
 import Database
 import User
+import hashlib
 
 class User_Management:
     def __init__(self, db_connection: Database):
         self.db_connection = db_connection
 
+
+    # ------------------------------------------------- Database based functions ------------------------------------------------- #
     def get_user_by_id(self, user_id) -> User:
 
         query = """SELECT * FROM users WHERE user_id = %s"""
@@ -25,7 +28,6 @@ class User_Management:
                         
         return None
     
-    # Name sollte eindeutig sein, da bei der Registrierung auf bereits existernden Namen geprüft wird
     def get_user_by_name(self, name) -> User:
 
         query = """SELECT * FROM users WHERE name = %s"""
@@ -74,25 +76,27 @@ class User_Management:
     # Speichert einen User in der Datenbank
     def save_user(self, user: User) -> bool:
         
+        # -> Neuen Nutzer anlegen, alle nicht aufgezählten Variablen werden automatisch von DB angelegt
         if user.get_user_id() == -1:
-            query = """INSERT INTO users (user_id, is_logged_in, name, hashed_password, is_administrator, is_moderator) 
-                       VALUES (%s, %s, %s, %s, %s, %s)"""
+            query = """INSERT INTO users (name, hashed_password) 
+                       VALUES (%s, %s)"""
             
             try:
-                result = self.db_connection.execute_query(query, (self.name, self.is_published, self.description, self.link, self.created_by, self.faculty, self.ressource_type, self.opening_hours, self.ressource_id))
+                result = self.db_connection.execute_query(query, (user.name, user.hashed_password))
             except LookupError as e:
                 return False
             
+        # -> Bereits vorhandenen Nutzer wieder in DB speichern
         else:
             query = """UPDATE resources SET user_id = %s,
                                             is_logged_in = %s,
-                                            description = %s, 
+                                            name = %s, 
                                             link = %s, 
                                             created_by = %s, 
                                             faculty = %s, 
                                             ressource_type= %s, 
                                             opening_hours = %s 
-                                            WHERE id =%s"""
+                                            WHERE id = %s"""
             
             try:
                 result = self.db_connection.execute_query(query, (self.name, self.is_published, self.description, self.link, self.created_by, self.faculty, self.ressource_type, self.opening_hours, self.ressource_id))
@@ -101,6 +105,7 @@ class User_Management:
         
         return True
     
+    # ------------------------------------------------- User_Management ------------------------------------------------- #
     def add_user(self, name: str, hashed_password: str) -> bool:
         # Wird von Registrierungsfunktion aufgerufen
     
@@ -111,19 +116,29 @@ class User_Management:
 
         return False
     
+    # ------------------------- TODO ------------------------------
+    # Delete in der Form, dass außer die user_id, alle Werte auf einen Standartwert gesetzt werden
+    # -> User laden, alle Attribute bis auf user_id auf -1 / None / etc.
+    # -> User speichern
+    def delete_user(self, user_id: int) -> bool:
+
+        return True
+    
     # Registrierungsfunktion, wird von UI gerufen
     def register_user(self, name, suggested_password) -> bool:
         
         try:
             if self.get_user_by_name(name):
-                raise ValueError("Benutzername exisitiert bereits")
+                raise ValueError("Benutzername exisitiert bereits")         # Requirement E1/BM.3 erfüllt - keine doppelten Benutzernamen
         except LookupError as e:
             return False
             
         if len(suggested_password) < 4:
             raise ValueError("Password zu kurz")
         
-        if self.add_user(name, hash(suggested_password)):
+        md5_hash = hashlib.md5()
+        md5_hash.update(suggested_password.encode('utf-8'))
+        if self.add_user(name, hash_value = md5_hash.hexdigest()):
             return True
         
         return False
@@ -184,7 +199,7 @@ class User_Management:
         
         return True
 
-
+    # ------------------------------------------------- Login_System ------------------------------------------------- #
     def login_user(self, username: str, password: str) -> bool:
 
         try:
@@ -194,7 +209,9 @@ class User_Management:
         except LookupError as e:
             return False
         
-        if hash(password) == user.get_hashed_password:
+        md5_hash = hashlib.md5()
+        md5_hash.update(password.encode('utf-8'))
+        if md5_hash.hexdigest() == user.get_hashed_password:
             user.set_is_logged_in(True)
 
         try:
@@ -221,3 +238,5 @@ class User_Management:
             return False
         
         return not user.get_is_logged_in()
+    
+    
