@@ -9,21 +9,21 @@ class Ressource_Management:
 
     # ------------------------------------------------- Database based functions ------------------------------------------------- #
 
-    def get_ressource_by_id(self, ressource_id) -> object:
+    def get_ressource_by_id(self, ressource_id) -> Ressource:
 
         query = "SELECT * FROM ressources WHERE id = %s"
         result= self.db_connection.execute_query(query, ressource_id)
         
         if result:
-            ressource = Ressource(result["ressource_id"], 
-                                  result["name"],      
-                                  result["is_published"], 
-                                  result["description"],
-                                  result["link"], 
-                                  result["created_by"],
-                                  result["faculty"],
-                                  result["ressource_type"],
-                                  result["opening_hours"])
+            ressource = Ressource(result[0]["ressource_id"], 
+                                  result[0]["name"],      
+                                  result[0]["is_published"], 
+                                  result[0]["description"],
+                                  result[0]["link"], 
+                                  result[0]["created_by"],
+                                  result[0]["faculty"],
+                                  result[0]["ressource_type"],
+                                  result[0]["opening_hours"])
             return ressource
         return None
     
@@ -57,8 +57,8 @@ class Ressource_Management:
     # Speichert eine Ressource in der Datenbank (UPDATE)
     def save_ressource(self, ressource: object) -> bool:
         if ressource.get_ressource_id() == -1:
-            query = """INSERT INTO resources (ressource_id, name, is_published, description, link, created_by, faculty, ressource_type, opening hours) 
-                       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+            query = """INSERT INTO resources (name, is_published, description, link, created_by, faculty, ressource_type, opening hours) 
+                       VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
             result = self.db_connection.execute_query(query, (self.name, self.is_published, self.description, self.link, self.created_by, self.faculty, self.ressource_type, self.opening_hours, self.ressource_id))
         else:
             query = """UPDATE resources SET name = %s, 
