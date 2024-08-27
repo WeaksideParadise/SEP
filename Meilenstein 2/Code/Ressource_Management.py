@@ -2,6 +2,7 @@ import Database
 import Ressource
 import User_Management
 import requests
+import time
 
 class Ressource_Management:
     def __init__(self, db_connection: Database, user_management: User_Management):
@@ -74,7 +75,11 @@ class Ressource_Management:
             t  = (ressource.name, ressource.is_published, ressource.description, ressource.link, ressource.created_by, ressource.faculty)
             t += (ressource.ressource_type, ressource.opening_hours, ressource.likes, ressource.experience_reports, ressource.ressource_tags)
 
-            result = self.db_connection.execute_query(query, t)
+            try:
+                result = self.db_connection.execute_query(query, t)
+            except LookupError as e:
+                return False
+            
         else:
             query = """UPDATE resources SET name               = %s, 
                                             is_published       = %s, 
@@ -92,7 +97,10 @@ class Ressource_Management:
             t  = (ressource.name, ressource.is_published, ressource.description, ressource.link, ressource.created_by, ressource.faculty)
             t += (ressource.ressource_type, ressource.opening_hours, ressource.likes, ressource.experience_reports, ressource.ressource_tags)
 
-            result = self.db_connection.execute_query(query, t + (self.ressource_id,))
+            try:
+                result = self.db_connection.execute_query(query, t + (self.ressource_id,))
+            except LookupError as e:
+                return False
 
         if result:
             return True
@@ -112,8 +120,8 @@ class Ressource_Management:
         created_by = user.name + "#" + user.user_id
 
         # -> Ressource anlegen und in DB speichern
-        ressource = Ressource(-1, name, is_published, description, link, created_by, faculty, ressource_type, opening_hours)
-        saved= self.save_ressource(ressource)
+        ressource = Ressource(-1, name, is_published, description, link, created_by, faculty, ressource_type, opening_hours, "X#", "X#", "X#")
+        saved = self.save_ressource(ressource)
 
         if not saved:
             return False
@@ -180,15 +188,75 @@ class Ressource_Management:
         return True
     
     #Bonus
-    def check_trustworthyness(link: str) -> bool:
+    def check_trustworthyness(self, link: str) -> bool:
 
         return True
     
-    def report_ressource(ressource_id: int) -> bool:
+    def report_ressource(self, ressource_id: int) -> bool:
 
         return True
     
         return True
-
+    
+    #Bonus
+    # -> Likes in Form X#user_id#user_id#........#user_id
+    # -> Case unlike mit in Funktion
+    def like_ressource(self, ressource_id: int, user_id: int) -> bool:
+    
+        try:
+            ressource = self.get_ressource_by_id(ressource_id)
+            if not ressource:
+                return False
+        except LookupError as e:
+            return False
         
+        likes = ressource.likes.split("#")
+        
+        if str(user_id) in likes:
+            likes.remove(str(user_id))
+            to_save = "#".join(likes)
+
+        else:
+            likes.add(str(user_id))
+            to_save = "#".join(likes)
+
+        ressource.likes = to_save
+
+        if self.save_ressource(ressource):
+            return True
+        
+        return False
+    
+    def add_experience_report(self, ressource_id: int, text: str) -> bool:
+
+        try:
+            ressource = self.get_ressource_by_id(ressource_id)
+        except LookupError as e:
+            raise ValueError("Ressource mit ID exisitiert nicht")
+        
+        # -> timestamp erstellen
+        timestamp = time.strftime("Erstellt am %d.%m.%Y um %H:%M:", time.localtime())
+
+        # -> e_r in DB anlegen
+        query = """INSERT INTO experience_reports (text, timestamp) VALUES %s, %s"""
+
+        try:
+            result = self.db_connection.execute_query(query, (text, timestamp))
+        except LookupError as e:
+            return False
+            
+        if "last_row_id" in result[len(result)] - 1:
+            er_ids = ressource.experience_reports.split("#")
+            er_ids.append(result[len(result)-1]["last_row_id"])
+            "#".join(ressource.experience_reports)
+        else:
+            raise LookupError("Fehler beim Lesen von last_row_id")
+        
+        try:
+            if self.save_ressource(ressource):
+                return True
+        except LookupError as e:
+            return False
+                
+        return False
     
