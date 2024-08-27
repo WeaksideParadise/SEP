@@ -25,4 +25,4 @@ class Ressource_Search:
     
     def search_ressource(self) -> list[Ressource]:
 
-
+        return []

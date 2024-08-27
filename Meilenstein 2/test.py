@@ -1,3 +1,0 @@
-import Database
-
-db = Database()

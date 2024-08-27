@@ -41,15 +41,15 @@ class Ressource_Management:
         ressources = []
 
         for element in result:
-            ressource = Ressource(result["ressource_id"], 
-                                  result["name"],      
-                                  result["is_published"], 
-                                  result["description"],
-                                  result["link"], 
-                                  result["created_by"],
-                                  result["faculty"],
-                                  result["ressource_type"],
-                                  result["opening_hours"])
+            ressource = Ressource(element["ressource_id"], 
+                                  element["name"],      
+                                  element["is_published"], 
+                                  element["description"],
+                                  element["link"], 
+                                  element["created_by"],
+                                  element["faculty"],
+                                  element["ressource_type"],
+                                  element["opening_hours"])
             ressources.append(ressource)
         
         return ressources
@@ -97,7 +97,7 @@ class Ressource_Management:
             return False
 
         if not is_published:
-            saved = self.create_poll("Add", ressource_id)
+            saved = self.create_poll("Add", "ressource_id")
             if not saved:
                 return False
         

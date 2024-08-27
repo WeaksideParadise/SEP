@@ -13,17 +13,17 @@ class User_Management:
         query = """SELECT * FROM users WHERE user_id = %s"""
         
         try:
-            result = self.db_connection.execute_query(query, user_id)
+            result = self.db_connection.execute_query(query, (user_id,))
         except LookupError as e:
             raise LookupError
         
         if result:
-            user = User(result[0]["user_id"], 
-                        result[0]["is_logged_in"], 
-                        result[0]["name"],
-                        result[0]["hashed_password"],
-                        result[0]["is_administrator"],
-                        result[0]["is_moderator"])
+            user = User.User(result[0]["user_id"], 
+                             result[0]["is_logged_in"], 
+                             result[0]["name"],
+                             result[0]["hashed_password"],
+                             result[0]["is_administrator"],
+                             result[0]["is_moderator"])
             return user
                         
         return None
@@ -194,7 +194,7 @@ class User_Management:
         except LookupError as e:
             return False
         
-        user.set_is_administrator(False)
+        user.is_administrator = False
         user.set_is_moderator(False)
 
         try:
@@ -216,6 +216,7 @@ class User_Management:
         
         md5_hash = hashlib.md5()
         md5_hash.update(password.encode('utf-8'))
+
         if md5_hash.hexdigest() == user.get_hashed_password:
             user.set_is_logged_in(True)
 
