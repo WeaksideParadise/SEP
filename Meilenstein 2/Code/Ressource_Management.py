@@ -41,15 +41,15 @@ class Ressource_Management:
         ressources = []
 
         for element in result:
-            ressource = Ressource(result["ressource_id"], 
-                                  result["name"],      
-                                  result["is_published"], 
-                                  result["description"],
-                                  result["link"], 
-                                  result["created_by"],
-                                  result["faculty"],
-                                  result["ressource_type"],
-                                  result["opening_hours"])
+            ressource = Ressource(element["ressource_id"], 
+                                  element["name"],      
+                                  element["is_published"], 
+                                  element["description"],
+                                  element["link"], 
+                                  element["created_by"],
+                                  element["faculty"],
+                                  element["ressource_type"],
+                                  element["opening_hours"])
             ressources.append(ressource)
         
         return ressources
@@ -104,14 +104,32 @@ class Ressource_Management:
         return True
     
     # --------------------- TODO ------------------------- 
-    
+    # ab hier muss noch getestet werden, obs wirklich funktioniert
     def change_ressource(self, ressource_id: int, **kwargs) -> bool:
+        # Ensure the resource ID is valid
+        if ressource_id < 0:
+            return False
 
-        return True
-    
-    def is_link_funcitonal(self, ressource_id: int, link: str) -> bool:
+        # Dynamically create the SQL query based on kwargs
+        set_clause = ", ".join([f"{key} = %s" for key in kwargs.keys()])
+        values = list(kwargs.values())
+        values.append(ressource_id)
 
-        return True
+        query = f"UPDATE ressources SET {set_clause} WHERE id = %s"
+
+        # Execute the query
+        result = self.db_connection.execute_query(query, tuple(values))
+        return result is not None
+
+    def is_link_functional(self, ressource_id: int, link: str) -> bool:
+        try:
+            # Make a request to the link to check its status
+            response = requests.head(link, allow_redirects=True, timeout=5)
+            # Check if the status code is in the range of 200-299
+            return response.status_code >= 200 and response.status_code < 300
+        except requests.RequestException:
+            # If there is any request exception, the link is not functional
+            return False
     
     # Bonus
     def check_ressource_suggestions(ressource: Ressource) -> bool:
@@ -143,6 +161,7 @@ class Ressource_Management:
     def report_ressource(ressource_id: int) -> bool:
 
     
+        return True
 
         
     
