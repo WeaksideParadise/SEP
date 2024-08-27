@@ -97,7 +97,7 @@ class Ressource_Management:
             return False
 
         if not is_published:
-            saved = self.create_poll("Add", ressource_id)
+            saved = self.create_poll("Add", "ressource_id")
             if not saved:
                 return False
         
@@ -160,6 +160,7 @@ class Ressource_Management:
     
     def report_ressource(ressource_id: int) -> bool:
 
+        return True
     
         return True
 
