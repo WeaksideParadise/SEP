@@ -40,6 +40,8 @@ class Database:
             cursor = connection.cursor(dictionary=True)
             cursor.execute(query, params)
             result = cursor.fetchall()
+            if cursor.lastrowid:
+                result.append({"last_row_id" : cursor.lastrowid})
             connection.commit()
             return result
         
