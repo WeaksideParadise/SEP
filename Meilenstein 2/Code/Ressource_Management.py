@@ -1,6 +1,7 @@
 import Database
 import Ressource
 import User_Management
+import requests
 
 class Ressource_Management:
     def __init__(self, db_connection: Database, user_management: User_Management):
@@ -11,8 +12,11 @@ class Ressource_Management:
 
     def get_ressource_by_id(self, ressource_id) -> Ressource:
 
-        query = "SELECT * FROM ressources WHERE id = %s"
-        result= self.db_connection.execute_query(query, ressource_id)
+        if ressource_id < 1:
+            raise ValueError("ID ist kleiner 1")
+        
+        query  = """SELECT * FROM ressources WHERE ressource_id = %s"""
+        result = self.db_connection.execute_query(query, (ressource_id,))
         
         if result:
             ressource = Ressource(result[0]["ressource_id"], 
@@ -23,7 +27,10 @@ class Ressource_Management:
                                   result[0]["created_by"],
                                   result[0]["faculty"],
                                   result[0]["ressource_type"],
-                                  result[0]["opening_hours"])
+                                  result[0]["opening_hours"],
+                                  result[0]["likes"],
+                                  result[0]["experience_reports"],
+                                  result[0]["ressource_tags"])
             return ressource
         return None
     
@@ -31,7 +38,7 @@ class Ressource_Management:
 
         t = ()
         for element in args:
-            t += (element)
+            t += (element,)
 
         try: 
             result = self.db_connection.execute_query(query, t)
@@ -49,30 +56,44 @@ class Ressource_Management:
                                   element["created_by"],
                                   element["faculty"],
                                   element["ressource_type"],
-                                  element["opening_hours"])
+                                  element["opening_hours"],
+                                  element["likes"],
+                                  element["experience_reports"],
+                                  element["ressource_tags"])
             ressources.append(ressource)
         
         return ressources
     
     # Speichert eine Ressource in der Datenbank (UPDATE)
     def save_ressource(self, ressource: object) -> bool:
-        if ressource.get_ressource_id() == -1:
-            query = """INSERT INTO resources (name, is_published, description, link, created_by, faculty, ressource_type, opening hours) 
-                       VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
-            result = self.db_connection.execute_query(query, (self.name, self.is_published, self.description, self.link, self.created_by, self.faculty, self.ressource_type, self.opening_hours, self.ressource_id))
-        else:
-            query = """UPDATE resources SET name = %s, 
-                                            is_published = %s, 
-                                            description = %s, 
-                                            link = %s, 
-                                            created_by = %s, 
-                                            faculty = %s, 
-                                            ressource_type= %s, 
-                                            opening_hours = %s 
-                                            WHERE id =%s"""
-            # TODO: Bonusanforderungen (Attribute) hinzufügen
+        if ressource.ressource_id == -1:
+            query = """INSERT INTO resources (name, is_published, description, link, created_by, faculty, ressource_type, 
+                                   opening hours, likes, experience_reports, ressource_tags) 
+                                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
             
-            result = self.db_connection.execute_query(query, (self.name, self.is_published, self.description, self.link, self.created_by, self.faculty, self.ressource_type, self.opening_hours, self.ressource_id))
+            t  = (ressource.name, ressource.is_published, ressource.description, ressource.link, ressource.created_by, ressource.faculty)
+            t += (ressource.ressource_type, ressource.opening_hours, ressource.likes, ressource.experience_reports, ressource.ressource_tags)
+
+            result = self.db_connection.execute_query(query, t)
+        else:
+            query = """UPDATE resources SET name               = %s, 
+                                            is_published       = %s, 
+                                            description        = %s, 
+                                            link               = %s, 
+                                            created_by         = %s, 
+                                            faculty            = %s, 
+                                            ressource_type     = %s, 
+                                            opening_hours      = %s,
+                                            likes              = %s,
+                                            experience_reports = %s,
+                                            ressource_tags     = %s 
+                                            WHERE ressource_id = %s"""
+            
+            t  = (ressource.name, ressource.is_published, ressource.description, ressource.link, ressource.created_by, ressource.faculty)
+            t += (ressource.ressource_type, ressource.opening_hours, ressource.likes, ressource.experience_reports, ressource.ressource_tags)
+
+            result = self.db_connection.execute_query(query, t + (self.ressource_id,))
+
         if result:
             return True
         return False
@@ -80,24 +101,26 @@ class Ressource_Management:
     # Zum Anlegen einer Ressource
     def add_ressource(self, user_id: int, name: str, description: str, link: str, faculty: str, ressource_type: str, opening_hours: str) -> bool:
 
-        # Wenn der Anleger ein Admin ist, wird Ressource automatisch veröffentlicht
-        # Wenn der Anleger kein Admin ist, wird Vorschlag erstellt
+        # -> Wenn der Anleger ein Admin ist, wird Ressource automatisch veröffentlicht
+        # -> Wenn der Anleger kein Admin ist, wird Vorschlag erstellt
         is_published = False
-        if(self.user_management.is_administrator(user_id)):
+        user = self.user_management.get_user_by_id(user_id)
+        if user and user.is_administrator:
             is_published = True
 
-        created_by = self.user_management.get_user_identifier(user_id)
+        # -> Userkürzel
+        created_by = user.name + "#" + user.user_id
 
+        # -> Ressource anlegen und in DB speichern
         ressource = Ressource(-1, name, is_published, description, link, created_by, faculty, ressource_type, opening_hours)
-        #ressource_id = .........
-
-        saved: bool = self.save_ressource(ressource)
+        saved= self.save_ressource(ressource)
 
         if not saved:
             return False
 
+        # -> Vorschlag erstellen
         if not is_published:
-            saved = self.create_poll("Add", "ressource_id")
+            saved = self.suggest_add_ressource(ressource)
             if not saved:
                 return False
         
@@ -115,11 +138,14 @@ class Ressource_Management:
         values = list(kwargs.values())
         values.append(ressource_id)
 
-        query = f"UPDATE ressources SET {set_clause} WHERE id = %s"
+        query = f"UPDATE ressources SET {set_clause} WHERE ressource_id = %s"
 
         # Execute the query
-        result = self.db_connection.execute_query(query, tuple(values))
-        return result is not None
+        try:
+            result = self.db_connection.execute_query(query, tuple(values))
+            return result is not None
+        except LookupError as e:
+            return False
 
     def is_link_functional(self, ressource_id: int, link: str) -> bool:
         try:

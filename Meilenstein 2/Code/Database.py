@@ -40,9 +40,11 @@ class Database:
             cursor = connection.cursor(dictionary=True)
             cursor.execute(query, params)
             result = cursor.fetchall()
+            connection.commit()
             return result
         
         except Error as e:
+            print(f"Error while executing to MySQL: {e}")
             raise LookupError
         
         finally:
