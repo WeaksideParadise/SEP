@@ -142,6 +142,7 @@ class Ressource_Management:
     
     def report_ressource(ressource_id: int) -> bool:
 
+        return True
     
 
         
