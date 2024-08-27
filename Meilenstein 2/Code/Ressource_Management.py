@@ -7,13 +7,40 @@ class Ressource_Management:
         self.db_connection = db_connection
         self.user_management = user_management
 
-    # Lädt eine Ressource aus der Datenbank
-    def get_ressource_by_id(self, ressource_id) -> object:
+    # ------------------------------------------------- Database based functions ------------------------------------------------- #
+
+    def get_ressource_by_id(self, ressource_id) -> Ressource:
 
         query = "SELECT * FROM ressources WHERE id = %s"
         result= self.db_connection.execute_query(query, ressource_id)
         
         if result:
+            ressource = Ressource(result[0]["ressource_id"], 
+                                  result[0]["name"],      
+                                  result[0]["is_published"], 
+                                  result[0]["description"],
+                                  result[0]["link"], 
+                                  result[0]["created_by"],
+                                  result[0]["faculty"],
+                                  result[0]["ressource_type"],
+                                  result[0]["opening_hours"])
+            return ressource
+        return None
+    
+    def get_ressources_by_query(self, query: str, *args) -> list:
+
+        t = ()
+        for element in args:
+            t += (element)
+
+        try: 
+            result = self.db_connection.execute_query(query, t)
+        except LookupError as e:
+            raise LookupError
+        
+        ressources = []
+
+        for element in result:
             ressource = Ressource(result["ressource_id"], 
                                   result["name"],      
                                   result["is_published"], 
@@ -23,16 +50,28 @@ class Ressource_Management:
                                   result["faculty"],
                                   result["ressource_type"],
                                   result["opening_hours"])
-            return ressource
-        return None
+            ressources.append(ressource)
+        
+        return ressources
     
     # Speichert eine Ressource in der Datenbank (UPDATE)
     def save_ressource(self, ressource: object) -> bool:
         if ressource.get_ressource_id() == -1:
-            query = "INSERT INTO resources (ressource_id, name, is_published, description, link, created_by, faculty, ressource_type, opening hours) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            query = """INSERT INTO resources (name, is_published, description, link, created_by, faculty, ressource_type, opening hours) 
+                       VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
             result = self.db_connection.execute_query(query, (self.name, self.is_published, self.description, self.link, self.created_by, self.faculty, self.ressource_type, self.opening_hours, self.ressource_id))
         else:
-            query = "UPDATE resources SET name = %s, is_published = %s, description = %s, link = %s, created_by = %s, faculty = %s, ressource_type= %s, opening_hours = %s WHERE id =%s"
+            query = """UPDATE resources SET name = %s, 
+                                            is_published = %s, 
+                                            description = %s, 
+                                            link = %s, 
+                                            created_by = %s, 
+                                            faculty = %s, 
+                                            ressource_type= %s, 
+                                            opening_hours = %s 
+                                            WHERE id =%s"""
+            # TODO: Bonusanforderungen (Attribute) hinzufügen
+            
             result = self.db_connection.execute_query(query, (self.name, self.is_published, self.description, self.link, self.created_by, self.faculty, self.ressource_type, self.opening_hours, self.ressource_id))
         if result:
             return True
@@ -64,8 +103,46 @@ class Ressource_Management:
         
         return True
     
-    # Speichert Änderungen an einer Ressource
-    #def change_ressource(self, ressource_id: int, **kwargs) -> bool:
+    # --------------------- TODO ------------------------- 
+    
+    def change_ressource(self, ressource_id: int, **kwargs) -> bool:
+
+        return True
+    
+    def is_link_funcitonal(self, ressource_id: int, link: str) -> bool:
+
+        return True
+    
+    # Bonus
+    def check_ressource_suggestions(ressource: Ressource) -> bool:
+
+        return True
+    
+    def publish_ressource(ressource_id:int ) -> bool:
+
+        return True
+    
+    def suggest_add_ressource(ressource: Ressource) -> bool:
+
+        return True
+    
+    # Bonus
+    def suggest_change_ressource(ressource_id: int, **kwargs) -> bool:
+
+        return True
+    
+    def delete_ressource(ressource_id: int) -> bool:
+
+        return True
+    
+    #Bonus
+    def check_trustworthyness(link: str) -> bool:
+
+        return True
+    
+    def report_ressource(ressource_id: int) -> bool:
+
+    
 
         
     
