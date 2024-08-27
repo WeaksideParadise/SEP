@@ -1,3 +1,3 @@
-import Database
+import Code.Database
 
-db = Database()
+db = Code.Database.Database()
