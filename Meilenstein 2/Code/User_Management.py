@@ -33,17 +33,17 @@ class User_Management:
         query = """SELECT * FROM users WHERE name = %s"""
         
         try:
-            result = self.db_connection.execute_query(query, (name))
+            result = self.db_connection.execute_query(query, (name,))
         except LookupError as e:
             raise LookupError
         
         if result:
-            user = User(result[0]["user_id"], 
-                        result[0]["is_logged_in"], 
-                        result[0]["name"],
-                        result[0]["hashed_password"],
-                        result[0]["is_administrator"],
-                        result[0]["is_moderator"])
+            user = User.User(result[0]["user_id"], 
+                             result[0]["is_logged_in"], 
+                             result[0]["name"],
+                             result[0]["hashed_password"],
+                             result[0]["is_administrator"],
+                             result[0]["is_moderator"])
             return user
                         
         return None
@@ -63,12 +63,12 @@ class User_Management:
         users = []
 
         for element in result:
-            user = User(element["user_id"], 
-                        element["is_logged_in"], 
-                        element["name"],
-                        element["hashed_password"],
-                        element["is_administrator"],
-                        element["is_moderator"])
+            user = User.User(element["user_id"], 
+                             element["is_logged_in"], 
+                             element["name"],
+                             element["hashed_password"],
+                             element["is_administrator"],
+                             element["is_moderator"])
             users.append(user)
         
         return users
@@ -77,7 +77,7 @@ class User_Management:
     def save_user(self, user: User) -> bool:
         
         # -> Neuen Nutzer anlegen, alle nicht aufgezählten Variablen werden automatisch von DB angelegt
-        if user.get_user_id() == -1:
+        if user.user_id == -1:
             query = """INSERT INTO users (name, hashed_password) 
                        VALUES (%s, %s)"""
             
@@ -88,12 +88,12 @@ class User_Management:
             
         # -> Bereits vorhandenen Nutzer wieder in DB speichern
         else:
-            query = """UPDATE resources SET is_logged_in = %s,
-                                            name = %s, 
-                                            hashed_password = %s, 
+            query = """UPDATE resources SET is_logged_in     = %s,
+                                            name             = %s, 
+                                            hashed_password  = %s, 
                                             is_administrator = %s, 
-                                            is_moderator = %s, 
-                                            WHERE id = %s"""
+                                            is_moderator     = %s, 
+                                            WHERE id         = %s"""
             
             try:
                 result = self.db_connection.execute_query(query, (user.is_logged_in, user.name, user.hashed_password, user.is_administrator, user.is_moderator, user.user_id))
@@ -106,7 +106,7 @@ class User_Management:
     def add_user(self, name: str, hashed_password: str) -> bool:
         # Wird von Registrierungsfunktion aufgerufen
     
-        user = User(-1, False, name, hashed_password, False, False)
+        user = User.User(-1, False, name, hashed_password, False, False)
         
         if self.save_user(self, user):
             return True
@@ -157,7 +157,7 @@ class User_Management:
         except LookupError as e:
             return False
         
-        user.set_is_administrator(True)
+        user.is_administrator = True
 
         try:
             self.save_user(user)
@@ -175,7 +175,7 @@ class User_Management:
         except LookupError as e:
             return False
         
-        user.set_is_moderator(True)
+        user.is_moderator = True
 
         try:
             self.save_user(user)
@@ -195,7 +195,7 @@ class User_Management:
             return False
         
         user.is_administrator = False
-        user.set_is_moderator(False)
+        user.is_moderator     = False
 
         try:
             self.save_user(user)
@@ -218,14 +218,14 @@ class User_Management:
         md5_hash.update(password.encode('utf-8'))
 
         if md5_hash.hexdigest() == user.get_hashed_password:
-            user.set_is_logged_in(True)
+            user.is_logged_in = True
 
         try:
             self.save_user(user)
         except LookupError as e:
             return False
         
-        return user.get_is_logged_in()
+        return user.is_logged_in
     
     def loggout_user(self, user_id: int) -> bool:
                 
@@ -236,13 +236,13 @@ class User_Management:
         except LookupError as e:
             return False
         
-        user.set_is_logged_in(False)
+        user.is_logged_in = False
 
         try:
             self.save_user(user)
         except LookupError as e:
             return False
         
-        return not user.get_is_logged_in()
+        return not user.is_logged_in
     
     
