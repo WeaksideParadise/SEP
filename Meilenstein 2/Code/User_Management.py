@@ -53,7 +53,7 @@ class User_Management:
 
         t = ()
         for element in args:
-            t += (element)
+            t += (element,)
 
         try: 
             result = self.db_connection.execute_query(query, t)
@@ -84,21 +84,20 @@ class User_Management:
             try:
                 result = self.db_connection.execute_query(query, (user.name, user.hashed_password))
             except LookupError as e:
-                return False
+                raise LookupError
             
         # -> Bereits vorhandenen Nutzer wieder in DB speichern
         else:
-            query = """UPDATE resources SET is_logged_in     = %s,
-                                            name             = %s, 
-                                            hashed_password  = %s, 
-                                            is_administrator = %s, 
-                                            is_moderator     = %s, 
-                                            WHERE id         = %s"""
-            
+            query = """UPDATE users SET is_logged_in     = %s,
+                                        name             = %s, 
+                                        hashed_password  = %s, 
+                                        is_administrator = %s, 
+                                        is_moderator     = %s 
+                                        WHERE user_id    = %s"""
             try:
                 result = self.db_connection.execute_query(query, (user.is_logged_in, user.name, user.hashed_password, user.is_administrator, user.is_moderator, user.user_id))
             except LookupError as e:
-                return False
+                raise LookupError
         
         return True
     
@@ -107,20 +106,19 @@ class User_Management:
         # Wird von Registrierungsfunktion aufgerufen
     
         user = User.User(-1, False, name, hashed_password, False, False)
-        
-        if self.save_user(self, user):
+        if self.save_user(user):
             return True
 
         return False
     
     def delete_user(self, user_id: int) -> bool:
         
-        query = """UPDATE resources SET is_logged_in = %s,
-                                        name = %s, 
-                                        hashed_password = %s, 
-                                        is_administrator = %s, 
-                                        is_moderator = %s, 
-                                        WHERE id = %s"""
+        query = """UPDATE users SET is_logged_in = %s,
+                                    name = %s, 
+                                    hashed_password = %s, 
+                                    is_administrator = %s, 
+                                    is_moderator = %s 
+                                    WHERE user_id = %s"""
             
         try:
             result = self.db_connection.execute_query(query, (None, "Deleted", None, False, False, user_id))
@@ -143,7 +141,8 @@ class User_Management:
         
         md5_hash = hashlib.md5()
         md5_hash.update(suggested_password.encode('utf-8'))
-        if self.add_user(name, hash_value = md5_hash.hexdigest()):
+        hash_value = md5_hash.hexdigest()
+        if self.add_user(name, hash_value):
             return True
         
         return False
@@ -217,7 +216,7 @@ class User_Management:
         md5_hash = hashlib.md5()
         md5_hash.update(password.encode('utf-8'))
 
-        if md5_hash.hexdigest() == user.get_hashed_password:
+        if md5_hash.hexdigest() == user.hashed_password:
             user.is_logged_in = True
 
         try:

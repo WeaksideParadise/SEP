@@ -15,7 +15,7 @@ class Ressource_Management:
         if ressource_id < 1:
             raise ValueError("ID ist kleiner 1")
         
-        query  = """SELECT * FROM ressources WHERE id = %s"""
+        query  = """SELECT * FROM ressources WHERE ressource_id = %s"""
         result = self.db_connection.execute_query(query, (ressource_id,))
         
         if result:
@@ -38,7 +38,7 @@ class Ressource_Management:
 
         t = ()
         for element in args:
-            t += (element)
+            t += (element,)
 
         try: 
             result = self.db_connection.execute_query(query, t)
@@ -87,7 +87,7 @@ class Ressource_Management:
                                             likes              = %s,
                                             experience_reports = %s,
                                             ressource_tags     = %s 
-                                            WHERE id           = %s"""
+                                            WHERE ressource_id = %s"""
             
             t  = (ressource.name, ressource.is_published, ressource.description, ressource.link, ressource.created_by, ressource.faculty)
             t += (ressource.ressource_type, ressource.opening_hours, ressource.likes, ressource.experience_reports, ressource.ressource_tags)
@@ -138,7 +138,7 @@ class Ressource_Management:
         values = list(kwargs.values())
         values.append(ressource_id)
 
-        query = f"UPDATE ressources SET {set_clause} WHERE id = %s"
+        query = f"UPDATE ressources SET {set_clause} WHERE ressource_id = %s"
 
         # Execute the query
         try:
