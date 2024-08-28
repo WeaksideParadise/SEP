@@ -1,13 +1,13 @@
 class User:
     def __init__(self, user_id: int, is_logged_in: bool, name: str, hashed_password: str, is_administrator: bool, is_moderator: bool):
-        self._user_id = user_id                      # Primärschlüssel
-        self._is_logged_in = is_logged_in    
+        self._user_id = user_id                      # Primärschlüssel - Setter wird nur genutzt, um Gast anzumelden
+        self._is_logged_in = is_logged_in            #
         self._name = name                            # Maximale Länge = 40 Zeichen
         self._hashed_password = hashed_password      # MD5 Hash
-        self._is_administrator = is_administrator    
+        self._is_administrator = is_administrator    #
         self._is_moderator = is_moderator            # Bonus
 
-    # Getters
+    # -------------------------- Getters --------------------------
 
     @property
     def user_id(self) -> int:
@@ -33,7 +33,11 @@ class User:
     def is_moderator(self) -> bool:
         return self._is_moderator
 
-    # Setters
+    #  -------------------------- Setters --------------------------
+
+    @user_id.setter
+    def user_id(self, user_id: int):
+        self._user_id = user_id
 
     @is_logged_in.setter
     def is_logged_in(self, is_logged_in: bool):
