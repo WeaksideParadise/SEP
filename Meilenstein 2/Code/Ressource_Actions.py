@@ -20,6 +20,38 @@ class Ressource_Actions:
         except requests.RequestException:
             # If there is any request exception, the link is not functional
             return False
+        
+    # -> Wird von Administrator / Moderator gerufen
+    # -> Geht automatisch alle nicht gelöschten Ressourcen durch und prüft Links
+    # -> Alle nicht funktionierenden Links werden für Administratoren gesammelt
+    # -> Wenn Link nicht funktioniert, wird Ressource unsichtbar gemacht
+    # -> Bei Fehler mitten im Ablauf wird Fehler zurückgeworfen
+    def check_links(self) -> bool:
+
+        try:
+            query = """SELECT * FROM ressources WHERE name != %s"""
+            ressources = self.ressource_management.get_ressources_by_query(query, "Deleted")
+        except LookupError as e:
+            return False
+        
+        for ressource in ressources:
+            if not self.is_link_functional(ressource.link):
+                
+                link_query = """INSERT INTO invalid_links (ressource_id, invalid_link) VALUES (%s, %s)"""
+                
+                try:
+                    self.db_connection.execute_query(link_query, (ressource.ressource_id, ressource.link))
+                except LookupError as e:
+                    raise LookupError
+                
+                ressource.is_published = False
+                
+                try: 
+                    self.ressource_management.save_ressource(ressource)
+                except LookupError as e:
+                    raise LookupError
+        return True
+
     
     def search_ressources(self, search_query: str, ressource_type_tag: str, faculty_tag: str) -> list:
         
@@ -70,7 +102,7 @@ class Ressource_Actions:
             "chemnitz.de",
             "other-trusted-domain.de"  # Add more trusted domains as necessary
         ]
-        
+
         # Extract the domain from the link
         try:
             domain = urlparse(link).netloc
