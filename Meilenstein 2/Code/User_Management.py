@@ -113,15 +113,19 @@ class User_Management:
     
     def delete_user(self, user_id: int) -> bool:
         
-        query = """UPDATE users SET is_logged_in = %s,
-                                    name = %s, 
-                                    hashed_password = %s, 
-                                    is_administrator = %s, 
-                                    is_moderator = %s 
-                                    WHERE user_id = %s"""
-            
         try:
-            result = self.db_connection.execute_query(query, (None, "Deleted", None, False, False, user_id))
+            user = self.get_user_by_id(user_id)
+        except LookupError as e:
+            return False
+        
+        user.is_logged_in = None
+        user.name = "Deleted"
+        user.hashed_password = None
+        user.is_administrator = False
+        user.is_moderator = False
+           
+        try:
+            self.save_user(user)
         except LookupError as e:
             return False
         
