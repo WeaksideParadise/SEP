@@ -224,10 +224,25 @@ class Ressource_Management:
     
     #Bonus
     def check_trustworthyness(self, link: str) -> bool:
-
+        # Predefined list of trusted domains
+        trusted_domains = [
+            "tu-chemnitz.de", 
+            "uni-chemnitz.de",
+            "chemnitz.de",
+            "other-trusted-domain.de"  # Add more trusted domains as necessary
+        ]
         
-
-        return True
+        # Extract the domain from the link
+        try:
+            domain = urlparse(link).netloc
+        except Exception:
+            return False  # Return False if there's an error parsing the link
+        
+        # Check if the domain is in the trusted domains list
+        if domain in trusted_domains:
+            return True
+        
+        return False
     
     def report_ressource(self, ressource_id: int) -> bool:
 
