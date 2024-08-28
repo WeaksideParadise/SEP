@@ -21,6 +21,11 @@ class Ressource_Actions:
             # If there is any request exception, the link is not functional
             return False
         
+    # -> Wird von Administrator / Moderator gerufen
+    # -> Geht automatisch alle nicht gelöschten Ressourcen durch und prüft Links
+    # -> Alle nicht funktionierenden Links werden für Administratoren gesammelt
+    # -> Wenn Link nicht funktioniert, wird Ressource unsichtbar gemacht
+    # -> Bei Fehler mitten im Ablauf wird Fehler zurückgeworfen
     def check_links(self) -> bool:
 
         try:
