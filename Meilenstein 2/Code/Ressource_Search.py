@@ -2,7 +2,7 @@ import Database
 import Ressource_Management
 
 class Ressource_Search:
-    def __init__(self, db_connection: Database, rm: Ressource_Management, query: str, faculty_tag: str, ressource_type_tag: str, opening_hours_tag: str, user_tags: list[str], result: list):
+    def __init__(self, db_connection: Database, rm: Ressource_Management, query: str, faculty_tag: str, ressource_type_tag: str, opening_hours_tag: str, user_tags: list[str]):
         self._db_connection = db_connection
         self.rm = rm
         self._query = query
@@ -64,34 +64,38 @@ class Ressource_Search:
 
     # -> Filtert faculty_tag
     # -> Filtert ressource_type_tag
-    def _filter_ressource_tags(self) -> list[str]:
+    def _filter_ressource_tags(self) -> list[list[str]]:
 
-        to_return = [""]
+        to_return = [[],[]]
 
         if(self.ressource_type_tag):
-            to_return.append(f"ressource_type = '{self.ressource_type_tag}'")
+            to_return[0].append(f"ressource_type = %s")
+            to_return[1].append(self.ressource_type_tag)
         if(self.faculty_tag):
-            to_return.append(f"faculty = '{self.faculty_tag}'")
+            to_return[0].append(f"faculty = %s")
+            to_return[1].append(self.faculty_tag)
 
         return to_return
 
     # -> Fügt eine Suchanfrage für den Ressourcennamen hinzu
-    def _search_query(self, to_return: list[str]) -> list[str]:
+    def _search_query(self, to_return: list[list[str]]) -> list[list[str]]:
         
-        to_return.append(f"name LIKE = '{self.query}'")
+        to_return[0].append(f"name LIKE %s")
+        to_return[1].append(f"%{self.query}%")
         return to_return
     
     def search_ressource(self) -> list:
 
         to_search = self._filter_ressource_tags()
         to_search = self._search_query(to_search)
-        to_search_query = "AND ".join(to_search)
+        to_search_query = " AND ".join(to_search[0])
 
         query = """SELECT * FROM ressources WHERE """
         query += to_search_query
 
+
         try:
-            result = self.rm.get_ressource_by_query(query, ())
+            result = self.rm.get_ressources_by_query(query, to_search[1])    # Muss gefixxt werden
             return result
         except LookupError as e:
             raise LookupError

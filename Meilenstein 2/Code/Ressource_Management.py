@@ -36,7 +36,7 @@ class Ressource_Management:
             return ressource
         return None
     
-    def get_ressources_by_query(self, query: str, *args) -> list:
+    def get_ressources_by_query(self, query: str, args: list) -> list:
 
         t = ()
         for element in args:
@@ -99,7 +99,7 @@ class Ressource_Management:
             t += (ressource.ressource_type, ressource.opening_hours, ressource.likes, ressource.experience_reports, ressource.ressource_tags)
 
             try:
-                result = self.db_connection.execute_query(query, t + (self.ressource_id,))
+                result = self.db_connection.execute_query(query, t + (ressource.ressource_id,))
             except LookupError as e:
                 return False
 
