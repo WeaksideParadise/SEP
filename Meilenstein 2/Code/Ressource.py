@@ -50,6 +50,18 @@ class Ressource:
     @property
     def opening_hours(self) -> str:
         return self._opening_hours
+    
+    @property
+    def likes(self) -> str:
+        return self._likes
+    
+    @property
+    def experience_reports(self) -> str:
+        return self._experience_reports
+    
+    @property
+    def ressource_tags(self) -> str:
+        return self._ressource_tags
 
     # Setters
 
