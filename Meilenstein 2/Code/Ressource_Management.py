@@ -233,8 +233,6 @@ class Ressource_Management:
 
         return True
     
-        return True
-    
     #Bonus
     # -> Likes in Form X#user_id#user_id#........#user_id
     # -> Case unlike mit in Funktion
