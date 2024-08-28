@@ -9,6 +9,8 @@ print("Connected")
 um = User_Management.User_Management(db)
 rs = Ressource_Management.Ressource_Management(db, um)
 
-ressources = rs.search_ressources("Ressource", None, None)
+ressources = rs.search_ressources("Ressource", "Bericht", "X")
 for ressource in ressources:
     print(ressource.ressource_id)
+
+print(rs.add_experience_report(4, "Meine Erfahrung2"))
