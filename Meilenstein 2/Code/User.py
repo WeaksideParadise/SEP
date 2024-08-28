@@ -1,11 +1,12 @@
 class User:
-    def __init__(self, user_id: int, is_logged_in: bool, name: str, hashed_password: str, is_administrator: bool, is_moderator: bool):
-        self._user_id = user_id                      # Primärschlüssel - Setter wird nur genutzt, um Gast anzumelden
-        self._is_logged_in = is_logged_in            #
-        self._name = name                            # Maximale Länge = 40 Zeichen
-        self._hashed_password = hashed_password      # MD5 Hash
-        self._is_administrator = is_administrator    #
-        self._is_moderator = is_moderator            # Bonus
+    def __init__(self, user_id: int, is_logged_in: bool, name: str, hashed_password: str, is_administrator: bool, is_moderator: bool, ressource_suggestions: str):
+        self._user_id = user_id                             # Primärschlüssel - Setter wird nur genutzt, um Gast anzumelden
+        self._is_logged_in = is_logged_in                   #
+        self._name = name                                   # Maximale Länge = 40 Zeichen
+        self._hashed_password = hashed_password             # MD5 Hash
+        self._is_administrator = is_administrator           #
+        self._is_moderator = is_moderator                   # Bonus
+        self._ressource_suggestions = ressource_suggestions # Vorschläge zu neuen Ressourcen
 
     # -------------------------- Getters --------------------------
 
@@ -32,6 +33,10 @@ class User:
     @property
     def is_moderator(self) -> bool:
         return self._is_moderator
+    
+    @property
+    def ressource_suggestions(self) -> str:
+        return self._ressource_suggestions
 
     #  -------------------------- Setters --------------------------
 
@@ -58,3 +63,7 @@ class User:
     @is_moderator.setter
     def is_moderator(self, is_moderator: bool):
         self._is_moderator = is_moderator
+
+    @is_moderator.setter
+    def ressource_suggestions(self, ressource_suggestions: str):
+        self._ressource_suggestions = ressource_suggestions

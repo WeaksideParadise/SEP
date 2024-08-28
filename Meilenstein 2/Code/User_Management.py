@@ -25,7 +25,8 @@ class User_Management:
                              result[0]["name"],
                              result[0]["hashed_password"],
                              result[0]["is_administrator"],
-                             result[0]["is_moderator"])
+                             result[0]["is_moderator"],
+                             result[0]["ressource_suggestions"])
             return user
                         
         return None
@@ -51,7 +52,8 @@ class User_Management:
                              result[0]["name"],
                              result[0]["hashed_password"],
                              result[0]["is_administrator"],
-                             result[0]["is_moderator"])
+                             result[0]["is_moderator"],
+                             result[0]["ressource_suggestions"])
             return user
                         
         return None
@@ -77,7 +79,8 @@ class User_Management:
                              element["name"],
                              element["hashed_password"],
                              element["is_administrator"],
-                             element["is_moderator"])
+                             element["is_moderator"],
+                             element["ressource_suggestions"])
             users.append(user)
         
         return users
@@ -97,14 +100,15 @@ class User_Management:
             
         # -> Bereits vorhandenen Nutzer wieder in DB speichern
         else:
-            query = """UPDATE users SET is_logged_in     = %s,
-                                        name             = %s, 
-                                        hashed_password  = %s, 
-                                        is_administrator = %s, 
-                                        is_moderator     = %s 
-                                        WHERE user_id    = %s"""
+            query = """UPDATE users SET is_logged_in           = %s,
+                                        name                   = %s, 
+                                        hashed_password        = %s, 
+                                        is_administrator       = %s, 
+                                        is_moderator           = %s,
+                                        ressource_suggesttions = %s 
+                                        WHERE user_id          = %s"""
             try:
-                result = self.db_connection.execute_query(query, (user.is_logged_in, user.name, user.hashed_password, user.is_administrator, user.is_moderator, user.user_id))
+                result = self.db_connection.execute_query(query, (user.is_logged_in, user.name, user.hashed_password, user.is_administrator, user.is_moderator, user.ressource_suggestions, user.user_id))
             except LookupError as e:
                 raise LookupError
         
@@ -137,6 +141,7 @@ class User_Management:
         user.hashed_password = None
         user.is_administrator = False
         user.is_moderator = False
+        user.ressource_suggestions = None
            
         try:
             self.save_user(user)

@@ -95,7 +95,7 @@ class Ressource_Search:
 
 
         try:
-            result = self.rm.get_ressources_by_query(query, to_search[1])    # Muss gefixxt werden
+            result = self.rm.get_ressources_by_query(query, to_search[1])
             return result
         except LookupError as e:
             raise LookupError

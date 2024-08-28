@@ -1,16 +1,13 @@
 import Database
 import Ressource
 import User_Management
-import Ressource_Search
-import requests
-import time
 
 class Ressource_Management:
     def __init__(self, db_connection: Database, user_management: User_Management):
         self.db_connection = db_connection
         self.user_management = user_management
 
-    # ------------------------------------------------- Database based functions ------------------------------------------------- #
+    # ------------------------------------------------- Database-Functions ------------------------------------------------- #
 
     def get_ressource_by_id(self, ressource_id) -> Ressource:
 
@@ -107,6 +104,8 @@ class Ressource_Management:
             return True
         return False
 
+    #   ------------------------------------------------- Ressource_Manegement ------------------------------------------------- #  
+
     # Zum Anlegen einer Ressource
     def add_ressource(self, user_id: int, name: str, description: str, link: str, faculty: str, ressource_type: str, opening_hours: str) -> bool:
 
@@ -129,14 +128,12 @@ class Ressource_Management:
 
         # -> Vorschlag erstellen
         if not is_published:
-            saved = self.suggest_add_ressource(ressource)
+            #saved = self.suggest_add_ressource(ressource)
             if not saved:
                 return False
         
         return True
     
-    # --------------------- TODO ------------------------- 
-    # ab hier muss noch getestet werden, obs wirklich funktioniert
     def change_ressource(self, ressource_id: int, **kwargs) -> bool:
         # Ensure the resource ID is valid
         if ressource_id < 0:
@@ -155,57 +152,8 @@ class Ressource_Management:
             return result is not None
         except LookupError as e:
             return False
-
-    def is_link_functional(self, ressource_id: int, link: str) -> bool:
-        try:
-            # Make a request to the link to check its status
-            response = requests.head(link, allow_redirects=True, timeout=5)
-            # Check if the status code is in the range of 200-299
-            return response.status_code >= 200 and response.status_code < 300
-        except requests.RequestException:
-            # If there is any request exception, the link is not functional
-            return False
     
-    def search_ressources(self, search_query: str, ressource_type_tag: str, faculty_tag: str) -> list:
-        
-        rs = Ressource_Search.Ressource_Search(self.db_connection, self, search_query, faculty_tag, ressource_type_tag, None, None)
-        
-        try:
-            result = rs.search_ressource()
-            return result
-        except LookupError as e:
-            raise LookupError
-
-    # Bonus
-    def check_ressource_suggestions(ressource: Ressource) -> bool:
-
-        return True
-    
-    def publish_ressource(self, ressource_id: int ) -> bool:
-
-        try:
-            ressource = self.get_ressource_by_id(ressource_id)
-        except LookupError as e:
-            return False
-        
-        ressource.is_published = True
-
-        try:
-            self.save_ressource(ressource)
-            return True
-        except LookupError as e:
-            return False
-
-    def suggest_add_ressource(ressource: Ressource) -> bool:
-
-        return True
-    
-    # Bonus
-    def suggest_change_ressource(ressource_id: int, **kwargs) -> bool:
-
-        return True
-    
-    def delete_ressource(self, ressource_id: int) -> bool:
+    def delete_ressource(self, ressource_id: int, reason: str) -> bool:
 
         try: 
             ressource = self.get_ressource_by_id(ressource_id)
@@ -216,85 +164,16 @@ class Ressource_Management:
         ressource.is_published = False
         ressource.link = None
 
+        query = """INSERT INTO deleted_ressources (ressource_id, reason) VALUES (%s , %s)"""
+        try:
+            result = self.db_connection.execute_query(query, (ressource_id, reason))
+        except LookupError as e:
+            return False
+
         try:
             self.save_ressource(ressource)
             return True
         except LookupError as e:
             return False
     
-    #Bonus
-    def check_trustworthyness(self, link: str) -> bool:
-
-        
-
-        return True
-    
-    def report_ressource(self, ressource_id: int) -> bool:
-
-        return True
-    
-        return True
-    
-    #Bonus
-    # -> Likes in Form X#user_id#user_id#........#user_id
-    # -> Case unlike mit in Funktion
-    def like_ressource(self, ressource_id: int, user_id: int) -> bool:
-    
-        try:
-            ressource = self.get_ressource_by_id(ressource_id)
-            if not ressource:
-                return False
-        except LookupError as e:
-            return False
-        
-        likes = ressource.likes.split("#")
-        
-        if str(user_id) in likes:
-            likes.remove(str(user_id))
-            to_save = "#".join(likes)
-
-        else:
-            likes.add(str(user_id))
-            to_save = "#".join(likes)
-
-        ressource.likes = to_save
-
-        if self.save_ressource(ressource):
-            return True
-        
-        return False
-    
-    def add_experience_report(self, ressource_id: int, text: str) -> bool:
-
-        try:
-            ressource = self.get_ressource_by_id(ressource_id)
-        except LookupError as e:
-            raise ValueError("Ressource mit ID exisitiert nicht")
-        
-        # -> timestamp erstellen
-        timestamp = time.strftime("Erstellt am %d.%m.%Y um %H:%M:", time.localtime())
-
-        # -> e_r in DB anlegen
-        query = """INSERT INTO experience_reports (text, timestamp) VALUES (%s, %s)"""
-
-        try:
-            result = self.db_connection.execute_query(query, (text, timestamp))
-        except LookupError as e:
-            return False
-            
-        if "last_row_id" in result[len(result)-1]:
-            er_ids = ressource.experience_reports.split("#")
-            er_ids.append(str(result[len(result)-1]["last_row_id"]))
-            to_save = "#".join(er_ids)
-            ressource.experience_reports = to_save
-        else:
-            raise LookupError("Fehler beim Lesen von last_row_id")
-        
-        try:
-            if self.save_ressource(ressource):
-                return True
-        except LookupError as e:
-            return False
-                
-        return False
     
