@@ -96,3 +96,15 @@ class Ressource:
     @opening_hours.setter
     def opening_hours(self, opening_hours: str):
         self._opening_hours = opening_hours
+
+    @likes.setter
+    def likes(self, likes: str):
+        self._likes = likes
+
+    @experience_reports.setter
+    def experience_reports(self, experience_reports: str):
+        self._experience_reports = experience_reports
+
+    @ressource_tags.setter
+    def ressource_tags(self, ressource_tags: str):
+        self._ressource_tags = ressource_tags
