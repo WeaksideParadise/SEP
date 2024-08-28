@@ -169,7 +169,6 @@ class Ressource_Management:
             result = self.db_connection.execute_query(query, (ressource_id, reason))
         except LookupError as e:
             return False
-
         try:
             self.save_ressource(ressource)
             return True
