@@ -22,9 +22,9 @@ class User_Interface:
         # -> Session initialiseren
         self.app.config["SESSION_TYPE"] = "sqlalchemy"
         self.app.config['SQLALCHEMY_DATABASE_URI'] = (
-                                                     f'mysql+mysqlconnector://'
-                                                     f'{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@'
-                                                     f'{os.getenv('DB_HOST')}:3306/{os.getenv('DB_DATABASE')}'
+                                                     f"mysql+mysqlconnector://"
+                                                     f"{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@"
+                                                     f"{os.getenv('DB_HOST')}:3306/{os.getenv('DB_DATABASE')}"
                                                      )
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         self.session_db = SQLAlchemy(self.app)
