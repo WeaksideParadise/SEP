@@ -9,8 +9,5 @@ class Navigation_Bar_Routes:
     def setup_routes(self):
         
         @self.app.route("/", methods = ["GET","POST"]) # index
-        def index(self):
+        def UI_index():
             return render_template("index.html")
-    
-        def UI_login_user():
-            return

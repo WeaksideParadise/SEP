@@ -7,7 +7,7 @@ class Admin_Panel_Routes:
         self.setup_routes()
     
     def setup_routes(self):
-        @self.app.route("/check_links", methods = ["GET","POST"])
-        def UI_login_user(self):
+        @self.app.route("/checklinks", methods = ["GET","POST"])
+        def UI_check_links(self):
             if not session["is_administrator"] and not session["is_moderator"]:
                 flash("Du hast keine Rechte für diese Aktion", "error")

@@ -53,7 +53,7 @@ class User_Routes:
 
         @self.app.route("/register", methods = ["GET","POST"])
         def UI_register_user():
-            if request.method == "Post":
+            if request.method == "POST":
                 username = request.form.get("username")
                 suggested_password = request.form.get("password")
 

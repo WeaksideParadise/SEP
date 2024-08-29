@@ -15,7 +15,7 @@ class User_Interface:
         load_dotenv()
         
         # -> Flask initialiseren
-        self.app = Flask(__name__)
+        self.app = Flask(__name__, static_folder='../static', template_folder='../templates')
         self.app.secret_key = os.getenv('FLASK_SECRET_KEY')
 
         # -> Session initialiseren
@@ -39,6 +39,9 @@ class User_Interface:
 
         # -> Session Tabelle erstellen
         # self.create_session_table()
+
+        # -> Routen initialisieren
+        self.initialize_routes()
 
     def create_session_table(self):
         class SessionModel(self.session_db.Model):
