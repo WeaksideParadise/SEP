@@ -1,9 +1,9 @@
-import User
-import Ressource
-import User_Management
-import Ressource_Management
-import Routes.UI_User_Routes
-from flask import *
+from Code_Python.User_Management        import User_Management
+from Code_Python.Ressource_Management   import Ressource_Management
+from Code_Python.Routes                 import UI_Navigation_Bar_Routes
+from Code_Python.Routes                 import UI_User_Routes
+from Code_Python.Routes                 import UI_Admin_Panel_Routes
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
 import os
@@ -50,8 +50,9 @@ class User_Interface:
             self.session_db.create_all()
 
     def initialize_routes(self):
-        Routes.UI_User_Routes.UI_User_Routes(self.app)
+        UI_User_Routes.User_Routes(self.app)
+        UI_Admin_Panel_Routes.Admin_Panel_Routes(self.app)
+        UI_Navigation_Bar_Routes.Navigation_Bar_Routes(self.app)
 
-
-    #def run(self):
-    #    self.app.run(debug=True)
+    def run(self):
+        self.app.run(debug=True)

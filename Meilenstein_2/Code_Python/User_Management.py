@@ -1,5 +1,5 @@
-import Database
-import User
+from Code_Python.Database import Database
+from Code_Python.User     import User
 import hashlib
 
 class User_Management:

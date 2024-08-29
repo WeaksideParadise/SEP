@@ -16,6 +16,8 @@ class Database:
            #'port'    : 3306
         }
 
+        self._connect()
+
     # Verbindungsaufbau mit Datenbank
     def _connect(self):
         

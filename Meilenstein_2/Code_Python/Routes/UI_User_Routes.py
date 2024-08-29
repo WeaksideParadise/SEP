@@ -1,5 +1,4 @@
-import User
-import User_Management
+from Code_Python.User_Management import User_Management
 from flask import *
 
 class User_Routes:
@@ -18,8 +17,17 @@ class User_Routes:
 
                 try:
                     if User_Management.login_user(username, password):
+                        user = User_Management.get_user_by_name(username).user_id
+                        
                         session["username"] = username
-                        session["user_id"]  = User_Management.get_user_by_name(username).user_id
+                        session["user_id"]  = user.user_id
+                        if user.is_administrator:
+                            session["role"] = "administrator" 
+                        elif user.is_moderator:
+                            session["role"] = "moderator" 
+                        else:
+                            session["role"] = "user"
+
                         flash("Anmeldung erfoglreich", "success")
                         return #redirect(url_for(index_user))
                     else:
@@ -36,6 +44,7 @@ class User_Routes:
                 if User_Management.logout_user(session["user_id"]):
                     session["user_id"] = -1
                     session["username"]= None
+                    session["role"]    = None
                     flash("Erfolgreich abgemeldet", "success")
                     return redirect(url_for("index"))
                 else:
