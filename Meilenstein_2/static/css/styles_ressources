@@ -1,0 +1,54 @@
+/* Stile für die Suchergebnisse */
+.results h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.results p {
+    margin: 5px 0;
+}
+
+/* Stile für den Hauptinhalt */
+.ressource_container {
+    display: flex;
+    flex-direction: column; /* Stellt die Container untereinander auf */
+    gap: 20px; /* Abstand zwischen den Containern */
+    padding: 20px;
+    background: #4CAF50;
+    color: #23812bcc;
+}
+
+.ressource_preview_box {
+    background: #4CAF50; /* Grüner Hintergrund */
+    color: #23812bcc;
+    padding: 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 18px;
+}
+
+
+/* Stile für die Paginierung */
+.pagination {
+    margin-top: 20px;
+    margin-bottom:20px;
+    left: 30%;
+    text-align: center;
+
+}
+
+.pagination a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1em;
+}
+
+.pagination a:hover {
+    text-decoration: underline;
+}
+
+.pagination span {
+    margin: 0 10px;
+    font-size: 1em;
+}

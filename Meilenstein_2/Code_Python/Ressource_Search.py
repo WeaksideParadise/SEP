@@ -59,6 +59,10 @@ class Ressource_Search:
     @user_tags.setter
     def user_tags(self, user_tags: str):
         self._user_tags = user_tags
+
+    @result.setter
+    def result(self, result: str):
+        self._result = result
     
     # Methoden
 
@@ -96,7 +100,7 @@ class Ressource_Search:
 
         try:
             result = self.rm.get_ressources_by_query(query, to_search[1])
-            return result
+            self.result = result
         except LookupError as e:
             raise LookupError
 

@@ -58,8 +58,8 @@ class Ressource_Actions:
         rs = Ressource_Search(self.db_connection, self.ressource_management, search_query, faculty_tag, ressource_type_tag, None, None)
         
         try:
-            result = rs.search_ressource()
-            return result
+            rs.search_ressource()
+            return rs.result
         except LookupError as e:
             raise LookupError
 
