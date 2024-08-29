@@ -61,16 +61,18 @@ class User_Routes:
                 suggested_password = request.form.get("password")
 
             try:
-                if User_Management.register_user(username, suggested_password):
+                if self.um.register_user(username, suggested_password):
                     flash("Registrierung erfolgreich", "success")
-                    return redirect(url_for("UI_login_user"))
+                    return redirect(url_for("UI_login"))
                 else:
                     flash("Registrierung fehlgeschlagen", "failure")
-                    return
+                    return redirect(url_for("UI_register"))
             except NameError as e:
                     flash("Benutzername ist bereits vergeben", "error")
+                    return redirect(url_for("UI_register"))
             except ValueError as e:
                     flash("Passwort besteht nicht aus mindestens 4 Zeichen", "error")
+                    return redirect(url_for("UI_register"))
 
             # Zeige das Registrierungs-Formular an (GET-Anfrage)
             

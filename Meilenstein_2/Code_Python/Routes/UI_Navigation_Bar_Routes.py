@@ -15,3 +15,7 @@ class Navigation_Bar_Routes:
         @self.app.route("/login", methods = ["GET","POST"])
         def UI_login():
             return render_template("login.html")
+        
+        @self.app.route("/register", methods = ["GET","POST"])
+        def UI_register():
+            return render_template("register.html")
