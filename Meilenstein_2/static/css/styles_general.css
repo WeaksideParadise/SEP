@@ -12,7 +12,7 @@ body {
 
 /* Header */
 header {
-    background-color: #006400; /* Dunkelgr�n */
+    background-color: #006400; /* Dunkelgrün */
     color: #fff;
     padding: 10px 20px;
 }
@@ -66,50 +66,6 @@ main {
     max-width: 100%;
     box-sizing: border-box;
     text-align: center;
-}
-
-.flash-messages {
-    margin-bottom: 20px;
-    position: fixed; /* Um die Flash-Nachrichten immer oben anzuzeigen */
-    top: 70px; /* Abstand vom oberen Rand */
-    left: 50%; /* Horizontale Mitte */
-    transform: translateX(-50%); /* Zentriert */
-    z-index: 1000; /* Damit die Nachrichten über anderen Inhalten erscheinen */
-    width: calc(100% - 40px); /* Breite mit Abstand von den Rändern */
-}
-
-.flash {
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    color: #fff;
-    position: relative; /* Notwendig für die Positionierung des Schließen-Buttons */
-}
-
-.flash.success {
-    background-color: #4CAF50; /* Grün für Erfolge */
-}
-
-.flash.failure {
-    background-color: #f44336; /* Rot für Fehler */
-}
-
-.flash.error {
-    background-color: #f44336; /* Rot für Fehler */
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 18px;
-    color: #fff;
-    transition: color 0.3s;
-}
-
-.close-btn:hover {
-    color: #ddd;
 }
 
 h1 {
