@@ -8,9 +8,14 @@ class Navigation_Bar_Routes:
    
     def setup_routes(self):
         
-        @self.app.route("/", methods = ["GET","POST"]) # index
-        def index(self):
+        @self.app.route("/", methods = ["GET","POST"])
+        def UI_index():
             return render_template("index.html")
-    
-        def UI_login_user():
-            return
+        
+        @self.app.route("/login", methods = ["GET","POST"])
+        def UI_login():
+            return render_template("login.html")
+        
+        @self.app.route("/register", methods = ["GET","POST"])
+        def UI_register():
+            return render_template("register.html")

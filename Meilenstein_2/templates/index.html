@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ressourcen-Portal</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Startseite - Ressourcen-Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <header>
@@ -13,12 +13,24 @@
                 <img src="logo.jpg" alt="TU Chemnitz Logo">
             </div>
             <nav>
-                <ul>
-                    <li><a href="index.html">Startseite</a></li>
-                    <li><a href="resources.html">Ressourcen</a></li>
-                    <li><a href="research.html">Suche</a></li>
-                    <li><a href="register.html">Registrieren</a></li>
-                    <li><a href="login.html">Anmelden</a></li>
+                <ul id="nav-links">
+                    <!-- Links, die für alle Benutzer angezeigt werden -->
+                    <li><a href="/">Startseite</a></li>
+                    <li><a href="search">Suche</a></li>
+                    <li><a href="resources">Ressourcen</a></li>
+            
+                    <!-- Admin-spezifische Links, die nur angezeigt werden, wenn die Rolle 'administrator' ist -->
+                    {% if session.get('role') == 'administrator' %}
+                    <li><a href="admin">Admin-Bereich</a></li>
+                    {% endif %}
+            
+                    <!-- Gemeinsame Abmelde-Option für alle Benutzer -->
+                     {% if session.get('role') == None %}
+                    <li><a href="register">Registrieren</a></li>
+                    <li><a href="login">Anmelden</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('UI_logout_user') }}">Abmelden</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </div>
@@ -26,13 +38,29 @@
 
     <main>
         <div class="container">
-            <h1>Willkommen im TUC Ressourcen-Portal</h1>
-            <p>Hier koennen Sie auf verschiedene Ressourcen zugreifen, recherchieren und sich anmelden oder registrieren.</p>
+        <!-- Flash-Nachrichten anzeigen -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">
+                            {{ message }}
+                            <span class="close-btn">&times;</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        </div>
+        <div class="container">
+            <h1>Willkommen im Ressourcen-Portal</h1>
+            <p>Hier können Sie auf verschiedene Ressourcen zugreifen und Ihre Aufgaben verwalten.</p>
         </div>
     </main>
 
     <footer>
         <p>&copy; 2024 Ressourcen-Portal. Alle Rechte vorbehalten.</p>
     </footer>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

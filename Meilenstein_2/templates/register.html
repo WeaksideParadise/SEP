@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrieren - Ressourcen-Portal</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <header>
@@ -13,11 +14,11 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="index.html">Startseite</a></li>
-                    <li><a href="resources.html">Ressourcen</a></li>
-                    <li><a href="research.html">Suche</a></li>
-                    <li><a href="register.html">Registrieren</a></li>
-                    <li><a href="login.html">Anmelden</a></li>
+                    <li><a href="/">Startseite</a></li>
+                    <li><a href="search">Suche</a></li>
+                    <li><a href="resources">Ressourcen</a></li>
+                    <li><a href="register">Registrieren</a></li>
+                    <li><a href="login">Anmelden</a></li>
                 </ul>
             </nav>
         </div>
@@ -25,56 +26,31 @@
 
     <main>
         <div class="container">
+            <!-- Flash-Nachrichten anzeigen -->
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="flash {{ category }}">
+                                {{ message }}
+                                <span class="close-btn">&times;</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <div class="container">
             <h1>Registrieren</h1>
-            <form id="registration-form" action="#" method="post">
+            <form action="{{ url_for('UI_register_user') }}" method="post">
                 <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="vorname">Vorname:</label>
-                    <input type="text" id="vorname" name="vorname" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">E-Mail:</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="username">Name:</label>
+                    <input type="text" id="username" name="username" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Passwort:</label>
                     <input type="password" id="password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="geburtsdatum">Geburtsdatum:</label>
-                    <input type="date" id="geburtsdatum" name="geburtsdatum" required>
-                    <small>Bitte geben Sie das Geburtsdatum im Format TT.MM.JJJJ ein.</small>
-                    <p id="error-message" style="color: red; display: none;">Fehler: Bitte geben Sie ein gültiges Geburtsdatum ein. Das Datum darf nicht in der Zukunft liegen, und Sie müssen mindestens 18 Jahre alt sein.</p>
-                </div>
-
-                <div class="form-group">
-                    <label for="staatsangehörigkeit">Staatsangehoerigkeit:</label>
-                    <input type="text" id="staatsangehörigkeit" name="staatsangehörigkeit" required>
-                </div>
-                <div class="form-group">
-                    <label for="geburtsort">Geburtsort:</label>
-                    <input type="text" id="geburtsort" name="geburtsort" required>
-                </div>
-                <div class="form-group">
-                    <label for="adresse_straße"> Strasse:</label>
-                    <input type="text" id="adresse_straße" name="adresse_straße" required>
-                </div>
-                <div class="form-group">
-                    <label for="adresse_ort"> Ort:</label>
-                    <input type="text" id="adresse_ort" name="adresse_ort" required>
-                </div>
-                <div class="form-group">
-                    <label for="adresse_land"> Land:</label>
-                    <input type="text" id="adresse_land" name="adresse_land" required>
-                </div>
-                <div class="form-group">
-                    <label for="telefonnummer">Telefonnummer:</label>
-                    <input type="tel" id="telefonnummer" name="telefonnummer" placeholder="+49 123456789" required>
-                    <small>Bitte geben Sie Ihre Telefonnummer im Format +49 123456789 ein.</small>
-                    <p id="tel-error-message" style="color: red; display: none;">Fehler: Die Telefonnummer muss nur Zahlen enthalten und mit +49 oder 0049 beginnen.</p>
                 </div>
                 <div class="form-group">
                     <button type="submit">Registrieren</button>
@@ -83,73 +59,9 @@
         </div>
     </main>
 
-    <script>
-        document.getElementById("registration-form").addEventListener("submit", function(event) {
-            var geburtsdatum = document.getElementById("geburtsdatum").value;
-            var errorMessage = document.getElementById("error-message");
-            var telErrorMessage = document.getElementById("tel-error-message");
-
-            // Geburtsdatum in ein JavaScript-Datumsobjekt umwandeln
-            var geburtsdatumDate = new Date(geburtsdatum);
-            var heute = new Date();
-
-            // Prüfen, ob das Datum in der Zukunft liegt
-            if (geburtsdatumDate > heute) {
-                errorMessage.textContent = "Fehler: Das Geburtsdatum darf nicht in der Zukunft liegen.";
-                errorMessage.style.display = "block";
-                event.preventDefault();
-                return;
-            }
-
-            // Alter berechnen
-            var alter = heute.getFullYear() - geburtsdatumDate.getFullYear();
-            var m = heute.getMonth() - geburtsdatumDate.getMonth();
-
-            if (m < 0 || (m === 0 && heute.getDate() < geburtsdatumDate.getDate())) {
-                alter--;
-            }
-
-            if (alter < 18) {
-                errorMessage.textContent = "Fehler: Sie müssen mindestens 18 Jahre alt sein, um sich zu registrieren.";
-                errorMessage.style.display = "block";
-                event.preventDefault(); // Verhindert das Absenden des Formulars
-                return;
-            }
-
-            // Telefonnummer Validierung
-            var telefonnummer = document.getElementById("telefonnummer").value;
-            var telPattern = /^(0049|\+49)\d{3,14}$/;
-
-            if (!telPattern.test(telefonnummer.replace(/\s+/g, ''))) {
-                telErrorMessage.style.display = "block";
-                event.preventDefault(); // Verhindert das Absenden des Formulars
-                return;
-            } else {
-                telErrorMessage.style.display = "none";
-            }
-
-            // Überprüfung ob das Datum korrekt ist (Monat <= 12, Tag <= 31)
-            var tag = geburtsdatumDate.getDate();
-            var monat = geburtsdatumDate.getMonth() + 1; // Monate sind 0-basiert
-            var jahr = geburtsdatumDate.getFullYear();
-
-            if (tag > 31 || monat > 12 || jahr < 1900) {
-                errorMessage.textContent = "Fehler: Bitte geben Sie ein gültiges Geburtsdatum ein.";
-                errorMessage.style.display = "block";
-                event.preventDefault(); // Verhindert das Absenden des Formulars
-                return;
-            }
-
-            // Wenn alles in Ordnung ist, Fehlermeldung ausblenden
-            errorMessage.style.display = "none";
-        });
-    </script>
-</body>
-</html>
-
-   <footer>
+    <footer>
         <p>&copy; 2024 Ressourcen-Portal. Alle Rechte vorbehalten.</p>
     </footer>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
-

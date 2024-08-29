@@ -1,3 +1,4 @@
+from Code_Python.Database               import Database
 from Code_Python.User_Management        import User_Management
 from Code_Python.Ressource_Management   import Ressource_Management
 from Code_Python.Routes                 import UI_Navigation_Bar_Routes
@@ -11,11 +12,11 @@ from dotenv import load_dotenv
 
 
 class User_Interface:
-    def __init__(self, um: User_Management, rm: Ressource_Management):
+    def __init__(self, um: User_Management, rm: Ressource_Management, db: Database):
         load_dotenv()
         
         # -> Flask initialiseren
-        self.app = Flask(__name__)
+        self.app = Flask(__name__, static_folder='../static', template_folder='../templates')
         self.app.secret_key = os.getenv('FLASK_SECRET_KEY')
 
         # -> Session initialiseren
@@ -36,9 +37,13 @@ class User_Interface:
         # -> Instanzen erstellen
         self.um = um
         self.rm = rm
+        self.db = db
 
         # -> Session Tabelle erstellen
         # self.create_session_table()
+
+        # -> Routen initialisieren
+        self.initialize_routes()
 
     def create_session_table(self):
         class SessionModel(self.session_db.Model):
@@ -50,7 +55,7 @@ class User_Interface:
             self.session_db.create_all()
 
     def initialize_routes(self):
-        UI_User_Routes.User_Routes(self.app)
+        UI_User_Routes.User_Routes(self.app, self.um)
         UI_Admin_Panel_Routes.Admin_Panel_Routes(self.app)
         UI_Navigation_Bar_Routes.Navigation_Bar_Routes(self.app)
 

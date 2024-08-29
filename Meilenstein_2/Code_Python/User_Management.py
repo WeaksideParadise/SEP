@@ -20,13 +20,13 @@ class User_Management:
             raise LookupError
         
         if result:
-            user = User.User(result[0]["user_id"], 
-                             result[0]["is_logged_in"], 
-                             result[0]["name"],
-                             result[0]["hashed_password"],
-                             result[0]["is_administrator"],
-                             result[0]["is_moderator"],
-                             result[0]["ressource_suggestions"])
+            user = User(result[0]["user_id"], 
+                        result[0]["is_logged_in"], 
+                        result[0]["name"],
+                        result[0]["hashed_password"],
+                        result[0]["is_administrator"],
+                        result[0]["is_moderator"],
+                        result[0]["ressource_suggestions"])
             return user
                         
         return None
@@ -47,13 +47,13 @@ class User_Management:
             raise LookupError
         
         if result:
-            user = User.User(result[0]["user_id"], 
-                             result[0]["is_logged_in"], 
-                             result[0]["name"],
-                             result[0]["hashed_password"],
-                             result[0]["is_administrator"],
-                             result[0]["is_moderator"],
-                             result[0]["ressource_suggestions"])
+            user = User(result[0]["user_id"], 
+                        result[0]["is_logged_in"], 
+                        result[0]["name"],
+                        result[0]["hashed_password"],
+                        result[0]["is_administrator"],
+                        result[0]["is_moderator"],
+                        result[0]["ressource_suggestions"])
             return user
                         
         return None
@@ -74,13 +74,13 @@ class User_Management:
         users = []
 
         for element in result:
-            user = User.User(element["user_id"], 
-                             element["is_logged_in"], 
-                             element["name"],
-                             element["hashed_password"],
-                             element["is_administrator"],
-                             element["is_moderator"],
-                             element["ressource_suggestions"])
+            user = User(element["user_id"], 
+                        element["is_logged_in"], 
+                        element["name"],
+                        element["hashed_password"],
+                        element["is_administrator"],
+                        element["is_moderator"],
+                        element["ressource_suggestions"])
             users.append(user)
         
         return users
@@ -105,7 +105,7 @@ class User_Management:
                                         hashed_password        = %s, 
                                         is_administrator       = %s, 
                                         is_moderator           = %s,
-                                        ressource_suggesttions = %s 
+                                        ressource_suggestions = %s 
                                         WHERE user_id          = %s"""
             try:
                 result = self.db_connection.execute_query(query, (user.is_logged_in, user.name, user.hashed_password, user.is_administrator, user.is_moderator, user.ressource_suggestions, user.user_id))
@@ -120,7 +120,7 @@ class User_Management:
     # -> NUR über register_user() rufen, NICHT direkt
     def add_user(self, name: str, hashed_password: str) -> bool:
     
-        user = User.User(-1, False, name, hashed_password, False, False)
+        user = User(-1, False, name, hashed_password, False, False, "X")
         if self.save_user(user):
             return True
 
@@ -260,7 +260,7 @@ class User_Management:
         
         return user.is_logged_in
     
-    def loggout_user(self, user_id: int) -> bool:
+    def logout_user(self, user_id: int) -> bool:
                 
         try:
             user = self.get_user_by_id(user_id)

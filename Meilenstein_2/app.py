@@ -9,5 +9,5 @@ db = Code_Python.Database.Database()
 um = Code_Python.User_Management.User_Management(db)
 rm = Code_Python.Ressource_Management.Ressource_Management(db, um)
 
-ui = Code_Python.User_Interface.User_Interface(um, rm)
+ui = Code_Python.User_Interface.User_Interface(um, rm, db)
 ui.run()
