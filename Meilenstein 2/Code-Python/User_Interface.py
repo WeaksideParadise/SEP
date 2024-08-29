@@ -49,7 +49,8 @@ class User_Interface:
         with self.app.app_context():
             self.session_db.create_all()
 
-    #def initialize_routes(self):
+    def initialize_routes(self):
+        Routes.UI_User_Routes.UI_User_Routes(self.app)
 
 
     #def run(self):

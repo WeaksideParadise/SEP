@@ -1,7 +1,5 @@
 import User
-import Ressource
 import User_Management
-import Ressource_Management
 from flask import *
 
 class User_Routes:
@@ -20,15 +18,29 @@ class User_Routes:
 
                 try:
                     if User_Management.login_user(username, password):
+                        session["username"] = username
+                        session["user_id"]  = User_Management.get_user_by_name(username).user_id
                         flash("Anmeldung erfoglreich", "success")
-                        return
+                        return #redirect(url_for(index_user))
                     else:
                          flash("Anmeldung fehlgeschlagen. Konto existiert nicht / Falsches Passwort.", "failure")
-                         return
+                         return #redirect(url_for(login))
                 except LookupError as e:
                     flash("Bei der Anmeldung ging etwas schief, bitte erneut versuchen", "error")
 
             # Zeige das Login-Formular an (GET-Anfrage)
+
+        @self.app.route("/logout", methods = ["GET","POST"])
+        def UI_loggout_user():
+                
+                if User_Management.logout_user(session["user_id"]):
+                    session["user_id"] = -1
+                    session["username"]= None
+                    flash("Erfolgreich abgemeldet", "success")
+                    return redirect(url_for("index"))
+                else:
+                    flash("Bei der Abmledung ging etwas schief", "error")
+                    return
 
         @self.app.route("/register", methods = ["GET","POST"])
         def UI_register_user():
@@ -39,7 +51,7 @@ class User_Routes:
             try:
                 if User_Management.register_user(username, suggested_password):
                     flash("Registrierung erfolgreich", "success")
-                    return
+                    return redirect(url_for("UI_login_user"))
                 else:
                     flash("Registrierung fehlgeschlagen", "failure")
                     return
