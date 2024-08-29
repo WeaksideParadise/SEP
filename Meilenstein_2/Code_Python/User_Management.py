@@ -105,7 +105,7 @@ class User_Management:
                                         hashed_password        = %s, 
                                         is_administrator       = %s, 
                                         is_moderator           = %s,
-                                        ressource_suggestions = %s 
+                                        ressource_suggestions  = %s 
                                         WHERE user_id          = %s"""
             try:
                 result = self.db_connection.execute_query(query, (user.is_logged_in, user.name, user.hashed_password, user.is_administrator, user.is_moderator, user.ressource_suggestions, user.user_id))

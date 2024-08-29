@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suche - Ressourcen-Portal</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <header>
@@ -14,7 +14,11 @@
             </div>
             <nav>
                 <ul id="nav-links">
-                    <!-- Links werden durch JavaScript eingef¸gt -->
+                    <li><a href="/">Startseite</a></li>
+                    <li><a href="search">Suche</a></li>
+                    <li><a href="resources">Ressourcen</a></li>
+                    <li><a href="register">Registrieren</a></li>
+                    <li><a href="login">Anmelden</a></li>
                 </ul>
             </nav>
         </div>
@@ -22,19 +26,46 @@
 
     <main>
         <div class="container">
+            <!-- Flash-Nachrichten anzeigen -->
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="flash {{ category }}">
+                                {{ message }}
+                                <span class="close-btn">&times;</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <div class="container">
             <h1>Suche</h1>
-            <form action="#" method="get">
+            <form action="{{ url_for('UI_search_ressource') }}" method="post">
                 <div class="form-group">
-                    <label for="search">Suchbegriff:</label>
-                    <input type="text" id="search" name="search" placeholder="Geben Sie Ihren Suchbegriff ein..." required>
+                    <label for="search_query">Suchbegriff:</label>
+                    <input type="text" id="search_query" name="search_query" placeholder="Geben Sie Ihren Suchbegriff ein..." required>
                 </div>
                 <div class="form-group">
-                    <label for="category">Kategorie:</label>
-                    <select id="category" name="category">
+                    <label for="ressource_category">Ressourcentyp:</label>
+                    <select id="ressource_category" name="ressource_category">
                         <option value="all">Alle Kategorien</option>
                         <option value="video">Video</option>
-                        <option value="beitrag">Beitrag</option>
-                        <option value="wissenschaftlich">Wissenschaftliche Arbeit</option>
+                        <option value="article">Beitrag</option>
+                        <option value="scientifc_work">Wissenschaftliche Arbeit</option>
+                        <option value="other">Sonstiges</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="faculty_category">Fakult√§t:</label>
+                    <select id="faculty_category" name="faculty_category">
+                        <option value="all">Alle Kategorien</option>
+                        <option value="video">Mathematik</option>
+                        <option value="article">Informatik</option>
+                        <option value="scientifc_work">Human- und Sozialwissenschaften</option>
+                        <option value="external">Extern</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -47,59 +78,6 @@
     <footer>
         <p>&copy; 2024 Ressourcen-Portal. Alle Rechte vorbehalten.</p>
     </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const role = sessionStorage.getItem('userRole') || 'gast';
-            setupNavigation(role);
-        });
-
-        function setupNavigation(role) {
-            const navLinks = document.getElementById('nav-links');
-            let links = '';
-
-            switch (role) {
-                case 'admin':
-                    links = `
-                        <li><a href="index.html">Startseite</a></li>
-                        <li><a href="search.html">Suche</a></li>
-                        <li><a href="resources.html">Ressourcen</a></li>
-                        <li><a href="admin.html">Admin-Bereich</a></li>
-                        <li><a href="#" onclick="logout()">Abmelden</a></li>`;
-                    break;
-                case 'professor':
-                    links = `
-                        <li><a href="index.html">Startseite</a></li>
-                        <li><a href="search.html">Suche</a></li>
-                        <li><a href="resources.html">Ressourcen</a></li>
-                        <li><a href="professor.html">Professor-Bereich</a></li>
-                        <li><a href="#" onclick="logout()">Abmelden</a></li>`;
-                    break;
-                case 'nutzer':
-                    links = `
-                        <li><a href="index.html">Startseite</a></li>
-                        <li><a href="search.html">Suche</a></li>
-                        <li><a href="resources.html">Ressourcen</a></li>
-                        <li><a href="user.html">Nutzer-Bereich</a></li>
-                        <li><a href="#" onclick="logout()">Abmelden</a></li>`;
-                    break;
-                default:
-                    links = `
-                        <li><a href="index.html">Startseite</a></li>
-                        <li><a href="search.html">Suche</a></li>
-                        <li><a href="resources.html">Ressourcen</a></li>
-                        <li><a href="register.html">Registrieren</a></li>
-                        <li><a href="login.html">Anmelden</a></li>`;
-                    break;
-            }
-
-            navLinks.innerHTML = links;
-        }
-
-        function logout() {
-            sessionStorage.removeItem('userRole');
-            window.location.href = "index.html";
-        }
-    </script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
