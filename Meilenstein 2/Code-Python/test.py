@@ -1,11 +1,13 @@
 import Database
 import User_Management
 import Ressource_Management
+import User_Interface
 
 db = Database.Database()
 db._connect()
-print("Connected")
+#print("Connected")
 
 um = User_Management.User_Management(db)
-r = Ressource_Management.Ressource_Management(db, um)
+rm = Ressource_Management.Ressource_Management(db, um)
 
+test = User_Interface.User_Interface(um, rm)
