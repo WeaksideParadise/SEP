@@ -55,7 +55,7 @@ class Ressource_Actions:
     
     def search_ressources(self, search_query: str, ressource_type_tag: str, faculty_tag: str) -> list:
         
-        rs = Ressource_Search.Ressource_Search(self.db_connection, self, search_query, faculty_tag, ressource_type_tag, None, None)
+        rs = Ressource_Search(self.db_connection, self.ressource_management, search_query, faculty_tag, ressource_type_tag, None, None)
         
         try:
             result = rs.search_ressource()

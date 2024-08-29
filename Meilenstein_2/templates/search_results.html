@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ergebnisse - Ressourcen-Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <img src="logo.jpg" alt="TU Chemnitz Logo">
+            </div>
+            <nav>
+                <ul id="nav-links">
+                    <li><a href="/">Startseite</a></li>
+                    <li><a href="search">Suche</a></li>
+                    <li><a href="resources">Ressourcen</a></li>
+                    
+                    <!-- Admin-spezifische Links, die nur angezeigt werden, wenn die Rolle 'administrator' ist -->
+                    {% if session.get('role') == 'administrator' %}
+                    <li><a href="admin">Admin-Bereich</a></li>
+                    {% endif %}
+            
+                    <!-- Gemeinsame Abmelde-Option für alle Benutzer -->
+
+                     {% if session.get('role') == None %}
+                    <li><a href="register">Registrieren</a></li>
+                    <li><a href="login">Anmelden</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('UI_logout_user') }}">Abmelden</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <main>
+        <div class="container">
+            <!-- Flash-Nachrichten anzeigen -->
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="flash {{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <div class="results">
+                {% set per_page = 5 %}
+                {% set page = request.args.get('page', 1)|int %}
+                {% set total_results = results|length %}
+                {% set total_pages = (total_results / per_page)|ceil %}
+                {% set start = (page - 1) * per_page %}
+                {% set end = start + per_page %}
+                {% set paginated_results = results[start:end] %}
+        
+                {% if paginated_results %}
+                    <ul>
+                        {% for result in paginated_results %}
+                            <li>
+                                <h2>{{ result.title }}</h2>
+                                <p>{{ result.description }}</p>
+                                <p><strong>Typ:</strong> {{ result.type }}</p>
+                                <p><strong>Fakultät:</strong> {{ result.faculty }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Keine Ergebnisse gefunden.</p>
+                {% endif %}
+            </div>
+        
+            <!-- Paginierung -->
+            <div class="pagination">
+                {% if page > 1 %}
+                    <a href="{{ url_for('UI_search_ressource', page=page-1) }}">Vorherige</a>
+                {% endif %}
+        
+                <span>Seite {{ page }} von {{ total_pages }}</span>
+        
+                {% if page < total_pages %}
+                    <a href="{{ url_for('UI_search_ressource', page=page+1) }}">Nächste</a>
+                {% endif %}
+            </div>
+
+    <footer>
+        <p>&copy; 2024 Ressourcen-Portal. Alle Rechte vorbehalten.</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

@@ -1,9 +1,10 @@
 from Code_Python.Database               import Database
 from Code_Python.User_Management        import User_Management
-from Code_Python.Ressource_Management   import Ressource_Management
+from Code_Python.Ressource_Actions      import Ressource_Actions
 from Code_Python.Routes                 import UI_Navigation_Bar_Routes
 from Code_Python.Routes                 import UI_User_Routes
 from Code_Python.Routes                 import UI_Admin_Panel_Routes
+from Code_Python.Routes                 import UI_Search_Routes
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
@@ -12,7 +13,7 @@ from dotenv import load_dotenv
 
 
 class User_Interface:
-    def __init__(self, um: User_Management, rm: Ressource_Management, db: Database):
+    def __init__(self, um: User_Management, ra: Ressource_Actions, db: Database):
         load_dotenv()
         
         # -> Flask initialiseren
@@ -36,7 +37,7 @@ class User_Interface:
         
         # -> Instanzen erstellen
         self.um = um
-        self.rm = rm
+        self.ra = ra
         self.db = db
 
         # -> Session Tabelle erstellen
@@ -58,6 +59,7 @@ class User_Interface:
         UI_User_Routes.User_Routes(self.app, self.um)
         UI_Admin_Panel_Routes.Admin_Panel_Routes(self.app)
         UI_Navigation_Bar_Routes.Navigation_Bar_Routes(self.app)
+        UI_Search_Routes.Search_Routes(self.app, self.um, self.ra)
 
     def run(self):
         self.app.run(debug=True)
