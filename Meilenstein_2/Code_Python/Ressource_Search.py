@@ -1,5 +1,5 @@
-import Database
-import Ressource_Management
+from Code_Python.Database             import Database
+from Code_Python.Ressource_Management import Ressource_Management
 
 class Ressource_Search:
     def __init__(self, db_connection: Database, rm: Ressource_Management, query: str, faculty_tag: str, ressource_type_tag: str, opening_hours_tag: str, user_tags: list[str]):

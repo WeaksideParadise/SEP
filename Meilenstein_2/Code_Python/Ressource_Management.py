@@ -1,6 +1,6 @@
-import Database
-import Ressource
-import User_Management
+from Code_Python.Database        import Database
+from Code_Python.Ressource       import Ressource
+from Code_Python.User_Management import User_Management
 
 class Ressource_Management:
     def __init__(self, db_connection: Database, user_management: User_Management):

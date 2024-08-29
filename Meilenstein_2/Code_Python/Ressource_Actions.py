@@ -1,7 +1,7 @@
-import Database
-import Ressource
-import Ressource_Management
-import Ressource_Search
+from Code_Python.Ressource_Search     import Ressource_Search
+from Code_Python.Database             import Database
+from Code_Python.Ressource            import Ressource
+from Code_Python.Ressource_Management import Ressource_Management
 import requests
 import time
 
