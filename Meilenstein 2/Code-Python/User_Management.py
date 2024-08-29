@@ -158,7 +158,7 @@ class User_Management:
         
         try:
             if self.get_user_by_name(name):
-                raise ValueError("Benutzername exisitiert bereits")         # Requirement E1/BM.3 erfüllt - keine doppelten Benutzernamen
+                raise NameError("Benutzername exisitiert bereits")         # Requirement E1/BM.3 erfüllt - keine doppelten Benutzernamen
         except LookupError as e:
             return False
             
@@ -245,7 +245,7 @@ class User_Management:
             if not user:
                 return False
         except LookupError as e:
-            return False
+            raise LookupError
         
         md5_hash = hashlib.md5()
         md5_hash.update(password.encode('utf-8'))
@@ -256,7 +256,7 @@ class User_Management:
         try:
             self.save_user(user)
         except LookupError as e:
-            return False
+            raise LookupError
         
         return user.is_logged_in
     

@@ -1,3 +1,5 @@
 python-dotenv
 mysql-connctor-python
 requests
+Flask
+flask_sqlalchemy
