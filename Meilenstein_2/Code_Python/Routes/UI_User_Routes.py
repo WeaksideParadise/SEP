@@ -2,24 +2,26 @@ from Code_Python.User_Management import User_Management
 from flask import *
 
 class User_Routes:
-    def __init__(self, app):
+    def __init__(self, app, um: User_Management):
         self.app = app
+        self.um = um
 
         self.setup_routes()
 
     def setup_routes(self):
 
-        @self.app.route("/login", methods = ["GET","POST"])
+        @self.app.route("/login_user", methods = ["GET","POST"])
         def UI_login_user():
+
             if request.method == "POST":
                 username = request.form.get("username")
                 password = request.form.get("password")
 
                 try:
-                    if User_Management.login_user(username, password):
-                        user = User_Management.get_user_by_name(username).user_id
-                        
-                        session["username"] = username
+                    if self.um.login_user(username, password):
+                        user = self.um.get_user_by_name(username)
+                        print("Here")
+                        session["username"] = user.name
                         session["user_id"]  = user.user_id
                         if user.is_administrator:
                             session["role"] = "administrator" 
@@ -29,29 +31,30 @@ class User_Routes:
                             session["role"] = "user"
 
                         flash("Anmeldung erfoglreich", "success")
-                        return #redirect(url_for(index_user))
+                        return redirect(url_for("UI_index"))
                     else:
                          flash("Anmeldung fehlgeschlagen. Konto existiert nicht / Falsches Passwort.", "failure")
-                         return #redirect(url_for(login))
+                         return redirect(url_for("UI_login"))
                 except LookupError as e:
                     flash("Bei der Anmeldung ging etwas schief, bitte erneut versuchen", "error")
+                    return redirect(url_for("UI_login"))
 
             # Zeige das Login-Formular an (GET-Anfrage)
 
         @self.app.route("/logout", methods = ["GET","POST"])
-        def UI_loggout_user():
+        def UI_logout_user():
                 
-                if User_Management.logout_user(session["user_id"]):
+                if self.um.logout_user(session["user_id"]):
                     session["user_id"] = -1
                     session["username"]= None
                     session["role"]    = None
                     flash("Erfolgreich abgemeldet", "success")
-                    return redirect(url_for("index"))
+                    return redirect(url_for("UI_index"))
                 else:
-                    flash("Bei der Abmledung ging etwas schief", "error")
-                    return
+                    flash("Bei der Abmeldung ging etwas schief", "error")
+                    return redirect(url_for("UI_index"))
 
-        @self.app.route("/register", methods = ["GET","POST"])
+        @self.app.route("/register_user", methods = ["GET","POST"])
         def UI_register_user():
             if request.method == "POST":
                 username = request.form.get("username")
