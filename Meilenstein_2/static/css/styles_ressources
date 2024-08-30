@@ -12,7 +12,7 @@
 .ressource-container {
     background-color: #fd9208;
     padding: 30px;
-    border: 20px dashed #FF5733;
+    border: 20px dashed #fff;
     width: 60%; /* Breite des Containers als Prozentsatz des Bildschirms */
     position: fixed; /* Fixiert den Container am Bildschirm */
     left: 50px; /* Abstand vom linken Rand des Bildschirms */
