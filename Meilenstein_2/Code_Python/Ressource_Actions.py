@@ -78,10 +78,19 @@ class Ressource_Actions:
             return []
         return [ressource]
 
-    # Bonus
-    def check_ressource_suggestions(ressource: Ressource) -> bool:
-
-        return True
+    # Bonus 
+    # noch nicht getestet
+    def check_ressource_suggestions(self, ressource: Ressource) -> bool:
+        query = """SELECT suggestions FROM users WHERE ressource_suggestions LIKE %s"""
+        try:
+            # The % around the ressource_id is used to match any string that contains the ressource_id
+            result = self.db_connection.execute_query(query, f"%{ressource.ressource_id}%")
+            if result:
+                return True
+            else:
+                return False
+        except LookupError as e:
+            return False
     
     def publish_ressource(self, ressource_id: int ) -> bool:
 
@@ -98,14 +107,47 @@ class Ressource_Actions:
         except LookupError as e:
             return False
 
-    def suggest_add_ressource(ressource: Ressource) -> bool:
+    def suggest_add_ressource(self, ressource: Ressource, user_id: int) -> bool:
+        query = """SELECT ressource_suggestions FROM users WHERE user_id = %s"""
+        try:
+            result = self.db_connection.execute_query(query, (user_id,))
+            if not result:
+                return False
+            suggestions = result[0]['suggestions']
+            if not suggestions:
+                suggestions = str(ressource.ressource_id)
+            else:
+                suggestions += f"#{ressource.ressource_id}"
+            
+            update_query = """UPDATE users SET ressource_suggestions = %s WHERE user_id = %s"""
+            self.db_connection.execute_query(update_query, (suggestions, user_id))
+            return True
+        except LookupError as e:
+            return False
 
-        return True
-    
     # Bonus
-    def suggest_change_ressource(ressource_id: int, **kwargs) -> bool:
+    def suggest_change_ressource(self, ressource_id: int, user_id: int, **kwargs) -> bool:
+        # Convert kwargs into a string format, for example: "field_name:value#field_name:value..."
+        suggestions = "#".join([f"{key}:{value}" for key, value in kwargs.items()])
+        
+        query = """SELECT suggestions FROM ressource_suggestions WHERE user_id = %s"""
+        try:
+            result = self.db_connection.execute_query(query, (user_id,))
+            if not result:
+                return False
+            existing_suggestions = result[0]['suggestions']
+            
+            if not existing_suggestions:
+                new_suggestions = f"{ressource_id}:{suggestions}"
+            else:
+                new_suggestions = f"{existing_suggestions}#{ressource_id}:{suggestions}"
+            
+            update_query = """UPDATE ressource_suggestions SET ressource_suggestions = %s WHERE user_id = %s"""
+            self.db_connection.execute_query(update_query, (new_suggestions, user_id))
+            return True
+        except LookupError as e:
+            return False
 
-        return True
     
     #Bonus - kann verbessert werden
     def check_trustworthyness(self, link: str) -> bool:
