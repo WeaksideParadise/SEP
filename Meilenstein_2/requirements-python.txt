@@ -3,3 +3,4 @@ mysql-connctor-python
 requests
 Flask
 flask_sqlalchemy
+flask_session

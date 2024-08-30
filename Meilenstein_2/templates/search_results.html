@@ -40,49 +40,34 @@
 
 
     <main>
-        <!-- Flash-Nachrichten anzeigen-->
+
         {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}
                 <div class="flash-messages">
                     {% for category, message in messages %}
                         <div class="flash {{ category }}">
                             {{ message }}
-                            <span class="close-btn">&times;</span>
+
                         </div>
                     {% endfor %}
                 </div>
             {% endif %}
-        {% endwith %}
 
-        <div class="container">
-                
-            <main class="ressource_container">
-                <!-- Loop über alle Ressourcen -->
-                {% for ressource in results %}
-                <div class="ressource_preview_box">
-                    <h2>Name: {{ ressource.name }}</h2>
-                    <p><strong>Created By:</strong> {{ ressource.created_by }}</p>
-                    <p><strong>Fakultät:</strong> {{ ressource.faculty }}</p>
-                    <p><strong>Ressourcentyp:</strong> {{ ressource.type }}</p>
-                </div>
-                {% endfor %}
-            </main>
+        </div>
+        
+        <!-- Paginierung -->
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="{{ url_for('UI_search_ressource', page=page-1) }}">Vorherige</a>
+            {% endif %}
+        
+            <span>Seite {{ page }} von {{ total_pages }}</span>
+        
+            {% if page < total_pages %}
+                <a href="{{ url_for('UI_search_ressource', page=page+1) }}">Nächste</a>
+            {% endif %}
         </div>
     </main>
-        
-            <!-- Paginierung -->
-            <div class="pagination">
-                {% if page > 1 %}
-                    <a href="{{ url_for('UI_search_ressource', page=page-1) }}">Vorherige</a>
-                {% endif %}
-        
-                <span>Seite {{ page }} von {{ total_pages }}</span>
-        
-                {% if page < total_pages %}
-                    <a href="{{ url_for('UI_search_ressource', page=page+1) }}">Nächste</a>
-                {% endif %}
-            </div>
-    
 
     <footer>
         <p>&copy; 2024 Ressourcen-Portal. Alle Rechte vorbehalten.</p>

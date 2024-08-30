@@ -4,7 +4,7 @@ from Code_Python.Ressource_Actions      import Ressource_Actions
 from Code_Python.Routes                 import UI_Navigation_Bar_Routes
 from Code_Python.Routes                 import UI_User_Routes
 from Code_Python.Routes                 import UI_Admin_Panel_Routes
-from Code_Python.Routes                 import UI_Search_Routes
+from Code_Python.Routes                 import UI_Ressource_Routes
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
@@ -59,7 +59,7 @@ class User_Interface:
         UI_User_Routes.User_Routes(self.app, self.um)
         UI_Admin_Panel_Routes.Admin_Panel_Routes(self.app)
         UI_Navigation_Bar_Routes.Navigation_Bar_Routes(self.app)
-        UI_Search_Routes.Search_Routes(self.app, self.um, self.ra)
+        UI_Ressource_Routes.Ressource_Routes(self.app, self.um, self.ra)
 
     def run(self):
         self.app.run(debug=True)

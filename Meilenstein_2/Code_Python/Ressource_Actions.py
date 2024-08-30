@@ -59,9 +59,24 @@ class Ressource_Actions:
         
         try:
             rs.search_ressource()
-            return rs.result
+            results = rs.result
+            for i in range(0, len(results)):
+                if results[i].is_published == False:
+                    results.pop(i)
+
+            return results
         except LookupError as e:
             raise LookupError
+        
+    def inspect_ressource(self, ressource_id: int) -> list[Ressource]:
+
+        try:
+            ressource = self.ressource_management.get_ressource_by_id(ressource_id)
+        except LookupError as e:
+            return []
+        if not ressource.is_published:
+            return []
+        return [ressource]
 
     # Bonus
     def check_ressource_suggestions(ressource: Ressource) -> bool:
