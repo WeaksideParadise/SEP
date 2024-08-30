@@ -40,29 +40,19 @@
 
 
     <main>
-        <!-- Flash-Nachrichten anzeigen -->
+
         {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}
                 <div class="flash-messages">
                     {% for category, message in messages %}
                         <div class="flash {{ category }}">
                             {{ message }}
+
                         </div>
                     {% endfor %}
                 </div>
             {% endif %}
-        {% endwith %}         
-                
-        <div class="ressource-container">
-            <!-- Loop über alle Ressourcen -->
-            {% for ressource in results %}
-            <div class="ressource-preview-box">
-                <h2>Name: {{ ressource.name }}</h2>
-                <p><strong>Created By:</strong> {{ ressource.created_by }}</p>
-                <p><strong>Fakultät:</strong> {{ ressource.faculty }}</p>
-                <p><strong>Ressourcentyp:</strong> {{ ressource.type }}</p>
-            </div>
-            {% endfor %}
+
         </div>
         
         <!-- Paginierung -->
