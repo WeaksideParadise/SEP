@@ -34,8 +34,8 @@ class Navigation_Bar_Routes:
             
         @self.app.route("/admin" ,methods = ["GET","POST"])
         def UI_admin_panel():
-            if not session["role"] == "administator" and not session["role"] == "moderator":
+            if not session["role"] == "administrator" and not session["role"] == "moderator":
                 flash("Sie haben keine Rechte hierfür!", "error")
                 return redirect(url_for("UI_index"))
             else:
-                return render_template("admin_panel.html")
+                return render_template("admin.html")
