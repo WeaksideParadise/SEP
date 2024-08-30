@@ -45,7 +45,8 @@ class Ressource_Management:
             raise LookupError
         
         ressources = []
-
+        if not result:
+            return[]
         for element in result:
             ressource = Ressource(element["ressource_id"], 
                                   element["name"],      
