@@ -18,18 +18,18 @@ class Ressource_Management:
         result = self.db_connection.execute_query(query, (ressource_id,))
         
         if result:
-            ressource = Ressource.Ressource(result[0]["ressource_id"], 
-                                            result[0]["name"],      
-                                            result[0]["is_published"], 
-                                            result[0]["description"],
-                                            result[0]["link"], 
-                                            result[0]["created_by"],
-                                            result[0]["faculty"],
-                                            result[0]["ressource_type"],
-                                            result[0]["opening_hours"],
-                                            result[0]["likes"],
-                                            result[0]["experience_reports"],
-                                            result[0]["ressource_tags"])
+            ressource = Ressource(result[0]["ressource_id"], 
+                                  result[0]["name"],      
+                                  result[0]["is_published"], 
+                                  result[0]["description"],
+                                  result[0]["link"], 
+                                  result[0]["created_by"],
+                                  result[0]["faculty"],
+                                  result[0]["ressource_type"],
+                                  result[0]["opening_hours"],
+                                  result[0]["likes"],
+                                  result[0]["experience_reports"],
+                                  result[0]["ressource_tags"])
             return ressource
         return None
     
@@ -47,18 +47,18 @@ class Ressource_Management:
         ressources = []
 
         for element in result:
-            ressource = Ressource.Ressource(element["ressource_id"], 
-                                            element["name"],      
-                                            element["is_published"], 
-                                            element["description"],
-                                            element["link"], 
-                                            element["created_by"],
-                                            element["faculty"],
-                                            element["ressource_type"],
-                                            element["opening_hours"],
-                                            element["likes"],
-                                            element["experience_reports"],
-                                            element["ressource_tags"])
+            ressource = Ressource(element["ressource_id"], 
+                                  element["name"],      
+                                  element["is_published"], 
+                                  element["description"],
+                                  element["link"], 
+                                  element["created_by"],
+                                  element["faculty"],
+                                  element["ressource_type"],
+                                  element["opening_hours"],
+                                  element["likes"],
+                                  element["experience_reports"],
+                                  element["ressource_tags"])
             ressources.append(ressource)
         
         return ressources
@@ -112,15 +112,23 @@ class Ressource_Management:
         # -> Wenn der Anleger ein Admin ist, wird Ressource automatisch veröffentlicht
         # -> Wenn der Anleger kein Admin ist, wird Vorschlag erstellt
         is_published = False
-        user = self.user_management.get_user_by_id(user_id)
-        if user and user.is_administrator:
+
+        try:
+            user = self.user_management.get_user_by_id(user_id)
+            if not user:
+                return False
+        except LookupError as e:
+            return False
+        
+        if user.is_administrator:
             is_published = True
 
         # -> Userkürzel
         created_by = user.name + "#" + str(user.user_id)
 
         # -> Ressource anlegen und in DB speichern
-        ressource = Ressource.Ressource(-1, name, is_published, description, link, created_by, faculty, ressource_type, opening_hours, "X", "X", "X")
+        ressource = Ressource(-1, name, is_published, description, link, created_by, faculty, ressource_type, opening_hours, "X", "X", "X")
+        
         saved = self.save_ressource(ressource)
 
         if not saved:

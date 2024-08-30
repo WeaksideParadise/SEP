@@ -1,0 +1,46 @@
+.flash-messages {
+    margin-bottom: 20px;
+    position: fixed; /* Um die Flash-Nachrichten immer oben anzuzeigen */
+    top: 70px; /* Abstand vom oberen Rand */
+    left: 50%; /* Horizontale Mitte */
+    transform: translateX(-50%); /* Zentriert */
+    z-index: 1000; /* Damit die Nachrichten über anderen Inhalten erscheinen */
+    width: calc(100% - 40px); /* Breite mit Abstand von den Rändern */
+}
+
+.flash {
+    display: flex;               /* Verwende Flexbox für die Zentrierung */
+    justify-content: center;     /* Horizontale Zentrierung */
+    align-items: center;         /* Vertikale Zentrierung */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: #fff;
+    position: relative;          /* Notwendig für die Positionierung des Schließen-Buttons */
+}
+
+.flash.success {
+    background-color: #2602c7; /* Grün für Erfolge */
+}
+
+.flash.failure {
+    background-color: #f44336; /* Rot für Fehler */
+}
+
+.flash.error {
+    background-color: #f44336; /* Rot für Fehler */
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #ddd;
+}

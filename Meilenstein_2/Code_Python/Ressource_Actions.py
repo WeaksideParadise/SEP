@@ -55,13 +55,28 @@ class Ressource_Actions:
     
     def search_ressources(self, search_query: str, ressource_type_tag: str, faculty_tag: str) -> list:
         
-        rs = Ressource_Search.Ressource_Search(self.db_connection, self, search_query, faculty_tag, ressource_type_tag, None, None)
+        rs = Ressource_Search(self.db_connection, self.ressource_management, search_query, faculty_tag, ressource_type_tag, None, None)
         
         try:
-            result = rs.search_ressource()
-            return result
+            rs.search_ressource()
+            results = rs.result
+            for i in range(0, len(results)):
+                if results[i].is_published == False:
+                    results.pop(i)
+
+            return results
         except LookupError as e:
             raise LookupError
+        
+    def inspect_ressource(self, ressource_id: int) -> list[Ressource]:
+
+        try:
+            ressource = self.ressource_management.get_ressource_by_id(ressource_id)
+        except LookupError as e:
+            return []
+        if not ressource.is_published:
+            return []
+        return [ressource]
 
     # Bonus
     def check_ressource_suggestions(ressource: Ressource) -> bool:

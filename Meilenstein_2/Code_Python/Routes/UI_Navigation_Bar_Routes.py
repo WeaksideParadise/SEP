@@ -19,3 +19,23 @@ class Navigation_Bar_Routes:
         @self.app.route("/register", methods = ["GET","POST"])
         def UI_register():
             return render_template("register.html")
+        
+        @self.app.route("/search", methods = ["GET","POST"])
+        def UI_search():
+            return render_template("search.html")
+        
+        @self.app.route("/add_res" ,methods = ["GET","POST"])
+        def UI_add_res():
+            if not session["role"]:
+                flash("Melden Sie sich an, um diese Funktion zu nutzen!", "error")
+                return redirect(url_for("UI_search"))
+            else:
+                return render_template("add_res.html")
+            
+        @self.app.route("/admin" ,methods = ["GET","POST"])
+        def UI_admin_panel():
+            if not session["role"] == "administator" and not session["role"] == "moderator":
+                flash("Sie haben keine Rechte hierfür!", "error")
+                return redirect(url_for("UI_index"))
+            else:
+                return render_template("admin_panel.html")

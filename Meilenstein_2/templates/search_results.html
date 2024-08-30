@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrieren - Ressourcen-Portal</title>
+    <title>Ergebnisse - Ressourcen-Portal</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_general.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_flash.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_ressources.css') }}">
@@ -15,47 +15,57 @@
                 <img src="logo.jpg" alt="TU Chemnitz Logo">
             </div>
             <nav>
-                <ul>
+                <ul id="nav-links">
                     <li><a href="/">Startseite</a></li>
                     <li><a href="search">Suche</a></li>
                     <li><a href="resources">Ressourcen</a></li>
+                    
+                    <!-- Admin-spezifische Links, die nur angezeigt werden, wenn die Rolle 'administrator' ist -->
+                    {% if session.get('role') == 'administrator' %}
+                    <li><a href="admin">Admin-Bereich</a></li>
+                    {% endif %}
+            
+                    <!-- Gemeinsame Abmelde-Option für alle Benutzer -->
+
+                     {% if session.get('role') == None %}
                     <li><a href="register">Registrieren</a></li>
                     <li><a href="login">Anmelden</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('UI_logout_user') }}">Abmelden</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </div>
     </header>
 
+
     <main>
-        <!-- Flash-Nachrichten anzeigen -->
+
         {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}
                 <div class="flash-messages">
                     {% for category, message in messages %}
                         <div class="flash {{ category }}">
                             {{ message }}
-                            <span class="close-btn">&times;</span>
+
                         </div>
                     {% endfor %}
                 </div>
             {% endif %}
-        {% endwith %}
 
-        <div class="container">
-            <h1>Registrieren</h1>
-            <form action="{{ url_for('UI_register_user') }}" method="post">
-                <div class="form-group">
-                    <label for="username">Name:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Passwort:</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <button type="submit">Registrieren</button>
-                </div>
-            </form>
+        </div>
+        
+        <!-- Paginierung -->
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="{{ url_for('UI_search_ressource', page=page-1) }}">Vorherige</a>
+            {% endif %}
+        
+            <span>Seite {{ page }} von {{ total_pages }}</span>
+        
+            {% if page < total_pages %}
+                <a href="{{ url_for('UI_search_ressource', page=page+1) }}">Nächste</a>
+            {% endif %}
         </div>
     </main>
 
