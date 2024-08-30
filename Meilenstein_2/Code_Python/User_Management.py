@@ -46,6 +46,8 @@ class User_Management:
         except LookupError as e:
             raise LookupError
         
+        user = None
+
         if result:
             user = User(result[0]["user_id"], 
                         result[0]["is_logged_in"], 
@@ -54,9 +56,8 @@ class User_Management:
                         result[0]["is_administrator"],
                         result[0]["is_moderator"],
                         result[0]["ressource_suggestions"])
-            return user
                         
-        return None
+        return user
     
     # -> Query muss gültiger Form entsprechen, Argumente nach Query müssen Reihenfolge in Query entsprechen
     # -> Wird nur von Funktionen gerufen, bei denen Entwickler sicheren Funktionsruf bestimmen
@@ -96,7 +97,7 @@ class User_Management:
             try:
                 result = self.db_connection.execute_query(query, (user.name, user.hashed_password))
             except LookupError as e:
-                raise LookupError
+                return False
             
         # -> Bereits vorhandenen Nutzer wieder in DB speichern
         else:
@@ -110,7 +111,7 @@ class User_Management:
             try:
                 result = self.db_connection.execute_query(query, (user.is_logged_in, user.name, user.hashed_password, user.is_administrator, user.is_moderator, user.ressource_suggestions, user.user_id))
             except LookupError as e:
-                raise LookupError
+                return False
         
         return True
     
@@ -121,10 +122,7 @@ class User_Management:
     def add_user(self, name: str, hashed_password: str) -> bool:
     
         user = User(-1, False, name, hashed_password, False, False, "X")
-        if self.save_user(user):
-            return True
-
-        return False
+        return self.save_user(user)
     
     # -> Löscht User, in dem bestimmte Attribute auf feste Werte setzt
     # -> User bleibt in Datenbank vorhanden, das dient bestimmten Funktionalitäten
@@ -143,12 +141,7 @@ class User_Management:
         user.is_moderator = False
         user.ressource_suggestions = None
            
-        try:
-            self.save_user(user)
-        except LookupError as e:
-            return False
-        
-        return True
+        return self.save_user(user)
     
     # -> Registrierungsfunktion, wird von UI gerufen
     # -> Prüft, ob Name bereits vorhanden ist
@@ -168,11 +161,9 @@ class User_Management:
         md5_hash = hashlib.md5()
         md5_hash.update(suggested_password.encode('utf-8'))
         hash_value = md5_hash.hexdigest()
-        if self.add_user(name, hash_value):
-            return True
         
-        return False
-
+        return self.add_user(name, hash_value)
+        
     # -> Gibt Nutzer Administratorrechte
     # -> Wird von UI gerufen
     # -> Wer Adminrechte wie vergibt, wird noch geklärt --- TODO
@@ -187,12 +178,7 @@ class User_Management:
         
         user.is_administrator = True
 
-        try:
-            self.save_user(user)
-        except LookupError as e:
-            return False
-        
-        return True
+        return self.save_user(user)
 
     # -> Gibt Nutzer Moderatorrechte
     # -> Wird von UI gerufen
@@ -208,12 +194,7 @@ class User_Management:
         
         user.is_moderator = True
 
-        try:
-            self.save_user(user)
-        except LookupError as e:
-            return False
-        
-        return True
+        return self.save_user(user)
 
     # -> Entfernt Nutzer Moderatorrechte UND Administratorrechte
     # -> Wird von UI gerufen
@@ -230,14 +211,11 @@ class User_Management:
         user.is_administrator = False
         user.is_moderator     = False
 
-        try:
-            self.save_user(user)
-        except LookupError as e:
-            return False
-        
-        return True
+        return self.save_user(user)
 
     # ------------------------------------------------- Login_System ------------------------------------------------- #
+    # -> prüft, ob Nutzer vorhanden ist
+    # -> vergleicht Passwort und setzt Variablen
     def login_user(self, username: str, password: str) -> bool:
 
         try:
@@ -253,13 +231,13 @@ class User_Management:
         if md5_hash.hexdigest() == user.hashed_password:
             user.is_logged_in = True
 
-        try:
-            self.save_user(user)
-        except LookupError as e:
+        
+        if not self.save_user(user):
             raise LookupError
         
         return user.is_logged_in
     
+    # -> loggt Nutzer aus
     def logout_user(self, user_id: int) -> bool:
                 
         try:
@@ -271,9 +249,7 @@ class User_Management:
         
         user.is_logged_in = False
 
-        try:
-            self.save_user(user)
-        except LookupError as e:
+        if not self.save_user(user):
             return False
         
         return not user.is_logged_in
