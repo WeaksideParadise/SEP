@@ -12,7 +12,7 @@ body {
 
 /* Header */
 header {
-    background-color: #006400; /* Dunkelgrün */
+    background-color: #005F50; /* Uni Farbton */
     color: #fff;
     padding: 10px 20px;
 }
@@ -70,7 +70,7 @@ main {
 }
 
 h1 {
-    color: #006400;
+    color: 	#005F50;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -97,7 +97,7 @@ h1 {
 }
 
 .form-group button {
-    background-color: #006400;
+    background-color: 	#005F50;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -109,12 +109,12 @@ h1 {
 }
 
 .form-group button:hover {
-    background-color: #004d00;
+    background-color: 	#004238;
 }
 
 /* Footer */
 footer {
-    background-color: #006400;
+    background-color: 	#005F50;
     color: #fff;
     text-align: center;
     padding: 10px 0;
