@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_general.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_flash.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_ressources.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_admin.css') }}">
 </head>
 <body>
     <header>
@@ -56,15 +57,65 @@
         {% endwith %}
 
         
-        <div class="container">
-            <h1>Admin-Bereich</h1>
-            <p>Hier können Sie Nutzer und Ressourcen verwalten sowie Systemeinstellungen vornehmen.</p>
-            <div class="actions">
-                <a href="#">Nutzer verwalten</a>
-                <a href="#">Ressourcen verwalten</a>
-                <a href="#">Systemeinstellungen</a>
+        <div class="container-admin">
+            <div>
+                <h1>Admin-Bereich</h1>
+                <p>Hier können Sie Nutzer und Ressourcen verwalten sowie Systemeinstellungen vornehmen.</p>
             </div>
+
+            <div class="admin-actions">
+
+                <div class="col-users">
+                    <p>Liste aller Nutzer</p>
+
+                    <!-- hier sollen die namen aufgelistet werden (scrollbar) -->
+                    <div class="lückenfüller">
+                        <b>Username 1</b>
+                        <button>Befördern</button>
+                        <button>Degradieren</button>
+                        <button>Löschen</button>
+                    </div>
+                    <div class="lückenfüller">
+                        <b>Username 2</b>
+                        <button>Befördern</button>
+                        <button>Degradieren</button>
+                        <button>Löschen</button>
+                    </div>
+                </div>
+
+                <div class="col-ressources">
+                    <p>Liste aller Ressourcen</p>
+
+                    <!--Hier sollen alle Ressourcen aufgelistet werden (scrollbar)-->
+                    <div class="lückenfüller">
+                        <b>Ressource 1</b>
+                        <button>Anzeigen</button>
+                        <button>Bearbeiten</button>
+                        <button>Löschen</button>
+                    </div>
+                    <div class="lückenfüller">
+                        <b>Ressource 2</b>
+                        <button>Anzeigen</button>
+                        <button>Bearbeiten</button>
+                        <button>Löschen</button>
+                    </div>
+                </div>
+
+                <div class="col-system">
+                    <div class="row">
+                        <p>Meldungen</p>
+                        <b>Ressourcenlink defekt bruder</b>
+                    </div>
+                    <div class="row">
+                        <p>Systemeinstellungen</p>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
+
+
     </main>
 
     <footer>
