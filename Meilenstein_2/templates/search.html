@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ressourcen - Ressourcen-Portal</title>
+    <title>Suche - Ressourcen-Portal</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,20 +22,25 @@
 
     <main>
         <div class="container">
-            <h1>Ressourcen</h1>
-            <p>Hier können Sie auf die verfügbaren öffentlichen Ressourcen zugreifen.</p>
-            <!-- Beispielhafte Ressourcenliste -->
-            <div class="resource-list">
-                <div class="resource-item">
-                    <h2>Ressource 1</h2>
-                    <p>Beschreibung der Ressource 1.</p>
+            <h1>Suche</h1>
+            <form action="#" method="get">
+                <div class="form-group">
+                    <label for="search">Suchbegriff:</label>
+                    <input type="text" id="search" name="search" placeholder="Geben Sie Ihren Suchbegriff ein..." required>
                 </div>
-                <div class="resource-item">
-                    <h2>Ressource 2</h2>
-                    <p>Beschreibung der Ressource 2.</p>
+                <div class="form-group">
+                    <label for="category">Kategorie:</label>
+                    <select id="category" name="category">
+                        <option value="all">Alle Kategorien</option>
+                        <option value="video">Video</option>
+                        <option value="beitrag">Beitrag</option>
+                        <option value="wissenschaftlich">Wissenschaftliche Arbeit</option>
+                    </select>
                 </div>
-                <!-- Weitere Ressourcen -->
-            </div>
+                <div class="form-group">
+                    <button type="submit">Suche starten</button>
+                </div>
+            </form>
         </div>
     </main>
 
