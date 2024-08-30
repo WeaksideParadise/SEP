@@ -1,5 +1,6 @@
 from Code_Python.Database             import Database
 from Code_Python.Ressource_Management import Ressource_Management
+from Code_Python.Ressource            import Ressource
 
 class Ressource_Search:
     def __init__(self, db_connection: Database, rm: Ressource_Management, query: str, faculty_tag: str, ressource_type_tag: str, opening_hours_tag: str, user_tags: list[str]):
@@ -35,7 +36,7 @@ class Ressource_Search:
         return self._user_tags
     
     @property
-    def result(self) -> str:
+    def result(self) -> list[Ressource]:
         return self._result
     
     # Setter
@@ -61,7 +62,7 @@ class Ressource_Search:
         self._user_tags = user_tags
 
     @result.setter
-    def result(self, result: str):
+    def result(self, result: list[Ressource]):
         self._result = result
     
     # Methoden

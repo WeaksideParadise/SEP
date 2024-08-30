@@ -112,8 +112,15 @@ class Ressource_Management:
         # -> Wenn der Anleger ein Admin ist, wird Ressource automatisch veröffentlicht
         # -> Wenn der Anleger kein Admin ist, wird Vorschlag erstellt
         is_published = False
-        user = self.user_management.get_user_by_id(user_id)
-        if user and user.is_administrator:
+
+        try:
+            user = self.user_management.get_user_by_id(user_id)
+            if not user:
+                return False
+        except LookupError as e:
+            return False
+        
+        if user.is_administrator:
             is_published = True
 
         # -> Userkürzel
@@ -121,6 +128,7 @@ class Ressource_Management:
 
         # -> Ressource anlegen und in DB speichern
         ressource = Ressource(-1, name, is_published, description, link, created_by, faculty, ressource_type, opening_hours, "X", "X", "X")
+        
         saved = self.save_ressource(ressource)
 
         if not saved:
