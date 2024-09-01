@@ -187,7 +187,7 @@ class Ressource_Actions:
         try:
             result = self.db_connection.execute_query(query, ())
         except LookupError as e:
-            return False
+            raise LookupError
         return result
     
     #Bonus

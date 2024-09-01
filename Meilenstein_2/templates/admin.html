@@ -20,8 +20,7 @@
                     <ul id="nav-links">
                         <!-- Links, die für alle Benutzer angezeigt werden -->
                         <li><a href="/">Startseite</a></li>
-                        <li><a href="search">Suche</a></li>
-                        <li><a href="resources">Ressourcen</a></li>
+                        <li><a href="search">Ressourcen</a></li>
                 
                         <!-- Admin-spezifische Links, die nur angezeigt werden, wenn die Rolle 'administrator' ist -->
                         {% if session.get('role') == 'administrator' %}
@@ -67,43 +66,47 @@
 
                 <div class="col-users">
                     <p>Liste aller Nutzer</p>
-
+                    {% for user in users %}
                     <!-- hier sollen die namen aufgelistet werden (scrollbar) -->
                     <div class="lückenfüller">
-                        <b>Username 1</b>
-                        <button>Befördern</button>
-                        <button>Degradieren</button>
-                        <button>Löschen</button>
+                        <b>{{ user.user_id }}#{{ user.name }}</b>
+                        
+                        <!-- Form for Befördern (Promote) -->
+                        <form action="{{ url_for('UI_promote_user', user_id=user.user_id) }}" method="post" style="display:inline;">
+                            <button type="submit">Befördern</button>
+                        </form>
+                    
+                        <!-- Form for Degradieren (Demote) -->
+                        <form action="{{ url_for('UI_demote_user', user_id=user.user_id) }}" method="post" style="display:inline;">
+                            <button type="submit">Degradieren</button>
+                        </form>
+                    
+                        <!-- Form for Löschen (Delete) -->
+                        <form action="{{ url_for('UI_delete_user', user_id=user.user_id) }}" method="post" style="display:inline;">
+                            <button type="submit">Löschen</button>
+                        </form>
                     </div>
-                    <div class="lückenfüller">
-                        <b>Username 2</b>
-                        <button>Befördern</button>
-                        <button>Degradieren</button>
-                        <button>Löschen</button>
-                    </div>
+                    {% endfor %}
                 </div>
 
                 <div class="col-ressources">
                     <p>Liste aller Ressourcen</p>
-
+                    {% for resource in resources %}
                     <!--Hier sollen alle Ressourcen aufgelistet werden (scrollbar)-->
                     <div class="lückenfüller">
-                        <b>Ressource 1</b>
-                        <button>Anzeigen</button>
-                        <button>Bearbeiten</button>
-                        <button>Löschen</button>
+                        <b>Ressource {{ resource.ressource_id }}</b>
+                        <button onclick="callPythonFunction()">Anzeigen</button>
+                        <button onclick="callPythonFunction()">Bearbeiten</button>
+                        <button onclick="callPythonFunction()">Löschen</button>
                     </div>
-                    <div class="lückenfüller">
-                        <b>Ressource 2</b>
-                        <button>Anzeigen</button>
-                        <button>Bearbeiten</button>
-                        <button>Löschen</button>
-                    </div>
+                    {% endfor %}
                 </div>
 
                 <div class="col-system">
                     <div class="row">
-                        <p>Meldungen</p>
+                        {% for report in reports %}
+                        <p>{{ report.id }}</p>
+                        {% endfor %}
                         <b>Ressourcenlink defekt bruder</b>
                     </div>
                     <div class="row">

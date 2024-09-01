@@ -17,8 +17,7 @@
             <nav>
                 <ul id="nav-links">
                     <li><a href="/">Startseite</a></li>
-                    <li><a href="search">Suche</a></li>
-                    <li><a href="resources">Ressourcen</a></li>
+                    <li><a href="search">Ressourcen</a></li>
                     
                     <!-- Admin-spezifische Links, die nur angezeigt werden, wenn die Rolle 'administrator' ist -->
                     {% if session.get('role') == 'administrator' %}
@@ -46,7 +45,7 @@
                     {% for category, message in messages %}
                         <div class="flash {{ category }}">
                             {{ message }}
-
+                            <span class="close-btn">&times;</span>
                         </div>
                     {% endfor %}
                 </div>

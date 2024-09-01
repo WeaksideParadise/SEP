@@ -33,7 +33,7 @@ class Ressource_Management:
             return ressource
         return None
     
-    def get_ressources_by_query(self, query: str, args: list) -> list:
+    def get_ressources_by_query(self, query: str, *args) -> list:
 
         t = ()
         for element in args:

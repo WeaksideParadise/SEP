@@ -57,8 +57,8 @@ class User_Interface:
 
     def initialize_routes(self):
         UI_User_Routes.User_Routes(self.app, self.um)
-        UI_Admin_Panel_Routes.Admin_Panel_Routes(self.app)
-        UI_Navigation_Bar_Routes.Navigation_Bar_Routes(self.app)
+        UI_Admin_Panel_Routes.Admin_Panel_Routes(self.app, self.um, self.ra)
+        UI_Navigation_Bar_Routes.Navigation_Bar_Routes(self.app, self.um, self.ra)
         UI_Ressource_Routes.Ressource_Routes(self.app, self.um, self.ra)
 
     def run(self):
