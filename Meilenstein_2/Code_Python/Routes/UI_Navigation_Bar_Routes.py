@@ -1,8 +1,12 @@
+from Code_Python.Ressource_Actions import Ressource_Actions
+from Code_Python.User_Management   import User_Management
 from flask import *
 
 class Navigation_Bar_Routes:
-    def __init__(self, app):
+    def __init__(self, app, um: User_Management, ra: Ressource_Actions ):
         self.app = app
+        self.um = um
+        self.ra = ra
 
         self.setup_routes()
    
@@ -38,4 +42,23 @@ class Navigation_Bar_Routes:
                 flash("Sie haben keine Rechte hierfür!", "error")
                 return redirect(url_for("UI_index"))
             else:
-                return render_template("admin.html")
+                
+                try:
+                    users = self.um.get_users_by_query("SELECT * FROM users")
+                except LookupError as e:
+                    flash("Beim Laden der Nutzer ist ein Fehler aufgetreten", "error")
+                    return redirect(url_for("UI_index"))
+                
+                try:
+                    resources = self.ra.ressource_management.get_ressources_by_query("SELECT * FROM ressources")
+                except LookupError as e:
+                    flash("Beim Laden der Ressourcen ist ein Fehler aufgetreten", "error")
+                    return redirect(url_for("UI_index"))
+                
+                try:
+                    reports = self.ra.fetch_reports()
+                except LookupError as e:
+                    flash("Beim Laden der Ressourcenmeldungen ist ein Fehler aufgetreten", "error")
+                    return redirect(url_for("UI_index"))
+                
+                return render_template("admin.html", users=users, resources=resources, reports=reports)

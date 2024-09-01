@@ -167,7 +167,7 @@ class User_Management:
     # -> Gibt Nutzer Administratorrechte
     # -> Wird von UI gerufen
     # -> Wer Adminrechte wie vergibt, wird noch geklärt --- TODO
-    def promote_user_to_Admin(self, user_id: str) -> bool:
+    def promote_user_to_Admin(self, user_id: int) -> bool:
         
         try:
             user = self.get_user_by_id(user_id)
