@@ -70,7 +70,7 @@ class Admin_Panel_Routes:
                 return redirect(url_for("UI_index"))
             
             # TODO
-            
+
             flash(f"Ressource {request.args.get("ressource_id")} wurde geändert", "success")
             return redirect(url_for("UI_admin_panel"))
         
@@ -80,7 +80,7 @@ class Admin_Panel_Routes:
                 flash("Du hast keine Rechte für diese Aktion", "error")
                 return redirect(url_for("UI_index"))
             
-            if not self.ra.ressource_management.delete_ressource(request.args.get("ressource_id")):
+            if not self.ra.ressource_management.delete_ressource(request.args.get("ressource_id"), "Test"):
                 flash("Fehler beim Ausführen der Aktion", "error")
                 return redirect(url_for("UI_admin_panel"))
             
