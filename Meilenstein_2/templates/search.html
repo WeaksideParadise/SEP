@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suche - Ressourcen-Portal</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_general.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_search.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_flash.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_ressources.css') }}">
+
 </head>
 <body>
     <header>
@@ -37,8 +37,9 @@
         </div>
     </header>
 
-    <main>
 
+    <main class="main-content">
+        <!-- ----------------Hauptinhalt--------------------- -->
         {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}
                 <div class="flash-messages">
@@ -52,33 +53,82 @@
             {% endif %}
         {% endwith %}
 
+    <section class="content">
+        {% for resource in results %}
+        <div class="resourcen-formular">
+            <form action="{{ url_for('UI_inspect_ressource', ressource_id=resource.ressource_id) }}" method="post" style="display:inline;">
+                <button type="submit" class="button">&#128065;</button>
+            </form>
+            <div>
+                <label for="name">Titel:</label>
+                <input type="text" id="name" name="name" value="{{ resource.name }}">
+            </div>
 
-        <div class="container">
+            <div class="fields-container">
+                <div>
+                    <label for="typ">Ressourcetyp:</label>
+                    <input type="text" id="typ" name="typ" value="{{ resource.ressource_type }}">
+                </div>
+                <div>
+                    <label for="fakultaet">Fakultät:</label>
+                    <input type="text" id="fakultaet" name="fakultaet" value="{{ resource.faculty }}">
+                </div>
+                <div>
+                    <label for="erstellt">Erstellt von:</label>
+                    <input type="text" id="erstellt" name="erstellt" value="{{ resource.created_by }}">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- ----------------------Buttons: left-right ----------------------->
+        <div class="navigation-buttons">
+        {% if page > 1 %}
+        <form action="{{ url_for('UI_search_ressource')}}" method="post" style="display:inline;">
+            <input type="hidden" name="page" value={{page-11}}>
+            <button type="submit">&#8592;</button>
+        </form>
+        {% endif %}
+
+        <span>Seite {{ page }} von {{ total_pages }}</span>
+
+        {% if page < total_pages %}
+        <form action="{{ url_for('UI_search_ressource') }}" method="post" style="display:inline;">
+            <input type="hidden" name="page" value={{page+1}}>
+            <button type="submit">&#8594;</button>
+        </form>
+        {% endif %}
+
+            <!--<div class="nav-button" onclick="history.back()">&#8592;</div> -->
+            <!--<div class="nav-button" onclick="history.forward()">&#8594;</div> -->
+        </div>
+    </section>
+
+    <!-- ----------------------Sidebar ----------------------->
+    <aside class="sidebar">
+        <div class="search-container">
             <h1>Suche</h1>
-            <form action="{{ url_for('UI_search_ressource') }}" method="post">
+            <form action="{{ url_for('UI_search_ressource')}}" method="post">
                 <div class="form-group">
-                    <label for="search_query">Suchbegriff:</label>
                     <input type="hidden" name="page" value="1">
-                    <input type="text" id="search_query" name="search_query" placeholder="Geben Sie Ihren Suchbegriff ein..." required>
+                    <label for="search">Suchbegriff:</label>
+                    <input type="text" id="search_query" name="search_query" placeholder="Geben Sie Ihren Suchbegriff ein...">
                 </div>
                 <div class="form-group">
-                    <label for="ressource_category">Ressourcentyp:</label>
-                    <select id="ressource_category" name="ressource_category">
+                    <label for="category">Fakultät:</label>
+                    <select id="faculty" name="faculty">
                         <option value="all">Alle Kategorien</option>
-                        <option value="video">Video</option>
-                        <option value="article">Beitrag</option>
-                        <option value="scientifc_work">Wissenschaftliche Arbeit</option>
-                        <option value="other">Sonstiges</option>
+                        <option value="video">Informatik</option>
+                        <option value="beitrag">Extern</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="faculty_category">Fakultät:</label>
-                    <select id="faculty_category" name="faculty_category">
+                    <label for="category">Ressourcentyp:</label>
+                    <select id="ressource_type" name="ressource_type">
                         <option value="all">Alle Kategorien</option>
-                        <option value="video">Mathematik</option>
-                        <option value="article">Informatik</option>
-                        <option value="scientifc_work">Human- und Sozialwissenschaften</option>
-                        <option value="external">Extern</option>
+                        <option value="Video">Video</option>
+                        <option value="Bericht">Bericht</option>
+                        <option value="wissenschaftlich">Wissenschaftliche Arbeit</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -86,7 +136,12 @@
                 </div>
             </form>
         </div>
-    </main>
+        <form action="{{ url_for('UI_add_ressource') }}" method="post">
+            <button type="submit" class="bottom-btn-container"> Ressource hinzufügen </button>
+        </form>
+    </aside>
+</main>
+        
 
     <footer>
         <p>&copy; 2024 Ressourcen-Portal. Alle Rechte vorbehalten.</p>
