@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="/ISO 639-1/">
 <head>
-    <meta charset="UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ressourcen - Ressourcen-Portal</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_search.css') }}">
+
 </head>
 <body>
+    
     <header>
         <div class="header-content">
             <div class="logo">
@@ -19,31 +21,139 @@
             </nav>
         </div>
     </header>
-
-    <main>
-        <div class="container">
-            <h1>Ressourcen</h1>
-            <p>Hier k�nnen Sie auf die verf�gbaren �ffentlichen Ressourcen zugreifen.</p>
-            <!-- Beispielhafte Ressourcenliste -->
-            <div class="resource-list">
-                <div class="resource-item">
-                    <h2>Ressource 1</h2>
-                    <p>Beschreibung der Ressource 1.</p>
-                </div>
-                <div class="resource-item">
-                    <h2>Ressource 2</h2>
-                    <p>Beschreibung der Ressource 2.</p>
-                </div>
-                <!-- Weitere Ressourcen -->
-            </div>
+    
+    <main class="main-content">
+        <!-- ----------------Hauptinhalt--------------------- -->
+        <section class="content">
+            <div class="resourcen-formular">
+    <button class="button" onclick="alert('Anzeigen geklickt!')">&#128065;</button> <!-- buttons mit augen -->
+    <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+    </div>
+    
+    <div class="fields-container">
+        <div>
+            <label for="typ">Typ</label>
+            <input type="text" id="typ" name="typ">
         </div>
-    </main>
+        <div>
+            <label for="fakultaet">Fakult?t</label>
+            <input type="text" id="fakultaet" name="fakultaet">
+        </div>
+        <div>
+            <label for="erstellt">Erstellt</label>
+            <input type="text" id="erstellt" name="erstellt">
+        </div>
+    </div>
+</div>
+      <div class="resourcen-formular">
+    <button class="button" onclick="alert('Anzeigen geklickt!')">&#128269;</button>
+    <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+    </div>
+    
+    <div class="fields-container">
+        <div>
+            <label for="typ">Typ</label>
+            <input type="text" id="typ" name="typ">
+        </div>
+        <div>
+            <label for="fakultaet">Fakult?t</label>
+            <input type="text" id="fakultaet" name="fakultaet">
+        </div>
+        <div>
+            <label for="erstellt">Erstellt</label>
+            <input type="text" id="erstellt" name="erstellt">
+        </div>
+    </div>
+</div>
+      <div class="resourcen-formular">
+    <button class="button" onclick="alert('Anzeigen geklickt!')">&#128269;</button>
+    <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+    </div>
+    
+    <div class="fields-container">
+        <div>
+            <label for="typ">Typ</label>
+            <input type="text" id="typ" name="typ">
+        </div>
+        <div>
+            <label for="fakultaet">Fakult?t</label>
+            <input type="text" id="fakultaet" name="fakultaet">
+        </div>
+        <div>
+            <label for="erstellt">Erstellt</label>
+            <input type="text" id="erstellt" name="erstellt">
+        </div>
+    </div>
+</div>
+      <div class="resourcen-formular">
+    <button class="button" onclick="alert('Anzeigen geklickt!')">&#128269;</button>
+    <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+    </div>
+    
+    <div class="fields-container">
+        <div>
+            <label for="typ">Typ</label>
+            <input type="text" id="typ" name="typ">
+        </div>
+        <div>
+            <label for="fakultaet">Fakult?t</label>
+            <input type="text" id="fakultaet" name="fakultaet">
+        </div>
+        <div>
+            <label for="erstellt">Erstellt</label>
+            <input type="text" id="erstellt" name="erstellt">
+        </div>
+    </div>
+</div>
+<!-- ----------------------buttuns:-recht- links ----------------------->
+           <div class="navigation-buttons">
+    <div class="nav-button" onclick="history.back()">&#8592;</div>
+    <div class="nav-button" onclick="history.forward()">&#8594;</div>
+         </div>
+        </section>
 
+        <!-- ----------------------Sidebar ----------------------->
+        <aside class="sidebar">
+            <div class="search-container">
+                <h1>Suche</h1>
+                <form action="#" method="get">
+                    <div class="form-group">
+                        <label for="search">Suchbegriff:</label>
+                        <input type="text" id="search" name="search" placeholder="Geben Sie Ihren Suchbegriff ein..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Kategorie:</label>
+                        <select id="category" name="category">
+                            <option value="all">Alle Kategorien</option>
+                            <option value="video">Video</option>
+                            <option value="beitrag">Beitrag</option>
+                            <option value="wissenschaftlich">Wissenschaftliche Arbeit</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Suche starten</button>
+                    </div>
+                </form>
+            </div>
+            <div class="bottom-btn-container">
+                <button type="button">Ressourcen hinzufügen</button>
+            </div>
+        </aside>
+    </main>
+    
     <footer>
         <p>&copy; 2024 Ressourcen-Portal. Alle Rechte vorbehalten.</p>
     </footer>
-
-    <script>
+       <!-- ----------------------java script ----------------------->
+<script>
         document.addEventListener('DOMContentLoaded', () => {
             const role = sessionStorage.getItem('userRole') || 'gast';
             setupNavigation(role);
@@ -57,23 +167,13 @@
                 case 'admin':
                     links = `
                         <li><a href="index.html">Startseite</a></li>
-                        <li><a href="search.html">Suche</a></li>
                         <li><a href="resources.html">Ressourcen</a></li>
                         <li><a href="admin.html">Admin-Bereich</a></li>
-                        <li><a href="#" onclick="logout()">Abmelden</a></li>`;
-                    break;
-                case 'professor':
-                    links = `
-                        <li><a href="index.html">Startseite</a></li>
-                        <li><a href="search.html">Suche</a></li>
-                        <li><a href="resources.html">Ressourcen</a></li>
-                        <li><a href="professor.html">Professor-Bereich</a></li>
                         <li><a href="#" onclick="logout()">Abmelden</a></li>`;
                     break;
                 case 'nutzer':
                     links = `
                         <li><a href="index.html">Startseite</a></li>
-                        <li><a href="search.html">Suche</a></li>
                         <li><a href="resources.html">Ressourcen</a></li>
                         <li><a href="user.html">Nutzer-Bereich</a></li>
                         <li><a href="#" onclick="logout()">Abmelden</a></li>`;
@@ -81,8 +181,6 @@
                 default:
                     links = `
                         <li><a href="index.html">Startseite</a></li>
-                        <li><a href="search.html">Suche</a></li>
-                        <li><a href="resources.html">Ressourcen</a></li>
                         <li><a href="register.html">Registrieren</a></li>
                         <li><a href="login.html">Anmelden</a></li>`;
                     break;

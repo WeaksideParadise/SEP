@@ -16,29 +16,44 @@ class Ressource_Routes:
         @self.app.route("/search_ressource", methods = ["GET","POST"])
         def UI_search_ressource():
             
+            results = []
+            is_random = True
+            page = 1
             if request.method == "POST":
+                is_random = False
                 search_query   = request.form.get("search_query")
                 ressource_type = request.form.get("ressource_type")
+                faculty        = request.form.get("faculty")
+                page           = int(request.form.get("page"))
+                if search_query == None:
+                    search_query = ""
                 if ressource_type == "all":
                     ressource_type = None
-                faculty        = request.form.get("faculty")
                 if faculty == "all":
                     faculty = None
             
+            if not is_random:
                 try:
                     results = self.ra.search_ressources(search_query, ressource_type, faculty)
-                    page = int(request.form.get("page"))
-                    ressources_per_page = 5
-                    total_pages = (len(results) // ressources_per_page) + 1
-                    paged_ressources = results[1-page*ressources_per_page:page*ressources_per_page]
-
-                    flash(f"Es wurden {len(results)} Ergebnisse gefunden", "success")
-                    return render_template("search_results.html", results=paged_ressources, page=page, total_pages=total_pages)
                 except LookupError as e:
                     flash("Bei der Suche ging etwas schief, bitte erneut versuchen", "error")
                     return redirect(url_for("UI_search"))
-            flash("Fehler", "error")
-            return redirect(url_for("UI_search"))
+
+            else:
+                try:
+                    results = self.ra.fetch_5_random_ressources()
+                except LookupError as e:
+                    flash("Bei der Suche ging etwas schief, bitte erneut versuchen", "error")
+                    return redirect(url_for("UI_search"))
+                
+            ressources_per_page = 5
+            total_pages = (len(results) // ressources_per_page) + 1
+            paged_ressources = results[1-page*ressources_per_page:page*ressources_per_page]
+
+            if not is_random:
+                flash(f"Es wurden {len(results)} Ergebnisse gefunden", "success")    
+            
+            return render_template("search.html", results=paged_ressources, page=page, total_pages=total_pages) #searched_query=search_query, searched_faculty=faculty, searched_type=ressource_type)
         
         @self.app.route("/inspect_ressource", methods = ["GET","POST"])
         def UI_inspect_ressource():

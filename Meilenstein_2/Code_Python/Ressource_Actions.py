@@ -4,6 +4,7 @@ from Code_Python.Ressource            import Ressource
 from Code_Python.Ressource_Management import Ressource_Management
 import requests
 import time
+import random
 
 
 class Ressource_Actions:
@@ -51,6 +52,28 @@ class Ressource_Actions:
                 except LookupError as e:
                     raise LookupError
         return True
+    
+    def fetch_5_random_ressources(self) -> list[Ressource]:
+        try:
+            result = self.ressource_management.get_ressources_by_query("SELECT * FROM ressources WHERE name != %s", ["Deleted"])
+        except LookupError as e:
+            raise LookupError
+        
+        if len(result) <= 5:
+            return result
+        
+        to_return = []
+        random_numbers = []
+
+        while(len(random_numbers)) < 5:
+            random_number = random.randint(0,len(result)-1)
+            if random_number in random_numbers:
+                pass
+            else:
+                random_numbers.add(random_number)
+                to_return.add(result[random_number])
+
+        return result
 
     
     def search_ressources(self, search_query: str, ressource_type_tag: str, faculty_tag: str) -> list:
