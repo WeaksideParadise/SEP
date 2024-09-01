@@ -27,7 +27,7 @@ class Admin_Panel_Routes:
                 flash("Fehler beim Ausführen der Aktion", "error")
                 return redirect(url_for("UI_admin_panel"))
             
-            flash(f"Nutzer {request.args.get("user_id")} wurde auf Moderator befördert", "success")
+            flash(f"Nutzer {request.args.get('user_id')} wurde auf Moderator befördert", "success")
             return redirect(url_for("UI_admin_panel"))
         
         @self.app.route("/demote_user", methods = ["GET","POST"])
@@ -45,7 +45,7 @@ class Admin_Panel_Routes:
                 flash("Fehler beim Ausführen der Aktion", "error")
                 return redirect(url_for("UI_admin_panel"))
             
-            flash(f"Nutzer {request.args.get("user_id")} wurde auf degradiert", "success")
+            flash(f"Nutzer {request.args.get('user_id')} wurde auf degradiert", "success")
             return redirect(url_for("UI_admin_panel"))
 
             
@@ -60,7 +60,7 @@ class Admin_Panel_Routes:
                 flash("Fehler beim Ausführen der Aktion", "error")
                 return redirect(url_for("UI_admin_panel"))
             
-            flash(f"Nutzer {request.args.get("user_id")} wurde gelöscht", "success")
+            flash(f"Nutzer {request.args.get('user_id')} wurde gelöscht", "success")
             return redirect(url_for("UI_admin_panel"))
         
         @self.app.route("/change_ressource", methods = ["GET","POST"])
@@ -71,7 +71,7 @@ class Admin_Panel_Routes:
             
             # TODO
 
-            flash(f"Ressource {request.args.get("ressource_id")} wurde geändert", "success")
+            flash(f"Ressource {request.args.get('ressource_id')} wurde geändert", "success")
             return redirect(url_for("UI_admin_panel"))
         
         @self.app.route("/delete_ressource", methods = ["GET","POST"])
@@ -84,5 +84,5 @@ class Admin_Panel_Routes:
                 flash("Fehler beim Ausführen der Aktion", "error")
                 return redirect(url_for("UI_admin_panel"))
             
-            flash(f"Ressource {request.args.get("ressource_id")} wurde gelöscht", "success")
+            flash(f"Ressource {request.args.get('ressource_id')} wurde gelöscht", "success")
             return redirect(url_for("UI_admin_panel"))
