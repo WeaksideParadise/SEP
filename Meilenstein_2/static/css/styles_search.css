@@ -163,6 +163,7 @@ button:hover {
 .resourcen-formular {
     border: 2px solid #000;
     padding: 20px;
+    margin: 5px;
     width: 80%;
     max-width: 800px; /* Maximalbreite des Formulars */
     background-color: #fff;
