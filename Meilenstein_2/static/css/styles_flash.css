@@ -19,6 +19,11 @@
     position: relative;          /* Notwendig für die Positionierung des Schließen-Buttons */
 }
 
+.flash-messages-search {
+    margin-bottom: 20px;
+    top: 70px; /* Abstand vom oberen Rand */  
+}
+
 .flash.success {
     background-color: #2602c7; /* Grün für Erfolge */
 }

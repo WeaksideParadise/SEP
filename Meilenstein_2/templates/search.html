@@ -40,107 +40,124 @@
 
     <main class="main-content">
         <!-- ----------------Hauptinhalt--------------------- -->
-        {% with messages = get_flashed_messages(with_categories=True) %}
-            {% if messages %}
-                <div class="flash-messages">
-                    {% for category, message in messages %}
-                        <div class="flash {{ category }}">
-                            {{ message }}
-                            <span class="close-btn">&times;</span>
+
+        <!--Hier waren mal flash ma-->
+
+        <section class="content">
+            <div class="ressourcen-formular-container">
+
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                    {% if messages %}
+                        <div class="flash-messages-search">
+                            {% for category, message in messages %}
+                                <div class="flash {{ category }}">
+                                    {{ message }}
+                                    <span class="close-btn">&times;</span>
+                                </div>
+                            {% endfor %}
                         </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        {% endwith %}
+                    {% endif %}
+                {% endwith %}
 
-    <section class="content">
-        {% for resource in results %}
-        <div class="resourcen-formular">
-            <form action="{{ url_for('UI_inspect_ressource', ressource_id=resource.ressource_id) }}" method="post" style="display:inline;">
-                <button type="submit" class="button">&#128065;</button>
-            </form>
-            <div>
-                <label for="name">Titel:</label>
-                <input type="text" id="name" name="name" value="{{ resource.name }}">
+
+                {% for resource in results %}
+                <div class="resourcen-formular">
+                    <form action="{{ url_for('UI_inspect_ressource', ressource_id=resource.ressource_id) }}" method="post" style="display:inline;">
+                        <button type="submit" class="button">&#128065;</button>
+                    </form>
+                    <div>
+                        <label for="name">Titel: {{ resource.name }}</label>
+                    </div>
+    
+                    <div class="fields-container">
+                        <div>
+                            <label for="typ">Ressourcentyp:</label>
+                            <input type="text" id="typ" name="typ" value="{{ resource.ressource_type }}">
+                        </div>
+                        <div>
+                            <label for="fakultaet">Fakultät:</label>
+                            <input type="text" id="fakultaet" name="fakultaet" value="{{ resource.faculty }}">
+                        </div>
+                        <div>
+                            <label for="erstellt">Erstellt von:</label>
+                            <input type="text" id="erstellt" name="erstellt" value="{{ resource.created_by }}">
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
 
-            <div class="fields-container">
-                <div>
-                    <label for="typ">Ressourcetyp:</label>
-                    <input type="text" id="typ" name="typ" value="{{ resource.ressource_type }}">
-                </div>
-                <div>
-                    <label for="fakultaet">Fakultät:</label>
-                    <input type="text" id="fakultaet" name="fakultaet" value="{{ resource.faculty }}">
-                </div>
-                <div>
-                    <label for="erstellt">Erstellt von:</label>
-                    <input type="text" id="erstellt" name="erstellt" value="{{ resource.created_by }}">
-                </div>
+
+            <!-- ----------------------Buttons: left-right ----------------------->
+            <div class="navigation-buttons">
+                {% if page > 1 %}
+                <form action="{{ url_for('UI_search_ressource')}}" method="post" style="display:inline;">
+                    <input type="hidden" name="page" value={{page-11}}>
+                    <button type="submit">&#8592;</button>
+                </form>
+                {% endif %}
+
+                <span>Seite {{ page }} von {{ total_pages }}</span>
+
+                {% if page < total_pages %}
+                <form action="{{ url_for('UI_search_ressource') }}" method="post" style="display:inline;">
+                    <input type="hidden" name="page" value={{page+1}}>
+                    <button type="submit">&#8594;</button>
+                </form>
+                {% endif %}
+                <!--<div class="nav-button" onclick="history.back()">&#8592;</div> -->
+                <!--<div class="nav-button" onclick="history.forward()">&#8594;</div> -->
             </div>
-        </div>
-        {% endfor %}
-
-        <!-- ----------------------Buttons: left-right ----------------------->
-        <div class="navigation-buttons">
-        {% if page > 1 %}
-        <form action="{{ url_for('UI_search_ressource')}}" method="post" style="display:inline;">
-            <input type="hidden" name="page" value={{page-11}}>
-            <button type="submit">&#8592;</button>
-        </form>
-        {% endif %}
-
-        <span>Seite {{ page }} von {{ total_pages }}</span>
-
-        {% if page < total_pages %}
-        <form action="{{ url_for('UI_search_ressource') }}" method="post" style="display:inline;">
-            <input type="hidden" name="page" value={{page+1}}>
-            <button type="submit">&#8594;</button>
-        </form>
-        {% endif %}
-
-            <!--<div class="nav-button" onclick="history.back()">&#8592;</div> -->
-            <!--<div class="nav-button" onclick="history.forward()">&#8594;</div> -->
-        </div>
-    </section>
+        </section>
 
     <!-- ----------------------Sidebar ----------------------->
-    <aside class="sidebar">
-        <div class="search-container">
-            <h1>Suche</h1>
-            <form action="{{ url_for('UI_search_ressource')}}" method="post">
-                <div class="form-group">
-                    <input type="hidden" name="page" value="1">
-                    <label for="search">Suchbegriff:</label>
-                    <input type="text" id="search_query" name="search_query" placeholder="Geben Sie Ihren Suchbegriff ein...">
-                </div>
-                <div class="form-group">
-                    <label for="category">Fakultät:</label>
-                    <select id="faculty" name="faculty">
-                        <option value="all">Alle Kategorien</option>
-                        <option value="video">Informatik</option>
-                        <option value="beitrag">Extern</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="category">Ressourcentyp:</label>
-                    <select id="ressource_type" name="ressource_type">
-                        <option value="all">Alle Kategorien</option>
-                        <option value="Video">Video</option>
-                        <option value="Bericht">Bericht</option>
-                        <option value="wissenschaftlich">Wissenschaftliche Arbeit</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <button type="submit">Suche starten</button>
-                </div>
-            </form>
-        </div>
-        <form action="{{ url_for('UI_add_ressource') }}" method="post">
-            <button type="submit" class="bottom-btn-container"> Ressource hinzufügen </button>
-        </form>
-    </aside>
-</main>
+        <aside class="sidebar">
+            <div class="search-container">
+                <h1>Suche</h1>
+                <form action="{{ url_for('UI_search_ressource')}}" method="post">
+                    <div class="form-group">
+                        <input type="hidden" name="page" value="1">
+                        <label for="search">Suchbegriff:</label>
+                        <input type="text" id="search_query" name="search_query" placeholder="Geben Sie Ihren Suchbegriff ein...">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Fakultät:</label>
+                        <select id="faculty" name="faculty">
+                            <option value="all">Alle Kategorien</option>
+                            <option value="video">Informatik</option>
+                            <option value="video">Naturwissenschaften</option>
+                            <option value="video">Mathematik</option>
+                            <option value="video">Maschinenbau</option>
+                            <option value="video">Elektrotechnik und Informationstechnik</option>
+                            <option value="video">Wirtschaftswissenschaften</option>
+                            <option value="video">Philosphie</option>
+                            <option value="video">Human- und Sozialwissenschaften</option>
+                            <option value="beitrag">Extern</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Ressourcentyp:</label>
+                        <select id="ressource_type" name="ressource_type">
+                            <option value="all">Alle Kategorien</option>
+                            <option value="Video">Video</option>
+                            <option value="Bericht">Bericht</option>
+                            <option value="wissenschaftlich">Wissenschaftliche Arbeit</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Suche starten</button>
+                    </div>
+                </form>
+            </div>
+            <div class="add-ressource-container">
+                <form action="{{ url_for('UI_add_ressource') }}" method="post">
+                    <!-- <button type="submit" class="bottom-btn-container"> Ressource hinzufügen </button> -->
+                    <button type="submit"> Ressource hinzufügen </button>
+                </form>
+            </div>
+
+        </aside>
+    </main>
         
 
     <footer>

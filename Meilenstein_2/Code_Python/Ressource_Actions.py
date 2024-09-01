@@ -70,8 +70,8 @@ class Ressource_Actions:
             if random_number in random_numbers:
                 pass
             else:
-                random_numbers.add(random_number)
-                to_return.add(result[random_number])
+                random_numbers.append(random_number)   #geändert 
+                to_return.append(result[random_number])
 
         return result
 
