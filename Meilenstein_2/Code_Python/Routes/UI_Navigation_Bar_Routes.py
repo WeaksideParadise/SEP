@@ -50,7 +50,7 @@ class Navigation_Bar_Routes:
                     return redirect(url_for("UI_index"))
                 
                 try:
-                    resources = self.ra.ressource_management.get_ressources_by_query("SELECT * FROM ressources")
+                    resources = self.ra.ressource_management.get_ressources_by_query("SELECT * FROM ressources",[])
                 except LookupError as e:
                     flash("Beim Laden der Ressourcen ist ein Fehler aufgetreten", "error")
                     return redirect(url_for("UI_index"))

@@ -94,10 +94,22 @@
                     {% for resource in resources %}
                     <!--Hier sollen alle Ressourcen aufgelistet werden (scrollbar)-->
                     <div class="lückenfüller">
+
+                        <!-- Form zum Anzeigen (Inspect) -->
                         <b>Ressource {{ resource.ressource_id }}</b>
-                        <button onclick="callPythonFunction()">Anzeigen</button>
-                        <button onclick="callPythonFunction()">Bearbeiten</button>
-                        <button onclick="callPythonFunction()">Löschen</button>
+                        <form action="{{ url_for('UI_inspect_ressource', ressource_id=resource.ressource_id) }}" method="post" style="display:inline;">
+                            <button type="submit">Anzeigen</button>
+                        </form>
+                    
+                        <!-- Form for Degradieren (Demote) -->
+                        <form action="{{ url_for('UI_change_ressource', ressource_id=resource.ressource_id) }}" method="post" style="display:inline;">
+                            <button type="submit">Bearbeiten</button>
+                        </form>
+                    
+                        <!-- Form for Löschen (Delete) -->
+                        <form action="{{ url_for('UI_delete_ressource', ressource_id=resource.ressource_id) }}" method="post" style="display:inline;">
+                            <button type="submit">Löschen</button>
+                        </form>
                     </div>
                     {% endfor %}
                 </div>
