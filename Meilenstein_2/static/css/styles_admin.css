@@ -22,9 +22,9 @@
 
 .col-users {
     overflow-y: scroll;
+    background-color: #e7e7e7;
     margin: 10px;
     width: 30%;
-    background-color: #e7e7e7;
     border-radius: 15px;
 }
 
@@ -37,19 +37,33 @@
 }
 
 .col-system {
-    overflow-y: scroll;
     margin: 10px;
     width: 30%;
-    background-color: #e7e7e7;
-    border-radius: 15px;
+    position: relative;
 }
 
 .row {
-    height: 50%;
-    border-bottom: 10px solid white;
+    background-color: #e7e7e7;
+    height: 48.5%;
+    width: 100%;
+    border-radius: 15px;
 }
 
-.lückerfüller{
+.top-row {
+    overflow-y: scroll;
+    position: absolute;
+    top: 0;
+}
+
+.bottom-row {
+    position: absolute;
+    bottom: 0;
+}
+
+.list-content-box {
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
 }

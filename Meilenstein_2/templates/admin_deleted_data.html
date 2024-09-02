@@ -59,91 +59,63 @@
         <div class="container-admin">
             <div>
                 <h1>Admin-Bereich</h1>
-                <p>Hier können Sie Nutzer und Ressourcen verwalten, sowie Systemeinstellungen vornehmen.</p>
+                <p>Hier sehen sie gelöschte Nutzer, sowie Ressourcen.</p>
             </div>
 
             <div class="admin-actions">
 
                 <div class="col-users">
-                    <p>Liste aller Nutzer</p>
+                    <p>Liste aller gelöschten Nutzer</p>
 
                     {% for user in users %}
                     <div class="list-content-box">
                         <div class="list-content-box-name">
                             <b>{{ user.user_id }}#{{ user.name }}</b>
                         </div>
-
+                        
                         <div class="list-content-box-actions">
-                            <!-- Form for Befördern (Promote) -->
-                            <form action="{{ url_for('UI_promote_user', user_id=user.user_id) }}" method="post" style="display:inline;">
-                                <button type="submit">Befördern</button>
-                            </form>
-                                
-                            <!-- Form for Degradieren (Demote) -->
-                            <form action="{{ url_for('UI_demote_user', user_id=user.user_id) }}" method="post" style="display:inline;">
-                                <button type="submit">Degradieren</button>
-                            </form>
-                                
-                            <!-- Form for Löschen (Delete) -->
-                            <form action="{{ url_for('UI_delete_user', user_id=user.user_id) }}" method="post" style="display:inline;">
-                                <button type="submit">Löschen</button>
+                            <!-- Form for Wiederherstellen -->
+                            <form method="post" style="display:inline;">
+                                <button type="submit">Wiederherstellen</button>
                             </form>
                         </div>
                     </div>
-                    {% endfor %}  
+                    {% endfor %}
 
                 </div>
 
                 <div class="col-ressources">
-                    <p>Liste aller Ressourcen</p>
+                    <p>Liste aller gelöschten Ressourcen</p>
 
                     {% for resource in resources %}
                     <div class="list-content-box">
+
                         <div class="list-content-box-name">
                             <b>Ressource {{ resource.ressource_id }}</b>
                         </div>
 
                         <div class="list-content-box-actions">
-                            <!-- Form zum Anzeigen (Inspect) -->
                             <form action="{{ url_for('UI_inspect_ressource', ressource_id=resource.ressource_id) }}" method="post" style="display:inline;">
                                 <button type="submit">Anzeigen</button>
                             </form>
-                        
-                            <!-- Form for Degradieren (Demote) -->
-                            <form action="{{ url_for('UI_change_ressource', ressource_id=resource.ressource_id) }}" method="post" style="display:inline;">
-                                <button type="submit">Bearbeiten</button>
-                            </form>
-                            
-                            <!-- Form for Löschen (Delete) -->
-                            <form action="{{ url_for('UI_delete_ressource', ressource_id=resource.ressource_id) }}" method="post" style="display:inline;">
-                                <button type="submit">Löschen</button>
-                            </form>
+    
+                            <!-- Form zum Wiederherstellen -->
+                            <form method="post" style="display:inline;">
+                                <button type="submit">Wiederherstellen</button>
+                            </form>                             
                         </div>
                     </div>
                     {% endfor %}
-                    
+
                 </div>
-                    
 
                 <div class="col-system">
                     <div class="row top-row">
-                        <p>Liste aller defekten Links</p>
-
-                        {% for report in reports %}
-                        <div class="list-content-box">
-                            <div class="list-content-box-name">
-                                <p>{{ report.id }}</p>
-                            </div>
-                            <div class="list-content-box-actions">
-                                
-                            </div>
-                        </div>
-                        {% endfor %}
-
+                        <b>Noch nix</b>
                     </div>
                     <div class="row bottom-row">
                         <p>Systemeinstellungen</p>
-                        <button>Zur Übersicht gelöschter Daten</button>
+                        <button>Zurück zur Übersicht</button>
                     </div>
                 </div>
 
