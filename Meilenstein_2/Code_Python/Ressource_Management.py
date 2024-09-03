@@ -21,6 +21,7 @@ class Ressource_Management:
             ressource = Ressource(result[0]["ressource_id"], 
                                   result[0]["name"],      
                                   result[0]["is_published"], 
+                                  result[0]["is_deleted"],
                                   result[0]["description"],
                                   result[0]["link"], 
                                   result[0]["created_by"],
@@ -51,6 +52,7 @@ class Ressource_Management:
             ressource = Ressource(element["ressource_id"], 
                                   element["name"],      
                                   element["is_published"], 
+                                  element["is_deleted"],
                                   element["description"],
                                   element["link"], 
                                   element["created_by"],
@@ -67,11 +69,11 @@ class Ressource_Management:
     # Speichert eine Ressource in der Datenbank (UPDATE)
     def save_ressource(self, ressource: object) -> bool:
         if ressource.ressource_id == -1:
-            query = """INSERT INTO ressources (name, is_published, description, link, created_by, faculty, ressource_type, 
+            query = """INSERT INTO ressources (name, is_published, is_deleted description, link, created_by, faculty, ressource_type, 
                                    opening_hours, likes, experience_reports, ressource_tags) 
-                                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
             
-            t  = (ressource.name, ressource.is_published, ressource.description, ressource.link, ressource.created_by, ressource.faculty)
+            t  = (ressource.name, ressource.is_published, ressource.is_deleted, ressource.description, ressource.link, ressource.created_by, ressource.faculty)
             t += (ressource.ressource_type, ressource.opening_hours, ressource.likes, ressource.experience_reports, ressource.ressource_tags)
 
             try:
@@ -82,6 +84,7 @@ class Ressource_Management:
         else:
             query = """UPDATE ressources SET name               = %s, 
                                              is_published       = %s, 
+                                             is_deleted         = %s
                                              description        = %s, 
                                              link               = %s, 
                                              created_by         = %s, 
@@ -93,7 +96,7 @@ class Ressource_Management:
                                              ressource_tags     = %s 
                                              WHERE ressource_id = %s"""
             
-            t  = (ressource.name, ressource.is_published, ressource.description, ressource.link, ressource.created_by, ressource.faculty)
+            t  = (ressource.name, ressource.is_published, ressource.is_deleted, ressource.description, ressource.link, ressource.created_by, ressource.faculty)
             t += (ressource.ressource_type, ressource.opening_hours, ressource.likes, ressource.experience_reports, ressource.ressource_tags)
 
             try:
@@ -128,7 +131,7 @@ class Ressource_Management:
         created_by = user.name + "#" + str(user.user_id)
 
         # -> Ressource anlegen und in DB speichern
-        ressource = Ressource(-1, name, is_published, description, link, created_by, faculty, ressource_type, opening_hours, "X", "X", "X")
+        ressource = Ressource(-1, name, is_published, False, description, link, created_by, faculty, ressource_type, opening_hours, "X", "X", "X")
         
         saved = self.save_ressource(ressource)
 
@@ -162,20 +165,19 @@ class Ressource_Management:
         except LookupError as e:
             return False
     
-    def delete_ressource(self, ressource_id: int, reason: str) -> bool:
+    def delete_ressource(self, ressource_id: int, user_id: int, reason: str) -> bool:
 
         try: 
             ressource = self.get_ressource_by_id(ressource_id)
         except LookupError as e:
             return False
 
-        ressource.name = "Deleted"
-        ressource.is_published = False
-        ressource.link = None
+        ressource.is_deleted = True
+        ressource_is_published = False
 
-        query = """INSERT INTO deleted_ressources (ressource_id, reason) VALUES (%s , %s)"""
+        query = """INSERT INTO deleted_ressources (ressource_id, user_id, reason) VALUES (%s , %s)"""
         try:
-            result = self.db_connection.execute_query(query, (ressource_id, reason))
+            result = self.db_connection.execute_query(query, (ressource_id, user_id, reason))
         except LookupError as e:
             return False
         try:

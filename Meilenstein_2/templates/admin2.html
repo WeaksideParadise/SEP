@@ -59,18 +59,19 @@
         <div class="container-admin">
             <div>
                 <h1>Admin-Bereich</h1>
-                <p>Hier sehen sie gelöschte Nutzer, sowie Ressourcen.</p>
+                <p>Hier sehen sie gelöschte Ressourcen und Meldungen</p>
             </div>
 
             <div class="admin-actions">
 
                 <div class="col-users">
-                    <p>Liste aller gelöschten Nutzer</p>
+                    <p>Liste aller Meldungen</p>
 
-                    {% for user in users %}
+                    {% for report in reports %}
                     <div class="list-content-box">
                         <div class="list-content-box-name">
-                            <b>{{ user.user_id }}#{{ user.name }}</b>
+                            <b> Meldung von Ressource {{ report.ressource_id }} von {{ report.user_tag }}</b>
+                            <b> Grund: "{{ report.reason }}"</b>
                         </div>
                         
                         <div class="list-content-box-actions">
@@ -87,11 +88,12 @@
                 <div class="col-ressources">
                     <p>Liste aller gelöschten Ressourcen</p>
 
-                    {% for resource in resources %}
+                    {% for resource in deleted_ressources %}
                     <div class="list-content-box">
 
                         <div class="list-content-box-name">
-                            <b>Ressource {{ resource.ressource_id }}</b>
+                            <b>Ressource {{ resource.ressource_id }} gelöscht von Nutzer {{resource.user_id}}</b>
+                            <b>Grund: "{{resource.reason}}"</b>
                         </div>
 
                         <div class="list-content-box-actions">
@@ -115,7 +117,9 @@
                     </div>
                     <div class="row bottom-row">
                         <p>Systemeinstellungen</p>
-                        <button>Zurück zur Übersicht</button>
+                        <form action="{{ url_for('UI_admin_panel',)}}" method="post" style="display:inline;">
+                            <button type="submit">Zurück zur Nutzer- und Ressourcenverwaltung</button>
+                        </form>
                     </div>
                 </div>
 
