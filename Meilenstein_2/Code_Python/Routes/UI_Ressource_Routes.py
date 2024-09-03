@@ -20,12 +20,16 @@ class Ressource_Routes:
             results = []
             is_random = True
             page = 1
+            search_query = ""
+            faculty = ""
+            ressource_type = ""
+            
             if request.method == "POST":
                 is_random = False
                 search_query   = request.form.get("search_query")
                 ressource_type = request.form.get("ressource_type")
                 faculty        = request.form.get("faculty")
-                page           = int(request.form.get("page"))
+                page           = int(request.form.get("page", 1))
                 if search_query == None:
                     search_query = ""
                 if ressource_type == "all":
@@ -49,12 +53,12 @@ class Ressource_Routes:
                 
             ressources_per_page = 5
             total_pages = math.ceil((len(results) / ressources_per_page))
-            paged_ressources = results[(1-page)*ressources_per_page:page*ressources_per_page]
+            paged_ressources = results[(page-1)*ressources_per_page:page*ressources_per_page]
 
-            if not is_random:
+            if not is_random and page == 1:
                 flash(f"Es wurden {len(results)} Ergebnisse gefunden", "success")    
             
-            return render_template("search.html", results=paged_ressources, page=page, total_pages=total_pages) #searched_query=search_query, searched_faculty=faculty, searched_type=ressource_type)
+            return render_template("search.html", results=paged_ressources, page=page, total_pages=total_pages, searched_query=search_query, searched_faculty=faculty, searched_type=ressource_type)
         
         @self.app.route("/inspect_ressource", methods = ["GET","POST"])
         def UI_inspect_ressource():
