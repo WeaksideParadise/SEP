@@ -4,7 +4,7 @@ from Code_Python.Database import Database
 from Code_Python.User_Management import User_Management
 from Code_Python.User import User
 
-class TestUserManagement(unittest.TestCase):
+class test_UserManagement(unittest.TestCase):
 
     def setUp(self):
         # Erstellen eines Mock-Datenbankobjekts
@@ -158,6 +158,3 @@ class TestUserManagement(unittest.TestCase):
         
         result = self.user_management.logout_user(1)
         self.assertTrue(result)
-
-if __name__ == '__main__':
-    unittest.main()

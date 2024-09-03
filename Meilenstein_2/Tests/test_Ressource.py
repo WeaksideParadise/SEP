@@ -1,7 +1,7 @@
 import unittest
 from Code_Python.Ressource import Ressource
 
-class TestRessource(unittest.TestCase):
+class test_Ressource(unittest.TestCase):
     
     def setUp(self):
         # Setup eine Ressource Instanz für Tests
@@ -74,6 +74,3 @@ class TestRessource(unittest.TestCase):
         # Testet, ob ein ungültiger Link korrekt gesetzt wird
         with self.assertRaises(ValueError):
             self.ressource.link = None
-
-if __name__ == '__main__':
-    unittest.main()

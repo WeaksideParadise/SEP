@@ -1,7 +1,7 @@
 import unittest
 from Code_Python.User_Management import User
 
-class TestUser(unittest.TestCase):
+class test_User(unittest.TestCase):
 
     def setUp(self):
         # Setup eine User Instanz für Tests
@@ -62,6 +62,3 @@ class TestUser(unittest.TestCase):
         # Testet, ob eine ungültige User ID korrekt behandelt wird
         with self.assertRaises(ValueError):
             self.user.user_id = -10
-
-if __name__ == '__main__':
-    unittest.main()

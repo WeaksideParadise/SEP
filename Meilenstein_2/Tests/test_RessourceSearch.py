@@ -5,7 +5,7 @@ from Code_Python.Ressource_Management import Ressource_Management
 from Code_Python.Ressource_Search import Ressource_Search
 from Code_Python.Ressource import Ressource
 
-class TestRessourceSearch(unittest.TestCase):
+class test_RessourceSearch(unittest.TestCase):
 
     def setUp(self):
         # Mock-Datenbank und Ressource_Management Objekte erstellen
@@ -106,6 +106,3 @@ class TestRessourceSearch(unittest.TestCase):
 
         with self.assertRaises(LookupError):
             self.ressource_search.search_ressource()
-
-if __name__ == '__main__':
-    unittest.main()

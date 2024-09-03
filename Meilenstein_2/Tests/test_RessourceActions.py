@@ -6,7 +6,7 @@ from Code_Python.Ressource import Ressource
 from Code_Python.Ressource_Management import Ressource_Management
 from Code_Python.Ressource_Actions import Ressource_Actions
 
-class TestRessourceActions(unittest.TestCase):
+class test_RessourceActions(unittest.TestCase):
 
     def setUp(self):
         self.mock_db = MagicMock(Database)
@@ -210,6 +210,3 @@ class TestRessourceActions(unittest.TestCase):
         self.mock_rm.save_ressource.return_value = False
         result = self.ressource_actions.add_experience_report(1, "test report")
         self.assertFalse(result)
-
-if __name__ == '__main__':
-    unittest.main()

@@ -5,7 +5,7 @@ from Code_Python.Ressource import Ressource
 from Code_Python.User_Management import User_Management
 from Code_Python.Ressource_Management import Ressource_Management
 
-class TestRessourceManagement(unittest.TestCase):
+class test_RessourceManagement(unittest.TestCase):
 
     def setUp(self):
         self.mock_db = MagicMock(Database)
@@ -146,7 +146,3 @@ class TestRessourceManagement(unittest.TestCase):
         # Assert
         self.assertTrue(result)
         self.mock_db.execute_query.assert_called()
-
-
-if __name__ == '__main__':
-    unittest.main()

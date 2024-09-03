@@ -3,7 +3,7 @@ from unittest.mock import patch, MagicMock
 from mysql.connector import Error
 from Code_Python.Database import Database
 
-class TestDatabase(unittest.TestCase):
+class test_Database(unittest.TestCase):
 
     @patch('mysql.connector.connect')
     def test_connect_success(self, mock_connect):
