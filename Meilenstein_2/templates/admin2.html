@@ -65,58 +65,78 @@
             <div class="admin-actions">
 
                 <div class="col-users">
-                    <p>Liste aller Meldungen</p>
+                    <h2>Liste aller Meldungen</h2>
 
                     {% for report in reports %}
-                    <div class="list-content-box">
-                        <div class="list-content-box-name">
-                            <b> Meldung von Ressource {{ report.ressource_id }} von {{ report.user_tag }}</b>
-                            <b> Grund: "{{ report.reason }}"</b>
+                    <div class="list-content-box-reports reports-box">
+                        <div class="list-content-box-name" style="display: flex; flex-direction: row;">
+                            <div class="reason-box">
+                                <b> Meldung von Ressource {{ report.ressource_id }} von {{ report.user_tag }}</b>
+                            </div>
+
+                            <div class="list-content-box-actions actions-box">
+                                <form method="post" style="margin:3px">
+                                    <button class="button-green" type="submit">&#128065;</button>
+                                </form>
+                                <form method="post" style="margin-top:3px; margin-bottom:3px">
+                                    <button class="button-red" type="submit">&#10006;</button>
+                                </form>
+                            </div>
                         </div>
+                    
+                        <div class="reason-box" style="margin-top: 7px">
+                            <b>Grund:</b>
+                            <br></br>
+                            <b>"{{ report.reason }}"</b>
+                        </div>    
                         
-                        <div class="list-content-box-actions">
-                            <!-- Form for Wiederherstellen -->
-                            <form method="post" style="display:inline;">
-                                <button type="submit">Wiederherstellen</button>
-                            </form>
-                        </div>
                     </div>
                     {% endfor %}
-
                 </div>
 
                 <div class="col-ressources">
-                    <p>Liste aller gelöschten Ressourcen</p>
+                    <h2>Liste aller gelöschten Ressourcen</h2>
+        
 
                     {% for resource in deleted_ressources %}
-                    <div class="list-content-box">
+                    <div class="list-content-box-reports reports-box">
 
-                        <div class="list-content-box-name">
-                            <b>Ressource {{ resource.ressource_id }} gelöscht von Nutzer {{resource.user_id}}</b>
-                            <b>Grund: "{{resource.reason}}"</b>
+                        <div class="list-content-box-name" style="display: flex; flex-direction: row;">
+
+                            <div class="reason-box">
+                                <b>Ressource {{ resource.ressource_id }} gelöscht von Nutzer {{resource.user_id}}</b>
+                            </div>
+
+                            <div class="list-content-box-actions actions-box">
+
+                                <form action="{{ url_for('UI_inspect_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:3px">
+                                    <button class="button-green" type="submit">Anzeigen</button>
+                                </form>
+                                <form method="post" style="margin:3px">
+                                    <button class="button-green" type="submit">Wiederherstellen</button>
+                                </form>                             
+                            </div>
                         </div>
 
-                        <div class="list-content-box-actions">
-                            <form action="{{ url_for('UI_inspect_ressource', ressource_id=resource.ressource_id) }}" method="post" style="display:inline;">
-                                <button type="submit">Anzeigen</button>
-                            </form>
-    
-                            <!-- Form zum Wiederherstellen -->
-                            <form method="post" style="display:inline;">
-                                <button type="submit">Wiederherstellen</button>
-                            </form>                             
+                        <div class="reason-box" style="margin-top: 7px">
+                            <b>Grund:</b>
+                            <br></br>                            
+                            <b>"{{resource.reason}}"</b>
                         </div>
+
                     </div>
                     {% endfor %}
+
+
 
                 </div>
 
                 <div class="col-system">
                     <div class="row top-row">
-                        <b>Noch nix</b>
+                        <h2>Noch nix</h2>
                     </div>
                     <div class="row bottom-row">
-                        <p>Systemeinstellungen</p>
+                        <h2>Systemeinstellungen</h2>
                         <form action="{{ url_for('UI_admin_panel',)}}" method="post" style="display:inline;">
                             <button type="submit">Zurück zur Nutzer- und Ressourcenverwaltung</button>
                         </form>

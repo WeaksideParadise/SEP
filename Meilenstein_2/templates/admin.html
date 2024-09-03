@@ -65,7 +65,7 @@
             <div class="admin-actions">
 
                 <div class="col-users">
-                    <p>Liste aller Nutzer</p>
+                    <h2>Liste aller Nutzer</h2>
 
                     {% for user in users %}
                     <div class="list-content-box">
@@ -95,7 +95,7 @@
                 </div>
 
                 <div class="col-ressources">
-                    <p>Liste aller Ressourcen</p>
+                    <h2>Liste aller Ressourcen</h2>
 
                     {% for resource in resources %}
                     <div class="list-content-box">
@@ -127,7 +127,13 @@
 
                 <div class="col-system">
                     <div class="row top-row">
-                        <p>Liste aller defekten Links</p>
+                        <div class="link-header">
+                            <h2>Liste aller defekten Links</h2>
+                            <form method="post">
+                                <button class="button-green bigger-icon" style="margin: 5px" type="submit">&#x21bb</button>
+                            </form>
+                        </div>
+
 
                         {% for report in reports %}
                         <div class="list-content-box">
@@ -142,7 +148,7 @@
 
                     </div>
                     <div class="row bottom-row">
-                        <p>Systemeinstellungen</p>
+                        <h2>Systemeinstellungen</h2>
                         <!-- Form for Löschen (Delete) -->
                         <form action="{{ url_for('UI_admin_panel_2') }}" method="post" style="display:inline;">
                             <button type="submit">Gelöschte Ressourcen und Meldungen</button>

@@ -89,7 +89,7 @@
 
 
             <!-- ----------------------Buttons: left-right ----------------------->
-            <div class="navigation-buttons">
+            <div class="navigation-buttons" style="align-items: center">
                 {% if page > 1 %}
                 <form action="{{ url_for('UI_search_ressource') }}" method="post" style="display:inline;">
                     <input type="hidden" name="page" value={{page-1}}>
