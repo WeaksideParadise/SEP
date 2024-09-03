@@ -26,7 +26,7 @@ class Ressource_Routes:
             
             if request.method == "POST":
                 is_random = False
-                search_query   = request.form.get("search_query")
+                search_query   = request.form.get("search_query", "")
                 ressource_type = request.form.get("ressource_type")
                 faculty        = request.form.get("faculty")
                 page           = int(request.form.get("page", 1))
