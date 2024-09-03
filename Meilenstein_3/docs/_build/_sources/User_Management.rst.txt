@@ -1,7 +1,7 @@
 User_Management Module
 ===============
 
-.. automodule:: User_Management
+.. automodule:: Code_Python.User_Management
     :members:
     :undoc-members:
     :show-inheritance:

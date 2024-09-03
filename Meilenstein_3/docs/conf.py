@@ -9,8 +9,10 @@
 
 import os
 import sys
-# add code path to environment
-sys.path.insert(0, os.path.abspath('../../Meilenstein_2/Code_Python'))
+# add code path to 
+codePath = os.path.abspath('../../Meilenstein_2/')
+
+sys.path.insert(0,codePath)
 
 project = 'Ressource Manager'
 copyright = '2024, Markus Meier, Tom Seidel, ...'

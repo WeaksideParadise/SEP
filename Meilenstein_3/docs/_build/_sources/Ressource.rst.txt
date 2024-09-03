@@ -1,7 +1,7 @@
 Ressource Module
 ===============
 
-.. automodule:: Ressource
+.. automodule:: Code_Python.Ressource
     :members:
     :undoc-members:
     :show-inheritance:

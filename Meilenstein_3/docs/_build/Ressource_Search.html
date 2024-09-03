@@ -53,7 +53,21 @@
 <li class="toctree-l1"><a class="reference internal" href="Ressource.html">Ressource Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Ressource_Management.html">Ressource_Management Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Ressource_Actions.html">Ressource_Actions Module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Ressource_Search Module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Ressource_Search Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Code_Python.Ressource_Search.Ressource_Search"><code class="docutils literal notranslate"><span class="pre">Ressource_Search</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Search.Ressource_Search._filter_ressource_tags"><code class="docutils literal notranslate"><span class="pre">Ressource_Search._filter_ressource_tags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Search.Ressource_Search._search_query"><code class="docutils literal notranslate"><span class="pre">Ressource_Search._search_query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Search.Ressource_Search.faculty_tag"><code class="docutils literal notranslate"><span class="pre">Ressource_Search.faculty_tag</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Search.Ressource_Search.opening_hours_tag"><code class="docutils literal notranslate"><span class="pre">Ressource_Search.opening_hours_tag</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Search.Ressource_Search.query"><code class="docutils literal notranslate"><span class="pre">Ressource_Search.query</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Search.Ressource_Search.ressource_type_tag"><code class="docutils literal notranslate"><span class="pre">Ressource_Search.ressource_type_tag</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Search.Ressource_Search.result"><code class="docutils literal notranslate"><span class="pre">Ressource_Search.result</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Search.Ressource_Search.search_ressource"><code class="docutils literal notranslate"><span class="pre">Ressource_Search.search_ressource()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Search.Ressource_Search.user_tags"><code class="docutils literal notranslate"><span class="pre">Ressource_Search.user_tags</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -82,6 +96,57 @@
              
   <section id="ressource-search-module">
 <h1>Ressource_Search Module<a class="headerlink" href="#ressource-search-module" title="Link to this heading"></a></h1>
+<dl class="py class" id="module-Code_Python.Ressource_Search">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Search.Ressource_Search">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Code_Python.Ressource_Search.</span></span><span class="sig-name descname"><span class="pre">Ressource_Search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_connection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Database.html#Code_Python.Database.Database" title="Code_Python.Database.Database"><span class="pre">Database</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Ressource_Management.html#Code_Python.Ressource_Management.Ressource_Management" title="Code_Python.Ressource_Management.Ressource_Management"><span class="pre">Ressource_Management</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">faculty_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ressource_type_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opening_hours_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Code_Python/Ressource_Search.html#Ressource_Search"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Search.Ressource_Search" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Search.Ressource_Search._filter_ressource_tags">
+<span class="sig-name descname"><span class="pre">_filter_ressource_tags</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Search.html#Ressource_Search._filter_ressource_tags"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Search.Ressource_Search._filter_ressource_tags" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Search.Ressource_Search._search_query">
+<span class="sig-name descname"><span class="pre">_search_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_return</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Search.html#Ressource_Search._search_query"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Search.Ressource_Search._search_query" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Search.Ressource_Search.faculty_tag">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">faculty_tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Code_Python.Ressource_Search.Ressource_Search.faculty_tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Search.Ressource_Search.opening_hours_tag">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">opening_hours_tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Code_Python.Ressource_Search.Ressource_Search.opening_hours_tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Search.Ressource_Search.query">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">query</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Code_Python.Ressource_Search.Ressource_Search.query" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Search.Ressource_Search.ressource_type_tag">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ressource_type_tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Code_Python.Ressource_Search.Ressource_Search.ressource_type_tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Search.Ressource_Search.result">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">result</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource"><span class="pre">Ressource</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#Code_Python.Ressource_Search.Ressource_Search.result" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Search.Ressource_Search.search_ressource">
+<span class="sig-name descname"><span class="pre">search_ressource</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Search.html#Ressource_Search.search_ressource"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Search.Ressource_Search.search_ressource" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Search.Ressource_Search.user_tags">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">user_tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Code_Python.Ressource_Search.Ressource_Search.user_tags" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
 

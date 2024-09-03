@@ -1,7 +1,7 @@
 Ressource_Actions Module
 ===============
 
-.. automodule:: Ressource_Actions
+.. automodule:: Code_Python.Ressource_Actions
     :members:
     :undoc-members:
     :show-inheritance:

@@ -1,7 +1,7 @@
 Database Module
 ===============
 
-.. automodule:: Database
+.. automodule:: Code_Python.Database
     :members:
     :undoc-members:
     :show-inheritance:

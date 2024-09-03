@@ -1,7 +1,7 @@
 User_Interface Module
 ===============
 
-.. automodule:: User_Interface
+.. automodule:: Code_Python.User_Interface
     :members:
     :undoc-members:
     :show-inheritance:

@@ -1,7 +1,7 @@
 Ressource_Search Module
 ===============
 
-.. automodule:: Ressource_Search
+.. automodule:: Code_Python.Ressource_Search
     :members:
     :undoc-members:
     :show-inheritance:

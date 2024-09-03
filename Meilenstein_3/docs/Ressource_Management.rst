@@ -1,7 +1,7 @@
 Ressource_Management Module
 ===============
 
-.. automodule:: Ressource_Management
+.. automodule:: Code_Python.Ressource_Management
     :members:
     :undoc-members:
     :show-inheritance:
