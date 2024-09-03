@@ -1,8 +1,9 @@
 class Ressource:
-    def __init__(self, ressource_id: int, name: str, is_published: bool, description: str, link: str, created_by: str, faculty: str, ressource_type: str, opening_hours: str, likes: list[int], experience_reports: str, ressource_tags: list[str]):
+    def __init__(self, ressource_id: int, name: str, is_published: bool, is_deleted: bool, description: str, link: str, created_by: str, faculty: str, ressource_type: str, opening_hours: str, likes: list[int], experience_reports: str, ressource_tags: list[str]):
         self._ressource_id = ressource_id                # Primärschlüssel
         self._name = name                                # Maximal 128 Zeichen
         self._is_published = is_published                # 
+        self._is_deleted = is_deleted
         self._description = description                  # Maximal 512 Zeichen
         self._link = link                                # Darf nicht None sein
         self._created_by = created_by                    # name#user_id
@@ -26,6 +27,10 @@ class Ressource:
     @property
     def is_published(self) -> bool:
         return self._is_published
+    
+    @property
+    def is_deleted(self) -> bool:
+        return self._is_deleted
 
     @property
     def description(self) -> str:
@@ -72,6 +77,10 @@ class Ressource:
     @is_published.setter
     def is_published(self, is_published: bool):
         self._is_published = is_published
+
+    @is_deleted.setter
+    def is_deleted(self, is_deleted: bool):
+        self._is_deleted = is_deleted
 
     @description.setter
     def description(self, description: str):

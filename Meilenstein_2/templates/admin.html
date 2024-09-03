@@ -143,7 +143,10 @@
                     </div>
                     <div class="row bottom-row">
                         <p>Systemeinstellungen</p>
-                        <button>Zur Übersicht gelöschter Daten</button>
+                        <!-- Form for Löschen (Delete) -->
+                        <form action="{{ url_for('UI_admin_panel_2') }}" method="post" style="display:inline;">
+                            <button type="submit">Gelöschte Ressourcen und Meldungen</button>
+                        </form>
                     </div>
                 </div>
 

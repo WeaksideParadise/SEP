@@ -56,9 +56,31 @@ class Navigation_Bar_Routes:
                     return redirect(url_for("UI_index"))
                 
                 try:
-                    reports = self.ra.fetch_reports()
+                    _invalid_link_reports = self.ra.fetch_invalid_link_reports()
                 except LookupError as e:
                     flash("Beim Laden der Ressourcenmeldungen ist ein Fehler aufgetreten", "error")
                     return redirect(url_for("UI_index"))
                 
-                return render_template("admin.html", users=users, resources=resources, reports=reports)
+                return render_template("admin.html", users=users, resources=resources, reports=_invalid_link_reports)
+            
+        @self.app.route("/admin2" ,methods = ["GET","POST"])
+        def UI_admin_panel_2():
+            if not session["role"] == "administrator" and not session["role"] == "moderator":
+                flash("Sie haben keine Rechte hierfür!", "error")
+                return redirect(url_for("UI_index"))
+            else:
+                
+                try:
+                    deleted_ressources = self.ra.fetch_deleted_ressources()
+                except LookupError as e:
+                    flash("Beim Laden der Nutzer ist ein Fehler aufgetreten", "error")
+                    return redirect(url_for("UI_index"))
+                
+                try:
+                    reports = self.ra.fetch_ressource_reports()
+                except LookupError as e:
+                    flash("Beim Laden der Ressourcen ist ein Fehler aufgetreten", "error")
+                    return redirect(url_for("UI_index"))
+            
+                
+                return render_template("admin2.html", deleted_ressources=deleted_ressources, reports=reports)

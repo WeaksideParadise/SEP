@@ -2,6 +2,7 @@ from Code_Python.Ressource            import Ressource
 from Code_Python.User_Management      import User_Management
 from Code_Python.Ressource_Actions    import Ressource_Actions
 from flask import *
+import math
 
 class Ressource_Routes:
     def __init__(self, app, um: User_Management, ra: Ressource_Actions):
@@ -47,8 +48,8 @@ class Ressource_Routes:
                     return redirect(url_for("UI_search"))
                 
             ressources_per_page = 5
-            total_pages = (len(results) // ressources_per_page) + 1
-            paged_ressources = results[1-page*ressources_per_page:page*ressources_per_page]
+            total_pages = math.ceil((len(results) / ressources_per_page))
+            paged_ressources = results[(1-page)*ressources_per_page:page*ressources_per_page]
 
             if not is_random:
                 flash(f"Es wurden {len(results)} Ergebnisse gefunden", "success")    

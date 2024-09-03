@@ -55,25 +55,16 @@ class Ressource_Actions:
     
     def fetch_5_random_ressources(self) -> list[Ressource]:
         try:
-            result = self.ressource_management.get_ressources_by_query("SELECT * FROM ressources WHERE name != %s", ["Deleted"])
+            result = self.ressource_management.get_ressources_by_query("SELECT * FROM ressources WHERE is_deleted = %s", [0])
         except LookupError as e:
             raise LookupError
         
         if len(result) <= 5:
             return result
         
-        to_return = []
-        random_numbers = []
+        x = random.randint(0, len(result) - 5)
 
-        while(len(random_numbers)) < 5:
-            random_number = random.randint(0,len(result)-1)
-            if random_number in random_numbers:
-                pass
-            else:
-                random_numbers.append(random_number)   #geändert 
-                to_return.append(result[random_number])
-
-        return result
+        return result[x:x+5]
 
     
     def search_ressources(self, search_query: str, ressource_type_tag: str, faculty_tag: str) -> list:
@@ -204,8 +195,26 @@ class Ressource_Actions:
             return False
         return True
     
-    def fetch_reports(self) -> list:
+    def fetch_invalid_link_reports(self) -> list:
+        query = """SELECT * FROM invalid_links"""
+
+        try:
+            result = self.db_connection.execute_query(query, ())
+        except LookupError as e:
+            raise LookupError
+        return result
+    
+    def fetch_ressource_reports(self) -> list:
         query = """SELECT * FROM ressource_reports"""
+
+        try:
+            result = self.db_connection.execute_query(query, ())
+        except LookupError as e:
+            raise LookupError
+        return result
+    
+    def fetch_deleted_ressources(self) -> list:
+        query = """SELECT * FROM deleted_ressources"""
 
         try:
             result = self.db_connection.execute_query(query, ())
