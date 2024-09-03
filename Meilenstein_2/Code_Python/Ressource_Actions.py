@@ -30,8 +30,8 @@ class Ressource_Actions:
     def check_links(self) -> bool:
 
         try:
-            query = """SELECT * FROM ressources WHERE name != %s"""
-            ressources = self.ressource_management.get_ressources_by_query(query, "Deleted")
+            query = """SELECT * FROM ressources WHERE is_deleted != %s"""
+            ressources = self.ressource_management.get_ressources_by_query(query, [1])
         except LookupError as e:
             return False
         
@@ -54,6 +54,7 @@ class Ressource_Actions:
         return True
     
     def fetch_5_random_ressources(self) -> list[Ressource]:
+        
         try:
             result = self.ressource_management.get_ressources_by_query("SELECT * FROM ressources WHERE is_deleted = %s", [0])
         except LookupError as e:
@@ -61,10 +62,8 @@ class Ressource_Actions:
         
         if len(result) <= 5:
             return result
-        
-        x = random.randint(0, len(result) - 5)
-
-        return result[x:x+5]
+    
+        return random.sample(result, 5)
 
     
     def search_ressources(self, search_query: str, ressource_type_tag: str, faculty_tag: str) -> list:

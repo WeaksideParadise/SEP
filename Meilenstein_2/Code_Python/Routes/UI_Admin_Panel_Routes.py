@@ -16,6 +16,14 @@ class Admin_Panel_Routes:
         def UI_check_links():
             if not session["role"] == "administrator" and not session["role"] == "moderator":
                 flash("Du hast keine Rechte für diese Aktion", "error")
+                return redirect(url_for("UI_index"))
+            
+            if self.ra.check_links():
+                flash("Links erfolgreich überprüft")
+                return redirect(url_for("UI_admin_panel"))
+            
+            flash("Fehler beim Überprüfen der Links")
+            return redirect(url_for("UI_admin_panel"))
         
         @self.app.route("/promote_user", methods = ["POST"])
         def UI_promote_user():
@@ -23,7 +31,7 @@ class Admin_Panel_Routes:
                 flash("Du hast keine Rechte für diese Aktion", "error")
                 return redirect(url_for("UI_index"))
             
-            if not self.um.promote_user_to_Admin(request.args.get("user_id")):
+            if not self.um.promote_user_to_Moderator(request.args.get("user_id")):
                 flash("Fehler beim Ausführen der Aktion", "error")
                 return redirect(url_for("UI_admin_panel"))
             
@@ -45,7 +53,7 @@ class Admin_Panel_Routes:
                 flash("Fehler beim Ausführen der Aktion", "error")
                 return redirect(url_for("UI_admin_panel"))
             
-            flash(f"Nutzer {request.args.get('user_id')} wurde auf degradiert", "success")
+            flash(f"Nutzer {request.args.get('user_id')} wurde degradiert", "success")
             return redirect(url_for("UI_admin_panel"))
 
             
