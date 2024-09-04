@@ -266,10 +266,8 @@ button:hover {
     margin: 5% auto; /* Zentrierung */
     padding: 20px;
     border: 1px solid #888;
-    width: 50%; /* Breite des Modal-Inhalts reduziert */
-    max-width: 600px; /* Maximalbreite des Modals weiter reduziert */
-    height: auto; /* Höhe des Modals wird automatisch an den Inhalt angepasst */
-    max-height: 80%; /* Maximalhöhe des Modals auf 80% des Sichtbereichs */
+    width: 60%; /* Breite des Modal-Inhalts reduziert */
+    height: 75%; /* Höhe des Modals wird automatisch an den Inhalt angepasst */
     overflow-y: auto; /* Ermöglicht Scrollen innerhalb des Modals bei Überlauf */
     position: relative;
     border-radius: 8px;
@@ -280,6 +278,50 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     position: relative;
+    width: 100%;
+}
+
+.id-name-like-x {
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    border: 2px solid black;
+}
+
+.desc-times {
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    border: 2px solid black;
+    width: 100%;
+    height: 80%;
+}
+
+.fak-type-created-pub{
+    display: flex;
+    flex-direction: column;
+}
+
+.created-pub {
+    display: flex;
+    flex-direction: row;
+}
+
+.desk-times-link {
+    width: 70%;
+    height: 100%;
+    border: 2px solid red;
+}
+
+.fak-type-created-pub-report{
+    width: 30%;
+    height: 100%;
+    border: 2px solid green;
+}
+
+.below-id-name-like-x {
+    display: flex;
+    flex-direction: row;
 }
 
 .back-arrow {
@@ -287,14 +329,14 @@ button:hover {
     cursor: pointer;
 }
 
-.close {
+/* .close {
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
     position: absolute;
     top: 10px;
     right: 10px;
-}
+} */
 
 .close:hover,
 .close:focus {
@@ -303,11 +345,9 @@ button:hover {
     cursor: pointer;
 }
 
-.modal-like {
-    position: absolute;
-    top: 10px;
-    right: 50px; /* Platzierung des Like-Buttons rechts neben dem Close-Button */
-}
+/* .modal-like {
+
+} */
 
 .like-button {
     background: none;
@@ -323,13 +363,15 @@ button:hover {
     display: flex;
     flex-direction: column; /* Informationen untereinander anordnen */
     margin-top: 20px;
-   flex-wrap: wrap; /* Elemente umbrechen */
+    flex-wrap: wrap; /* Elemente umbrechen */
     gap: 10px; /* Abstand zwischen den Feldern */
 }
 
 .resource-info {
     width: 100%;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .resource-info .form-group {
