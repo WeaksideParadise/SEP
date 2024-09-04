@@ -5,7 +5,7 @@ from Code_Python.Ressource_Management import Ressource_Management
 import requests
 import time
 import random
-
+from urllib.parse import urlparse
 
 class Ressource_Actions:
     def __init__(self, db_connection: Database, ressource_management: Ressource_Management):
@@ -189,8 +189,7 @@ class Ressource_Actions:
         trusted_domains = [
             "tu-chemnitz.de", 
             "uni-chemnitz.de",
-            "chemnitz.de",
-            "other-trusted-domain.de"  # Add more trusted domains as necessary
+            "chemnitz.de"  # Add more trusted domains as necessary
         ]
 
         # Extract the domain from the link
