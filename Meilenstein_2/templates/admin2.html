@@ -77,7 +77,7 @@
 
                             <div class="list-content-box-actions actions-box">
                                 <form method="post" style="margin:3px">
-                                    <button class="button-green" type="submit">&#128065;</button>
+                                    <button class="button-green" onclick="open_inspect_modal('{{ report.ressource_id }}')">&#128065;</button>
                                 </form>
                                 <form method="post" style="margin-top:3px; margin-bottom:3px">
                                     <button class="button-red" type="submit">&#10006;</button>
@@ -218,6 +218,8 @@
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/flash_messages.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ressource_inspect.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ressource_add.js') }}"></script>
 </body>
 </html>

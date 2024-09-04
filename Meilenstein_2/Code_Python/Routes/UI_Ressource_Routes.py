@@ -75,19 +75,25 @@ class Ressource_Routes:
                 ressource = self.ra.inspect_ressource(int(ressource_id))
 
                 if ressource:
-                    #if not ressource["is_published"]:
-                        #flash("Diese Ressource ist noch nicht öffentlich zugänglich", "error")
-                        #return redirect(url_for("UI_search"))
+                    # Rechte-Logik
+                    has_rights = False
+                    if session["role"] in ["administrator", "moderator"]:
+                        has_rights = True
 
+                    # is_published-Logik
+                    if not ressource[0].is_published and not has_rights:
+                        flash("Diese Ressource ist noch nicht öffentlich zugänglich", "error")
+                        return redirect(url_for("UI_search"))
+
+
+                    # Like-Logik
+                    is_liked = False
                     user_id = session["user_id"]
                     likes = ressource[0].likes.split("#")
-                    
+
                     if user_id in likes:
                         is_liked = True
-                    else:
-                        is_liked = False
 
-                    
                     return jsonify({"ressource_name":           ressource[0].name,
                                     "ressource_description":    ressource[0].description,
                                     "ressource_link":           ressource[0].link,
@@ -96,6 +102,8 @@ class Ressource_Routes:
                                     "ressource_ressource_type": ressource[0].ressource_type,
                                     "ressource_likes":          len(ressource[0].likes)-1,
                                     "ressource_opening_hours":  ressource[0].opening_hours,
+                                    "ressource_is_published":   ressource[0].is_published,
+                                    "has_rights":               has_rights,
                                     "ressource_is_liked":       is_liked})
                 
                 

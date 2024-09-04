@@ -62,7 +62,7 @@
 
                 {% for resource in results %}
                 <div class="resourcen-formular">
-                    <button class="button" onclick="open_inspect_modal('{{ resource.ressource_id }}')">&#128065;</button> <!-- Knopf mit Augensymbol -->
+                    <button class="button" onclick="open_inspect_modal('{{ resource.ressource_id }}', { ressource_id: 'rs_i_ressource_id', description: 'rs_i_description', link: 'rs_i_link', name: 'rs_i_name', hours: 'rs_i_opening_hours', faculty: 'rs_i_faculty', ressource_type: 'rs_i_ressource_type', created_by: 'rs_i_created_by', like_count: 'rs_i_like_count', is_published: 'rs_i_is_published'})">&#128065;</button> <!-- Knopf mit Augensymbol -->
                     <div>
                         <label for="name">Titel: {{ resource.name }}</label>
                     </div>
@@ -179,7 +179,7 @@
             
             <div class="modal-like">
                 <button class="like-button" onclick="like_ressource()">❤️
-                <input type="text" id="i_like_count" value="" readonly />
+                <input type="text" id="rs_i_like_count" value="" readonly />
                 </button>
             </div>
 
@@ -188,35 +188,39 @@
                 <form class="resource-info">
                     <div class="form-group">
                         <label for="id">ID:</label>
-                        <input type="text" id="i_ressource_id" name="link">
+                        <input type="text" id="rs_i_ressource_id" name="link">
                     </div>
                     <div class="form-group">
                         <label for="link">Link:</label>
-                        <input type="text" id="i_link" name="link">
+                        <input type="text" id="rs_i_link" name="link">
                     </div>
                     <div class="form-group">
                         <label for="beschreibung">Beschreibung:</label>
-                        <input type="text" id="i_description" name="beschreibung">
+                        <input type="text" id="rs_i_description" name="beschreibung">
                     </div>
                     <div class="form-group">
                         <label for="name">Name:</label>
-                        <input type="text" id="i_name" name="name">
+                        <input type="text" id="rs_i_name" name="name">
                     </div>
                     <div class="form-group">
                         <label for="offnungzeit">Öffnungszeit:</label>
-                        <input type="text" id="i_opening_hours" name="offnungzeit">
+                        <input type="text" id="rs_i_opening_hours" name="offnungzeit">
                     </div>
                     <div class="form-group">
                         <label for="fakultaet">Fakultät:</label>
-                        <input type="text" id="i_faculty" name="fakultaet">
+                        <input type="text" id="rs_i_faculty" name="fakultaet">
                     </div>
                     <div class="form-group">
                         <label for="typ">Typ:</label>
-                        <input type="text" id="i_ressource_type" name="typ">
+                        <input type="text" id="rs_i_ressource_type" name="typ">
                     </div>
                     <div class="form-group">
                         <label for="ersteller">Ersteller:</label>
-                        <input type="text" id="i_created_by" name="ersteller">
+                        <input type="text" id="rs_i_created_by" name="ersteller">
+                    </div>
+                    <div class="form-group">
+                        <label for="is_published">Ist veröffentlicht:</label>
+                        <input type="text" id="rs_i_is_published" name="is_published">
                     </div>
                 </form>
 
@@ -277,6 +281,8 @@
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/flash_messages.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ressource_inspect.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ressource_add.js') }}"></script>
 </body>
 </html>
