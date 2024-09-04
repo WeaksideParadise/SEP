@@ -62,9 +62,7 @@
 
                 {% for resource in results %}
                 <div class="resourcen-formular">
-                    <form action="{{ url_for('UI_inspect_ressource', ressource_id=resource.ressource_id) }}" method="post" style="display:inline;">
-                        <button type="submit" class="button">&#128065;</button>
-                    </form>
+                    <button class="button" onclick="open_inspect_modal('{{ resource.ressource_id }}')">&#128065;</button> <!-- Knopf mit Augensymbol -->
                     <div>
                         <label for="name">Titel: {{ resource.name }}</label>
                     </div>
@@ -169,6 +167,106 @@
     <footer>
         <p>&copy; 2024 Ressourcen-Portal. Alle Rechte vorbehalten.</p>
     </footer>
+
+    <!-- Modal-Fenster zum Anzeigen von Ressourcen -->
+    <div id="resourceModal" class="modal">
+        <div class="modal-content">
+            <!-- Header Bereich mit Zurück-Pfeil, Schließen-Knopf und Herz-Button -->
+            <div class="modal-header">
+                <!-- <span class="back-arrow" onclick="closeModal()">&#8592;</span> -->
+                <span class="close" onclick="close_inspect_modal()">&times;</span>
+            </div>
+            <div class="modal-like">
+                <button class="like-button" onclick="increaseLikes()">❤️ <span id="likeCount">123</span></button>
+            </div>
+
+            <!-- Content-Bereich für Ressource-Informationen -->
+            <div class="modal-body">
+                <form class="resource-info">
+                    <div class="form-group">
+                        <label for="link">Link:</label>
+                        <input type="text" id="link" name="link">
+                    </div>
+                    <div class="form-group">
+                        <label for="beschreibung">Beschreibung:</label>
+                        <input type="text" id="description" name="beschreibung">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="offnungzeit">Öffnungszeit:</label>
+                        <input type="text" id="opening_hours" name="offnungzeit">
+                    </div>
+                    <div class="form-group">
+                        <label for="fakultaet">Fakultät:</label>
+                        <input type="text" id="faculty" name="fakultaet">
+                    </div>
+                    <div class="form-group">
+                        <label for="typ">Typ:</label>
+                        <input type="text" id="ressource_type" name="typ">
+                    </div>
+                    <div class="form-group">
+                        <label for="ersteller">Ersteller:</label>
+                        <input type="text" id="created_by" name="ersteller">
+                    </div>
+                </form>
+
+                <!-- Meldesystem -->
+                <form class="report-system">
+                    <button type="button" onclick="alert('Kaputten Link melden!')">Kaputten Link melden</button>
+                    <button type="button" onclick="alert('Ressource melden!')">Ressource melden</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal-Fenster für das Hinzufügen von Ressourcen -->
+    <div id="addResourceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="back-arrow" onclick="closeAddResourceModal()">&#8592;</span>
+                <span class="close" onclick="closeAddResourceModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h2>Ressource Hinzufügen</h2>
+                <form action="#" method="post">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="beschreibung">Beschreibung:</label>
+                    <textarea id="beschreibung" name="beschreibung" rows="4" required></textarea>
+
+                    <label for="ressourcentyp">Ressourcentyp:</label>
+                    <select id="ressourcentyp" name="ressourcentyp" required>
+                        <option value="Artikel">Artikel</option>
+                        <option value="Buch">Buch</option>
+                        <option value="Video">Video</option>
+                        <option value="Sonstiges">Sonstiges</option>
+                    </select>
+
+                    <label for="fakultaet">Fakultät:</label>
+                    <select id="fakultaet" name="fakultaet" required>
+                        <option value="Informatik">Informatik</option>
+                        <option value="Wirtschaft">Wirtschaft</option>
+                        <option value="Medizin">Medizin</option>
+                        <option value="Ingenieurwesen">Ingenieurwesen</option>
+                        <option value="Rechtswissenschaften">Rechtswissenschaften</option>
+                    </select>
+
+                    <label for="link">Link:</label>
+                    <input type="url" id="link" name="link" required>
+
+                    <label for="oeffnungszeiten">Öffnungszeiten:</label>
+                    <input type="text" id="oeffnungszeiten" name="oeffnungszeiten" required>
+
+                    <button type="submit">Hinzufügen</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
