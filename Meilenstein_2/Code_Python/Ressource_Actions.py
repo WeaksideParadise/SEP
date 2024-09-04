@@ -13,6 +13,7 @@ class Ressource_Actions:
         self.ressource_management = ressource_management
 
     def is_link_functional(self, link: str) -> bool:
+        """Controls if a Link gives an Error when trying to reach it."""
         try:
             # Make a request to the link to check its status
             response = requests.head(link, allow_redirects=True, timeout=5)
