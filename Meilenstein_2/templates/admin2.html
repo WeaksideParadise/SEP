@@ -76,9 +76,7 @@
                             </div>
 
                             <div class="list-content-box-actions actions-box">
-                                <form method="post" style="margin:3px">
-                                    <button class="button-green" onclick="open_inspect_modal('{{ report.ressource_id }}')">&#128065;</button>
-                                </form>
+                                    <button class="button-green" style="margin:3px" onclick="open_inspect_modal('{{ report.ressource_id }}', { ressource_id: 'admin2_i_ressource_id', description: 'admin2_i_description', link: 'admin2_i_link', name: 'admin2_i_name', hours: 'admin2_i_opening_hours', faculty: 'admin2_i_faculty', ressource_type: 'admin2_i_ressource_type', created_by: 'admin2_i_created_by', like_count: 'admin2_i_like_count', is_published: 'admin2_i_is_published'})">&#128065;</button>
                                 <form method="post" style="margin-top:3px; margin-bottom:3px">
                                     <button class="button-red" type="submit">&#10006;</button>
                                 </form>
@@ -110,7 +108,7 @@
 
                             <div class="list-content-box-actions actions-box">
 
-                                <button class="button-green" style="margin:3px" onclick="open_inspect_modal('{{ resource.ressource_id }}')">&#128065;</button>
+                                <button class="button-green" style="margin:3px" onclick="open_inspect_modal('{{ resource.ressource_id }}', { ressource_id: 'admin2_i_ressource_id', description: 'admin2_i_description', link: 'admin2_i_link', name: 'admin2_i_name', hours: 'admin2_i_opening_hours', faculty: 'admin2_i_faculty', ressource_type: 'admin2_i_ressource_type', created_by: 'admin2_i_created_by', like_count: 'admin2_i_like_count', is_published: 'admin2_i_is_published'})">&#128065;</button>
 
                                 <form method="post" style="margin-top:3px">
                                     <button class="button-green" type="submit"style="font-size:15px">Wiederherstellen</button>
@@ -174,35 +172,39 @@
                 <form class="resource-info">
                     <div class="form-group">
                         <label for="id">ID:</label>
-                        <input type="text" id="i_ressource_id" name="link">
+                        <input type="text" id="admin2_i_ressource_id" name="link">
                     </div>
                     <div class="form-group">
                         <label for="link">Link:</label>
-                        <input type="text" id="i_link" name="link">
+                        <input type="text" id="admin2_i_link" name="link">
                     </div>
                     <div class="form-group">
                         <label for="beschreibung">Beschreibung:</label>
-                        <input type="text" id="i_description" name="beschreibung">
+                        <input type="text" id="admin2_i_description" name="beschreibung">
                     </div>
                     <div class="form-group">
                         <label for="name">Name:</label>
-                        <input type="text" id="i_name" name="name">
+                        <input type="text" id="admin2_i_name" name="name">
                     </div>
                     <div class="form-group">
                         <label for="offnungzeit">Öffnungszeit:</label>
-                        <input type="text" id="i_opening_hours" name="offnungzeit">
+                        <input type="text" id="admin2_i_opening_hours" name="offnungzeit">
                     </div>
                     <div class="form-group">
                         <label for="fakultaet">Fakultät:</label>
-                        <input type="text" id="i_faculty" name="fakultaet">
+                        <input type="text" id="admin2_i_faculty" name="fakultaet">
                     </div>
                     <div class="form-group">
                         <label for="typ">Typ:</label>
-                        <input type="text" id="i_ressource_type" name="typ">
+                        <input type="text" id="admin2_i_ressource_type" name="typ">
                     </div>
                     <div class="form-group">
                         <label for="ersteller">Ersteller:</label>
-                        <input type="text" id="i_created_by" name="ersteller">
+                        <input type="text" id="admin2_i_created_by" name="ersteller">
+                    </div>
+                    <div class="form-group">
+                        <label for="is_published">Ist veröffentlicht:</label>
+                        <input type="text" id="admin2_i_is_published" name="is_published">
                     </div>
                 </form>
 
