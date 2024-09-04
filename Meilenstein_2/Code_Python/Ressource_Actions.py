@@ -102,7 +102,7 @@ class Ressource_Actions:
     
     def inspect_ressource_raw(self, ressource_id: int) -> dict[str, any]:
 
-        query = "SELECT * FROM users WHERE id = %s"
+        query = """SELECT * FROM users WHERE ressource_id = %s"""
 
         try:
             ressource = self.db_connection.execute_query(query, (ressource_id,))

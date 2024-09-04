@@ -2,7 +2,6 @@ from Code_Python.Ressource            import Ressource
 from Code_Python.User_Management      import User_Management
 from Code_Python.Ressource_Actions    import Ressource_Actions
 from flask import *
-import json
 import math
 
 class Ressource_Routes:
@@ -64,24 +63,44 @@ class Ressource_Routes:
         @self.app.route("/inspect_ressource", methods = ["POST"])
         def UI_inspect_ressource():
             if request.method == "POST":
-                ressource_id = request.json.get("ressource_id")
+                
+                data = request.get_json()
+                
+                if not data:
+                    flash("Ein Fehler ist aufgetreten", "error")
+                    return redirect(url_for("UI_search"))
+                
+                ressource_id = data.get('ressource_id')
 
-                ressource = self.ra.inspect_ressource_raw(ressource_id)
+                ressource = self.ra.inspect_ressource(int(ressource_id))
 
                 if ressource:
                     #if not ressource["is_published"]:
                         #flash("Diese Ressource ist noch nicht öffentlich zugänglich", "error")
                         #return redirect(url_for("UI_search"))
-                    return jsonify({"ressource_name":        ressource.name,
-                                    "ressource_description":    ressource.description,
-                                    "ressource_link":           ressource.link,
-                                    "ressource_created_by":     ressource.created_by,
-                                    "ressource_faculty":        ressource.faculty,
-                                    "ressource_ressource_type": ressource.ressource_type,
-                                    "ressource_likes":          ressource.ressource_likes,
-                                    "ressource_opening_hours":  ressource.opening_hours})
+
+                    user_id = session["user_id"]
+                    likes = ressource[0].likes.split("#")
+                    
+                    if user_id in likes:
+                        is_liked = True
+                    else:
+                        is_liked = False
+
+                    
+                    return jsonify({"ressource_name":           ressource[0].name,
+                                    "ressource_description":    ressource[0].description,
+                                    "ressource_link":           ressource[0].link,
+                                    "ressource_created_by":     ressource[0].created_by,
+                                    "ressource_faculty":        ressource[0].faculty,
+                                    "ressource_ressource_type": ressource[0].ressource_type,
+                                    "ressource_likes":          len(ressource[0].likes)-1,
+                                    "ressource_opening_hours":  ressource[0].opening_hours,
+                                    "ressource_is_liked":       is_liked})
                 
-            return jsonify({"error": "Keine Ressource-ID bereitgestellt"}), 400
+                
+            flash("Ein Fehler ist aufgetreten", "error")
+            return redirect(url_for("UI_search"))
             
         @self.app.route("/report_ressource", methods = ["GET","POST"])
         def UI_report_ressource():
@@ -114,6 +133,25 @@ class Ressource_Routes:
                 if self.ra.ressource_management.add_ressource(user_id, name, description, link, faculty, ressource_type, opening_hours):
                     flash("Ressource erfolgreich angelegt", "success")
                     return redirect(url_for("UI_search"))
+
+            flash("Es ist ein Fehler aufgetreten", "error")
+            return redirect(url_for("UI_add_res"))
+        
+        @self.app.route("/like_ressource", methods = ["POST"])
+        def UI_like_ressource():
+            user_id = session["user_id"]
+            
+            if request.method == "POST":
+                data = request.get_json()
+                if not data:
+                    flash("Beim Liken der Ressource ist ein Fehler aufgetreten", "error")
+                    return redirect(url_for("UI_search"))
+
+                ressource_id = request.form.get("ressource_id")
+
+                
+                if self.ra.like_ressource(ressource_id, user_id):
+                    return jsonify({"status": 1})
 
             flash("Es ist ein Fehler aufgetreten", "error")
             return redirect(url_for("UI_add_res"))
