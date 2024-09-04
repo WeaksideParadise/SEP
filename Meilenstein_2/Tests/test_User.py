@@ -2,7 +2,7 @@ import unittest
 from Code_Python.User_Management import User
 
 class test_User(unittest.TestCase):
-
+#chatgpt tests für getter und setter
     def setUp(self):
         # Setup eine User Instanz für Tests
         self.user = User(

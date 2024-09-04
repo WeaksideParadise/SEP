@@ -2,7 +2,7 @@ import unittest
 from Code_Python.Ressource import Ressource
 
 class test_Ressource(unittest.TestCase):
-    
+    #chatgpt tests für getter und setter
     def setUp(self):
         # Setup eine Ressource Instanz für Tests
         self.ressource = Ressource(

@@ -15,8 +15,8 @@ codePath = os.path.abspath('../../Meilenstein_2/')
 sys.path.insert(0,codePath)
 
 project = 'Ressource Manager'
-copyright = '2024, Markus Meier, Tom Seidel, ...'
-author = 'Markus Meier, Tom Seidel, ...'
+copyright = '2024, Markus Meier, Tom Seidel, Robert Landgraf, Wael Azran, Marc Blechschmidt, Kasem'
+author = 'Markus Meier, Tom Seidel, Robert Landgraf, Wael Azran, Marc Blechschmidt, Kasem'
 release = '0.0.1'
 
 # -- General configuration ---------------------------------------------------
