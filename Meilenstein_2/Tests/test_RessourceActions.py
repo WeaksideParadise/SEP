@@ -5,6 +5,7 @@ from Code_Python.Database import Database
 from Code_Python.Ressource import Ressource
 from Code_Python.Ressource_Management import Ressource_Management
 from Code_Python.Ressource_Actions import Ressource_Actions
+from urllib.parse import urlparse
 
 class test_RessourceActions(unittest.TestCase):
 
