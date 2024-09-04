@@ -132,7 +132,7 @@ footer {
 button {
     width: 100%;
     padding: 10px;
-    background-color: #006400;
+    background-color: #005F50;
     color: white;
     border: none;
     border-radius: 3px;
@@ -140,7 +140,7 @@ button {
 }
 
 button:hover {
-    background-color: #004d00;
+    background-color: #004238;
 }
 
 /* --------------------------------------------------------------------------------------------------------- */
@@ -175,7 +175,7 @@ button:hover {
     width: 40px;
     height: 40px;
     display: inline-block;
-    background-color: #28a745;
+    background-color: #005F50;
     color: #fff;
     text-align: center;
     line-height: 40px;
@@ -343,7 +343,7 @@ button:hover {
 .report-system button {
     padding: 10px 15px; /* Padding angepasst, um die Buttons kleiner zu machen */
     margin-left: 10px;
-    background-color: #006400;
+    background-color: #005F50;
     color: white;
     border: none;
     border-radius: 3px;
@@ -351,5 +351,5 @@ button:hover {
 }
 
 .report-system button:hover {
-    background-color: #004d00;
+    background-color: #004238;
 }

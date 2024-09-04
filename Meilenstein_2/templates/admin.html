@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Admin-Bereich</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_search.css') }}"
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_general.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_flash.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_ressources.css') }}">
@@ -68,8 +69,8 @@
                     <h2>Liste aller Nutzer</h2>
 
                     {% for user in users %}
-                    <div class="list-content-box" style="align-items:center">
-                        <div class="list-content-box-name">
+                    <div class="list-content-box user-res-box" style="align-items:center">
+                        <div class="list-content-box-name" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">
                             <b>{{ user.user_id }}#{{ user.name }}</b>
                         </div>
 
@@ -98,24 +99,26 @@
                     <h2>Liste aller Ressourcen</h2>
 
                     {% for resource in resources %}
-                    <div class="list-content-box" style="align-items:center">
-                        <div class="list-content-box-name">
+                    <div class="list-content-box user-res-box" style="align-items:center">
+                        <div class="list-content-box-name" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">
                             <b>Ressource {{ resource.ressource_id }}</b>
                         </div>
 
                         <div class="list-content-box-actions actions-box">
                             <!-- Form zum Anzeigen (Inspect) -->
-                            <button class="button" onclick="open_inspect_modal('{{ resource.ressource_id }}')">&#128065;</button>
-                            </form>
+                            <div style="margin:2px">
+                                <button class="button-green" onclick="open_inspect_modal('{{ resource.ressource_id }}')">&#128065;</button>
+                            </div>
+                            
                         
                             <!-- Form for Degradieren (Demote) -->
                             <form action="{{ url_for('UI_change_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:2px">
-                                <button class="button-green" type="submit">Bearbeiten</button>
+                                <button class="button-green" type="submit" style="font-size: 15px">Bearbeiten</button>
                             </form>
                             
                             <!-- Form for Löschen (Delete) -->
                             <form action="{{ url_for('UI_delete_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:2px">
-                                <button class="button-green" type="submit">Löschen</button>
+                                <button class="button-green" type="submit" style="font-size: 15px">Löschen</button>
                             </form>
                         </div>
                     </div>
@@ -135,17 +138,19 @@
 
 
                         {% for report in reports %}
-                        <div class="list-content-box">
-                            <div class="list-content-box-name">
-                                <p>{{ report.id }}: {{report.ressource_id}} Link: {{ report.invalid_link }}</p>
+                        <div class="list-content-box link-box">
+                            <div class="list-content-box-name" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">
+                                <text>{{ report.id }}: {{report.ressource_id}} Link: {{ report.invalid_link }}</text>
                             </div>
-                            <div class="list-content-box-actions">
-                                
+
+                            <div class="list-content-box-actions actions-box" style="margin:3px">
+                                <button class="button-green" style="margin:3px">&#128065;</button>
+                                <button class="button-green" style="margin:3px; font-size: 15px">Veröffentlichen</button>
                             </div>
                         </div>
                         {% endfor %}
-
                     </div>
+                    
                     <div class="row bottom-row">
                         <h2>Systemeinstellungen</h2>
                         <!-- Form for Löschen (Delete) -->
