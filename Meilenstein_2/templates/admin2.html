@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_flash.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_ressources.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_admin.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
@@ -110,10 +111,10 @@
                             <div class="list-content-box-actions actions-box">
 
                                 <form action="{{ url_for('UI_inspect_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:3px">
-                                    <button class="button-green" type="submit">Anzeigen</button>
+                                    <button class="button-green" type="submit">&#128065;</button>
                                 </form>
                                 <form method="post" style="margin:3px">
-                                    <button class="button-green" type="submit">Wiederherstellen</button>
+                                    <button class="button-green" type="submit"style="font-size: 15px">Wiederherstellen</button>
                                 </form>                             
                             </div>
                         </div>
@@ -138,7 +139,7 @@
                     <div class="row bottom-row">
                         <h2>Systemeinstellungen</h2>
                         <form action="{{ url_for('UI_admin_panel',)}}" method="post" style="display:inline;">
-                            <button type="submit">Zurück zur Nutzer- und Ressourcenverwaltung</button>
+                            <button class="button-green" type="submit">Zurück zur Nutzer- und Ressourcenverwaltung</button>
                         </form>
                     </div>
                 </div>

@@ -68,25 +68,25 @@
                     <h2>Liste aller Nutzer</h2>
 
                     {% for user in users %}
-                    <div class="list-content-box">
+                    <div class="list-content-box" style="align-items:center">
                         <div class="list-content-box-name">
                             <b>{{ user.user_id }}#{{ user.name }}</b>
                         </div>
 
-                        <div class="list-content-box-actions">
+                        <div class="list-content-box-actions actions-box">
                             <!-- Form for Befördern (Promote) -->
-                            <form action="{{ url_for('UI_promote_user', user_id=user.user_id) }}" method="post" style="display:inline;">
-                                <button type="submit">Befördern</button>
+                            <form action="{{ url_for('UI_promote_user', user_id=user.user_id) }}" method="post" style="margin:2px">
+                                <button class="button-green" type="submit">Befördern</button>
                             </form>
                                 
                             <!-- Form for Degradieren (Demote) -->
-                            <form action="{{ url_for('UI_demote_user', user_id=user.user_id) }}" method="post" style="display:inline;">
-                                <button type="submit">Degradieren</button>
+                            <form action="{{ url_for('UI_demote_user', user_id=user.user_id) }}" method="post" style="margin:2px">
+                                <button class="button-green" type="submit">Degradieren</button>
                             </form>
                                 
                             <!-- Form for Löschen (Delete) -->
-                            <form action="{{ url_for('UI_delete_user', user_id=user.user_id) }}" method="post" style="display:inline;">
-                                <button type="submit">Löschen</button>
+                            <form action="{{ url_for('UI_delete_user', user_id=user.user_id) }}" method="post" style="margin:2px">
+                                <button class="button-green" type="submit">Löschen</button>
                             </form>
                         </div>
                     </div>
@@ -98,25 +98,25 @@
                     <h2>Liste aller Ressourcen</h2>
 
                     {% for resource in resources %}
-                    <div class="list-content-box">
+                    <div class="list-content-box" style="align-items:center">
                         <div class="list-content-box-name">
                             <b>Ressource {{ resource.ressource_id }}</b>
                         </div>
 
-                        <div class="list-content-box-actions">
+                        <div class="list-content-box-actions actions-box">
                             <!-- Form zum Anzeigen (Inspect) -->
-                            <form action="{{ url_for('UI_inspect_ressource', ressource_id=resource.ressource_id) }}" method="post" style="display:inline;">
-                                <button type="submit">Anzeigen</button>
+                            <form action="{{ url_for('UI_inspect_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:2px">
+                                <button class="button-green" type="submit">Anzeigen</button>
                             </form>
                         
                             <!-- Form for Degradieren (Demote) -->
-                            <form action="{{ url_for('UI_change_ressource', ressource_id=resource.ressource_id) }}" method="post" style="display:inline;">
-                                <button type="submit">Bearbeiten</button>
+                            <form action="{{ url_for('UI_change_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:2px">
+                                <button class="button-green" type="submit">Bearbeiten</button>
                             </form>
                             
                             <!-- Form for Löschen (Delete) -->
-                            <form action="{{ url_for('UI_delete_ressource', ressource_id=resource.ressource_id) }}" method="post" style="display:inline;">
-                                <button type="submit">Löschen</button>
+                            <form action="{{ url_for('UI_delete_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:2px">
+                                <button class="button-green" type="submit">Löschen</button>
                             </form>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                         <h2>Systemeinstellungen</h2>
                         <!-- Form for Löschen (Delete) -->
                         <form action="{{ url_for('UI_admin_panel_2') }}" method="post" style="display:inline;">
-                            <button type="submit">Gelöschte Ressourcen und Meldungen</button>
+                            <button class="button-green" type="submit">Gelöschte Ressourcen und Meldungen</button>
                         </form>
                     </div>
                 </div>

@@ -99,7 +99,8 @@
     align-items: center;
     width: 100%;
     padding: 10px;
-    background-color: #005F50;
+    /* background-color: #005F50; */ /* NICHT LÖSCHEN, ALTE BUTTON FARBE */
+    background-color: #017463;
     color: white;
     border: none;
     border-radius: 3px;
@@ -107,7 +108,8 @@
 }
 
 .button-green:hover {
-    background-color: #004238;
+    /* background-color: #004238; */ /* NICHT LÖSCHEN, ALTE BUTTON FARBE */
+    background-color: #025247;
 }
 
 .button-red {
