@@ -176,47 +176,57 @@
                 <!-- <span class="back-arrow" onclick="closeModal()">&#8592;</span> -->
                 <span class="close" onclick="close_inspect_modal()">&times;</span>
             </div>
+            
             <div class="modal-like">
-                <button class="like-button" onclick="increaseLikes()">❤️ <span id="likeCount">123</span></button>
+                <button class="like-button" onclick="like_ressource()">❤️
+                <input type="text" id="i_like_count" value="" readonly />
+                </button>
             </div>
 
             <!-- Content-Bereich für Ressource-Informationen -->
             <div class="modal-body">
                 <form class="resource-info">
                     <div class="form-group">
+                        <label for="id">ID:</label>
+                        <input type="text" id="i_ressource_id" name="link">
+                    </div>
+                    <div class="form-group">
                         <label for="link">Link:</label>
-                        <input type="text" id="link" name="link">
+                        <input type="text" id="i_link" name="link">
                     </div>
                     <div class="form-group">
                         <label for="beschreibung">Beschreibung:</label>
-                        <input type="text" id="description" name="beschreibung">
+                        <input type="text" id="i_description" name="beschreibung">
                     </div>
                     <div class="form-group">
                         <label for="name">Name:</label>
-                        <input type="text" id="name" name="name">
+                        <input type="text" id="i_name" name="name">
                     </div>
                     <div class="form-group">
                         <label for="offnungzeit">Öffnungszeit:</label>
-                        <input type="text" id="opening_hours" name="offnungzeit">
+                        <input type="text" id="i_opening_hours" name="offnungzeit">
                     </div>
                     <div class="form-group">
                         <label for="fakultaet">Fakultät:</label>
-                        <input type="text" id="faculty" name="fakultaet">
+                        <input type="text" id="i_faculty" name="fakultaet">
                     </div>
                     <div class="form-group">
                         <label for="typ">Typ:</label>
-                        <input type="text" id="ressource_type" name="typ">
+                        <input type="text" id="i_ressource_type" name="typ">
                     </div>
                     <div class="form-group">
                         <label for="ersteller">Ersteller:</label>
-                        <input type="text" id="created_by" name="ersteller">
+                        <input type="text" id="i_created_by" name="ersteller">
                     </div>
                 </form>
 
                 <!-- Meldesystem -->
                 <form class="report-system">
-                    <button type="button" onclick="alert('Kaputten Link melden!')">Kaputten Link melden</button>
-                    <button type="button" onclick="alert('Ressource melden!')">Ressource melden</button>
+
+                    <form action="{{ url_for('UI_report_ressource') }}" method="post" style="display:inline;">
+                        <!--<input type="hidden" name="ressource_id" value=""> -->
+                        <button type="button">Ressource melden</button>
+
                 </form>
             </div>
         </div>
