@@ -2,6 +2,7 @@ from Code_Python.Ressource            import Ressource
 from Code_Python.User_Management      import User_Management
 from Code_Python.Ressource_Actions    import Ressource_Actions
 from flask import *
+import json
 import math
 
 class Ressource_Routes:
@@ -62,7 +63,6 @@ class Ressource_Routes:
         
         @self.app.route("/inspect_ressource", methods = ["POST"])
         def UI_inspect_ressource():
-            flash("Hallo", "success")
             if request.method == "POST":
                 ressource_id = request.json.get("ressource_id")
 
@@ -72,7 +72,7 @@ class Ressource_Routes:
                     #if not ressource["is_published"]:
                         #flash("Diese Ressource ist noch nicht öffentlich zugänglich", "error")
                         #return redirect(url_for("UI_search"))
-                    return jsonify({"ressource_name":           ressource.name,
+                    return jsonify({"ressource_name":        ressource.name,
                                     "ressource_description":    ressource.description,
                                     "ressource_link":           ressource.link,
                                     "ressource_created_by":     ressource.created_by,

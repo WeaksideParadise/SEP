@@ -215,8 +215,11 @@
 
                 <!-- Meldesystem -->
                 <form class="report-system">
-                    <button type="button" onclick="alert('Kaputten Link melden!')">Kaputten Link melden</button>
-                    <button type="button" onclick="alert('Ressource melden!')">Ressource melden</button>
+
+                    <form action="{{ url_for('UI_report_ressource') }}" method="post" style="display:inline;">
+                        <!--<input type="hidden" name="ressource_id" value=""> -->
+                        <button type="button">Ressource melden</button>
+
                 </form>
             </div>
         </div>

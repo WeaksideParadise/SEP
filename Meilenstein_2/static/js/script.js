@@ -13,8 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function open_inspect_modal(ressource_id) {
+
+    document.getElementById("resourceModal").style.display = "block";
+    document.querySelector(".navigation-buttons").style.display = "none"; // Pfeile ausblenden
+
     // Fetch-API zum Senden der Anfrage an die Flask-Route
-    console.log("HI")
     fetch('/inspect_ressource', {
         method: 'POST', 
         headers: {
@@ -26,13 +29,13 @@ function open_inspect_modal(ressource_id) {
         
         .then(data => {
             // Ergebnis in eine lesbare Form umwandeln
-            document.getElementById('link').value = data.link;
-            document.getElementById('description').value = data.description;
-            document.getElementById('name').value = data.name;
-            document.getElementById('opening_hours').value = data.opening_hours;
-            document.getElementById('faculty').value = data.faculty;
+            document.getElementById('link').value = data.ressource_link;
+            document.getElementById('description').value = data.ressource_description;
+            document.getElementById('name').value = data.ressource_name;
+            document.getElementById('opening_hours').value = data.ressource_opening_hours;
+            document.getElementById('faculty').value = data.ressource_faculty;
             document.getElementById('ressource_type').value = data.ressource_type;
-            document.getElementById("created_by").value = data.created_by;
+            document.getElementById("created_by").value = data.ressource_created_by;
 
             document.getElementById("resourceModal").style.display = "block";
             document.querySelector(".navigation-buttons").style.display = "none"; // Pfeile ausblenden
