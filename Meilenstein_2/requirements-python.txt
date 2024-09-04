@@ -4,3 +4,5 @@ requests
 Flask
 flask_sqlalchemy
 flask_session
+sphinx
+sphinx-rtd-theme
