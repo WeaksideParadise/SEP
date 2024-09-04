@@ -98,6 +98,7 @@
 <div class="viewcode-block" id="Ressource_Actions.is_link_functional">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.is_link_functional">[Doku]</a>
     <span class="k">def</span> <span class="nf">is_link_functional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Controls if a Link gives an Error when trying to reach it.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># Make a request to the link to check its status</span>
             <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
@@ -118,8 +119,8 @@
     <span class="k">def</span> <span class="nf">check_links</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT * FROM ressources WHERE name != </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
-            <span class="n">ressources</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">get_ressources_by_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;Deleted&quot;</span><span class="p">)</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT * FROM ressources WHERE is_deleted != </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
+            <span class="n">ressources</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">get_ressources_by_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
         
@@ -145,26 +146,16 @@
 <div class="viewcode-block" id="Ressource_Actions.fetch_5_random_ressources">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.fetch_5_random_ressources">[Doku]</a>
     <span class="k">def</span> <span class="nf">fetch_5_random_ressources</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Ressource</span><span class="p">]:</span>
+        
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">get_ressources_by_query</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM ressources WHERE name != </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Deleted&quot;</span><span class="p">])</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">get_ressources_by_query</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM ressources WHERE is_deleted = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">LookupError</span>
         
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">result</span>
-        
-        <span class="n">to_return</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">random_numbers</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="k">while</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">random_numbers</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
-            <span class="n">random_number</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">random_number</span> <span class="ow">in</span> <span class="n">random_numbers</span><span class="p">:</span>
-                <span class="k">pass</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">random_numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random_number</span><span class="p">)</span>   <span class="c1">#geändert </span>
-                <span class="n">to_return</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">random_number</span><span class="p">])</span>
-
-        <span class="k">return</span> <span class="n">result</span></div>
+    
+        <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span></div>
 
 
     
@@ -320,10 +311,34 @@
         <span class="k">return</span> <span class="kc">True</span></div>
 
     
-<div class="viewcode-block" id="Ressource_Actions.fetch_reports">
-<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.fetch_reports">[Doku]</a>
-    <span class="k">def</span> <span class="nf">fetch_reports</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<div class="viewcode-block" id="Ressource_Actions.fetch_invalid_link_reports">
+<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.fetch_invalid_link_reports">[Doku]</a>
+    <span class="k">def</span> <span class="nf">fetch_invalid_link_reports</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT * FROM invalid_links&quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">())</span>
+        <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">LookupError</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+    
+<div class="viewcode-block" id="Ressource_Actions.fetch_ressource_reports">
+<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.fetch_ressource_reports">[Doku]</a>
+    <span class="k">def</span> <span class="nf">fetch_ressource_reports</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT * FROM ressource_reports&quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">())</span>
+        <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">LookupError</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+    
+<div class="viewcode-block" id="Ressource_Actions.fetch_deleted_ressources">
+<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.fetch_deleted_ressources">[Doku]</a>
+    <span class="k">def</span> <span class="nf">fetch_deleted_ressources</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT * FROM deleted_ressources&quot;&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">())</span>
