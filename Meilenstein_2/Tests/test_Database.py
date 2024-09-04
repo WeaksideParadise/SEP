@@ -3,7 +3,7 @@ from unittest.mock import patch, MagicMock
 from mysql.connector import Error
 from Code_Python.Database import Database
 class test_Database(unittest.TestCase):
-
+#chatgpt tests für getter und setter
     @patch('mysql.connector.connect')
     def test_connect_success(self, mock_connect):
         # Arrange

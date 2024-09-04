@@ -64,6 +64,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.fetch_invalid_link_reports"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.fetch_invalid_link_reports()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.fetch_ressource_reports"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.fetch_ressource_reports()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.inspect_ressource"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.inspect_ressource()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.inspect_ressource_raw"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.inspect_ressource_raw()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.is_link_functional"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.is_link_functional()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.like_ressource"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.like_ressource()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.publish_ressource"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.publish_ressource()</span></code></a></li>
@@ -102,9 +103,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="ressource-actions-module">
-<h1>Ressource_Actions Module<a class="headerlink" href="#ressource-actions-module" title="Link to this heading"></a></h1>
-<dl class="py class" id="module-Code_Python.Ressource_Actions">
+  <section id="module-Code_Python.Ressource_Actions">
+<span id="ressource-actions-module"></span><h1>Ressource_Actions Module<a class="headerlink" href="#module-Code_Python.Ressource_Actions" title="Link to this heading"></a></h1>
+<dl class="py class">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Code_Python.Ressource_Actions.</span></span><span class="sig-name descname"><span class="pre">Ressource_Actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_connection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Database.html#Code_Python.Database.Database" title="Code_Python.Database.Database"><span class="pre">Database</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ressource_management</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Ressource_Management.html#Code_Python.Ressource_Management.Ressource_Management" title="Code_Python.Ressource_Management.Ressource_Management"><span class="pre">Ressource_Management</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -151,6 +152,11 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.inspect_ressource">
 <span class="sig-name descname"><span class="pre">inspect_ressource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource"><span class="pre">Ressource</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.inspect_ressource"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.inspect_ressource" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.inspect_ressource_raw">
+<span class="sig-name descname"><span class="pre">inspect_ressource_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.inspect_ressource_raw"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.inspect_ressource_raw" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -204,7 +210,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Markus Meier, Tom Seidel, ....</p>
+    <p>&#169; Copyright 2024, Markus Meier, Tom Seidel, Robert Landgraf, Wael Azran, Marc Blechschmidt, Kasem.</p>
   </div>
 
   Erstellt mit <a href="https://www.sphinx-doc.org/">Sphinx</a> mit einem
