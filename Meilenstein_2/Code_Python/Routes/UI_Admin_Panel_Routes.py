@@ -19,10 +19,10 @@ class Admin_Panel_Routes:
                 return redirect(url_for("UI_index"))
             
             if self.ra.check_links():
-                flash("Links erfolgreich überprüft")
+                flash("Links erfolgreich überprüft", "success")
                 return redirect(url_for("UI_admin_panel"))
             
-            flash("Fehler beim Überprüfen der Links")
+            flash("Fehler beim Überprüfen der Links", "error")
             return redirect(url_for("UI_admin_panel"))
         
         @self.app.route("/promote_user", methods = ["POST"])

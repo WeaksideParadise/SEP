@@ -37,6 +37,15 @@ class Ressource_Actions:
         
         for ressource in ressources:
             if not self.is_link_functional(ressource.link):
+
+                check_query = """SELECT * FROM invalid_links WHERE ressource_id = %s"""
+
+                try:
+                    result = self.db_connection.execute_query(check_query, (ressource.ressource_id,))
+                    if result:
+                        continue
+                except LookupError as e:
+                    return False
                 
                 link_query = """INSERT INTO invalid_links (ressource_id, invalid_link) VALUES (%s, %s)"""
                 
@@ -81,7 +90,7 @@ class Ressource_Actions:
         except LookupError as e:
             raise LookupError
         
-    def inspect_ressource(self, ressource_id: int) -> list[Ressource]:
+    def inspect_ressource(self, ressource_id: int,) -> list[Ressource]:
 
         try:
             ressource = self.ressource_management.get_ressource_by_id(ressource_id)
@@ -90,6 +99,16 @@ class Ressource_Actions:
         if not ressource.is_published:
             return []
         return [ressource]
+    
+    def inspect_ressource_raw(self, ressource_id: int) -> dict[str, any]:
+
+        query = "SELECT * FROM users WHERE id = %s"
+
+        try:
+            ressource = self.db_connection.execute_query(query, (ressource_id,))
+        except LookupError as e:
+            raise {}
+        return ressource
 
     # Bonus 
     # noch nicht getestet

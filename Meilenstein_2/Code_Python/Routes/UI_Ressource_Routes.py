@@ -60,19 +60,28 @@ class Ressource_Routes:
             
             return render_template("search.html", results=paged_ressources, page=page, total_pages=total_pages, searched_query=search_query, searched_faculty=faculty, searched_type=ressource_type)
         
-        @self.app.route("/inspect_ressource", methods = ["GET","POST"])
+        @self.app.route("/inspect_ressource", methods = ["POST"])
         def UI_inspect_ressource():
-            
+            flash("Hallo", "success")
             if request.method == "POST":
-                ressource_id = request.form.get("ressource_id")
+                ressource_id = request.json.get("ressource_id")
 
-                ressource = self.ra.inspect_ressource(ressource_id)
+                ressource = self.ra.inspect_ressource_raw(ressource_id)
 
                 if ressource:
-                    return render_template("inspect_ressource.html", ressource = ressource[0])
+                    #if not ressource["is_published"]:
+                        #flash("Diese Ressource ist noch nicht öffentlich zugänglich", "error")
+                        #return redirect(url_for("UI_search"))
+                    return jsonify({"ressource_name":           ressource.name,
+                                    "ressource_description":    ressource.description,
+                                    "ressource_link":           ressource.link,
+                                    "ressource_created_by":     ressource.created_by,
+                                    "ressource_faculty":        ressource.faculty,
+                                    "ressource_ressource_type": ressource.ressource_type,
+                                    "ressource_likes":          ressource.ressource_likes,
+                                    "ressource_opening_hours":  ressource.opening_hours})
                 
-            flash("Es ist ein Fehler aufgetreten", "error")
-            return redirect(url_for("UI_search"))
+            return jsonify({"error": "Keine Ressource-ID bereitgestellt"}), 400
             
         @self.app.route("/report_ressource", methods = ["GET","POST"])
         def UI_report_ressource():

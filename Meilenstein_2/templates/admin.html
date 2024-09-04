@@ -129,8 +129,8 @@
                     <div class="row top-row">
                         <div class="link-header">
                             <h2>Liste aller defekten Links</h2>
-                            <form method="post">
-                                <button class="button-green bigger-icon" style="margin: 5px" type="submit">&#x21bb</button>
+                            <form action="{{ url_for('UI_check_links') }}" method="post" style="margin: 5px">
+                                <button class= "button-green bigger-icon" type="submit">&#x21bb</button>
                             </form>
                         </div>
 
@@ -138,7 +138,7 @@
                         {% for report in reports %}
                         <div class="list-content-box">
                             <div class="list-content-box-name">
-                                <p>{{ report.id }}</p>
+                                <p>{{ report.id }}: {{report.ressource_id}} Link: {{ report.invalid_link }}</p>
                             </div>
                             <div class="list-content-box-actions">
                                 

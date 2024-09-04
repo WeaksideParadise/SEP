@@ -4,23 +4,19 @@ html, body {
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
-    overflow: hidden; /* Verhindert jegliches Scrollen die seite */
+    overflow: hidden; /* Verhindert das Scrollen des Viewports */
 }
 
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-   
-   
 }
 
-
 header {
-    background-color: #005F50; /* Dunkelgrün */
+    background-color: #006400; /* Dunkelgrün */
     color: white;
     padding: 10px 10px;
-    
 }
 
 header .header-content {
@@ -32,12 +28,14 @@ header .header-content {
 header .logo img {
     height: 50px;
 }
+
 header nav ul {
     list-style: none;
     display: flex;
     margin: 0;
     padding: 0;
 }
+
 header nav ul li {
     margin-right: 20px;
 }
@@ -52,8 +50,8 @@ header nav ul li a:hover {
     text-decoration: underline;
 }
 
-footer { 
-    background-color: #005F50;
+footer {
+    background-color: #006400;
     color: white;
     padding: 10px;
     text-align: center;
@@ -62,36 +60,30 @@ footer {
 .main-content {
     display: flex;
     flex: 1;
-  overflow: hidden;/* Verhindert jegliches Scrollen in main */
+    overflow: hidden; /* Verhindert das Scrollen in der gesamten Hauptinhalt */
+    position: relative; /* Wichtig für die Platzierung der Navigation-Buttons */
 }
 
 .content {
-    flex: 3;/* Nimmt 3 Teile des verfügbaren Platzes ein */
-     
+    flex: 3; /* Nimmt 3 Teile des verfügbaren Platzes ein */
     padding: 20px;
-    overflow-y: auto; /* Erm?glicht nur vertikales Scrollen innerhalb des Inhalts */
-    height: 100%; /* Stellt sicher, dass .content die volle H?he einnimmt */
-  
+    overflow-y: auto; /* Ermöglicht nur vertikales Scrollen innerhalb des Inhalts */
+    height: 100%; /* Stellt sicher, dass .content die volle Höhe einnimmt */
+    position: relative;
 }
 
 .sidebar {
     flex: 1;
     display: flex;
     flex-direction: column;
-/*     justify-content: space-between; */
+    justify-content: space-between;
     padding: 20px;
     background-color: #ddd;
-    overflow: hidden; /* Verhindert jegliches Scrollen in der Sidebar */
-    height: 100%; /* Stellt sicher, dass .sidebar die volle H?he einnimmt */
+    overflow: hidden; /* Verhindert das Scrollen in der Sidebar */
+    height: 100%; /* Stellt sicher, dass .sidebar die volle Höhe einnimmt */
 }
 
 .search-container {
-    height: 90%;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-.add-ressource-container {
     flex-direction: column;
     justify-content: flex-start;
 }
@@ -99,14 +91,14 @@ footer {
 .bottom-btn-container {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: flex-end;
     padding-bottom: 30px;
 }
 
 .bottom-btn-container button {
     width: 100%;
     padding: 10px;
-    background-color: #005F50;
+    background-color: #004d00;
     color: white;
     border: none;
     border-radius: 3px;
@@ -114,7 +106,7 @@ footer {
 }
 
 .bottom-btn-container button:hover {
-    background-color: #004238;
+    background-color: #003300;
 }
 
 /* Formulargestaltung */
@@ -138,12 +130,9 @@ footer {
 }
 
 button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100%;
     padding: 10px;
-    background-color: #005F50;
+    background-color: #006400;
     color: white;
     border: none;
     border-radius: 3px;
@@ -151,24 +140,19 @@ button {
 }
 
 button:hover {
-    background-color: #004238;
+    background-color: #004d00;
 }
 
-/* ---------------------------------------------------------------------------------------------------------*/
-
-.ressourcen-formular-container{
-    height: 95%;
-}
-
+/* --------------------------------------------------------------------------------------------------------- */
 .resourcen-formular {
     border: 2px solid #000;
     padding: 20px;
-    margin: 5px;
     width: 80%;
     max-width: 800px; /* Maximalbreite des Formulars */
     background-color: #fff;
     border-radius: 8px;
     position: relative;
+    margin-bottom: 20px; /* Abstand zwischen den Formularen */
 }
 
 .resourcen-formular label {
@@ -177,7 +161,7 @@ button:hover {
     margin-bottom: 10px;
 }
 
-.resourcen-formular output[type="text"],
+.resourcen-formular input[type="text"],
 .resourcen-formular select {
     width: 100%;
     padding: 10px;
@@ -188,12 +172,10 @@ button:hover {
 }
 
 .resourcen-formular .button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 40px;
     height: 40px;
-    background-color: #005F50;
+    display: inline-block;
+    background-color: #28a745;
     color: #fff;
     text-align: center;
     line-height: 40px;
@@ -205,29 +187,28 @@ button:hover {
     right: 10px;
 }
 
-.resourcen-formular  button:hover {
-    background-color: #004238;
-}
-
 .resourcen-formular .fields-container {
     display: flex;
     justify-content: space-between;
 }
 
-.resourcen-formular .fields-container output[type="text"] {
-    width:32%;
+.resourcen-formular .fields-container input[type="text"] {
+    width: 32%;
     padding: 10px;
 }
-/* ---------------------------------------------------------------------------------------------------------*/
 
+/* --------------------------------------------------------------------------------------------------------- */
+/* Navigation Buttons - Pfeile */
 .navigation-buttons {
-    position: relative;
+    position: sticky; /* Sticky Positionierung */
+    top: 50%; /* Platziert die Buttons vertikal mittig */
     bottom: 20px;
-    width: 100%;
+    left: 50%;
+    transform: translateX(-50%, -50%);/* Zentriert die Buttons genau in der Mitte des Viewports */
     display: flex;
     justify-content: center;
-    width: 100%;
-    margin-bottom: auto;
+    z-index: 1000; /* Sicherstellen, dass die Buttons über dem Inhalt liegen */
+    pointer-events: none; /* Verhindert Interaktionen mit dem darunterliegenden Inhalt */
 }
 
 .navigation-buttons .nav-button {
@@ -242,6 +223,7 @@ button:hover {
     cursor: pointer;
     user-select: none;
     margin: 0 20px; /* Abstand zwischen den Pfeilen */
+   pointer-events: all; /* Erlaubt die Interaktion mit den Buttons */
 }
 
 .navigation-buttons .nav-button:active {
@@ -370,9 +352,4 @@ button:hover {
 
 .report-system button:hover {
     background-color: #004d00;
-}
-
-
-#value-container {
-    visibility: hidden;
 }
