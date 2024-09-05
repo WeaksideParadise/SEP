@@ -8,5 +8,7 @@ class test_Important(unittest.TestCase):
         rm.setUp()
         rm.test_check_trustworthyness_trusted()
         rm.test_check_trustworthyness_untrusted()
+        rm.test_is_link_functional_success()
+        rm.test_is_link_functional_failure()
 
 
