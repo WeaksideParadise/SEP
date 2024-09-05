@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suche - Ressourcen-Portal</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_admin.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_search.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_flash.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_general.css') }}">   <!-- DAS HIER CRACKED -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_flash.css') }}">        <!-- dürfte KEIN problem sein -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_ressources.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_general.css') }}">
+
+    
+</head>
 
 </head>
 <body>
@@ -39,13 +46,13 @@
     </header>
 
 
-    <main class="main-content">
+    <main class="main-content" style="flex-direction: row; padding: 0px">
         <!-- ----------------Hauptinhalt--------------------- -->
 
         <!--Hier waren mal flash ma-->
 
         <section class="content">
-            <div class="ressourcen-formular-container">
+            <div class="ressourcen-formular-container" style="padding-top:20px">
 
                 {% with messages = get_flashed_messages(with_categories=True) %}
                     {% if messages %}
