@@ -99,21 +99,20 @@
                     <h2>Liste aller Ressourcen</h2>
 
                     {% for resource in resources %}
-                    <div class="list-content-box user-res-box" style="align-items:center">
+                    <div class="list-content-box user-res-box" style="align-items:center;">
                         <div class="list-content-box-name" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">
                             <b>Ressource {{ resource.ressource_id }}</b>
                         </div>
 
-                        <div class="list-content-box-actions actions-box">
+                        <div class="list-content-box-actions actions-box" style="align-items:center;">
                             <!-- Form zum Anzeigen (Inspect) -->
                             <div style="margin:2px">
                                 <button class="button-green" onclick="open_inspect_modal('{{ resource.ressource_id }}', { ressource_id: 'admin_i_ressource_id', description: 'admin_i_description', link: 'admin_i_link', name: 'admin_i_name', hours: 'admin_i_opening_hours', faculty: 'admin_i_faculty', ressource_type: 'admin_i_ressource_type', created_by: 'admin_i_created_by', like_count: 'admin_i_like_count', like_emoji: 'admin_i_like_emoji', is_published: 'admin_i_is_published'})">&#128065;</button>
                             </div>
-                        
-                            <!-- Form for Degradieren (Demote) -->
-                            <form action="{{ url_for('UI_change_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:2px">
-                                <button class="button-green" type="submit" style="font-size: 15px">Bearbeiten</button>
-                            </form>
+
+                            <div class="form-group" style="width:100%; margin-bottom: 0px;">
+                                <input type="text" id="admin_i_created_by" name="ersteller" placeholder="Grund für die Löschung">
+                            </div>
                             
                             <!-- Form for Löschen (Delete) -->
                             <form action="{{ url_for('UI_delete_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:2px">
