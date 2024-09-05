@@ -193,7 +193,7 @@
                         <div class="admin-only-box">
                             
                             <div class="form-group" style="margin-bottom:0px; margin-right: 10px;">
-                                <input class="published-color-green" id="rs_i_is_published" type="text" name="veroeffentlicht" value="">
+                                <input class="published-color-green" id="rs_i_is_published" type="text" name="veroeffentlicht" value="" readonly>
                             </div>
 
                             <div class="form-group" style="margin-bottom:10px">
@@ -218,17 +218,17 @@
                     <div class="id-name-like-x">
                         <div class="form-group" style="width:80%">
                             <label for="name">Name:</label>
-                            <input type="text" id="rs_i_name" name="name">
+                            <input type="text" id="rs_i_name" name="name" readonly>
                         </div>
                         <div class="form-group" style="width:5%">
                             <label for="id">ID:</label>
-                            <input type="text" id="rs_i_ressource_id" name="link">
+                            <input type="text" id="rs_i_ressource_id" name="link" readonly>
                         </div>
                         <div class="form-group" style="width:10%">
                             <label>Likes:</label>
                             <button class="like-button" style="margin-top: 0px" onclick="like_ressource({ressource_id: 'rs_i_ressource_id', like_count: 'rs_i_like_count', like_emoji: 'rs_i_like_emoji'})">
-                                <text id="rs_i_like_emoji"> </text>
-                                <text id="rs_i_like_count"> </text>
+                                <text id="rs_i_like_emoji"></text>
+                                <text id="rs_i_like_count"></text>
                             </button>
     
                         </div>
@@ -241,20 +241,20 @@
                                 <div class="desc-box" style="width: 65%">
                                     <div class="form-group">
                                         <label for="beschreibung">Beschreibung:</label>
-                                        <textarea type="text" id="rs_i_description" style="resize: none; height: 355px; width: 100%"name="beschreibung"></textarea>
+                                        <textarea type="text" id="rs_i_description" style="resize: none; height: 355px; width: 100%"name="beschreibung" readonly></textarea>
                                     </div>
                                 </div>
                                 <div class="times-box" style="width: 30%">
                                     <div class="form-group">
                                         <label for="offnungzeit">Öffnungszeiten:</label>
-                                        <textarea type="text" id="rs_i_opening_hours" style="resize: none; height: 355px; width: 100%"name="offnungzeit"></textarea>
+                                        <textarea type="text" id="rs_i_opening_hours" style="resize: none; height: 355px; width: 100%"name="offnungzeit" readonly></textarea>
                                     </div>
                                 </div>
 
                             </div>
                             <div class="form-group">
                                 <label for="link">Link:</label>
-                                <input type="text" id="rs_i_link" name="link">
+                                <input type="text" id="rs_i_link" name="link" readonly>
                             </div>
                         </div>
                         
@@ -262,16 +262,16 @@
                             <div class="fak-type-created-pub">
                                 <div class="form-group">
                                     <label for="fakultaet">Fakultät:</label>
-                                    <input type="text" id="rs_i_faculty" name="fakultaet">
+                                    <input type="text" id="rs_i_faculty" name="fakultaet" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="typ">Typ:</label>
-                                    <input type="text" id="rs_i_ressource_type" name="typ">
+                                    <input type="text" id="rs_i_ressource_type" name="typ" readonly>
                                 </div>
                                 <div class="created-pub">
                                     <div class="form-group" style="width:100%">
                                         <label for="ersteller">Ersteller:</label>
-                                        <input type="text" id="rs_i_created_by" name="ersteller">
+                                        <input type="text" id="rs_i_created_by" name="ersteller" readonly>
                                     </div>
                                 </div>
                             </div>
