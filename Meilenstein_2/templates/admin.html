@@ -186,7 +186,7 @@
                         <div class="admin-only-box">
                             
                             <div class="form-group" style="margin-bottom:0px; margin-right: 10px;">
-                                <input class="published-color-green" id="admin_i_is_published" type="text" name="veroeffentlicht" value="Ist veröffentlicht">
+                                <input class="published-color-green" id="admin_i_is_published" type="text" name="veroeffentlicht" value="">
                             </div>
 
                             <div class="form-group" style="margin-bottom:10px">
@@ -219,7 +219,7 @@
                         </div>
                         <div class="form-group" style="width:10%">
                             <label>Likes:</label>
-                            <button class="like-button" style="margin-top: 0px" onclick="like_ressource()">
+                            <button class="like-button" style="margin-top: 0px" onclick="like_ressource({ressource_id: 'admin_i_ressource_id', like_count: 'admin_i_like_count', like_emoji: 'admin_i_like_emoji'})">
                                 <text id="admin_i_like_emoji"> </text>
                                 <text id="admin_i_like_count"> </text>
                             </button>

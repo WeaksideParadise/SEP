@@ -31,7 +31,7 @@ class Ressource_Routes:
                 faculty        = request.form.get("faculty")
                 page           = int(request.form.get("page", 1))
                 if search_query == None:
-                    search_query = ""
+                    search_query = None
                 if ressource_type == "all":
                     ressource_type = None
                 if faculty == "all":
@@ -110,7 +110,7 @@ class Ressource_Routes:
             flash("Ein Fehler ist aufgetreten", "error")
             return redirect(url_for("UI_search"))
             
-        @self.app.route("/report_ressource", methods = ["GET","POST"])
+        @self.app.route("/report_ressource", methods = ["POST"])
         def UI_report_ressource():
 
             user_id = session["user_id"]
@@ -120,22 +120,20 @@ class Ressource_Routes:
                 data = request.get_json()
 
                 if not data:
-                    flash("Ein Fehler ist aufgetreten", "error")
-                    return redirect(url_for("UI_search"))
+                    return jsonify({"status": 0, "message": "Daten nicht vorhanden"})
                 
-                ressource_id = data.get("ressource_id")
-                reason       = data.get("reason")
+                ressource_id = data.get('ressource_id')
+                reason       = data.get('reason')
 
                 if not reason:
-                    flash("Es muss ein Grund für die Meldung angegeben werden", "error")
-                    return redirect(url_for("UI_search"))
+                    return jsonify({"status": 0, "message": "Es wurde kein Grund angegeben"})
 
-                if self.ra.report_ressource(ressource_id, user_id, reason):
-                    flash(f"Ressource mit ID: {ressource_id} erfolgreich gemeldet", "success")
-                    return jsonify({"staus": 1})
+                if not self.ra.report_ressource(int(ressource_id), int(user_id), reason):
+                    return jsonify({"status": 0, "message": "Fehler beim Melden der Ressource"})
 
-            flash("Es ist ein Fehler aufgetreten", "error")
-            return redirect(url_for("UI_search"))
+                return jsonify({"status": 1, "message": "Ressource erfolgreich gemeldet"})
+            
+            return jsonify({"status": 0, "message": "Fehler beim Senden der Anfrage"})
             
         
         @self.app.route("/add_ressource", methods = ["GET","POST"])
@@ -160,19 +158,18 @@ class Ressource_Routes:
         
         @self.app.route("/like_ressource", methods = ["POST"])
         def UI_like_ressource():
+            
             user_id = session["user_id"]
             
             if request.method == "POST":
                 data = request.get_json()
                 if not data:
-                    flash("Beim Liken der Ressource ist ein Fehler aufgetreten", "error")
-                    return redirect(url_for("UI_search"))
+                    return jsonify({"status": 0})
 
-                ressource_id = request.form.get("ressource_id")
+                ressource_id = data.get('ressource_id')
 
                 
                 if self.ra.like_ressource(ressource_id, user_id):
                     return jsonify({"status": 1})
 
-            flash("Es ist ein Fehler aufgetreten", "error")
-            return redirect(url_for("UI_add_res"))
+            return jsonify({"status": 0})

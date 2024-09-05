@@ -93,11 +93,16 @@ class Ressource_Search:
 
         to_search = self._filter_ressource_tags()
         to_search = self._search_query(to_search)
-        to_search_query = " AND ".join(to_search[0])
 
-        query = """SELECT * FROM ressources WHERE """
-        query += to_search_query
+        query = """SELECT * FROM ressources"""
 
+        if to_search[0]:
+            query = """SELECT * FROM ressources WHERE """
+            if len(to_search[0]) == 1:
+                query += to_search[0][0]
+            else:
+                to_search_query = " AND ".join(to_search[0])
+                query += to_search_query
 
         try:
             result = self.rm.get_ressources_by_query(query, to_search[1])

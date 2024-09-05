@@ -1,3 +1,4 @@
+from Code_Python.User                 import User
 from Code_Python.Ressource_Search     import Ressource_Search
 from Code_Python.Database             import Database
 from Code_Python.Ressource            import Ressource
@@ -97,20 +98,8 @@ class Ressource_Actions:
             ressource = self.ressource_management.get_ressource_by_id(ressource_id)
         except LookupError as e:
             return []
-        if not ressource.is_published:
-            return []
         return [ressource]
     
-    def inspect_ressource_raw(self, ressource_id: int) -> dict[str, any]:
-
-        query = """SELECT * FROM users WHERE ressource_id = %s"""
-
-        try:
-            ressource = self.db_connection.execute_query(query, (ressource_id,))
-        except LookupError as e:
-            raise {}
-        return ressource
-
     # Bonus 
     # noch nicht getestet
     def check_ressource_suggestions(self, ressource: Ressource) -> bool:
@@ -205,10 +194,12 @@ class Ressource_Actions:
         return False
     
     def report_ressource(self, ressource_id: int, user_id: int, reason: str) -> bool:
-        query = """INSERT INTO ressource_reports (ressource_id, user_id, reason) VALUES (%s, %s, %s)"""
+        query = """INSERT INTO ressource_reports (ressource_id, user_tag, reason) VALUES (%s, %s, %s)"""
 
         try:
-            self.db_connection.execute_query(query, (ressource_id, user_id, reason))
+            user = self.ressource_management.get_ressource_by_id(user_id)
+            user_tag = str(user_id) + "#" + user.name
+            self.db_connection.execute_query(query, (ressource_id, user_tag, reason))
         except LookupError as e:
             return False
         return True

@@ -1,7 +1,5 @@
 function open_inspect_modal(ressource_id, elementIds) {
 
-    document.getElementById("resourceModal").style.display = "block";
-
     // Fetch-API zum Senden der Anfrage an die Flask-Route
     fetch('/inspect_ressource', {
         method: 'POST', 
@@ -27,22 +25,26 @@ function open_inspect_modal(ressource_id, elementIds) {
             // Like basierte Anzeige
             if (data.ressource_is_liked) {
                 document.getElementById(elementIds.like_emoji).innerHTML = '&#10084';
+                document.getElementById(elementIds.like_emoji).style.color = 'red'
             } else {
                 document.getElementById(elementIds.like_emoji).innerHTML = '&#10084';
-                //document.getElementById(elementIds.like_emoji).style.color = '#000000';
+                document.getElementById(elementIds.like_emoji).style.color = 'white'
             }
 
             // Rechte basierte Anzeige
             if(data.has_rights){
                 if(data.ressource_is_published){
-                    document.getElementById(elementIds.is_published).value  = 'ist veröffentlicht';
+                    document.getElementById(elementIds.is_published).value = 'ist veröffentlicht';
+                    document.getElementById(elementIds.is_published).style.backgroundColor  = '#4CAF86'
                 }
                 else{
-                    document.getElementById(elementIds.is_published).value  = 'ist nicht veröffentlicht';
-                    document.getElementById(elementIds.is_published).style.backgroundColor = 'red';
+                    document.getElementById(elementIds.is_published).value = 'ist nicht veröffentlicht';
+                    document.getElementById(elementIds.is_published).style.backgroundColor = '#B4312E';
                 }
                 // document.getElementById(elementIds.is_published).visibility  = ....
             }
+
+            document.getElementById("resourceModal").style.display = "block";
         })
 
         .catch((error) => {
@@ -54,8 +56,9 @@ function close_inspect_modal() {
     document.getElementById("resourceModal").style.display = "none";
 }
 
-function like_ressource() {
-    let ressource_id = parseInt(document.getElementById("i_ressource_id").value)
+function like_ressource(elementIds) {
+    
+    let ressource_id = parseInt(document.getElementById(elementIds.ressource_id).value)
 
     fetch('/like_ressource', {
         method: 'POST', 
@@ -68,17 +71,17 @@ function like_ressource() {
         
         .then(data => {
             if (data.status) {
-                if (document.getElementById("i_like_count").querySelector(".icon").innerHTML == '&#10084'){
-                    document.getElementById("i_like_count").querySelector(".icon").innerHTML = '&#9829';
-                    document.getElementById("i_like_count").style.color = '#000000';
-                    document.getElementById("i_like_count").value -= 1;
+                // Abfrage ob nicht geliked
+                if (document.getElementById(elementIds.like_emoji).style.color == 'white'){
+                    document.getElementById(elementIds.like_emoji).style.color = 'red';
+                    document.getElementById(elementIds.like_count).value = parseInt(document.getElementById(elementIds.like_count).value) + 1
                 }
                 else {
-                    document.getElementById("i_like_count").querySelector(".icon").innerHTML = '&#10084';
-                    document.getElementById("i_like_count").value -= 1;
+                    document.getElementById(elementIds.like_emoji).style.color = 'white';
+                    document.getElementById(elementIds.like_count).value = parseInt(document.getElementById(elementIds.like_count).value) - 1
                 }
             } else {
-                console.error('Liken fehlgeschlagen');
+                alert("Fehler");
             }
         })
 
@@ -107,6 +110,9 @@ function report_ressource(elementIds) {
         if (data.status) {
             document.getElementById(elementIds.reason).value = "";
         } 
+        else{
+            alert(data.message)
+        }
     })
 
     .catch((error) => {
