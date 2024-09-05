@@ -162,10 +162,7 @@
                 </form>
             </div>
             <div class="add-ressource-container">
-                <form action="{{ url_for('UI_add_ressource') }}" method="post">
-                    <!-- <button type="submit" class="bottom-btn-container"> Ressource hinzufügen </button> -->
-                    <button type="submit"> Ressource hinzufügen </button>
-                </form>
+                <button onclick="open_add_modal()"> Ressource hinzufügen </button>
             </div>
 
         </aside>
@@ -283,6 +280,87 @@
                                     <button onclick="report_ressource({ressource_id: 'rs_i_ressource_id', reason: 'rs_i_report_reason'})" class="button-green" type="button" >Ressource melden</button>
                                 </div>
                             </div>  
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+
+            <!-- Content-Bereich für Ressource-Informationen -->
+            <div class="modal-body">
+
+                <div class="modal-header">
+                    <h1>Ressourcen-Details</h1>
+
+  
+                    <div class="form-group" style="margin-bottom:10px;">
+                        <button onclick="close_add_modal()">&#10006;</button>
+                    </div>
+
+                    <!-- <button style="width:5%;font-size: 35px;" onclick="close_inspect_modal()">&times;</button> --> 
+                </div>
+
+                <form class="resource-info">
+                        <div class="form-group" style="width:80%">
+                            <label for="name">Name:</label>
+                            <input type="text" id="rs_i_name" name="name" placeholder="Geben Sie hier den Namen der Ressource ein..." required>
+                        </div>
+                    </div>
+
+                    <div class="below-id-name-like-x">
+                        <div class="desk-times-link">
+                            <div class="desc-times">
+                                <div class="desc-box" style="width: 65%">
+                                    <div class="form-group">
+                                        <label for="beschreibung">Beschreibung:</label>
+                                        <textarea type="text" id="add_description" style="resize: none; height: 355px; width: 100%"name="beschreibung" placeholder="Geben Sie hier die Beschreibung der Ressource ein..." required></textarea>
+                                    </div>
+                                </div>
+                                <div class="times-box" style="width: 30%">
+                                    <div class="form-group">
+                                        <label for="offnungzeit">Öffnungszeiten:</label>
+                                        <textarea type="text" id="add_opening_hours" style="resize: none; height: 355px; width: 100%"name="offnungzeit" placeholder="Geben Sie hier (falls nötig) die Öffnungszeiten der Ressource ein..."></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="link">Link:</label>
+                                <input type="text" id="add_link" name="link" placeholder="Geben Sie hier den Link der Ressource ein..." required>
+                            </div>
+                        </div>
+                        
+                        <div class="fak-type-created-pub-report">
+                            <div class="fak-type-created-pub">
+                                <div class="form-group">
+                                    <label for="category">Fakultät:</label>
+                                    <select id="add_faculty" name="faculty">
+                                        <option value="all">Alle Kategorien</option>
+                                        <option value="Informatik">Informatik</option>
+                                        <option value="Naturwissenschaften">Naturwissenschaften</option>
+                                        <option value="Mathematik">Mathematik</option>
+                                        <option value="Maschinenbau">Maschinenbau</option>
+                                        <option value="Elektrotechnik und Informationstechnik">Elektrotechnik und Informationstechnik</option>
+                                        <option value="Wirtschaftswissenschaften">Wirtschaftswissenschaften</option>
+                                        <option value="Philosophische Fakultät">Philosophische Fakultät</option>
+                                        <option value="Human- und Sozialwissenschaften">Human- und Sozialwissenschaften</option>
+                                         <option value="Extern">Extern</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">Ressourcentyp:</label>
+                                    <select id="add_ressource_type" name="ressource_type">
+                                        <option value="all">Alle Kategorien</option>
+                                        <option value="Video">Video</option>
+                                        <option value="Bericht">Bericht</option>
+                                        <option value="Wissenschaftliche Arbeit">Wissenschaftliche Arbeit</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
