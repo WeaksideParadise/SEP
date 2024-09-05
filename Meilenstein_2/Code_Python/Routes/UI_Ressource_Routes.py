@@ -100,7 +100,7 @@ class Ressource_Routes:
                                     "ressource_created_by":     ressource[0].created_by,
                                     "ressource_faculty":        ressource[0].faculty,
                                     "ressource_ressource_type": ressource[0].ressource_type,
-                                    "ressource_likes":          len(ressource[0].likes)-1,
+                                    "ressource_likes":          len(likes)-1,
                                     "ressource_opening_hours":  ressource[0].opening_hours,
                                     "ressource_is_published":   ressource[0].is_published,
                                     "has_rights":               has_rights,
