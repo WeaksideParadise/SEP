@@ -12,7 +12,7 @@ if __name__ == '__main__':
         #test_RessourceSearch.test_RessourceSearch,
         #test_User.test_User,
         #test_UserManagement.test_UserManagement,
-        test_Important.test_Important
+        test_Important.test_Important,
     ]
 
     # Create a test suite combining all test cases
