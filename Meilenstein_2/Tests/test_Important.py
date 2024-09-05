@@ -54,10 +54,16 @@ class test_Important(unittest.TestCase):
         """Testet, ob eine leere Sucheingabe korrekt verarbeitet wird."""
         # Teste eine Suche ohne Eingabe
         results = self.ra.search_ressources('', None, None)
+
+    def test_search_ressources_empty_query_Partial(self):
+        """Testet, ob eine leere Sucheingabe korrekt verarbeitet wird. Typ oder Fakultät nur jeweils definiert"""
         # Teste eine Suche ohne Eingabe
         results = self.ra.search_ressources('', 'Video' , None)
         # Teste eine Suche ohne Eingabe
         results = self.ra.search_ressources('', None, 'Informatik')
+
+    def test_search_ressources_empty_query_Full(self):
+        """Testet, ob eine leere Sucheingabe korrekt verarbeitet wird. (alles definiert)"""   
         # Teste eine Suche ohne Eingabe
         results = self.ra.search_ressources('', 'Video' , 'Informatik')
 
