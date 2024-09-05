@@ -143,7 +143,7 @@ button {
     align-items: center;
     width: 100%;
     padding: 10px;
-    background-color: #005F50;
+    background-color: #017463;
     color: white;
     border: none;
     border-radius: 3px;
@@ -151,7 +151,7 @@ button {
 }
 
 button:hover {
-    background-color: #004238;
+    background-color: #025247;
 }
 
 /* ---------------------------------------------------------------------------------------------------------*/
@@ -267,7 +267,7 @@ button:hover {
     padding: 20px;
     border: 1px solid #888;
     width: 60%; /* Breite des Modal-Inhalts reduziert */
-    height: 75%; /* Höhe des Modals wird automatisch an den Inhalt angepasst */
+    height: 73%; /* Höhe des Modals wird automatisch an den Inhalt angepasst */
     overflow-y: auto; /* Ermöglicht Scrollen innerhalb des Modals bei Überlauf */
     position: relative;
     border-radius: 8px;
@@ -284,17 +284,16 @@ button:hover {
 .id-name-like-x {
     display: flex;
     flex-direction: row;
-    margin: 5px;
-    border: 2px solid black;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .desc-times {
     display: flex;
     flex-direction: row;
-    margin: 5px;
-    border: 2px solid black;
     width: 100%;
-    height: 80%;
+    height: 100%;
+    justify-content: space-between;
 }
 
 .fak-type-created-pub{
@@ -305,38 +304,29 @@ button:hover {
 .created-pub {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .desk-times-link {
-    width: 70%;
+    width: 67%;
     height: 100%;
-    border: 2px solid red;
 }
 
 .fak-type-created-pub-report{
     width: 30%;
     height: 100%;
-    border: 2px solid green;
 }
 
 .below-id-name-like-x {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .back-arrow {
     font-size: 24px;
     cursor: pointer;
 }
-
-/* .close {
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-} */
 
 .close:hover,
 .close:focus {
@@ -350,14 +340,22 @@ button:hover {
 } */
 
 .like-button {
-    background: none;
-    border: none;
-    color: red;
-    font-size: 24px;
+    color: white;
+    background-color: #2DC27B;
+    /* font-size: 14px; */
     cursor: pointer;
-    display: flex;
     align-items: center;
+    justify-content: space-between;
+    width:10%;
+    height:15%; 
+    display: flex; 
+    flex-direction: row;
+/*     margin-top: 8px; */
 }
+.like-button:hover {
+    background-color: #1a7549;
+}
+
 
 .modal-body {
     display: flex;
@@ -392,6 +390,8 @@ button:hover {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    /* font-size: 100px; */
+    font-family: Arial, sans-serif;
 }
 
 .report-system {

@@ -179,40 +179,47 @@
 
                 <div class="modal-header">
                     <h1>Ressourcen-Details</h1>
-                    <button class="green-button" style="width:5%" onclick="close_inspect_modal()">&times;</button> 
+                    <button style="width:5%;font-size: 35px;" onclick="close_inspect_modal()">&times;</button> 
                 </div>
 
                 <form class="resource-info">
 
                     <div class="id-name-like-x">
-                        <div class="form-group" style="width:70%">
+                        <div class="form-group" style="width:80%">
                             <label for="name">Name:</label>
                             <input type="text" id="admin_i_name" name="name">
                         </div>
-                        <div class="form-group" style="width:10%">
+                        <div class="form-group" style="width:5%">
                             <label for="id">ID:</label>
                             <input type="text" id="admin_i_ressource_id" name="link">
                         </div>
-
-
-                        <button class="like-button" style="width:10%" onclick="like_ressource()">
-                            ❤️
-                            <input type="text" id="admin_i_like_count" value="" readonly />
-                        </button>
+                        <div class="form-group" style="width:10%">
+                            <label>Likes:</label>
+                            <button class="like-button" style="margin-top: 0px" onclick="like_ressource()">
+                                <text>&#9825;</text>
+                                <text id="admin_i_like_count"> 3 Likes</text>
+                            </button>
+    
+                        </div>
 
                     </div>
 
                     <div class="below-id-name-like-x">
                         <div class="desk-times-link">
                             <div class="desc-times">
-                                <div class="form-group">
-                                    <label for="beschreibung">Beschreibung:</label>
-                                    <textarea type="text" id="admin_i_description" style="resize: none; height: 150px; width: 500px"name="beschreibung"></textarea>
+                                <div class="desc-box" style="width: 65%">
+                                    <div class="form-group">
+                                        <label for="beschreibung">Beschreibung:</label>
+                                        <textarea type="text" id="admin_i_description" style="resize: none; height: 355px; width: 100%"name="beschreibung"></textarea>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="offnungzeit">Öffnungszeiten:</label>
-                                    <textarea type="text" id="admin_i_opening_hours" style="resize: none; height: 150px; width: 250px"name="offnungzeit"></textarea>
+                                <div class="times-box" style="width: 30%">
+                                    <div class="form-group">
+                                        <label for="offnungzeit">Öffnungszeiten:</label>
+                                        <textarea type="text" id="admin_i_opening_hours" style="resize: none; height: 355px; width: 100%"name="offnungzeit"></textarea>
+                                    </div>
                                 </div>
+
                             </div>
                             <div class="form-group">
                                 <label for="link">Link:</label>
@@ -231,12 +238,12 @@
                                     <input type="text" id="admin_i_ressource_type" name="typ">
                                 </div>
                                 <div class="created-pub">
-                                    <div class="form-group">
+                                    <div class="form-group" style="width:60%">
                                         <label for="ersteller">Ersteller:</label>
                                         <input type="text" id="admin_i_created_by" name="ersteller">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="is_published">Ist veröffentlicht:</label>
+                                    <div class="form-group" style="width:35%">
+                                        <label for="is_published">Veröffentlicht:</label>
                                         <input type="text" id="admin_i_is_published" name="is_published">
                                     </div>
                                 </div>
@@ -245,19 +252,22 @@
                                 <div class="form-group">
                                     <label for="Grund">Grund:</label>
                                     <textarea style="resize: none; height: 150px" row="9" cols="25" type="text" name="Grund"></textarea>
+
+                                    <!-- DAS HIER GEHT SO NICHT -->
+                                    <form action="{{ url_for('UI_report_ressource') }}" method="post" style="display:inline;">
+                                        <!--<input type="hidden" name="ressource_id" value=""> -->
+                                        <button class="button-green" type="button">Ressource melden</button>
+                                    </form>
                                 </div>
-                                <form action="{{ url_for('UI_report_ressource') }}" method="post" style="display:inline;">
-                                    <!--<input type="hidden" name="ressource_id" value=""> -->
-                                    <button class="button-green" type="button">Ressource melden</button>
-                                </form>
+
                             </div>
     
                         </div>
                     </div>
 
-
                 </form>
 
+                <!-- Hier muss das Report System hin -->
 
             </div>
         </div>
