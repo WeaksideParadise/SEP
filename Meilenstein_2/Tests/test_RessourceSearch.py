@@ -14,6 +14,14 @@ class test_RessourceSearch(unittest.TestCase):
 
         # Beispiel-Ressourcenobjekt
         self.test_ressource = Ressource(
+            is_published=False,
+            is_deleted=False,
+            description="Beschreibung des Buchinhaltes",
+            link="http://example.org",
+            created_by="Admin",
+            likes=[],
+            experience_reports="",
+            ressource_tags=["tag1", "tag2"],
             ressource_id=1,
             name="TestRessource",
             faculty="Informatik",
