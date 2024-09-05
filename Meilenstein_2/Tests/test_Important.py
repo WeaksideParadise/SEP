@@ -67,4 +67,16 @@ class test_Important(unittest.TestCase):
         with self.assertRaises(LookupError):
             self.ra.search_ressources('invalid_query', 'invalid_type', 'invalid_faculty')
 
+    def test_search_ressources_partial(self):
+        """Testet, ob Fehler bei halboffenen-Legitimen Suchen Fehler auftreten"""
+        # Teste eine Suche ohne Eingabe
+        results = self.ra.search_ressources('StudiTV', None, None)
+        # Teste eine Suche ohne Eingabe
+        results = self.ra.search_ressources('StudiTV', 'Bericht' , None)
+        # Teste eine Suche ohne Eingabe
+        results = self.ra.search_ressources('StudiTV', None, 'Informatik')
+        # Teste eine Suche ohne Eingabe
+        results = self.ra.search_ressources('StudiTV', 'Bericht' , 'Informatik')
+
+
 
