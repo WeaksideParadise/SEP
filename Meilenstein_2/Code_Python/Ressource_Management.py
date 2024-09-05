@@ -69,7 +69,7 @@ class Ressource_Management:
     # Speichert eine Ressource in der Datenbank (UPDATE)
     def save_ressource(self, ressource: object) -> bool:
         if ressource.ressource_id == -1:
-            query = """INSERT INTO ressources (name, is_published, is_deleted description, link, created_by, faculty, ressource_type, 
+            query = """INSERT INTO ressources (name, is_published, is_deleted, description, link, created_by, faculty, ressource_type, 
                                    opening_hours, likes, experience_reports, ressource_tags) 
                                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
             
@@ -84,7 +84,7 @@ class Ressource_Management:
         else:
             query = """UPDATE ressources SET name               = %s, 
                                              is_published       = %s, 
-                                             is_deleted         = %s
+                                             is_deleted         = %s,
                                              description        = %s, 
                                              link               = %s, 
                                              created_by         = %s, 
@@ -173,7 +173,7 @@ class Ressource_Management:
             return False
 
         ressource.is_deleted = True
-        ressource_is_published = False
+        ressource.is_published = False
 
         query = """INSERT INTO deleted_ressources (ressource_id, user_id, reason) VALUES (%s , %s)"""
         try:

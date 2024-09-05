@@ -64,8 +64,12 @@ class Admin_Panel_Routes:
                 flash("Du hast keine Rechte für diese Aktion", "error")
                 return redirect(url_for("UI_index"))
             
-            if not self.um.delete_user(request.args.get("user_id")):
-                flash("Fehler beim Ausführen der Aktion", "error")
+            try:
+                if not self.um.delete_user(request.args.get("user_id")):
+                    flash("Fehler beim Ausführen der Aktion", "error")
+                    return redirect(url_for("UI_admin_panel"))
+            except ValueError as e:
+                flash("Sie können keine Administratoren löschen")
                 return redirect(url_for("UI_admin_panel"))
             
             flash(f"Nutzer {request.args.get('user_id')} wurde gelöscht", "success")
@@ -93,4 +97,17 @@ class Admin_Panel_Routes:
                 return redirect(url_for("UI_admin_panel"))
             
             flash(f"Ressource {request.args.get('ressource_id')} wurde gelöscht", "success")
+            return redirect(url_for("UI_admin_panel"))
+        
+        @self.app.route("/publish_ressource", methods = ["GET","POST"])
+        def UI_publish_ressource():
+            if not session["role"] in ["administrator","moderator"] :
+                flash("Du hast keine Rechte für diese Aktion", "error")
+                return redirect(url_for("UI_index"))
+            
+            if not self.ra.publish_ressource(int(request.args.get("ressource_id"))):
+                flash("Fehler beim Veröffentlichen der Ressource")
+                return redirect(url_for("UI_admin_panel"))
+
+            flash(f"Ressource {request.args.get('ressource_id')} wurde veröffentlicht", "success")
             return redirect(url_for("UI_admin_panel"))
