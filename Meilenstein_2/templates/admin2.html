@@ -76,7 +76,7 @@
                             </div>
 
                             <div class="list-content-box-actions actions-box">
-                                    <button class="button-green" style="margin:3px" onclick="open_inspect_modal('{{ report.ressource_id }}', { ressource_id: 'admin2_i_ressource_id', description: 'admin2_i_description', link: 'admin2_i_link', name: 'admin2_i_name', hours: 'admin2_i_opening_hours', faculty: 'admin2_i_faculty', ressource_type: 'admin2_i_ressource_type', created_by: 'admin2_i_created_by', like_count: 'admin2_i_like_count', is_published: 'admin2_i_is_published'})">&#128065;</button>
+                                    <button class="button-green" style="margin:3px" onclick="open_inspect_modal('{{ report.ressource_id }}', { ressource_id: 'admin2_i_ressource_id', description: 'admin2_i_description', link: 'admin2_i_link', name: 'admin2_i_name', hours: 'admin2_i_opening_hours', faculty: 'admin2_i_faculty', ressource_type: 'admin2_i_ressource_type', created_by: 'admin2_i_created_by', like_count: 'admin2_i_like_count', like_emoji: 'admin2_i_like_emoji', is_published: 'admin2_i_is_published'})">&#128065;</button>
                                 <form method="post" style="margin-top:3px; margin-bottom:3px">
                                     <button class="button-red" type="submit">&#10006;</button>
                                 </form>
@@ -108,7 +108,7 @@
 
                             <div class="list-content-box-actions actions-box">
 
-                                <button class="button-green" style="margin:3px" onclick="open_inspect_modal('{{ resource.ressource_id }}', { ressource_id: 'admin2_i_ressource_id', description: 'admin2_i_description', link: 'admin2_i_link', name: 'admin2_i_name', hours: 'admin2_i_opening_hours', faculty: 'admin2_i_faculty', ressource_type: 'admin2_i_ressource_type', created_by: 'admin2_i_created_by', like_count: 'admin2_i_like_count', is_published: 'admin2_i_is_published'})">&#128065;</button>
+                                <button class="button-green" style="margin:3px" onclick="open_inspect_modal('{{ resource.ressource_id }}', { ressource_id: 'admin2_i_ressource_id', description: 'admin2_i_description', link: 'admin2_i_link', name: 'admin2_i_name', hours: 'admin2_i_opening_hours', faculty: 'admin2_i_faculty', ressource_type: 'admin2_i_ressource_type', created_by: 'admin2_i_created_by', like_count: 'admin2_i_like_count', like_emoji: 'admin2_i_like_emoji', is_published: 'admin2_i_is_published'})">&#128065;</button>
 
                                 <form method="post" style="margin-top:3px">
                                     <button class="button-green" type="submit"style="font-size:15px">Wiederherstellen</button>
@@ -155,66 +155,111 @@
     <!-- Modal-Fenster zum Anzeigen von Ressourcen -->
     <div id="resourceModal" class="modal">
         <div class="modal-content">
-            <!-- Header Bereich mit Zurück-Pfeil, Schließen-Knopf und Herz-Button -->
-            <div class="modal-header">
-                <!-- <span class="back-arrow" onclick="closeModal()">&#8592;</span> -->
-                <span class="close" onclick="close_inspect_modal()">&times;</span>
-            </div>
-            
-            <div class="modal-like">
-                <button class="like-button" onclick="like_ressource()">❤️
-                <input type="text" id="i_like_count" value="" readonly />
-                </button>
-            </div>
 
             <!-- Content-Bereich für Ressource-Informationen -->
             <div class="modal-body">
+
+                <div class="modal-header">
+                    <h1>Ressourcen-Details</h1>
+
+
+                    <!-- DIESE BOX SIEHT NUR DER ADMIN -->
+                    {% if session.get('role') == 'administrator' or session.get('role') == 'moderator' %} 
+                        <div class="admin-only-box">
+                            
+                            <div class="form-group" style="margin-bottom:0px; margin-right: 10px;">
+                                <input class="published-color-green" id="admin2_i_is_published" type="text" name="veroeffentlicht" value="">
+                            </div>
+
+                            <div class="form-group" style="margin-bottom:10px">
+                                <button class="button-green" type="button">Änderungen speichern</button>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <!-- ENDE DER ADMIN BOX -->
+
+                    
+                    <div class="form-group" style="margin-bottom:10px;">
+                        <button onclick="close_inspect_modal()">&#10006;</button>
+                    </div>
+
+                    <!-- <button style="width:5%;font-size: 35px;" onclick="close_inspect_modal()">&times;</button> --> 
+                </div>
+
+
+
                 <form class="resource-info">
-                    <div class="form-group">
-                        <label for="id">ID:</label>
-                        <input type="text" id="admin2_i_ressource_id" name="link">
-                    </div>
-                    <div class="form-group">
-                        <label for="link">Link:</label>
-                        <input type="text" id="admin2_i_link" name="link">
-                    </div>
-                    <div class="form-group">
-                        <label for="beschreibung">Beschreibung:</label>
-                        <input type="text" id="admin2_i_description" name="beschreibung">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" id="admin2_i_name" name="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="offnungzeit">Öffnungszeit:</label>
-                        <input type="text" id="admin2_i_opening_hours" name="offnungzeit">
-                    </div>
-                    <div class="form-group">
-                        <label for="fakultaet">Fakultät:</label>
-                        <input type="text" id="admin2_i_faculty" name="fakultaet">
-                    </div>
-                    <div class="form-group">
-                        <label for="typ">Typ:</label>
-                        <input type="text" id="admin2_i_ressource_type" name="typ">
-                    </div>
-                    <div class="form-group">
-                        <label for="ersteller">Ersteller:</label>
-                        <input type="text" id="admin2_i_created_by" name="ersteller">
-                    </div>
-                    <div class="form-group">
-                        <label for="is_published">Ist veröffentlicht:</label>
-                        <input type="text" id="admin2_i_is_published" name="is_published">
-                    </div>
-                </form>
 
-                <!-- Meldesystem -->
-                <form class="report-system">
+                    <div class="id-name-like-x">
+                        <div class="form-group" style="width:80%">
+                            <label for="name">Name:</label>
+                            <input type="text" id="admin2_i_name" name="name">
+                        </div>
+                        <div class="form-group" style="width:5%">
+                            <label for="id">ID:</label>
+                            <input type="text" id="admin2_i_ressource_id" name="link">
+                        </div>
+                        <div class="form-group" style="width:10%">
+                            <label>Likes:</label>
+                            <button class="like-button" style="margin-top: 0px" onclick="like_ressource({ressource_id: 'admin2_i_ressource_id', like_count: 'admin2_i_like_count', like_emoji: 'admin2_i_like_emoji'})">
+                                <text id="admin2_i_like_emoji"> </text>
+                                <text id="admin2_i_like_count"> </text>
+                            </button>
+    
+                        </div>
 
-                    <form action="{{ url_for('UI_report_ressource') }}" method="post" style="display:inline;">
-                        <!--<input type="hidden" name="ressource_id" value=""> -->
-                        <button type="button">Ressource melden</button>
+                    </div>
 
+                    <div class="below-id-name-like-x">
+                        <div class="desk-times-link">
+                            <div class="desc-times">
+                                <div class="desc-box" style="width: 65%">
+                                    <div class="form-group">
+                                        <label for="beschreibung">Beschreibung:</label>
+                                        <textarea type="text" id="admin2_i_description" style="resize: none; height: 355px; width: 100%"name="beschreibung"></textarea>
+                                    </div>
+                                </div>
+                                <div class="times-box" style="width: 30%">
+                                    <div class="form-group">
+                                        <label for="offnungzeit">Öffnungszeiten:</label>
+                                        <textarea type="text" id="admin2_i_opening_hours" style="resize: none; height: 355px; width: 100%"name="offnungzeit"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="link">Link:</label>
+                                <input type="text" id="admin2_i_link" name="link">
+                            </div>
+                        </div>
+                        
+                        <div class="fak-type-created-pub-report">
+                            <div class="fak-type-created-pub">
+                                <div class="form-group">
+                                    <label for="fakultaet">Fakultät:</label>
+                                    <input type="text" id="admin2_i_faculty" name="fakultaet">
+                                </div>
+                                <div class="form-group">
+                                    <label for="typ">Typ:</label>
+                                    <input type="text" id="admin2_i_ressource_type" name="typ">
+                                </div>
+                                <div class="created-pub">
+                                    <div class="form-group" style="width:100%">
+                                        <label for="ersteller">Ersteller:</label>
+                                        <input type="text" id="admin2_i_created_by" name="ersteller">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-report-system">
+                                <div class="form-group">
+                                    <label for="Grund">Grund:</label>
+                                    <textarea style="resize: none; height: 150px" type="text" id="admin_i_report_reason" name="Grund"></textarea>
+
+                                    <button onclick="report_ressource({ressource_id: 'admin2_i_ressource_id', reason: 'admin2_i_report_reason'})" class="button-green" type="button" >Ressource melden</button>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
