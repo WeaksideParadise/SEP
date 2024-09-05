@@ -179,8 +179,30 @@
 
                 <div class="modal-header">
                     <h1>Ressourcen-Details</h1>
-                    <button style="width:5%;font-size: 35px;" onclick="close_inspect_modal()">&times;</button> 
+
+
+                    <!-- DIESE BOX SIEHT NUR DER ADMIN -->
+                    <div class="admin-only-box">
+                        
+                        <div class="form-group" style="margin-bottom:0px; margin-right: 10px;">
+                            <input class="published-color-green" type="text" name="veroeffentlicht" value="Ist veröffentlicht">
+                        </div>
+
+                        <div class="form-group" style="margin-bottom:10px">
+                            <button class="button-green" type="button">Änderungen speichern</button>
+                        </div>
+                    </div>
+                    <!-- ENDE DER ADMIN BOX -->
+
+                    
+                    <div class="form-group" style="margin-bottom:10px;">
+                        <button onclick="close_inspect_modal()">&#10006;</button>
+                    </div>
+
+                    <!-- <button style="width:5%;font-size: 35px;" onclick="close_inspect_modal()">&times;</button> --> 
                 </div>
+
+
 
                 <form class="resource-info">
 
@@ -238,20 +260,16 @@
                                     <input type="text" id="admin_i_ressource_type" name="typ">
                                 </div>
                                 <div class="created-pub">
-                                    <div class="form-group" style="width:60%">
+                                    <div class="form-group" style="width:100%">
                                         <label for="ersteller">Ersteller:</label>
                                         <input type="text" id="admin_i_created_by" name="ersteller">
-                                    </div>
-                                    <div class="form-group" style="width:35%">
-                                        <label for="is_published">Veröffentlicht:</label>
-                                        <input type="text" id="admin_i_is_published" name="is_published">
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-report-system">
                                 <div class="form-group">
                                     <label for="Grund">Grund:</label>
-                                    <textarea style="resize: none; height: 150px" row="9" cols="25" type="text" name="Grund"></textarea>
+                                    <textarea style="resize: none; height: 150px" type="text" name="Grund"></textarea>
 
                                     <!-- DAS HIER GEHT SO NICHT -->
                                     <form action="{{ url_for('UI_report_ressource') }}" method="post" style="display:inline;">
@@ -259,9 +277,10 @@
                                         <button class="button-green" type="button">Ressource melden</button>
                                     </form>
                                 </div>
-
                             </div>
-    
+
+
+                            
                         </div>
                     </div>
 

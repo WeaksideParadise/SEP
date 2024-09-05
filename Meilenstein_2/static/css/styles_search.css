@@ -414,6 +414,24 @@ button:hover {
     background-color: #004238;
 }
 
+.admin-only-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.published-color-green{
+    text-align: center;
+    background-color: #4CAF86;
+    color: white;
+}
+
+.published-color-red{
+    background-color: #B4312E;
+    color: white;
+}
+
 
 #value-container {
     visibility: hidden;
