@@ -111,3 +111,29 @@ class Admin_Panel_Routes:
 
             flash(f"Ressource {request.args.get('ressource_id')} wurde veröffentlicht", "success")
             return redirect(url_for("UI_admin_panel"))
+        
+        @self.app.route("/delete_report", methods = ["POST"])
+        def UI_delete_report():
+            if not session["role"] in ["administrator","moderator"] :
+                flash("Du hast keine Rechte für diese Aktion", "error")
+                return redirect(url_for("UI_index"))
+            
+            if not self.ra.delete_report(int(request.args.get("report_id"))):
+                flash("Fehler beim Löschen der Meldung")
+                return redirect(url_for("UI_admin_panel_2"))
+
+            flash(f"Ressource {request.args.get('ressource_id')} wurde veröffentlicht", "success")
+            return redirect(url_for("UI_admin_panel_2"))
+        
+        @self.app.route("/revive_ressource", methods = ["POST"])
+        def UI_revive_ressource():
+            if not session["role"] in ["administrator","moderator"] :
+                flash("Du hast keine Rechte für diese Aktion", "error")
+                return redirect(url_for("UI_index"))
+            
+            if not self.ra.revive_ressource(int(request.args.get("ressource_id"))):
+                flash("Fehler beim Wiederherstellen der Meldung")
+                return redirect(url_for("UI_admin_panel_2"))
+
+            flash(f"Ressource {request.args.get('ressource_id')} wurde wiederhergestellt", "success")
+            return redirect(url_for("UI_admin_panel_2"))

@@ -1,9 +1,7 @@
-function openAddResourceModal() {
-    document.getElementById("addResourceModal").style.display = "block";
-    document.querySelector(".navigation-buttons").style.display = "none"; // Pfeile ausblenden
+function open_add_modal() {
+    document.getElementById("addModal").style.display = "block";
 }
 
-function closeAddResourceModal() {
-    document.getElementById("addResourceModal").style.display = "none";
-    document.querySelector(".navigation-buttons").style.display = "flex"; // Pfeile wieder anzeigen
+function close_add_modal() {
+    document.getElementById("addModal").style.display = "none";
 }
