@@ -10,5 +10,6 @@ class test_Important(unittest.TestCase):
         rm.test_check_trustworthyness_untrusted()
         rm.test_is_link_functional_success()
         rm.test_is_link_functional_failure()
+        #todo: test search method ( especially mit keine sucheingabe / nur fakultät)
 
 
