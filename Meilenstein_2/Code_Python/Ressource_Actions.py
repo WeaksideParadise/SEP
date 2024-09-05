@@ -220,7 +220,7 @@ class Ressource_Actions:
         return result
     
     def fetch_ressource_reports(self) -> list:
-        query = """SELECT * FROM ressource_reports"""
+        query = """SELECT * FROM ressource_reports WHERE report_closed = 0"""
 
         try:
             result = self.db_connection.execute_query(query, ())
@@ -299,3 +299,23 @@ class Ressource_Actions:
             return False
                 
         return False
+    
+    def delete_report(self, report_id: int):
+
+        try:
+            query = """UPDATE ressource_reports SET report_closed = 1 WHERE report_id = %s"""
+            self.db_connection.execute_query(query, (report_id,))
+        except LookupError as e:
+            return False
+        return True
+    
+    def revive_ressource(self, ressource_id: int):
+
+        try:
+            ressource_query = """UPDATE ressources SET is_deleted = 0 WHERE ressource_id = %s"""
+            self.db_connection.execute_query(ressource_query, (ressource_id,))
+            report_query = """DELETE FROM deleted_ressources WHERE ressource_id = %s"""
+            self.db_connection.execute_query(report_query, (ressource_id,))
+        except LookupError as e:
+            return False
+        return True
