@@ -112,14 +112,27 @@ class Ressource_Routes:
             
         @self.app.route("/report_ressource", methods = ["GET","POST"])
         def UI_report_ressource():
+
             user_id = session["user_id"]
+
             if request.method == "POST":
-                ressource_id = request.form.get("ressource_id")
-                reason       = request.form.get("report_reason")
+                 
+                data = request.get_json()
+
+                if not data:
+                    flash("Ein Fehler ist aufgetreten", "error")
+                    return redirect(url_for("UI_search"))
+                
+                ressource_id = data.get("ressource_id")
+                reason       = data.get("reason")
+
+                if not reason:
+                    flash("Es muss ein Grund für die Meldung angegeben werden", "error")
+                    return redirect(url_for("UI_search"))
 
                 if self.ra.report_ressource(ressource_id, user_id, reason):
-                    flash(f"Ressource mit ID: {ressource_id} erfolgreich gemeldet")
-                    return redirect(url_for("UI_search"))
+                    flash(f"Ressource mit ID: {ressource_id} erfolgreich gemeldet", "success")
+                    return jsonify({"staus": 1})
 
             flash("Es ist ein Fehler aufgetreten", "error")
             return redirect(url_for("UI_search"))
