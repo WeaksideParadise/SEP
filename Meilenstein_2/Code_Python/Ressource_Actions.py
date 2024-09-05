@@ -125,6 +125,12 @@ class Ressource_Actions:
 
         try:
             self.ressource_management.save_ressource(ressource)
+        except LookupError as e:
+            return False
+        
+        try:
+            query = """DELETE FROM invalid_links WHERE ressource_id = %s"""
+            self.db_connection.execute_query(query, (ressource_id,))
             return True
         except LookupError as e:
             return False

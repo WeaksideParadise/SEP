@@ -134,6 +134,9 @@ class User_Management:
         except LookupError as e:
             return False
         
+        if user.is_administrator:
+            raise ValueError
+        
         user.is_logged_in = None
         user.name = "Deleted"
         user.hashed_password = None
@@ -208,7 +211,6 @@ class User_Management:
         except LookupError as e:
             return False
         
-        user.is_administrator = False
         user.is_moderator     = False
 
         return self.save_user(user)
