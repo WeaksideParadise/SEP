@@ -288,10 +288,10 @@
     </div>
 
     <div id="addModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" style="overflow:hidden">
 
             <!-- Content-Bereich für Ressource-Informationen -->
-            <div class="modal-body">
+            <div class="modal-body" >
 
                 <div class="modal-header">
                     <h1>Ressourcen-Details</h1>
@@ -305,7 +305,7 @@
                 </div>
 
                 <form class="resource-info">
-                        <div class="form-group" style="width:80%">
+                        <div class="form-group" style="width:100%">
                             <label for="name">Name:</label>
                             <input type="text" id="rs_i_name" name="name" placeholder="Geben Sie hier den Namen der Ressource ein..." required>
                         </div>
@@ -335,30 +335,38 @@
                         </div>
                         
                         <div class="fak-type-created-pub-report">
-                            <div class="fak-type-created-pub">
-                                <div class="form-group">
-                                    <label for="category">Fakultät:</label>
-                                    <select id="add_faculty" name="faculty">
-                                        <option value="all">Alle Kategorien</option>
-                                        <option value="Informatik">Informatik</option>
-                                        <option value="Naturwissenschaften">Naturwissenschaften</option>
-                                        <option value="Mathematik">Mathematik</option>
-                                        <option value="Maschinenbau">Maschinenbau</option>
-                                        <option value="Elektrotechnik und Informationstechnik">Elektrotechnik und Informationstechnik</option>
-                                        <option value="Wirtschaftswissenschaften">Wirtschaftswissenschaften</option>
-                                        <option value="Philosophische Fakultät">Philosophische Fakultät</option>
-                                        <option value="Human- und Sozialwissenschaften">Human- und Sozialwissenschaften</option>
-                                         <option value="Extern">Extern</option>
-                                    </select>
+                            <div class="fak-type-created-pub" style="height:476px; justify-content: space-between">
+                                <div class="extra-box-fak-type"> 
+                                    <div class="form-group">
+                                        <label for="category">Ressourcentyp:</label>
+                                        <select id="add_ressource_type" name="ressource_type">
+                                            <option value="all">Alle Kategorien</option>
+                                            <option value="Video">Video</option>
+                                            <option value="Bericht">Bericht</option>
+                                            <option value="Wissenschaftliche Arbeit">Wissenschaftliche Arbeit</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="category">Fakultät:</label>
+                                        <select id="add_faculty" name="faculty">
+                                            <option value="all">Alle Kategorien</option>
+                                            <option value="Informatik">Informatik</option>
+                                            <option value="Naturwissenschaften">Naturwissenschaften</option>
+                                            <option value="Mathematik">Mathematik</option>
+                                            <option value="Maschinenbau">Maschinenbau</option>
+                                            <option value="Elektrotechnik und Informationstechnik">Elektrotechnik und Informationstechnik</option>
+                                            <option value="Wirtschaftswissenschaften">Wirtschaftswissenschaften</option>
+                                            <option value="Philosophische Fakultät">Philosophische Fakultät</option>
+                                            <option value="Human- und Sozialwissenschaften">Human- und Sozialwissenschaften</option>
+                                            <option value="Extern">Extern</option>
+                                        </select>
+                                    </div>
+
                                 </div>
-                                <div class="form-group">
-                                    <label for="category">Ressourcentyp:</label>
-                                    <select id="add_ressource_type" name="ressource_type">
-                                        <option value="all">Alle Kategorien</option>
-                                        <option value="Video">Video</option>
-                                        <option value="Bericht">Bericht</option>
-                                        <option value="Wissenschaftliche Arbeit">Wissenschaftliche Arbeit</option>
-                                    </select>
+
+                                <div class="form-group" style="display: inline-block; align-self: flex-end; width:100%">
+                                    <button class="button-green" style="width:100%" type="button">Ressource hinzufügen </button>
                                 </div>
                             </div>
                         </div>
