@@ -50,13 +50,19 @@ class Ressource_Routes:
                 except LookupError as e:
                     flash("Bei der Suche ging etwas schief, bitte erneut versuchen", "error")
                     return redirect(url_for("UI_search"))
-                
+            
+            validated_results = []
+
+            for ressource in results:
+                if not ressource.is_deleted and ressource.is_published:
+                    validated_results.append(ressource)
+
             ressources_per_page = 5
-            total_pages = math.ceil((len(results) / ressources_per_page))
-            paged_ressources = results[(page-1)*ressources_per_page:page*ressources_per_page]
+            total_pages = math.ceil((len(validated_results) / ressources_per_page))
+            paged_ressources = validated_results[(page-1)*ressources_per_page:page*ressources_per_page]
 
             if not is_random and page == 1:
-                flash(f"Es wurden {len(results)} Ergebnisse gefunden", "success")    
+                flash(f"Es wurden {len(validated_results)} Ergebnisse gefunden", "success")    
             
             return render_template("search.html", results=paged_ressources, page=page, total_pages=total_pages, searched_query=search_query, searched_faculty=faculty, searched_type=ressource_type)
         

@@ -71,10 +71,16 @@ class Ressource_Actions:
         except LookupError as e:
             raise LookupError
         
-        if len(result) <= 5:
-            return result
+        validated_results = []
+
+        for ressource in result:
+            if not ressource.is_deleted and ressource.is_published:
+                validated_results.append(ressource)
+        
+        if len(validated_results) <= 5:
+            return validated_results
     
-        return random.sample(result, 5)
+        return random.sample(validated_results, 5)
 
     
     def search_ressources(self, search_query: str, ressource_type_tag: str, faculty_tag: str) -> list:
