@@ -32,6 +32,10 @@ class Ressource_Routes:
                 ressource_type = request.form.get("ressource_type")
                 faculty        = request.form.get("faculty")
                 page           = int(request.form.get("page", 1))
+
+                param_faculty = faculty
+                param_ressource_type = ressource_type
+
                 if search_query == None:
                     search_query = None
                 if ressource_type == "all":
