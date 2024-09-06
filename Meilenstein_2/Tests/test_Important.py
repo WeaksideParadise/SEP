@@ -74,12 +74,17 @@ class test_Important(unittest.TestCase):
         """Testet, ob Fehler bei halboffenen-Legitimen Suchen Fehler auftreten"""
         # Teste eine Suche ohne Eingabe
         results = self.ra.search_ressources('StudiTV', None, None)
+        assert len(results) == 1
         # Teste eine Suche ohne Eingabe
         results = self.ra.search_ressources('StudiTV', 'Bericht' , None)
+        assert len(results) == 1
         # Teste eine Suche ohne Eingabe
         results = self.ra.search_ressources('StudiTV', None, 'Informatik')
+        assert len(results) == 1
         # Teste eine Suche ohne Eingabe
         results = self.ra.search_ressources('StudiTV', 'Bericht' , 'Informatik')
+        assert len(results) == 1
 
+    
     
 

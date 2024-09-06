@@ -162,10 +162,16 @@
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">LookupError</span>
         
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">result</span>
+        <span class="n">validated_results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">ressource</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ressource</span><span class="o">.</span><span class="n">is_deleted</span> <span class="ow">and</span> <span class="n">ressource</span><span class="o">.</span><span class="n">is_published</span><span class="p">:</span>
+                <span class="n">validated_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ressource</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">validated_results</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">validated_results</span>
     
-        <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">validated_results</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span></div>
 
 
     
@@ -178,13 +184,10 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">rs</span><span class="o">.</span><span class="n">search_ressource</span><span class="p">()</span>
             <span class="n">results</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">result</span>
-
-            <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">results</span>
             
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)):</span>
-                <span class="k">if</span> <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">is_published</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-                    <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>  <span class="c1"># Loop from the end of the list to the beginning</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">is_published</span><span class="p">:</span>  <span class="c1"># If the result is not published</span>
+                    <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>  <span class="c1"># Remove the element          </span>
 
             <span class="k">return</span> <span class="n">results</span>
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -242,26 +245,6 @@
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
-
-<div class="viewcode-block" id="Ressource_Actions.suggest_add_ressource">
-<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.suggest_add_ressource">[Doku]</a>
-    <span class="k">def</span> <span class="nf">suggest_add_ressource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource</span><span class="p">:</span> <span class="n">Ressource</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ressource_suggestions FROM users WHERE user_id = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">user_id</span><span class="p">,))</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">False</span>
-            <span class="n">suggestions</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;suggestions&#39;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">suggestions</span><span class="p">:</span>
-                <span class="n">suggestions</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ressource</span><span class="o">.</span><span class="n">ressource_id</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">suggestions</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;#</span><span class="si">{</span><span class="n">ressource</span><span class="o">.</span><span class="n">ressource_id</span><span class="si">}</span><span class="s2">&quot;</span>
-            
-            <span class="n">update_query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE users SET ressource_suggestions = </span><span class="si">%s</span><span class="s2"> WHERE user_id = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">update_query</span><span class="p">,</span> <span class="p">(</span><span class="n">suggestions</span><span class="p">,</span> <span class="n">user_id</span><span class="p">))</span>
-            <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span></div>
 
 
     <span class="c1"># Bonus</span>
@@ -322,7 +305,7 @@
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO ressource_reports (ressource_id, user_tag, reason) VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">get_ressource_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">user_management</span><span class="o">.</span><span class="n">get_user_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
             <span class="n">user_tag</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">ressource_id</span><span class="p">,</span> <span class="n">user_tag</span><span class="p">,</span> <span class="n">reason</span><span class="p">))</span>
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -459,7 +442,86 @@
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="kc">True</span></div>
+
+    
+<div class="viewcode-block" id="Ressource_Actions.vote_for_suggestion">
+<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.vote_for_suggestion">[Doku]</a>
+    <span class="k">def</span> <span class="nf">vote_for_suggestion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">suggestion_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">vote</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">user_management</span><span class="o">.</span><span class="n">get_user_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    
+    <span class="c1"># Schauen ob Nutzer diese überhaupt hat</span>
+        <span class="n">suggestions</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">ressource_suggestions</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">suggestion_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">suggestions</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    
+        <span class="c1"># Suggestion aus DB holen</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT FROM ressource_suggestions WHERE id= </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">suggestion_id</span><span class="p">,))</span>
+        <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        
+        <span class="n">users_to_vote</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;users_to_vote&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">user_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">users_to_vote</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">users_to_vote</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+            
+        <span class="c1"># Abstimmen</span>
+        <span class="n">vote_accept</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;vote_accept&quot;</span><span class="p">])</span>
+        <span class="n">vote_reject</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;vote_reject&quot;</span><span class="p">])</span>
+        <span class="n">users_to_vote</span> <span class="o">=</span> <span class="s2">&quot;#&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">users_to_vote</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">vote</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE ressource_suggestions SET users_to_vote = </span><span class="si">%s</span><span class="s2">, vote_accept = </span><span class="si">%s</span><span class="s2"> WHERE id = </span><span class="si">%s</span><span class="s2">)&quot;&quot;&quot;</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">vote_accept</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">vote_accept</span><span class="p">,</span> <span class="n">suggestion_id</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+                
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE ressource_suggestions SET users_to_vote = </span><span class="si">%s</span><span class="s2">, vote_reject = </span><span class="si">%s</span><span class="s2"> WHERE id = </span><span class="si">%s</span><span class="s2">)&quot;&quot;&quot;</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">vote_reject</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">vote_reject</span><span class="p">,</span> <span class="n">suggestion_id</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+                
+        <span class="c1"># Prüfen ob Abstimmung fertig ist</span>
+        <span class="n">amount_voters</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;amount_voting_users&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">vote_accept</span> <span class="o">&gt;</span> <span class="n">amount_voters</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">is_closed</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">vote_result</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">vote_reject</span> <span class="o">&gt;</span> <span class="n">amount_voters</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">is_closed</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">vote_result</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">is_closed</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE ressource_suggestions SET is_closed =</span><span class="si">%s</span><span class="s2"> WHERE id = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
+            <span class="k">try</span><span class="p">:</span> 
+                <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">suggestion_id</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+                
+        <span class="c1"># Abstimmung bei restlichen Nutzer entfernen TODO (am Anfang prüfen ob bereits closed)</span>
+
+        <span class="c1">#Ergebnisfolge</span>
+
+        <span class="k">if</span> <span class="n">vote_accept</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">publish_ressource</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;ressource_id&quot;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">delete_ressource</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;ressource_id&quot;</span><span class="p">],</span> <span class="s2">&quot;Abstimmung fehlgeschlagen&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
 </div>
+
 
 </pre></div>
 
