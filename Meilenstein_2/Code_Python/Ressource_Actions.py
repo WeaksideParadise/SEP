@@ -207,7 +207,7 @@ class Ressource_Actions:
         query = """INSERT INTO ressource_reports (ressource_id, user_tag, reason) VALUES (%s, %s, %s)"""
 
         try:
-            user = self.ressource_management.get_ressource_by_id(user_id)
+            user = self.ressource_management.user_management.get_user_by_id(user_id)
             user_tag = str(user_id) + "#" + user.name
             self.db_connection.execute_query(query, (ressource_id, user_tag, reason))
         except LookupError as e:

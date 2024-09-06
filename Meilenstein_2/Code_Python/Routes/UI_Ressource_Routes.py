@@ -136,17 +136,20 @@ class Ressource_Routes:
             return jsonify({"status": 0, "message": "Fehler beim Senden der Anfrage"})
             
         
-        @self.app.route("/add_ressource", methods = ["GET","POST"])
+        @self.app.route("/add_ressource", methods = ["POST"])
         def UI_add_ressource():
-            user_id = session["user_id"]
+            if not session["role"]:
+                flash("Melden Sie sich an um diese Funktion zu nutzen", "error")
+                return redirect(url_for("UI_search"))
+            
+            user_id = int(session["user_id"])
             if request.method == "POST":
-                name            = request.form.get("ressource_name")
-                description     = request.form.get("ressource_description")
-                ressource_type  = request.form.get("ressource_type")
-                link            = request.form.get("ressource_link")
-                faculty         = request.form.get("ressource_faculty")
-                ressource_type  = request.form.get("ressource_type")
-                opening_hours   = request.form.get("ressource_opening_hours")
+                name            = request.form.get("add_name")
+                description     = request.form.get("add_description")
+                ressource_type  = request.form.get("add_ressource_type")
+                link            = request.form.get("add_link")
+                faculty         = request.form.get("add_faculty")
+                opening_hours   = request.form.get("add_opening_hours")
 
                 
                 if self.ra.ressource_management.add_ressource(user_id, name, description, link, faculty, ressource_type, opening_hours):
@@ -154,7 +157,7 @@ class Ressource_Routes:
                     return redirect(url_for("UI_search"))
 
             flash("Es ist ein Fehler aufgetreten", "error")
-            return redirect(url_for("UI_add_res"))
+            return redirect(url_for("UI_search"))
         
         @self.app.route("/like_ressource", methods = ["POST"])
         def UI_like_ressource():

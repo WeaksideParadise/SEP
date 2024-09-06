@@ -167,22 +167,19 @@ class Ressource_Management:
             is_published = True
 
         # -> Userkürzel
-        created_by = user.name + "#" + str(user.user_id)
+        created_by = user.name + "#" + str(user_id)
 
         # -> Ressource anlegen und in DB speichern
         ressource = Ressource(-1, name, is_published, False, description, link, created_by, faculty, ressource_type, opening_hours, "X", "X", "X")
         
-        saved = self.save_ressource(ressource)
-
-        if not saved:
+        if not self.save_ressource(ressource):
             return False
 
         # -> Vorschlag erstellen
-        if not is_published:
+        #if not is_published:
             #saved = self.suggest_add_ressource(ressource)
-            if not saved:
-                return False
-        
+        #    if not saved:
+        #        return False
         return True
     
     def change_ressource(self, ressource_id: int, **kwargs) -> bool:

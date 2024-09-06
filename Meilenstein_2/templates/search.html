@@ -304,10 +304,10 @@
                     <!-- <button style="width:5%;font-size: 35px;" onclick="close_inspect_modal()">&times;</button> --> 
                 </div>
 
-                <form class="resource-info">
+                <form class="resource-info" action="{{ url_for('UI_add_ressource') }}" method="post">
                         <div class="form-group" style="width:100%">
                             <label for="name">Name:</label>
-                            <input type="text" id="rs_i_name" name="name" placeholder="Geben Sie hier den Namen der Ressource ein..." required>
+                            <input type="text" id="add_name" name="add_name" placeholder="Geben Sie hier den Namen der Ressource ein..." required>
                         </div>
                     </div>
 
@@ -317,20 +317,20 @@
                                 <div class="desc-box" style="width: 65%">
                                     <div class="form-group">
                                         <label for="beschreibung">Beschreibung:</label>
-                                        <textarea type="text" id="add_description" style="resize: none; height: 355px; width: 100%"name="beschreibung" placeholder="Geben Sie hier die Beschreibung der Ressource ein..." required></textarea>
+                                        <textarea type="text" id="add_description" style="resize: none; height: 355px; width: 100%" name="add_description" placeholder="Geben Sie hier die Beschreibung der Ressource ein..." required></textarea>
                                     </div>
                                 </div>
                                 <div class="times-box" style="width: 30%">
                                     <div class="form-group">
                                         <label for="offnungzeit">Öffnungszeiten:</label>
-                                        <textarea type="text" id="add_opening_hours" style="resize: none; height: 355px; width: 100%"name="offnungzeit" placeholder="Geben Sie hier (falls nötig) die Öffnungszeiten der Ressource ein..."></textarea>
+                                        <textarea type="text" id="add_opening_hours" style="resize: none; height: 355px; width: 100%" name="add_opening_hours" placeholder="Geben Sie hier (falls nötig) die Öffnungszeiten der Ressource ein..."></textarea>
                                     </div>
                                 </div>
 
                             </div>
                             <div class="form-group">
                                 <label for="link">Link:</label>
-                                <input type="text" id="add_link" name="link" placeholder="Geben Sie hier den Link der Ressource ein..." required>
+                                <input type="text" id="add_link" name="add_link" placeholder="Geben Sie hier den Link der Ressource ein..." required>
                             </div>
                         </div>
                         
@@ -339,8 +339,7 @@
                                 <div class="extra-box-fak-type"> 
                                     <div class="form-group">
                                         <label for="category">Ressourcentyp:</label>
-                                        <select id="add_ressource_type" name="ressource_type">
-                                            <option value="all">Alle Kategorien</option>
+                                        <select id="add_ressource_type" name="add_ressource_type">
                                             <option value="Video">Video</option>
                                             <option value="Bericht">Bericht</option>
                                             <option value="Wissenschaftliche Arbeit">Wissenschaftliche Arbeit</option>
@@ -349,8 +348,7 @@
 
                                     <div class="form-group">
                                         <label for="category">Fakultät:</label>
-                                        <select id="add_faculty" name="faculty">
-                                            <option value="all">Alle Kategorien</option>
+                                        <select id="add_faculty" name="add_faculty">
                                             <option value="Informatik">Informatik</option>
                                             <option value="Naturwissenschaften">Naturwissenschaften</option>
                                             <option value="Mathematik">Mathematik</option>
@@ -366,7 +364,7 @@
                                 </div>
 
                                 <div class="form-group" style="display: inline-block; align-self: flex-end; width:100%">
-                                    <button class="button-green" style="width:100%" type="button">Ressource hinzufügen </button>
+                                    <button class="button-green" style="width:100%" type="submit">Ressource hinzufügen </button>
                                 </div>
                             </div>
                         </div>
