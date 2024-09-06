@@ -23,7 +23,7 @@ def build_docs():
     print("Building Sphinx documentation...")
     build_main(args)
     print("Documentation built successfully.")
-    print("Open the Website here: " + build_dir + "/index.html")
+    print("Open the Website here: \n" + build_dir + "/index.html")
 
 if __name__ == "__main__":
     build_docs()
