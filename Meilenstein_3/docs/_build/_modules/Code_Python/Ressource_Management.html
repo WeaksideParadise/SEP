@@ -86,7 +86,17 @@
 <div class="viewcode-block" id="Ressource_Management">
 <a class="viewcode-back" href="../../Ressource_Management.html#Code_Python.Ressource_Management.Ressource_Management">[Doku]</a>
 <span class="k">class</span> <span class="nc">Ressource_Management</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Eine Klasse zur Verwaltung von Ressourcen und deren Interaktion mit der Datenbank.</span>
+<span class="sd">    Diese Klasse ermöglicht es, Ressourcen zu erstellen, zu ändern, zu löschen und abzufragen.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">:</span> <span class="n">Database</span><span class="p">,</span> <span class="n">user_management</span><span class="p">:</span> <span class="n">User_Management</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialisiert das Ressource_Management mit einer Datenbankverbindung und einem User-Management-System.</span>
+
+<span class="sd">        :param db_connection: Eine Instanz der Database-Klasse zur Interaktion mit der Datenbank.</span>
+<span class="sd">        :param user_management: Eine Instanz der User_Management-Klasse zur Verwaltung von Benutzern.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span> <span class="o">=</span> <span class="n">db_connection</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user_management</span> <span class="o">=</span> <span class="n">user_management</span>
 
@@ -95,7 +105,13 @@
 <div class="viewcode-block" id="Ressource_Management.get_ressource_by_id">
 <a class="viewcode-back" href="../../Ressource_Management.html#Code_Python.Ressource_Management.Ressource_Management.get_ressource_by_id">[Doku]</a>
     <span class="k">def</span> <span class="nf">get_ressource_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Ressource</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ruft eine Ressource anhand ihrer ID aus der Datenbank ab.</span>
 
+<span class="sd">        :param ressource_id: Die ID der Ressource, die abgerufen werden soll.</span>
+<span class="sd">        :return: Eine Ressource-Instanz oder None, wenn die Ressource nicht gefunden wurde.</span>
+<span class="sd">        :raises ValueError: Wenn die Ressource-ID kleiner als 1 ist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">ressource_id</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ID ist kleiner 1&quot;</span><span class="p">)</span>
         
@@ -123,7 +139,14 @@
 <div class="viewcode-block" id="Ressource_Management.get_ressources_by_query">
 <a class="viewcode-back" href="../../Ressource_Management.html#Code_Python.Ressource_Management.Ressource_Management.get_ressources_by_query">[Doku]</a>
     <span class="k">def</span> <span class="nf">get_ressources_by_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Führt eine benutzerdefinierte Abfrage aus, um eine Liste von Ressourcen zurückzugeben.</span>
 
+<span class="sd">        :param query: Die SQL-Abfrage, die auf die Ressourcen angewendet werden soll.</span>
+<span class="sd">        :param args: Eine Liste von Argumenten für die SQL-Abfrage.</span>
+<span class="sd">        :return: Eine Liste von Ressource-Instanzen, die der Abfrage entsprechen.</span>
+<span class="sd">        :raises LookupError: Wenn ein Fehler bei der Abfrage auftritt.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">t</span> <span class="o">=</span> <span class="p">()</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
             <span class="n">t</span> <span class="o">+=</span> <span class="p">(</span><span class="n">element</span><span class="p">,)</span>
@@ -159,8 +182,14 @@
 <div class="viewcode-block" id="Ressource_Management.save_ressource">
 <a class="viewcode-back" href="../../Ressource_Management.html#Code_Python.Ressource_Management.Ressource_Management.save_ressource">[Doku]</a>
     <span class="k">def</span> <span class="nf">save_ressource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Speichert eine Ressource in der Datenbank (fügt sie ein oder aktualisiert sie, je nach ID).</span>
+
+<span class="sd">        :param ressource: Ein Ressource-Objekt, das gespeichert werden soll.</span>
+<span class="sd">        :return: True, wenn die Ressource erfolgreich gespeichert wurde, False andernfalls.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">ressource</span><span class="o">.</span><span class="n">ressource_id</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO ressources (name, is_published, is_deleted description, link, created_by, faculty, ressource_type, </span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO ressources (name, is_published, is_deleted, description, link, created_by, faculty, ressource_type, </span>
 <span class="s2">                                   opening_hours, likes, experience_reports, ressource_tags) </span>
 <span class="s2">                                   VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;&quot;&quot;</span>
             
@@ -175,7 +204,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE ressources SET name               = </span><span class="si">%s</span><span class="s2">, </span>
 <span class="s2">                                             is_published       = </span><span class="si">%s</span><span class="s2">, </span>
-<span class="s2">                                             is_deleted         = </span><span class="si">%s</span>
+<span class="s2">                                             is_deleted         = </span><span class="si">%s</span><span class="s2">,</span>
 <span class="s2">                                             description        = </span><span class="si">%s</span><span class="s2">, </span>
 <span class="s2">                                             link               = </span><span class="si">%s</span><span class="s2">, </span>
 <span class="s2">                                             created_by         = </span><span class="si">%s</span><span class="s2">, </span>
@@ -206,7 +235,19 @@
 <div class="viewcode-block" id="Ressource_Management.add_ressource">
 <a class="viewcode-back" href="../../Ressource_Management.html#Code_Python.Ressource_Management.Ressource_Management.add_ressource">[Doku]</a>
     <span class="k">def</span> <span class="nf">add_ressource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">link</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">faculty</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ressource_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">opening_hours</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fügt eine neue Ressource hinzu. Wenn der Ersteller ein Administrator ist, wird die Ressource direkt veröffentlicht.</span>
+<span class="sd">        Andernfalls wird ein Vorschlag erstellt.</span>
 
+<span class="sd">        :param user_id: Die ID des Benutzers, der die Ressource erstellt.</span>
+<span class="sd">        :param name: Der Name der Ressource.</span>
+<span class="sd">        :param description: Die Beschreibung der Ressource.</span>
+<span class="sd">        :param link: Der Link zur Ressource.</span>
+<span class="sd">        :param faculty: Die Fakultät, der die Ressource zugeordnet ist.</span>
+<span class="sd">        :param ressource_type: Der Typ der Ressource.</span>
+<span class="sd">        :param opening_hours: Die Öffnungszeiten der Ressource.</span>
+<span class="sd">        :return: True, wenn die Ressource erfolgreich hinzugefügt wurde, False andernfalls.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># -&gt; Wenn der Anleger ein Admin ist, wird Ressource automatisch veröffentlicht</span>
         <span class="c1"># -&gt; Wenn der Anleger kein Admin ist, wird Vorschlag erstellt</span>
         <span class="n">is_published</span> <span class="o">=</span> <span class="kc">False</span>
@@ -244,6 +285,13 @@
 <div class="viewcode-block" id="Ressource_Management.change_ressource">
 <a class="viewcode-back" href="../../Ressource_Management.html#Code_Python.Ressource_Management.Ressource_Management.change_ressource">[Doku]</a>
     <span class="k">def</span> <span class="nf">change_ressource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ändert eine Ressource basierend auf übergebenen Keyword-Argumenten (kwargs).</span>
+
+<span class="sd">        :param ressource_id: Die ID der Ressource, die geändert werden soll.</span>
+<span class="sd">        :param kwargs: Die Felder und deren neue Werte, die aktualisiert werden sollen.</span>
+<span class="sd">        :return: True, wenn die Änderung erfolgreich war, False andernfalls.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Ensure the resource ID is valid</span>
         <span class="k">if</span> <span class="n">ressource_id</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
@@ -266,14 +314,21 @@
 <div class="viewcode-block" id="Ressource_Management.delete_ressource">
 <a class="viewcode-back" href="../../Ressource_Management.html#Code_Python.Ressource_Management.Ressource_Management.delete_ressource">[Doku]</a>
     <span class="k">def</span> <span class="nf">delete_ressource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Löscht eine Ressource durch Setzen der is_deleted-Flag und speichert die Löschaktion in der Tabelle deleted_ressources.</span>
 
+<span class="sd">        :param ressource_id: Die ID der Ressource, die gelöscht werden soll.</span>
+<span class="sd">        :param user_id: Die ID des Benutzers, der die Ressource löscht.</span>
+<span class="sd">        :param reason: Der Grund für die Löschung.</span>
+<span class="sd">        :return: True, wenn die Ressource erfolgreich gelöscht wurde, False andernfalls.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span> 
             <span class="n">ressource</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ressource_by_id</span><span class="p">(</span><span class="n">ressource_id</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
 
         <span class="n">ressource</span><span class="o">.</span><span class="n">is_deleted</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">ressource_is_published</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">ressource</span><span class="o">.</span><span class="n">is_published</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO deleted_ressources (ressource_id, user_id, reason) VALUES (</span><span class="si">%s</span><span class="s2"> , </span><span class="si">%s</span><span class="s2">)&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>

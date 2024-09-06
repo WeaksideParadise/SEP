@@ -98,35 +98,116 @@
 <dt class="sig sig-object py" id="Code_Python.Ressource_Management.Ressource_Management">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Code_Python.Ressource_Management.</span></span><span class="sig-name descname"><span class="pre">Ressource_Management</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_connection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Database.html#Code_Python.Database.Database" title="Code_Python.Database.Database"><span class="pre">Database</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_management</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="User_Management.html#Code_Python.User_Management.User_Management" title="Code_Python.User_Management.User_Management"><span class="pre">User_Management</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Code_Python/Ressource_Management.html#Ressource_Management"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Management.Ressource_Management" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Eine Klasse zur Verwaltung von Ressourcen und deren Interaktion mit der Datenbank.
+Diese Klasse ermöglicht es, Ressourcen zu erstellen, zu ändern, zu löschen und abzufragen.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Management.Ressource_Management.add_ressource">
 <span class="sig-name descname"><span class="pre">add_ressource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">faculty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ressource_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opening_hours</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Management.html#Ressource_Management.add_ressource"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Management.Ressource_Management.add_ressource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Fügt eine neue Ressource hinzu. Wenn der Ersteller ein Administrator ist, wird die Ressource direkt veröffentlicht.
+Andernfalls wird ein Vorschlag erstellt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_id</strong> – Die ID des Benutzers, der die Ressource erstellt.</p></li>
+<li><p><strong>name</strong> – Der Name der Ressource.</p></li>
+<li><p><strong>description</strong> – Die Beschreibung der Ressource.</p></li>
+<li><p><strong>link</strong> – Der Link zur Ressource.</p></li>
+<li><p><strong>faculty</strong> – Die Fakultät, der die Ressource zugeordnet ist.</p></li>
+<li><p><strong>ressource_type</strong> – Der Typ der Ressource.</p></li>
+<li><p><strong>opening_hours</strong> – Die Öffnungszeiten der Ressource.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn die Ressource erfolgreich hinzugefügt wurde, False andernfalls.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Management.Ressource_Management.change_ressource">
 <span class="sig-name descname"><span class="pre">change_ressource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Management.html#Ressource_Management.change_ressource"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Management.Ressource_Management.change_ressource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Ändert eine Ressource basierend auf übergebenen Keyword-Argumenten (kwargs).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ressource_id</strong> – Die ID der Ressource, die geändert werden soll.</p></li>
+<li><p><strong>kwargs</strong> – Die Felder und deren neue Werte, die aktualisiert werden sollen.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn die Änderung erfolgreich war, False andernfalls.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Management.Ressource_Management.delete_ressource">
 <span class="sig-name descname"><span class="pre">delete_ressource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Management.html#Ressource_Management.delete_ressource"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Management.Ressource_Management.delete_ressource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Löscht eine Ressource durch Setzen der is_deleted-Flag und speichert die Löschaktion in der Tabelle deleted_ressources.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ressource_id</strong> – Die ID der Ressource, die gelöscht werden soll.</p></li>
+<li><p><strong>user_id</strong> – Die ID des Benutzers, der die Ressource löscht.</p></li>
+<li><p><strong>reason</strong> – Der Grund für die Löschung.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn die Ressource erfolgreich gelöscht wurde, False andernfalls.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Management.Ressource_Management.get_ressource_by_id">
 <span class="sig-name descname"><span class="pre">get_ressource_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource"><span class="pre">Ressource</span></a></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Management.html#Ressource_Management.get_ressource_by_id"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Management.Ressource_Management.get_ressource_by_id" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Ruft eine Ressource anhand ihrer ID aus der Datenbank ab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ressource_id</strong> – Die ID der Ressource, die abgerufen werden soll.</p>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>Eine Ressource-Instanz oder None, wenn die Ressource nicht gefunden wurde.</p>
+</dd>
+<dt class="field-odd">Verursacht<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – Wenn die Ressource-ID kleiner als 1 ist.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Management.Ressource_Management.get_ressources_by_query">
 <span class="sig-name descname"><span class="pre">get_ressources_by_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Management.html#Ressource_Management.get_ressources_by_query"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Management.Ressource_Management.get_ressources_by_query" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Führt eine benutzerdefinierte Abfrage aus, um eine Liste von Ressourcen zurückzugeben.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> – Die SQL-Abfrage, die auf die Ressourcen angewendet werden soll.</p></li>
+<li><p><strong>args</strong> – Eine Liste von Argumenten für die SQL-Abfrage.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>Eine Liste von Ressource-Instanzen, die der Abfrage entsprechen.</p>
+</dd>
+<dt class="field-odd">Verursacht<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>LookupError</strong> – Wenn ein Fehler bei der Abfrage auftritt.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Management.Ressource_Management.save_ressource">
 <span class="sig-name descname"><span class="pre">save_ressource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Management.html#Ressource_Management.save_ressource"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Management.Ressource_Management.save_ressource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Speichert eine Ressource in der Datenbank (fügt sie ein oder aktualisiert sie, je nach ID).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ressource</strong> – Ein Ressource-Objekt, das gespeichert werden soll.</p>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn die Ressource erfolgreich gespeichert wurde, False andernfalls.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

@@ -3,14 +3,30 @@ from Code_Python.Ressource       import Ressource
 from Code_Python.User_Management import User_Management
 
 class Ressource_Management:
+    """
+    Eine Klasse zur Verwaltung von Ressourcen und deren Interaktion mit der Datenbank.
+    Diese Klasse ermöglicht es, Ressourcen zu erstellen, zu ändern, zu löschen und abzufragen.
+    """
     def __init__(self, db_connection: Database, user_management: User_Management):
+        """
+        Initialisiert das Ressource_Management mit einer Datenbankverbindung und einem User-Management-System.
+
+        :param db_connection: Eine Instanz der Database-Klasse zur Interaktion mit der Datenbank.
+        :param user_management: Eine Instanz der User_Management-Klasse zur Verwaltung von Benutzern.
+        """
         self.db_connection = db_connection
         self.user_management = user_management
 
     # ------------------------------------------------- Database-Functions ------------------------------------------------- #
 
     def get_ressource_by_id(self, ressource_id) -> Ressource:
+        """
+        Ruft eine Ressource anhand ihrer ID aus der Datenbank ab.
 
+        :param ressource_id: Die ID der Ressource, die abgerufen werden soll.
+        :return: Eine Ressource-Instanz oder None, wenn die Ressource nicht gefunden wurde.
+        :raises ValueError: Wenn die Ressource-ID kleiner als 1 ist.
+        """
         if ressource_id < 1:
             raise ValueError("ID ist kleiner 1")
         
@@ -35,7 +51,14 @@ class Ressource_Management:
         return None
     
     def get_ressources_by_query(self, query: str, args: list) -> list:
+        """
+        Führt eine benutzerdefinierte Abfrage aus, um eine Liste von Ressourcen zurückzugeben.
 
+        :param query: Die SQL-Abfrage, die auf die Ressourcen angewendet werden soll.
+        :param args: Eine Liste von Argumenten für die SQL-Abfrage.
+        :return: Eine Liste von Ressource-Instanzen, die der Abfrage entsprechen.
+        :raises LookupError: Wenn ein Fehler bei der Abfrage auftritt.
+        """
         t = ()
         for element in args:
             t += (element,)
@@ -68,6 +91,12 @@ class Ressource_Management:
     
     # Speichert eine Ressource in der Datenbank (UPDATE)
     def save_ressource(self, ressource: object) -> bool:
+        """
+        Speichert eine Ressource in der Datenbank (fügt sie ein oder aktualisiert sie, je nach ID).
+
+        :param ressource: Ein Ressource-Objekt, das gespeichert werden soll.
+        :return: True, wenn die Ressource erfolgreich gespeichert wurde, False andernfalls.
+        """
         if ressource.ressource_id == -1:
             query = """INSERT INTO ressources (name, is_published, is_deleted, description, link, created_by, faculty, ressource_type, 
                                    opening_hours, likes, experience_reports, ressource_tags) 
@@ -112,7 +141,19 @@ class Ressource_Management:
 
     # Zum Anlegen einer Ressource
     def add_ressource(self, user_id: int, name: str, description: str, link: str, faculty: str, ressource_type: str, opening_hours: str) -> bool:
+        """
+        Fügt eine neue Ressource hinzu. Wenn der Ersteller ein Administrator ist, wird die Ressource direkt veröffentlicht.
+        Andernfalls wird ein Vorschlag erstellt.
 
+        :param user_id: Die ID des Benutzers, der die Ressource erstellt.
+        :param name: Der Name der Ressource.
+        :param description: Die Beschreibung der Ressource.
+        :param link: Der Link zur Ressource.
+        :param faculty: Die Fakultät, der die Ressource zugeordnet ist.
+        :param ressource_type: Der Typ der Ressource.
+        :param opening_hours: Die Öffnungszeiten der Ressource.
+        :return: True, wenn die Ressource erfolgreich hinzugefügt wurde, False andernfalls.
+        """
         # -> Wenn der Anleger ein Admin ist, wird Ressource automatisch veröffentlicht
         # -> Wenn der Anleger kein Admin ist, wird Vorschlag erstellt
         is_published = False
@@ -147,6 +188,13 @@ class Ressource_Management:
         return True
     
     def change_ressource(self, ressource_id: int, **kwargs) -> bool:
+        """
+        Ändert eine Ressource basierend auf übergebenen Keyword-Argumenten (kwargs).
+
+        :param ressource_id: Die ID der Ressource, die geändert werden soll.
+        :param kwargs: Die Felder und deren neue Werte, die aktualisiert werden sollen.
+        :return: True, wenn die Änderung erfolgreich war, False andernfalls.
+        """
         # Ensure the resource ID is valid
         if ressource_id < 0:
             return False
@@ -166,7 +214,14 @@ class Ressource_Management:
             return False
     
     def delete_ressource(self, ressource_id: int, user_id: int, reason: str) -> bool:
+        """
+        Löscht eine Ressource durch Setzen der is_deleted-Flag und speichert die Löschaktion in der Tabelle deleted_ressources.
 
+        :param ressource_id: Die ID der Ressource, die gelöscht werden soll.
+        :param user_id: Die ID des Benutzers, der die Ressource löscht.
+        :param reason: Der Grund für die Löschung.
+        :return: True, wenn die Ressource erfolgreich gelöscht wurde, False andernfalls.
+        """
         try: 
             ressource = self.get_ressource_by_id(ressource_id)
         except LookupError as e:
