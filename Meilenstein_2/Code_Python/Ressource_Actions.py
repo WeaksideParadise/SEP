@@ -90,13 +90,10 @@ class Ressource_Actions:
         try:
             rs.search_ressource()
             results = rs.result
-
-            if results.count(results)==0:
-                return results
             
-            for i in range(0, len(results)):
-                if results[i].is_published == False:
-                    results.pop(i)
+            for i in range(len(results) - 1, -1, -1):  # Loop from the end of the list to the beginning
+                if not results[i].is_published:  # If the result is not published
+                    results.pop(i)  # Remove the element          
 
             return results
         except LookupError as e:

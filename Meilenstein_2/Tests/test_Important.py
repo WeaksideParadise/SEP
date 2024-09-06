@@ -78,5 +78,5 @@ class test_Important(unittest.TestCase):
         # Teste eine Suche ohne Eingabe
         results = self.ra.search_ressources('StudiTV', 'Bericht' , 'Informatik')
 
-
+    
 
