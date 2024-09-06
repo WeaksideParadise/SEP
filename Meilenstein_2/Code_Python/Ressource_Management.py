@@ -1,6 +1,8 @@
 from Code_Python.Database        import Database
 from Code_Python.Ressource       import Ressource
 from Code_Python.User_Management import User_Management
+from Code_Python.User            import User
+import random
 
 class Ressource_Management:
     """
@@ -176,10 +178,14 @@ class Ressource_Management:
             return False
 
         # -> Vorschlag erstellen
-        #if not is_published:
-            #saved = self.suggest_add_ressource(ressource)
-        #    if not saved:
-        #        return False
+        if not is_published:
+
+            query = """SELECT LAST_INSERT_ID()"""
+            result = self.db_connection.execute_query(query)
+            ressource_id = result[0]['LAST_INSERT_ID()']
+
+            if not self.suggest_add_ressource(ressource_id, user_id):
+                return False
         return True
     
     def change_ressource(self, ressource_id: int, **kwargs) -> bool:
@@ -230,10 +236,76 @@ class Ressource_Management:
             result = self.db_connection.execute_query(query, (ressource_id, user_id, reason))
         except LookupError as e:
             return False
+        
         try:
             self.save_ressource(ressource)
             return True
         except LookupError as e:
             return False
+        
+    def suggest_add_ressource(self, ressource_id: int, user_id: int) -> bool:
+
+        # Checken ob Umfrage für die Ressource exisitiert
+        query = """SELECT * FROM ressource_suggestions WHERE ressource_id = %s"""
+        try:
+            result = self.db_connection.execute_query(query, (ressource_id,))
+            if result:
+                return False
+        except LookupError as e:
+            return False
+
+        # Neue Umfrage erstellen -> Nutzer zum Befragen finden (nicht DELETED, nicht Ersteller)
+        user_query = """SELECT * FROM users WHERE user_id != %s AND name != %s"""
+        try:
+            users = self.user_management.get_users_by_query(user_query, user_id, "Deleted")
+            if not users:
+                return False
+        except LookupError as e:
+            return False
+        
+        # Zufällig Nutzer auswählen
+        user_amount = 11
+
+        if(len(users)) < 11:
+            user_amount = len(users)
+            if user_amount % 2 == 0:
+                if not user_amount == 1:
+                    user_amount -= 1
+                    
+
+        random_users = random.sample(users, user_amount)
+
+        # Vorschlag bei Nutzer hinzufügen
+        for user in random_users:
+            suggestions = user.ressource_suggestions.split("#")
+            suggestions.append(ressource_id)
+            user.ressource_suggestions = "#".join(suggestions)
+        
+        # Nutzer wieder speichern
+        for user in random_users:
+            if not self.user_management.save_user(user):
+                return False
+            
+        # Vorschlag in ressource_suggestions hinzufügen
+        user_ids = []
+        for user in random_users:
+            user_ids.append(user.user_id)
+        users_to_vote = "#".join(user_ids)
+
+        query = """INSERT INTO ressource_suggestions (ressource_id, amount_voting_users, users_to_vote, vote_accept, vote_reject, is_closed)"""
+        try:
+            self.db_connection.execute_query(query, (ressource_id, len(random_users), users_to_vote, 0, 0, 0))
+            return True
+        except LookupError as e:
+            return False
+        
+        
+        
+
+        
+
+
+                
+        
     
     

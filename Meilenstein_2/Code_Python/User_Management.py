@@ -61,7 +61,7 @@ class User_Management:
     
     # -> Query muss gültiger Form entsprechen, Argumente nach Query müssen Reihenfolge in Query entsprechen
     # -> Wird nur von Funktionen gerufen, bei denen Entwickler sicheren Funktionsruf bestimmen
-    def get_users_by_query(self, query: str, *args) -> list:
+    def get_users_by_query(self, query: str, *args) -> list[User]:
 
         t = ()
         for element in args:
