@@ -31,7 +31,7 @@ class Admin_Panel_Routes:
                 flash("Du hast keine Rechte für diese Aktion", "error")
                 return redirect(url_for("UI_index"))
             
-            if not self.um.promote_user_to_Moderator(request.args.get("user_id")):
+            if not self.um.promote_user_to_Moderator(int(request.args.get("user_id"))):
                 flash("Fehler beim Ausführen der Aktion", "error")
                 return redirect(url_for("UI_admin_panel"))
             
@@ -44,12 +44,12 @@ class Admin_Panel_Routes:
                 flash("Du hast keine Rechte für diese Aktion", "error")
                 return redirect(url_for("UI_index"))
             
-            if not self.um.demote_user(request.args.get("user_id")):
+            if not self.um.demote_user(int(request.args.get("user_id"))):
                 flash("Fehler beim Ausführen der Aktion", "error")
                 return redirect(url_for("UI_admin_panel"))
             
             #Nutzer zwangsweise ausloggen
-            if not self.um.logout_user(request.args.get("user_id")):
+            if not self.um.logout_user(int(request.args.get("user_id"))):
                 flash("Fehler beim Ausführen der Aktion", "error")
                 return redirect(url_for("UI_admin_panel"))
             
@@ -92,7 +92,7 @@ class Admin_Panel_Routes:
                 flash("Du hast keine Rechte für diese Aktion", "error")
                 return redirect(url_for("UI_index"))
             
-            if not self.ra.ressource_management.delete_ressource(request.args.get("ressource_id"), "Test"):
+            if not self.ra.ressource_management.delete_ressource(request.args.get("ressource_id"), int(session["user_id"]), request.form.get("reason")):
                 flash("Fehler beim Ausführen der Aktion", "error")
                 return redirect(url_for("UI_admin_panel"))
             

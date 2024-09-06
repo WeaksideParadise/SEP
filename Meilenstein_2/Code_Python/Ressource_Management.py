@@ -19,7 +19,7 @@ class Ressource_Management:
 
     # ------------------------------------------------- Database-Functions ------------------------------------------------- #
 
-    def get_ressource_by_id(self, ressource_id) -> Ressource:
+    def get_ressource_by_id(self, ressource_id: int) -> Ressource:
         """
         Ruft eine Ressource anhand ihrer ID aus der Datenbank ab.
 
@@ -27,8 +27,6 @@ class Ressource_Management:
         :return: Eine Ressource-Instanz oder None, wenn die Ressource nicht gefunden wurde.
         :raises ValueError: Wenn die Ressource-ID kleiner als 1 ist.
         """
-        if ressource_id < 1:
-            raise ValueError("ID ist kleiner 1")
         
         query  = """SELECT * FROM ressources WHERE ressource_id = %s"""
         result = self.db_connection.execute_query(query, (ressource_id,))
@@ -223,14 +221,14 @@ class Ressource_Management:
         :return: True, wenn die Ressource erfolgreich gelöscht wurde, False andernfalls.
         """
         try: 
-            ressource = self.get_ressource_by_id(ressource_id)
+            ressource = self.get_ressource_by_id(int(ressource_id))
         except LookupError as e:
             return False
 
         ressource.is_deleted = True
         ressource.is_published = False
 
-        query = """INSERT INTO deleted_ressources (ressource_id, user_id, reason) VALUES (%s , %s)"""
+        query = """INSERT INTO deleted_ressources (ressource_id, user_id, reason) VALUES (%s , %s, %s)"""
         try:
             result = self.db_connection.execute_query(query, (ressource_id, user_id, reason))
         except LookupError as e:

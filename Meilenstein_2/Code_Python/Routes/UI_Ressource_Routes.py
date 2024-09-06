@@ -88,7 +88,7 @@ class Ressource_Routes:
 
                     # Like-Logik
                     is_liked = False
-                    user_id = session["user_id"]
+                    user_id = int(session["user_id"])
                     likes = ressource[0].likes.split("#")
 
                     if user_id in likes:
