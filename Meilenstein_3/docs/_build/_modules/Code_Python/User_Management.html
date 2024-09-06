@@ -234,6 +234,9 @@
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
         
+        <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">is_administrator</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+        
         <span class="n">user</span><span class="o">.</span><span class="n">is_logged_in</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">user</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Deleted&quot;</span>
         <span class="n">user</span><span class="o">.</span><span class="n">hashed_password</span> <span class="o">=</span> <span class="kc">None</span>
@@ -320,7 +323,6 @@
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
         
-        <span class="n">user</span><span class="o">.</span><span class="n">is_administrator</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">user</span><span class="o">.</span><span class="n">is_moderator</span>     <span class="o">=</span> <span class="kc">False</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_user</span><span class="p">(</span><span class="n">user</span><span class="p">)</span></div>

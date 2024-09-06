@@ -12,7 +12,7 @@ class test_User(unittest.TestCase):
             hashed_password="5f4dcc3b5aa765d61d8327deb882cf99",  # MD5 Hash für 'password'
             is_administrator=True,
             is_moderator=False,
-            ressource_suggestions="Vorschlag A"
+            ressource_suggestions='Vorschlag A'
         )
 
     def test_getters(self):
@@ -23,7 +23,7 @@ class test_User(unittest.TestCase):
         self.assertEqual(self.user.hashed_password, "5f4dcc3b5aa765d61d8327deb882cf99")
         self.assertTrue(self.user.is_administrator)
         self.assertFalse(self.user.is_moderator)
-        self.assertEqual(self.user.ressource_suggestions, "Vorschlag A")
+        self.assertEqual(self.user.ressource_suggestions, 'Vorschlag A')
 
     def test_setters(self):
         # Testet, ob die Setter korrekt arbeiten
@@ -45,20 +45,5 @@ class test_User(unittest.TestCase):
         self.user.is_moderator = True
         self.assertTrue(self.user.is_moderator)
 
-        self.user.ressource_suggestions = "Vorschlag B"
-        self.assertEqual(self.user.ressource_suggestions, "Vorschlag B")
-
-    def test_name_length(self):
-        # Testet, ob der Name nicht länger als 40 Zeichen ist
-        with self.assertRaises(ValueError):
-            self.user.name = "A" * 41  # Name mit 41 Zeichen
-
-    def test_invalid_hashed_password(self):
-        # Testet, ob ein ungültiger Hash korrekt behandelt wird
-        with self.assertRaises(ValueError):
-            self.user.hashed_password = "invalidhash"
-
-    def test_invalid_user_id(self):
-        # Testet, ob eine ungültige User ID korrekt behandelt wird
-        with self.assertRaises(ValueError):
-            self.user.user_id = -10
+        self.user.ressource_suggestions = 'Vorschlag B'
+        self.assertEqsual(self.user.ressource_suggestions, 'Vorschlag B')

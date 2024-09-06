@@ -84,6 +84,10 @@ class Ressource_Actions:
         try:
             rs.search_ressource()
             results = rs.result
+
+            if results.count(results)==0:
+                return results
+            
             for i in range(0, len(results)):
                 if results[i].is_published == False:
                     results.pop(i)
@@ -256,7 +260,7 @@ class Ressource_Actions:
             to_save = "#".join(likes)
 
         else:
-            likes.add(str(user_id))
+            likes.append(str(user_id))
             to_save = "#".join(likes)
 
         ressource.likes = to_save

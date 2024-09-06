@@ -17,6 +17,7 @@ class test_Ressource(unittest.TestCase):
             opening_hours="Mo-Fr 9-17",
             likes=[1, 2, 3],
             experience_reports="Sehr gut",
+            is_deleted=False,
             ressource_tags=["Test", "Buch"]
         )
 

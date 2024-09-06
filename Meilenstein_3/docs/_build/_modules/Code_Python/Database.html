@@ -88,7 +88,16 @@
 <div class="viewcode-block" id="Database">
 <a class="viewcode-back" href="../../Database.html#Code_Python.Database.Database">[Doku]</a>
 <span class="k">class</span> <span class="nc">Database</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Eine Klasse zur Verwaltung der Verbindung zu einer MySQL-Datenbank und zum Ausführen von SQL-Abfragen.</span>
+<span class="sd">    Lädt die Umgebungsvariablen für die Datenbankkonfiguration aus einer .env-Datei.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialisiert die Datenbankkonfiguration durch Laden der Verbindungsdaten aus der .env-Datei und</span>
+<span class="sd">        stellt die Verbindung zur Datenbank her.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">load_dotenv</span><span class="p">()</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
@@ -96,32 +105,42 @@
             <span class="s1">&#39;database&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_DATABASE&#39;</span><span class="p">),</span>
             <span class="s1">&#39;user&#39;</span>    <span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_USERNAME&#39;</span><span class="p">),</span>
             <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_PASSWORD&#39;</span><span class="p">),</span>
-           <span class="c1">#&#39;port&#39;    : 3306</span>
+           <span class="c1"># &#39;port&#39;   : 3306  # Optionaler Port kann hier hinzugefügt werden</span>
         <span class="p">}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">()</span>
 
-    <span class="c1"># Verbindungsaufbau mit Datenbank</span>
 <div class="viewcode-block" id="Database._connect">
 <a class="viewcode-back" href="../../Database.html#Code_Python.Database.Database._connect">[Doku]</a>
     <span class="k">def</span> <span class="nf">_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stellt eine Verbindung zur MySQL-Datenbank her und gibt die Verbindungsinstanz zurück.</span>
+<span class="sd">        Im Falle eines Verbindungsfehlers wird eine Fehlermeldung ausgegeben.</span>
+
+<span class="sd">        :return: Eine Verbindung zur MySQL-Datenbank, wenn erfolgreich, andernfalls None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">connection</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">connection</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
                 <span class="k">return</span> <span class="n">connection</span>
-            <span class="n">Error</span>
+            <span class="n">Error</span>  <span class="c1"># Falls der Verbindungsaufbau fehlschlägt</span>
         
         <span class="k">except</span> <span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error while connecting to MySQL: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span></div>
 
 
-    <span class="c1"># Ausführen SQL-Query, gibt die Ergebnisse als Liste von Dictionaries zurück.</span>
 <div class="viewcode-block" id="Database.execute_query">
 <a class="viewcode-back" href="../../Database.html#Code_Python.Database.Database.execute_query">[Doku]</a>
     <span class="k">def</span> <span class="nf">execute_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">any</span><span class="p">]]:</span>
-        
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Führt eine SQL-Abfrage aus und gibt die Ergebnisse als Liste von Dictionaries zurück.</span>
+
+<span class="sd">        :param query: Die SQL-Abfrage, die ausgeführt werden soll.</span>
+<span class="sd">        :param params: Ein optionales Tuple mit den Parametern für die SQL-Abfrage.</span>
+<span class="sd">        :return: Eine Liste von Ergebnissen als Dictionaries, oder None bei einem Verbindungsfehler.</span>
+<span class="sd">        :raises LookupError: Wenn ein Fehler bei der Abfrageausführung auftritt.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">connection</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
@@ -130,16 +149,20 @@
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            
+            <span class="c1"># Falls eine letzte Zeilen-ID vorhanden ist, wird diese dem Ergebnis hinzugefügt</span>
             <span class="k">if</span> <span class="n">cursor</span><span class="o">.</span><span class="n">lastrowid</span><span class="p">:</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;last_row_id&quot;</span> <span class="p">:</span> <span class="n">cursor</span><span class="o">.</span><span class="n">lastrowid</span><span class="p">})</span>
-            <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;last_row_id&quot;</span><span class="p">:</span> <span class="n">cursor</span><span class="o">.</span><span class="n">lastrowid</span><span class="p">})</span>
+
+            <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>  <span class="c1"># Änderungen in der Datenbank bestätigen</span>
             <span class="k">return</span> <span class="n">result</span>
         
         <span class="k">except</span> <span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error while executing to MySQL: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error while executing query in MySQL: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">LookupError</span>
         
         <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># Cursor und Verbindung werden geschlossen, um Ressourcen freizugeben</span>
             <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 </div>

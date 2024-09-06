@@ -94,15 +94,39 @@
 <dt class="sig sig-object py" id="Code_Python.Database.Database">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Code_Python.Database.</span></span><span class="sig-name descname"><span class="pre">Database</span></span><a class="reference internal" href="_modules/Code_Python/Database.html#Database"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Database.Database" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Eine Klasse zur Verwaltung der Verbindung zu einer MySQL-Datenbank und zum Ausführen von SQL-Abfragen.
+Lädt die Umgebungsvariablen für die Datenbankkonfiguration aus einer .env-Datei.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Database.Database._connect">
 <span class="sig-name descname"><span class="pre">_connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Code_Python/Database.html#Database._connect"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Database.Database._connect" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Stellt eine Verbindung zur MySQL-Datenbank her und gibt die Verbindungsinstanz zurück.
+Im Falle eines Verbindungsfehlers wird eine Fehlermeldung ausgegeben.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Eine Verbindung zur MySQL-Datenbank, wenn erfolgreich, andernfalls None.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Database.Database.execute_query">
 <span class="sig-name descname"><span class="pre">execute_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Code_Python/Database.html#Database.execute_query"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Database.Database.execute_query" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Führt eine SQL-Abfrage aus und gibt die Ergebnisse als Liste von Dictionaries zurück.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> – Die SQL-Abfrage, die ausgeführt werden soll.</p></li>
+<li><p><strong>params</strong> – Ein optionales Tuple mit den Parametern für die SQL-Abfrage.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>Eine Liste von Ergebnissen als Dictionaries, oder None bei einem Verbindungsfehler.</p>
+</dd>
+<dt class="field-odd">Verursacht<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>LookupError</strong> – Wenn ein Fehler bei der Abfrageausführung auftritt.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
