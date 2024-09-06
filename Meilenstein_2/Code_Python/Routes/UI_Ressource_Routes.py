@@ -23,23 +23,25 @@ class Ressource_Routes:
             search_query = ""
             faculty = ""
             ressource_type = ""
+            param_faculty = ""
+            param_ressource_type = ""
             
             if request.method == "POST":
                 is_random = False
-                search_query   = request.form.get("search_query", "")
+                search_query   = request.form.get("search_query")
                 ressource_type = request.form.get("ressource_type")
                 faculty        = request.form.get("faculty")
                 page           = int(request.form.get("page", 1))
                 if search_query == None:
                     search_query = None
                 if ressource_type == "all":
-                    ressource_type = None
+                    param_ressource_type = None
                 if faculty == "all":
-                    faculty = None
+                    param_faculty = None
             
             if not is_random:
                 try:
-                    results = self.ra.search_ressources(search_query, ressource_type, faculty)
+                    results = self.ra.search_ressources(search_query, param_ressource_type, param_faculty)
                 except LookupError as e:
                     flash("Bei der Suche ging etwas schief, bitte erneut versuchen", "error")
                     return redirect(url_for("UI_search"))

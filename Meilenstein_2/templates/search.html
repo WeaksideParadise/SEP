@@ -98,10 +98,10 @@
             <div class="navigation-buttons" style="align-items: center">
                 {% if page > 1 %}
                 <form action="{{ url_for('UI_search_ressource') }}" method="post" style="display:inline;">
-                    <input type="hidden" name="page" value={{page-1}}>
-                    <input type="hidden" name="search_query" value="{{searched_query}}">
-                    <input type="hidden" name="faculty" value="{{searched_faculty}}">
-                    <input type="hidden" name="ressource_type" value="{{searched_type}}">
+                    <input type="hidden" name="page" value="{{ page-1 }}">
+                    <input type="hidden" name="search_query" value="{{ searched_query }}">
+                    <input type="hidden" name="faculty" value="{{ searched_faculty }}">
+                    <input type="hidden" name="ressource_type" value="{{ searched_type }}">
                     <button type="submit">&#8592;</button>
                 </form>
                 {% endif %}
@@ -110,10 +110,10 @@
 
                 {% if page < total_pages %}
                 <form action="{{ url_for('UI_search_ressource') }}" method="post" style="display:inline;">
-                    <input type="hidden" name="page" value={{page+1}}>
-                    <input type="hidden" name="search_query" value={{searched_query}}>
-                    <input type="hidden" name="faculty" value={{searched_faculty}}>
-                    <input type="hidden" name="ressource_type" value={{searched_type}}>
+                    <input type="hidden" name="page" value="{{ page+1 }}">
+                    <input type="hidden" name="search_query" value="{{ searched_query }}">
+                    <input type="hidden" name="faculty" value="{{ searched_faculty }}">
+                    <input type="hidden" name="ressource_type" value="{{ searched_type }}">
                     <button type="submit">&#8594;</button>
                 </form>
                 {% endif %}
