@@ -23,23 +23,25 @@ class Ressource_Routes:
             search_query = ""
             faculty = ""
             ressource_type = ""
+            param_faculty = ""
+            param_ressource_type = ""
             
             if request.method == "POST":
                 is_random = False
-                search_query   = request.form.get("search_query", "")
+                search_query   = request.form.get("search_query")
                 ressource_type = request.form.get("ressource_type")
                 faculty        = request.form.get("faculty")
                 page           = int(request.form.get("page", 1))
                 if search_query == None:
                     search_query = None
                 if ressource_type == "all":
-                    ressource_type = None
+                    param_ressource_type = None
                 if faculty == "all":
-                    faculty = None
+                    param_faculty = None
             
             if not is_random:
                 try:
-                    results = self.ra.search_ressources(search_query, ressource_type, faculty)
+                    results = self.ra.search_ressources(search_query, param_ressource_type, param_faculty)
                 except LookupError as e:
                     flash("Bei der Suche ging etwas schief, bitte erneut versuchen", "error")
                     return redirect(url_for("UI_search"))
@@ -50,13 +52,19 @@ class Ressource_Routes:
                 except LookupError as e:
                     flash("Bei der Suche ging etwas schief, bitte erneut versuchen", "error")
                     return redirect(url_for("UI_search"))
-                
+            
+            validated_results = []
+
+            for ressource in results:
+                if not ressource.is_deleted and ressource.is_published:
+                    validated_results.append(ressource)
+
             ressources_per_page = 5
-            total_pages = math.ceil((len(results) / ressources_per_page))
-            paged_ressources = results[(page-1)*ressources_per_page:page*ressources_per_page]
+            total_pages = math.ceil((len(validated_results) / ressources_per_page))
+            paged_ressources = validated_results[(page-1)*ressources_per_page:page*ressources_per_page]
 
             if not is_random and page == 1:
-                flash(f"Es wurden {len(results)} Ergebnisse gefunden", "success")    
+                flash(f"Es wurden {len(validated_results)} Ergebnisse gefunden", "success")    
             
             return render_template("search.html", results=paged_ressources, page=page, total_pages=total_pages, searched_query=search_query, searched_faculty=faculty, searched_type=ressource_type)
         
@@ -88,7 +96,7 @@ class Ressource_Routes:
 
                     # Like-Logik
                     is_liked = False
-                    user_id = session["user_id"]
+                    user_id = int(session["user_id"])
                     likes = ressource[0].likes.split("#")
 
                     if user_id in likes:
@@ -136,17 +144,20 @@ class Ressource_Routes:
             return jsonify({"status": 0, "message": "Fehler beim Senden der Anfrage"})
             
         
-        @self.app.route("/add_ressource", methods = ["GET","POST"])
+        @self.app.route("/add_ressource", methods = ["POST"])
         def UI_add_ressource():
-            user_id = session["user_id"]
+            if not session["role"]:
+                flash("Melden Sie sich an um diese Funktion zu nutzen", "error")
+                return redirect(url_for("UI_search"))
+            
+            user_id = int(session["user_id"])
             if request.method == "POST":
-                name            = request.form.get("ressource_name")
-                description     = request.form.get("ressource_description")
-                ressource_type  = request.form.get("ressource_type")
-                link            = request.form.get("ressource_link")
-                faculty         = request.form.get("ressource_faculty")
-                ressource_type  = request.form.get("ressource_type")
-                opening_hours   = request.form.get("ressource_opening_hours")
+                name            = request.form.get("add_name")
+                description     = request.form.get("add_description")
+                ressource_type  = request.form.get("add_ressource_type")
+                link            = request.form.get("add_link")
+                faculty         = request.form.get("add_faculty")
+                opening_hours   = request.form.get("add_opening_hours")
 
                 
                 if self.ra.ressource_management.add_ressource(user_id, name, description, link, faculty, ressource_type, opening_hours):
@@ -154,7 +165,7 @@ class Ressource_Routes:
                     return redirect(url_for("UI_search"))
 
             flash("Es ist ein Fehler aufgetreten", "error")
-            return redirect(url_for("UI_add_res"))
+            return redirect(url_for("UI_search"))
         
         @self.app.route("/like_ressource", methods = ["POST"])
         def UI_like_ressource():

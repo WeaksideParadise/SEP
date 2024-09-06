@@ -71,10 +71,16 @@ class Ressource_Actions:
         except LookupError as e:
             raise LookupError
         
-        if len(result) <= 5:
-            return result
+        validated_results = []
+
+        for ressource in result:
+            if not ressource.is_deleted and ressource.is_published:
+                validated_results.append(ressource)
+        
+        if len(validated_results) <= 5:
+            return validated_results
     
-        return random.sample(result, 5)
+        return random.sample(validated_results, 5)
 
     
     def search_ressources(self, search_query: str, ressource_type_tag: str, faculty_tag: str) -> list:
@@ -207,7 +213,7 @@ class Ressource_Actions:
         query = """INSERT INTO ressource_reports (ressource_id, user_tag, reason) VALUES (%s, %s, %s)"""
 
         try:
-            user = self.ressource_management.get_ressource_by_id(user_id)
+            user = self.ressource_management.user_management.get_user_by_id(user_id)
             user_tag = str(user_id) + "#" + user.name
             self.db_connection.execute_query(query, (ressource_id, user_tag, reason))
         except LookupError as e:

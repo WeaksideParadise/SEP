@@ -109,13 +109,10 @@
                             <div style="margin:2px">
                                 <button class="button-green" onclick="open_inspect_modal('{{ resource.ressource_id }}', { ressource_id: 'admin_i_ressource_id', description: 'admin_i_description', link: 'admin_i_link', name: 'admin_i_name', hours: 'admin_i_opening_hours', faculty: 'admin_i_faculty', ressource_type: 'admin_i_ressource_type', created_by: 'admin_i_created_by', like_count: 'admin_i_like_count', like_emoji: 'admin_i_like_emoji', is_published: 'admin_i_is_published'})">&#128065;</button>
                             </div>
-
-                            <div class="form-group" style="width:100%; margin-bottom: 0px;">
-                                <input type="text" id="admin_i_created_by" name="ersteller" placeholder="Grund für die Löschung">
-                            </div>
                             
                             <!-- Form for Löschen (Delete) -->
                             <form action="{{ url_for('UI_delete_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:2px">
+                                <input class="form-group" style="width:100%; margin-bottom: 0px;" type="text" id="reason" name="reason" placeholder="Grund für die Löschung" required >
                                 <button class="button-green" type="submit" style="font-size: 15px">Löschen</button>
                             </form>
                         </div>
