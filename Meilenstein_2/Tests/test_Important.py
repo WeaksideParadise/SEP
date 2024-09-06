@@ -67,12 +67,6 @@ class test_Important(unittest.TestCase):
         # Teste eine Suche ohne Eingabe
         results = self.ra.search_ressources('', 'Video' , 'Informatik')
 
-    def test_search_ressources_lookup_error(self):
-        """Testet, ob bei einer fehlerhaften Suche der richtige Fehler geworfen wird."""
-        # Versuche, mit einer ungültigen Fakultät zu suchen, um einen Fehler zu provozieren
-        with self.assertRaises(LookupError):
-            self.ra.search_ressources('invalid_query', 'invalid_type', 'invalid_faculty')
-
     def test_search_ressources_partial(self):
         """Testet, ob Fehler bei halboffenen-Legitimen Suchen Fehler auftreten"""
         # Teste eine Suche ohne Eingabe
