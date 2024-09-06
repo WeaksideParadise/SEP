@@ -36,7 +36,7 @@ class User:
     
     @property
     def ressource_suggestions(self) -> str:
-        return self._ressource_suggestions.__str__()
+        return self._ressource_suggestions
 
     #  -------------------------- Setters --------------------------
 
