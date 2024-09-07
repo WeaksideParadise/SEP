@@ -86,7 +86,7 @@ footer {
 }
 
 .search-container {
-    height: 90%;
+    height: 70%;
     flex-direction: column;
     justify-content: flex-start;
 }
@@ -94,6 +94,7 @@ footer {
 .add-ressource-container {
     flex-direction: column;
     justify-content: flex-start;
+    margin-bottom: 20px;
 }
 
 .bottom-btn-container {
@@ -431,6 +432,54 @@ button:hover {
     background-color: #B4312E;
     color: white;
 }
+
+
+.box-ressource-suggestions{
+    border: 2px solid rgb(71, 71, 71);
+    height: 100%;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.suggested-ressource{
+    width: 95%;
+    padding: 5px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.suggested-ressource-actions{
+    display: flex;
+    flex-direction: row;
+}
+
+.suggested-button-green{
+    background-color: #4CAF86;
+}
+
+.suggested-ressource-name{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.vote-box{
+    display: flex;
+    flex-direction: row;
+    margin-left: 7px;
+}
+
+
 
 
 #value-container {
