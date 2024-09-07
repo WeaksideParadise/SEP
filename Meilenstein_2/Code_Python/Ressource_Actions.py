@@ -310,7 +310,7 @@ class Ressource_Actions:
             return False
         return True
     
-    def vote_for_suggestion(self, user_id: int, suggestion_id: int, vote: bool) -> bool:
+    def vote_for_suggestion(self, user_id: int, ressource_id: int, vote: bool) -> bool:
         try:
             user = self.ressource_management.user_management.get_user_by_id(user_id)
             if not user:
@@ -320,13 +320,13 @@ class Ressource_Actions:
     
     # Schauen ob Nutzer diese überhaupt hat
         suggestions = user.ressource_suggestions.split("#")
-        if suggestion_id not in suggestions:
+        if ressource_id not in suggestions:
             return False
     
         # Suggestion aus DB holen
-        query = """SELECT FROM ressource_suggestions WHERE id= %s"""
+        query = """SELECT FROM ressource_suggestions WHERE ressource_id = %s"""
         try:
-            result = self.db_connection.execute_query(query, (suggestion_id,))
+            result = self.db_connection.execute_query(query, (ressource_id,))
         except LookupError as e:
             return False
         
@@ -341,18 +341,18 @@ class Ressource_Actions:
         vote_reject = int(result[0]["vote_reject"])
         users_to_vote = "#".join(users_to_vote)
         if vote == True:
-            query = """UPDATE ressource_suggestions SET users_to_vote = %s, vote_accept = %s WHERE id = %s)"""
+            query = """UPDATE ressource_suggestions SET users_to_vote = %s, vote_accept = %s WHERE ressource_id = %s)"""
             try:
                 vote_accept += 1
-                self.db_connection.execute_query(query, vote_accept, suggestion_id)
+                self.db_connection.execute_query(query, vote_accept, ressource_id)
             except LookupError as e:
                 return False
                 
         else:
-            query = """UPDATE ressource_suggestions SET users_to_vote = %s, vote_reject = %s WHERE id = %s)"""
+            query = """UPDATE ressource_suggestions SET users_to_vote = %s, vote_reject = %s WHERE ressource_id = %s)"""
             try:
                 vote_reject += 1
-                self.db_connection.execute_query(query, vote_reject, suggestion_id)
+                self.db_connection.execute_query(query, vote_reject, ressource_id)
             except LookupError as e:
                 return False
                 
@@ -366,9 +366,9 @@ class Ressource_Actions:
             vote_result = False
 
         if is_closed:
-            query = """UPDATE ressource_suggestions SET is_closed =%s WHERE id = %s"""
+            query = """UPDATE ressource_suggestions SET is_closed =%s WHERE ressource_id = %s"""
             try: 
-                self.db_connection.execute_query(query, (True, suggestion_id))
+                self.db_connection.execute_query(query, (True, ressource_id))
             except LookupError as e:
                 return False
         else:
@@ -385,3 +385,26 @@ class Ressource_Actions:
 
         return True
 
+    def fetch_suggestions(self, user_id: int) -> list[Ressource]:
+        try:
+            user = self.ressource_management.user_management.get_user_by_id(user_id)
+            if not user:
+                raise LookupError
+        except LookupError as e:
+            raise LookupError
+        
+        suggestions = str(user.ressource_suggestions)   .split("#")
+
+        suggestions_to_return = []
+
+        for i in range(1, len(suggestions)):
+            try:
+                ressource = self.ressource_management.get_ressource_by_id(suggestions[i])
+                if not ressource:
+                    raise LookupError
+            except LookupError as e:
+                raise LookupError
+            suggestions_to_return.append(ressource)
+        
+        return suggestions_to_return
+            
