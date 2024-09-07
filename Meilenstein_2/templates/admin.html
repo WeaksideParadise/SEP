@@ -111,9 +111,9 @@
                             </div>
                             
                             <!-- Form for Löschen (Delete) -->
-                            <form action="{{ url_for('UI_delete_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:2px">
+                            <form action="{{ url_for('UI_delete_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:2px; display: flex; flex-direction: rowM">
                                 <input class="form-group" style="width:100%; margin-bottom: 0px;" type="text" id="reason" name="reason" placeholder="Grund für die Löschung" required >
-                                <button class="button-green" type="submit" style="font-size: 15px">Löschen</button>
+                                <button class="button-green" type="submit" style="font-size: 15px; width: 80px;">Löschen</button>
                             </form>
                         </div>
                     </div>
@@ -140,8 +140,8 @@
 
                             <div class="list-content-box-actions actions-box" style="margin:3px">
                                 <button class="button-green" style="margin:3px" onclick="open_inspect_modal('{{ report.ressource_id }}', { ressource_id: 'admin_i_ressource_id', description: 'admin_i_description', link: 'admin_i_link', name: 'admin_i_name', hours: 'admin_i_opening_hours', faculty: 'admin_i_faculty', ressource_type: 'admin_i_ressource_type', created_by: 'admin_i_created_by', like_count: 'admin_i_like_count', like_emoji: 'admin_i_like_emoji', is_published: 'admin_i_is_published'})">&#128065;</button>
-                                <form action="{{ url_for('UI_publish_ressource', ressource_id = report.ressource_id) }}" method="post" style="margin: 3px; font-size: 15px">
-                                    <button class= "button-green" type="submit">Veröffentlichen</button>
+                                <form action="{{ url_for('UI_publish_ressource', ressource_id = report.ressource_id) }}" method="post" style="margin: 3px; font-size: 16px">
+                                    <button class= "button-green" style="font-size: 15px" type="submit">Veröffentlichen</button>
                                 </form>
                             </div>
                         </div>

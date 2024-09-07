@@ -76,50 +76,53 @@
                     </div>
     
                     <div class="fields-container">
-                        <div>
+                        <div class="form-group" style="margin-bottom: 0px">
                             <label for="typ">Ressourcentyp:</label>
-                            <input type="text" id="typ" name="typ" value="{{ resource.ressource_type }}">
+                            <input type="text" id="typ" name="typ" value="{{ resource.ressource_type }}" readonly>
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label for="fakultaet">Fakultät:</label>
-                            <input type="text" id="fakultaet" name="fakultaet" value="{{ resource.faculty }}">
+                            <input type="text" id="fakultaet" name="fakultaet" value="{{ resource.faculty }}" readonly>
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label for="erstellt">Erstellt von:</label>
-                            <input type="text" id="erstellt" name="erstellt" value="{{ resource.created_by }}">
+                            <input type="text" id="erstellt" name="erstellt" value="{{ resource.created_by }}" readonly>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
+
+                <!-- ----------------------Buttons: left-right ----------------------->
+                <div class="navigation-buttons" style="align-items: center">
+                    {% if page > 1 %}
+                    <form action="{{ url_for('UI_search_ressource') }}" method="post" style="display:inline;">
+                        <input type="hidden" name="page" value="{{ page-1 }}">
+                        <input type="hidden" name="search_query" value="{{ searched_query }}">
+                        <input type="hidden" name="faculty" value="{{ searched_faculty }}">
+                        <input type="hidden" name="ressource_type" value="{{ searched_type }}">
+                        <button type="submit">&#8592;</button>
+                    </form>
+                    {% endif %}
+                    <div style="width: 115px; text-align: center">
+                        <span>Seite {{ page }} von {{ total_pages }}</span>
+                    </div>
+
+
+                    {% if page < total_pages %}
+                    <form action="{{ url_for('UI_search_ressource') }}" method="post" style="display:inline;">
+                        <input type="hidden" name="page" value="{{ page+1 }}">
+                        <input type="hidden" name="search_query" value="{{ searched_query }}">
+                        <input type="hidden" name="faculty" value="{{ searched_faculty }}">
+                        <input type="hidden" name="ressource_type" value="{{ searched_type }}">
+                        <button type="submit">&#8594;</button>
+                    </form>
+                    {% endif %}
+                    <!--<div class="nav-button" onclick="history.back()">&#8592;</div> -->
+                    <!--<div class="nav-button" onclick="history.forward()">&#8594;</div> -->
+                </div>
+
             </div>
 
-
-            <!-- ----------------------Buttons: left-right ----------------------->
-            <div class="navigation-buttons" style="align-items: center">
-                {% if page > 1 %}
-                <form action="{{ url_for('UI_search_ressource') }}" method="post" style="display:inline;">
-                    <input type="hidden" name="page" value="{{ page-1 }}">
-                    <input type="hidden" name="search_query" value="{{ searched_query }}">
-                    <input type="hidden" name="faculty" value="{{ searched_faculty }}">
-                    <input type="hidden" name="ressource_type" value="{{ searched_type }}">
-                    <button type="submit">&#8592;</button>
-                </form>
-                {% endif %}
-
-                <span>Seite {{ page }} von {{ total_pages }}</span>
-
-                {% if page < total_pages %}
-                <form action="{{ url_for('UI_search_ressource') }}" method="post" style="display:inline;">
-                    <input type="hidden" name="page" value="{{ page+1 }}">
-                    <input type="hidden" name="search_query" value="{{ searched_query }}">
-                    <input type="hidden" name="faculty" value="{{ searched_faculty }}">
-                    <input type="hidden" name="ressource_type" value="{{ searched_type }}">
-                    <button type="submit">&#8594;</button>
-                </form>
-                {% endif %}
-                <!--<div class="nav-button" onclick="history.back()">&#8592;</div> -->
-                <!--<div class="nav-button" onclick="history.forward()">&#8594;</div> -->
-            </div>
         </section>
 
     <!-- ----------------------Sidebar ----------------------->
@@ -161,6 +164,30 @@
                     </div>
                 </form>
             </div>
+
+            <div class="box-ressource-suggestions">
+                <h2>Abstimmung für neue Ressourcen</h2>
+
+                <!-- Hier Abstimmbare Sachen einfügen -->
+                <div class="suggested-ressource">
+                    <div class="suggested-ressource-name">
+                        <text>FORTNITE FORTNITE FONRTITE TETETETETETTET</text>
+                    </div>
+                    
+                    <div class="suggested-ressource-actions">
+                        <button>&#128065;</button>
+                        <div class="vote-box">
+                            <button class="suggested-button-green">&#10003</button>
+                            <button class="button-red">&#10006;</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
             <div class="add-ressource-container">
                 <button onclick="open_add_modal()"> Ressource hinzufügen </button>
             </div>
