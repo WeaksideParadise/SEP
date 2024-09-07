@@ -67,6 +67,9 @@ class Ressource_Routes:
             total_pages = math.ceil((len(validated_results) / ressources_per_page))
             paged_ressources = validated_results[(page-1)*ressources_per_page:page*ressources_per_page]
 
+            if not is_random and page == 1:
+                flash(f"Es wurden {len(validated_results)} Ergebnisse gefunden", "success")    
+
             #Vorschläge fetchen
             suggestions = []
             if session["role"]:
@@ -75,9 +78,6 @@ class Ressource_Routes:
                 except LookupError as e:
                     flash("Fehler im Backend", "error")
                     return redirect(url_for("UI_index"))
-
-            if not is_random and page == 1:
-                flash(f"Es wurden {len(validated_results)} Ergebnisse gefunden", "success")    
             
             return render_template("search.html", results=paged_ressources, page=page, total_pages=total_pages, searched_query=search_query, searched_faculty=faculty, searched_type=ressource_type, suggestions=suggestions)
         

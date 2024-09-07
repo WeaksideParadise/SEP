@@ -64,6 +64,6 @@ class User:
     def is_moderator(self, is_moderator: bool):
         self._is_moderator = is_moderator
 
-    @is_moderator.setter
+    @ressource_suggestions.setter
     def ressource_suggestions(self, ressource_suggestions: str):
         self._ressource_suggestions = ressource_suggestions

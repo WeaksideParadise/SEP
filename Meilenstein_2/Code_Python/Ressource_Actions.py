@@ -325,6 +325,7 @@ class Ressource_Actions:
     
         # Suggestion aus DB holen
         query = """SELECT FROM ressource_suggestions WHERE ressource_id = %s"""
+
         try:
             result = self.db_connection.execute_query(query, (ressource_id,))
         except LookupError as e:
@@ -393,13 +394,13 @@ class Ressource_Actions:
         except LookupError as e:
             raise LookupError
         
-        suggestions = str(user.ressource_suggestions)   .split("#")
+        suggestions = str(user.ressource_suggestions).split("#")
 
         suggestions_to_return = []
 
         for i in range(1, len(suggestions)):
             try:
-                ressource = self.ressource_management.get_ressource_by_id(suggestions[i])
+                ressource = self.ressource_management.get_ressource_by_id(int(suggestions[i]))
                 if not ressource:
                     raise LookupError
             except LookupError as e:

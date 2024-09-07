@@ -75,20 +75,31 @@ class Admin_Panel_Routes:
             flash(f"Nutzer {request.args.get('user_id')} wurde gelöscht", "success")
             return redirect(url_for("UI_admin_panel"))
         
-        @self.app.route("/change_ressource", methods = ["GET","POST"])
+        @self.app.route("/change_ressource", methods = ["POST"])
         def UI_change_ressource():
-            if not session["role"] == "administrator":
+            if not session["role"] in ["administrator","moderator"]:
                 flash("Du hast keine Rechte für diese Aktion", "error")
                 return redirect(url_for("UI_index"))
             
-            # TODO
+            ressource_id           = request.form.get("ressource_id")
+            #ressource_is_published = request.form.get("is_published")
+            ressource_name         = request.form.get("name")
+            ressource_description  = request.form.get("description")
+            ressource_link         = request.form.get("link")
+            ressource_opening_hours= request.form.get("opening_hours")
+            ressource_faculty      = request.form.get("faculty")
+            ressource_type         = request.form.get("ressource_type")
 
-            flash(f"Ressource {request.args.get('ressource_id')} wurde geändert", "success")
+            if not self.ra.ressource_management.change_ressource(int(ressource_id), name=ressource_name, description=ressource_description, link=ressource_link, opening_hours=ressource_opening_hours, faculty=ressource_faculty, ressource_type=ressource_type):
+                flash("Fehler beim Ändernd er Ressource")
+                return redirect(url_for("UI_admin_panel"))
+            
+            flash(f"Ressource {ressource_id} wurde geändert", "success")
             return redirect(url_for("UI_admin_panel"))
         
         @self.app.route("/delete_ressource", methods = ["GET","POST"])
         def UI_delete_ressource():
-            if not session["role"] == "administrator":
+            if not session["role"] in ["administrator","moderator"]:
                 flash("Du hast keine Rechte für diese Aktion", "error")
                 return redirect(url_for("UI_index"))
             

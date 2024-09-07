@@ -92,7 +92,7 @@ class User_Management:
         # -> Neuen Nutzer anlegen, alle nicht aufgezählten Variablen werden automatisch von DB angelegt
         if user.user_id == -1:
             query = """INSERT INTO users (name, hashed_password, ressource_suggestions) 
-                       VALUES (%s, %s)"""
+                       VALUES (%s, %s, %s)"""
             
             try:
                 result = self.db_connection.execute_query(query, (user.name, user.hashed_password, "X"))
