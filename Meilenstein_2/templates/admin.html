@@ -175,36 +175,34 @@
             <!-- Content-Bereich für Ressource-Informationen -->
             <div class="modal-body">
 
-                <div class="modal-header">
-                    <h1>Ressourcen-Details</h1>
+                <form class="resource-info" action="{{ url_for('UI_change_ressource') }}" method="post">
 
-
-                    <!-- DIESE BOX SIEHT NUR DER ADMIN -->
-                    {% if session.get('role') == 'administrator' or session.get('role') == 'moderator' %} 
-                        <div class="admin-only-box">
-                            
-                            <div class="form-group" style="margin-bottom:0px; margin-right: 10px;">
-                                <input class="published-color-green" id="admin_i_is_published" type="text" name="veroeffentlicht" value="">
+                    <div class="modal-header">
+                        <h1>Ressourcen-Details</h1>
+    
+    
+                        <!-- DIESE BOX SIEHT NUR DER ADMIN -->
+                        {% if session.get('role') == 'administrator' or session.get('role') == 'moderator' %} 
+                            <div class="admin-only-box">
+                                
+                                <div class="form-group" style="margin-bottom:0px; margin-right: 10px;">
+                                    <input class="published-color-green" id="admin_i_is_published" type="text" name="is_published" value="">
+                                </div>
+    
+                                <div class="form-group" style="margin-bottom:10px">
+                                    <button class="button-green" type="submit">Änderungen speichern</button>
+                                </div>
                             </div>
-
-                            <div class="form-group" style="margin-bottom:10px">
-                                <button class="button-green" type="button">Änderungen speichern</button>
-                            </div>
+                        {% endif %}
+                        <!-- ENDE DER ADMIN BOX -->
+    
+                        
+                        <div class="form-group" style="margin-bottom:10px;">
+                            <button onclick="close_inspect_modal()" type="button">&#10006;</button>
                         </div>
-                    {% endif %}
-                    <!-- ENDE DER ADMIN BOX -->
-
-                    
-                    <div class="form-group" style="margin-bottom:10px;">
-                        <button onclick="close_inspect_modal()">&#10006;</button>
+    
+                        <!-- <button style="width:5%;font-size: 35px;" onclick="close_inspect_modal()">&times;</button> --> 
                     </div>
-
-                    <!-- <button style="width:5%;font-size: 35px;" onclick="close_inspect_modal()">&times;</button> --> 
-                </div>
-
-
-
-                <form class="resource-info">
 
                     <div class="id-name-like-x">
                         <div class="form-group" style="width:80%">
@@ -213,11 +211,11 @@
                         </div>
                         <div class="form-group" style="width:5%">
                             <label for="id">ID:</label>
-                            <input type="text" id="admin_i_ressource_id" name="link">
+                            <input type="text" id="admin_i_ressource_id" name="ressource_id" readonly>
                         </div>
                         <div class="form-group" style="width:10%">
                             <label>Likes:</label>
-                            <button class="like-button" style="margin-top: 0px" onclick="like_ressource({ressource_id: 'admin_i_ressource_id', like_count: 'admin_i_like_count', like_emoji: 'admin_i_like_emoji'})">
+                            <button class="like-button" style="margin-top: 0px" type="button" onclick="like_ressource({ressource_id: 'admin_i_ressource_id', like_count: 'admin_i_like_count', like_emoji: 'admin_i_like_emoji'})">
                                 <text id="admin_i_like_emoji"> </text>
                                 <text id="admin_i_like_count"> </text>
                             </button>
@@ -232,13 +230,13 @@
                                 <div class="desc-box" style="width: 65%">
                                     <div class="form-group">
                                         <label for="beschreibung">Beschreibung:</label>
-                                        <textarea type="text" id="admin_i_description" style="resize: none; height: 355px; width: 100%"name="beschreibung"></textarea>
+                                        <textarea type="text" id="admin_i_description" style="resize: none; height: 355px; width: 100%"name="description"></textarea>
                                     </div>
                                 </div>
                                 <div class="times-box" style="width: 30%">
                                     <div class="form-group">
                                         <label for="offnungzeit">Öffnungszeiten:</label>
-                                        <textarea type="text" id="admin_i_opening_hours" style="resize: none; height: 355px; width: 100%"name="offnungzeit"></textarea>
+                                        <textarea type="text" id="admin_i_opening_hours" style="resize: none; height: 355px; width: 100%"name="opening_hours"></textarea>
                                     </div>
                                 </div>
 
@@ -253,16 +251,16 @@
                             <div class="fak-type-created-pub">
                                 <div class="form-group">
                                     <label for="fakultaet">Fakultät:</label>
-                                    <input type="text" id="admin_i_faculty" name="fakultaet">
+                                    <input type="text" id="admin_i_faculty" name="faculty">
                                 </div>
                                 <div class="form-group">
                                     <label for="typ">Typ:</label>
-                                    <input type="text" id="admin_i_ressource_type" name="typ">
+                                    <input type="text" id="admin_i_ressource_type" name="ressource_type">
                                 </div>
                                 <div class="created-pub">
                                     <div class="form-group" style="width:100%">
                                         <label for="ersteller">Ersteller:</label>
-                                        <input type="text" id="admin_i_created_by" name="ersteller">
+                                        <input type="text" id="admin_i_created_by" name="ersteller" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -271,7 +269,7 @@
                                     <label for="Grund">Grund:</label>
                                     <textarea style="resize: none; height: 150px" type="text" id="admin_i_report_reason" name="Grund"></textarea>
 
-                                    <button onclick="report_ressource({ressource_id: 'admin_i_ressource_id', reason: 'admin_i_report_reason'})" class="button-green" type="button" >Ressource melden</button>
+                                    <button type="button" onclick="report_ressource({ressource_id: 'admin_i_ressource_id', reason: 'admin_i_report_reason'})" class="button-green" type="button" >Ressource melden</button>
                                 </div>
                             </div>  
                         </div>
