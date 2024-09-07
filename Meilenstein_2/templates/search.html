@@ -222,7 +222,7 @@
                         <div class="admin-only-box">
                             
                             <div class="form-group" style="margin-bottom:0px; margin-right: 10px;">
-                                <input class="published-color-green" id="rs_i_is_published" type="text" name="veroeffentlicht" value="" readonly>
+                                <input class="published-color-green" id="rs_i_is_published" type="text" name="veroeffentlicht" value="0" readonly>
                             </div>
 
                             <div class="form-group" style="margin-bottom:10px">
@@ -253,9 +253,9 @@
                         </div>
                         <div class="form-group" style="width:10%">
                             <label>Likes:</label>
-                            <button class="like-button" style="margin-top: 0px" onclick="like_ressource({ressource_id: 'rs_i_ressource_id', like_count: 'rs_i_like_count', like_emoji: 'rs_i_like_emoji'})">
-                                <text id="rs_i_like_emoji"></text>
-                                <text id="rs_i_like_count"></text>
+                            <button class="like-button" style="margin-top: 0px" type="button" onclick="like_ressource({ressource_id: 'rs_i_ressource_id', like_count: 'rs_i_like_count', like_emoji: 'rs_i_like_emoji'})">
+                                <text id="rs_i_like_emoji"> </text>
+                                <text id="rs_i_like_count"> </text>
                             </button>
     
                         </div>
