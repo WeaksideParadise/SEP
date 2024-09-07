@@ -163,10 +163,12 @@ button:hover {
 
 .resourcen-formular {
     border: 2px solid #000;
+    height: 90px;
     padding: 20px;
     margin: 5px;
-    width: 80%;
-    max-width: 800px; /* Maximalbreite des Formulars */
+/*     width: 80%;
+    max-width: 800px; */ /* Maximalbreite des Formulars */
+    width: 95%;
     background-color: #fff;
     border-radius: 8px;
     position: relative;
@@ -222,13 +224,11 @@ button:hover {
 /* ---------------------------------------------------------------------------------------------------------*/
 
 .navigation-buttons {
-    position: relative;
-    bottom: 20px;
+    bottom: 50px;
     width: 100%;
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-bottom: auto;
 }
 
 .navigation-buttons .nav-button {
