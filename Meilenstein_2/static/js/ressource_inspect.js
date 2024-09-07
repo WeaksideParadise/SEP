@@ -74,11 +74,11 @@ function like_ressource(elementIds) {
                 // Abfrage ob nicht geliked
                 if (document.getElementById(elementIds.like_emoji).style.color == 'white'){
                     document.getElementById(elementIds.like_emoji).style.color = 'red';
-                    document.getElementById(elementIds.like_count).value = parseInt(document.getElementById(elementIds.like_count).value) + 1
+                    document.getElementById(elementIds.like_count).innerHTML = parseInt(document.getElementById(elementIds.like_count).innerHTML) + 1
                 }
                 else {
                     document.getElementById(elementIds.like_emoji).style.color = 'white';
-                    document.getElementById(elementIds.like_count).value = parseInt(document.getElementById(elementIds.like_count).value) - 1
+                    document.getElementById(elementIds.like_count).innerHTML = parseInt(document.getElementById(elementIds.like_count).innerHTML) - 1
                 }
             } else {
                 alert("Fehler");

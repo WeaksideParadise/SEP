@@ -69,8 +69,17 @@ class Ressource_Routes:
 
             if not is_random and page == 1:
                 flash(f"Es wurden {len(validated_results)} Ergebnisse gefunden", "success")    
+
+            #Vorschläge fetchen
+            suggestions = []
+            if session["role"]:
+                try:
+                    suggestions = self.ra.fetch_suggestions(session["user_id"])
+                except LookupError as e:
+                    flash("Fehler im Backend", "error")
+                    return redirect(url_for("UI_index"))
             
-            return render_template("search.html", results=paged_ressources, page=page, total_pages=total_pages, searched_query=search_query, searched_faculty=faculty, searched_type=ressource_type)
+            return render_template("search.html", results=paged_ressources, page=page, total_pages=total_pages, searched_query=search_query, searched_faculty=faculty, searched_type=ressource_type, suggestions=suggestions)
         
         @self.app.route("/inspect_ressource", methods = ["POST"])
         def UI_inspect_ressource():
@@ -188,3 +197,20 @@ class Ressource_Routes:
                     return jsonify({"status": 1})
 
             return jsonify({"status": 0})
+        
+        @self.app.route("/vote_suggestion", methods = ["POST"])
+        def UI_vote_suggestion():
+            if not session["role"]:
+                flash("Melden Sie sich an, um diese Funktion zu nutzen", "error")
+                return redirect(url_for("UI_search"))
+            
+            user_id = session.get("user_id")
+            ressource_id = request.args.get("ressource_id")
+            vote = request.args.get("vote")
+
+            if not self.ra.vote_for_suggestion(user_id, ressource_id, vote):
+                flash("Beim Abstimmen ist etwas schiefgelaufen")
+                return redirect(url_for("UI_search"))
+            
+            flash("Sie haben erfolgreich abgestimmt")
+            return redirect(url_for("UI_search"))
