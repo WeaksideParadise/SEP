@@ -72,13 +72,16 @@ class Ressource_Routes:
 
             #Vorschläge fetchen
             suggestions = []
-            if session["role"]:
-                try:
-                    suggestions = self.ra.fetch_suggestions(session["user_id"])
-                except LookupError as e:
-                    flash("Fehler im Backend", "error")
-                    return redirect(url_for("UI_index"))
+            try:
+                if session["role"]:
+                    try:
+                        suggestions = self.ra.fetch_suggestions(session["user_id"])
+                    except LookupError as e:
+                        flash("Fehler im Backend", "error")
+                        return redirect(url_for("UI_index"))
             
+            except:
+                {}
             return render_template("search.html", results=paged_ressources, page=page, total_pages=total_pages, searched_query=search_query, searched_faculty=faculty, searched_type=ressource_type, suggestions=suggestions)
         
         @self.app.route("/inspect_ressource", methods = ["POST"])
