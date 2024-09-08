@@ -95,20 +95,31 @@
 <dt class="sig sig-object py" id="Code_Python.User_Interface.User_Interface">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Code_Python.User_Interface.</span></span><span class="sig-name descname"><span class="pre">User_Interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">um</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="User_Management.html#Code_Python.User_Management.User_Management" title="Code_Python.User_Management.User_Management"><span class="pre">User_Management</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions" title="Code_Python.Ressource_Actions.Ressource_Actions"><span class="pre">Ressource_Actions</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Database.html#Code_Python.Database.Database" title="Code_Python.Database.Database"><span class="pre">Database</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Code_Python/User_Interface.html#User_Interface"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.User_Interface.User_Interface" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Diese Klasse stellt das Benutzerinterface der Anwendung bereit, das auf Flask basiert.
+Es werden Routen initialisiert, Sessions verwaltet und verschiedene Instanzen erstellt.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.User_Interface.User_Interface.create_session_table">
 <span class="sig-name descname"><span class="pre">create_session_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Code_Python/User_Interface.html#User_Interface.create_session_table"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.User_Interface.User_Interface.create_session_table" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Erstellt die Tabelle für die Sessions in der Datenbank, falls diese nicht existiert.</p>
+<p>Innerhalb der Flask-App wird eine SessionModel-Klasse definiert,
+die für die Speicherung der Sitzungen in der SQLAlchemy-Datenbank verantwortlich ist.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.User_Interface.User_Interface.initialize_routes">
 <span class="sig-name descname"><span class="pre">initialize_routes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Code_Python/User_Interface.html#User_Interface.initialize_routes"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.User_Interface.User_Interface.initialize_routes" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initialisiert alle notwendigen Routen für die Webanwendung.</p>
+<p>Bindet die verschiedenen Route-Klassen an die Flask-Applikation,
+um Benutzer-, Admin- und Ressourcenseiten zu verwalten.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.User_Interface.User_Interface.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Code_Python/User_Interface.html#User_Interface.run"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.User_Interface.User_Interface.run" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Startet den Flask-Webserver im Debug-Modus.</p>
+<p>Diese Methode wird aufgerufen, um die Flask-Applikation lokal oder auf einem Server
+laufen zu lassen. Debug-Informationen werden in der Konsole ausgegeben.</p>
+</dd></dl>
 
 </dd></dl>
 

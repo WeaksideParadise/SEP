@@ -79,13 +79,13 @@
            <div itemprop="articleBody">
              
   <h1>Quellcode für Code_Python.User_Interface</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">Code_Python.Database</span>               <span class="kn">import</span> <span class="n">Database</span>
-<span class="kn">from</span> <span class="nn">Code_Python.User_Management</span>        <span class="kn">import</span> <span class="n">User_Management</span>
-<span class="kn">from</span> <span class="nn">Code_Python.Ressource_Actions</span>      <span class="kn">import</span> <span class="n">Ressource_Actions</span>
-<span class="kn">from</span> <span class="nn">Code_Python.Routes</span>                 <span class="kn">import</span> <span class="n">UI_Navigation_Bar_Routes</span>
-<span class="kn">from</span> <span class="nn">Code_Python.Routes</span>                 <span class="kn">import</span> <span class="n">UI_User_Routes</span>
-<span class="kn">from</span> <span class="nn">Code_Python.Routes</span>                 <span class="kn">import</span> <span class="n">UI_Admin_Panel_Routes</span>
-<span class="kn">from</span> <span class="nn">Code_Python.Routes</span>                 <span class="kn">import</span> <span class="n">UI_Ressource_Routes</span>
+<span></span><span class="kn">from</span> <span class="nn">Code_Python.Database</span> <span class="kn">import</span> <span class="n">Database</span>
+<span class="kn">from</span> <span class="nn">Code_Python.User_Management</span> <span class="kn">import</span> <span class="n">User_Management</span>
+<span class="kn">from</span> <span class="nn">Code_Python.Ressource_Actions</span> <span class="kn">import</span> <span class="n">Ressource_Actions</span>
+<span class="kn">from</span> <span class="nn">Code_Python.Routes</span> <span class="kn">import</span> <span class="n">UI_Navigation_Bar_Routes</span>
+<span class="kn">from</span> <span class="nn">Code_Python.Routes</span> <span class="kn">import</span> <span class="n">UI_User_Routes</span>
+<span class="kn">from</span> <span class="nn">Code_Python.Routes</span> <span class="kn">import</span> <span class="n">UI_Admin_Panel_Routes</span>
+<span class="kn">from</span> <span class="nn">Code_Python.Routes</span> <span class="kn">import</span> <span class="n">UI_Ressource_Routes</span>
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span>
 <span class="kn">from</span> <span class="nn">flask_sqlalchemy</span> <span class="kn">import</span> <span class="n">SQLAlchemy</span>
 <span class="kn">from</span> <span class="nn">flask_session</span> <span class="kn">import</span> <span class="n">Session</span>
@@ -96,20 +96,34 @@
 <div class="viewcode-block" id="User_Interface">
 <a class="viewcode-back" href="../../User_Interface.html#Code_Python.User_Interface.User_Interface">[Doku]</a>
 <span class="k">class</span> <span class="nc">User_Interface</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Diese Klasse stellt das Benutzerinterface der Anwendung bereit, das auf Flask basiert.</span>
+<span class="sd">    Es werden Routen initialisiert, Sessions verwaltet und verschiedene Instanzen erstellt.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">um</span><span class="p">:</span> <span class="n">User_Management</span><span class="p">,</span> <span class="n">ra</span><span class="p">:</span> <span class="n">Ressource_Actions</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Database</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialisiert das User Interface, konfiguriert Flask, setzt Session-Management auf</span>
+<span class="sd">        und initialisiert die notwendigen Routen.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            um (User_Management): Instanz des User-Managements zur Verwaltung von Benutzern.</span>
+<span class="sd">            ra (Ressource_Actions): Instanz zum Verwalten von Ressourcenvorgängen.</span>
+<span class="sd">            db (Database): Datenbank-Instanz für die Kommunikation mit der Datenbank.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">load_dotenv</span><span class="p">()</span>
         
-        <span class="c1"># -&gt; Flask initialiseren</span>
+        <span class="c1"># -&gt; Flask initialisieren</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">static_folder</span><span class="o">=</span><span class="s1">&#39;../static&#39;</span><span class="p">,</span> <span class="n">template_folder</span><span class="o">=</span><span class="s1">&#39;../templates&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">secret_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;FLASK_SECRET_KEY&#39;</span><span class="p">)</span>
 
-        <span class="c1"># -&gt; Session initialiseren</span>
+        <span class="c1"># -&gt; Session initialisieren</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;SESSION_TYPE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;sqlalchemy&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;SQLALCHEMY_DATABASE_URI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                                                     <span class="sa">f</span><span class="s2">&quot;mysql+mysqlconnector://&quot;</span>
-                                                     <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_USERNAME&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_PASSWORD&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">@&quot;</span>
-                                                     <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_HOST&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">:3306/</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_DATABASE&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-                                                     <span class="p">)</span>
+            <span class="sa">f</span><span class="s2">&quot;mysql+mysqlconnector://&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_USERNAME&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_PASSWORD&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">@&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_HOST&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">:3306/</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_DATABASE&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;SQLALCHEMY_TRACK_MODIFICATIONS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session_db</span> <span class="o">=</span> <span class="n">SQLAlchemy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">)</span>
         
@@ -123,7 +137,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ra</span> <span class="o">=</span> <span class="n">ra</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">db</span>
 
-        <span class="c1"># -&gt; Session Tabelle erstellen</span>
+        <span class="c1"># -&gt; Session-Tabelle erstellen (optional, auskommentiert)</span>
         <span class="c1"># self.create_session_table()</span>
 
         <span class="c1"># -&gt; Routen initialisieren</span>
@@ -132,6 +146,13 @@
 <div class="viewcode-block" id="User_Interface.create_session_table">
 <a class="viewcode-back" href="../../User_Interface.html#Code_Python.User_Interface.User_Interface.create_session_table">[Doku]</a>
     <span class="k">def</span> <span class="nf">create_session_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Erstellt die Tabelle für die Sessions in der Datenbank, falls diese nicht existiert.</span>
+
+<span class="sd">        Innerhalb der Flask-App wird eine SessionModel-Klasse definiert,</span>
+<span class="sd">        die für die Speicherung der Sitzungen in der SQLAlchemy-Datenbank verantwortlich ist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">class</span> <span class="nc">SessionModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
             <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;sessions&#39;</span>
             <span class="nb">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -144,6 +165,12 @@
 <div class="viewcode-block" id="User_Interface.initialize_routes">
 <a class="viewcode-back" href="../../User_Interface.html#Code_Python.User_Interface.User_Interface.initialize_routes">[Doku]</a>
     <span class="k">def</span> <span class="nf">initialize_routes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialisiert alle notwendigen Routen für die Webanwendung.</span>
+<span class="sd">        </span>
+<span class="sd">        Bindet die verschiedenen Route-Klassen an die Flask-Applikation,</span>
+<span class="sd">        um Benutzer-, Admin- und Ressourcenseiten zu verwalten.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">UI_User_Routes</span><span class="o">.</span><span class="n">User_Routes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">um</span><span class="p">)</span>
         <span class="n">UI_Admin_Panel_Routes</span><span class="o">.</span><span class="n">Admin_Panel_Routes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ra</span><span class="p">)</span>
         <span class="n">UI_Navigation_Bar_Routes</span><span class="o">.</span><span class="n">Navigation_Bar_Routes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">um</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ra</span><span class="p">)</span>
@@ -153,6 +180,12 @@
 <div class="viewcode-block" id="User_Interface.run">
 <a class="viewcode-back" href="../../User_Interface.html#Code_Python.User_Interface.User_Interface.run">[Doku]</a>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Startet den Flask-Webserver im Debug-Modus.</span>
+<span class="sd">        </span>
+<span class="sd">        Diese Methode wird aufgerufen, um die Flask-Applikation lokal oder auf einem Server</span>
+<span class="sd">        laufen zu lassen. Debug-Informationen werden in der Konsole ausgegeben.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 </div>
 
