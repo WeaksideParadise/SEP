@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_general.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_flash.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_ressources.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_admin.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_index.css') }}">
 </head>
 <body>
     <header>
         <div class="header-content">
             <div class="logo">
-                <img src="logo.jpg" alt="TU Chemnitz Logo">
+                <img src='/static/img/logo.png' alt="TU Chemnitz Logo">
             </div>
             <nav>
                 <ul id="nav-links">
@@ -39,11 +40,10 @@
     </header>
 
     <main>
-
         <!-- Flash-Nachrichten anzeigen -->
         {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}
-                <div class="flash-messages">
+                <div class="flash-messages" style="top:50px">
                     {% for category, message in messages %}
                         <div class="flash {{ category }}">
                             {{ message }}
@@ -54,10 +54,42 @@
             {% endif %}
         {% endwith %}
 
-        <div class="container">
-            <h1>Willkommen im Ressourcen-Portal</h1>
-            <p>Hier können Sie auf verschiedene Ressourcen zugreifen und Ihre Aufgaben verwalten.</p>
+        <div class="picture-background">
+            <div class="index-content">
+                <div class="welcome-box">
+                    <h1>Willkommen im Ressourcen-Portal</h1>
+                    <p>Hier können Sie auf verschiedene Ressourcen zugreifen und Ihre Aufgaben verwalten.</p>
+                    <text>
+                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata 
+                        sanctus est Lorem ipsum dolor sit amet, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+                        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                    </text>
+                </div>
+                <div class="most-liked-box">
+                    <div class="most-liked-box-container">
+                        <h2>Die aktuell beliebtesten Ressourcen:</h2>
+                        <div class="most-liked-item-box">
+                            <div class="item-box-likes">
+                                <button class="button-green">&#10084;</button>
+                                <div class="item-box-likes-counter">
+                                    <text>193</text>
+                                </div>
+                            </div>
+                            <div class="item-box-name">
+                                <text>Ressource 1</text>
+                            </div>
+                            <div>
+                                <button class="button-green">&#128065;</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
     </main>
 
     <footer>
