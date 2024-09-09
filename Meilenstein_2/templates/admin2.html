@@ -130,8 +130,30 @@
 
                 <div class="col-system">
                     <div class="row top-row">
-                        <h2>Noch nix</h2>
+                        <div class="link-header">
+                            <h2>Liste aller defekten Links</h2>
+                            <form action="{{ url_for('UI_check_links') }}" method="post" style="margin: 5px">
+                                <button class= "button-green bigger-icon" type="submit">&#x21bb</button>
+                            </form>
+                        </div>
+
+
+                        {% for report in reports %}
+                        <div class="list-content-box link-box">
+                            <div class="list-content-box-name" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">
+                                <text>{{ report.id }}: {{report.ressource_id}} Link: {{ report.invalid_link }}</text>
+                            </div>
+
+                            <div class="list-content-box-actions actions-box" style="margin:3px">
+                                <button class="button-green" style="margin:3px" onclick="open_inspect_modal('{{ report.ressource_id }}', { ressource_id: 'admin_i_ressource_id', description: 'admin_i_description', link: 'admin_i_link', name: 'admin_i_name', hours: 'admin_i_opening_hours', faculty: 'admin_i_faculty', ressource_type: 'admin_i_ressource_type', created_by: 'admin_i_created_by', like_count: 'admin_i_like_count', like_emoji: 'admin_i_like_emoji', is_published: 'admin_i_is_published'})">&#128065;</button>
+                                <form action="{{ url_for('UI_publish_ressource', ressource_id = report.ressource_id) }}" method="post" style="margin: 3px; font-size: 16px">
+                                    <button class= "button-green" style="font-size: 15px" type="submit">Veröffentlichen</button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
+                    
                     <div class="row bottom-row">
                         <h2>Systemeinstellungen</h2>
                         <form action="{{ url_for('UI_admin_panel',)}}" method="post" style="display:inline;">
