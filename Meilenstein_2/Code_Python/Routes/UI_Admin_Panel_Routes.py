@@ -82,7 +82,7 @@ class Admin_Panel_Routes:
                 return redirect(url_for("UI_index"))
             
             ressource_id           = request.form.get("ressource_id")
-            #ressource_is_published = request.form.get("is_published")
+            ressource_is_published = request.form.get("is_published")
             ressource_name         = request.form.get("name")
             ressource_description  = request.form.get("description")
             ressource_link         = request.form.get("link")
@@ -90,7 +90,12 @@ class Admin_Panel_Routes:
             ressource_faculty      = request.form.get("faculty")
             ressource_type         = request.form.get("ressource_type")
 
-            if not self.ra.ressource_management.change_ressource(int(ressource_id), name=ressource_name, description=ressource_description, link=ressource_link, opening_hours=ressource_opening_hours, faculty=ressource_faculty, ressource_type=ressource_type):
+            if ressource_is_published == "ist veröffentlicht":
+                is_published = True
+            else:
+                is_published = False
+
+            if not self.ra.ressource_management.change_ressource(int(ressource_id), name=ressource_name, description=ressource_description, link=ressource_link, opening_hours=ressource_opening_hours, faculty=ressource_faculty, ressource_type=ressource_type, is_published=is_published):
                 flash("Fehler beim Ändernd er Ressource")
                 return redirect(url_for("UI_admin_panel"))
             

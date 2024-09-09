@@ -184,10 +184,10 @@
                         <!-- DIESE BOX SIEHT NUR DER ADMIN -->
                         {% if session.get('role') == 'administrator' or session.get('role') == 'moderator' %} 
                             <div class="admin-only-box">
-                                
-                                <div class="form-group" style="margin-bottom:0px; margin-right: 10px;">
-                                    <input class="published-color-green" id="admin_i_is_published" type="text" name="is_published" value="">
-                                </div>
+
+                                <button class="published-color-green" style="margin-bottom:0px; margin-right: 10px;" type="button" onclick="toggle_published({is_published: 'admin_i_is_published'})">
+                                    <text id="admin_i_is_published">asasa </text>
+                                </button>
     
                                 <div class="form-group" style="margin-bottom:10px">
                                     <button class="button-green" type="submit">Änderungen speichern</button>

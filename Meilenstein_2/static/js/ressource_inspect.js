@@ -119,3 +119,14 @@ function report_ressource(elementIds) {
         console.error('Fehler:', error);
     });
 }
+
+function toggle_published(elementId){
+    if(document.getElementById(elementId).innerHTML == "ist veröffentlicht"){
+        document.getElementById(elementId).innerHTML =  "ist nicht veröffentlicht";
+        document.getElementById(elementId).backgroundColor = '#B4312E';
+    }
+    else{
+        document.getElementById(elementId).innerHTML =  "ist veröffentlicht";
+        document.getElementById(elementId).backgroundColor = '#4CAF86';
+    }
+}
