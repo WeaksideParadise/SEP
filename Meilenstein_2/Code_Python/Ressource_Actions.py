@@ -324,7 +324,7 @@ class Ressource_Actions:
             return []
     
         # Suggestion aus DB holen
-        query = """SELECT FROM ressource_suggestions WHERE ressource_id = %s"""
+        query = """SELECT * FROM ressource_suggestions WHERE ressource_id = %s"""
 
         try:
             result = self.db_connection.execute_query(query, (ressource_id,))
@@ -341,9 +341,11 @@ class Ressource_Actions:
             return False
         
         suggestions = user.ressource_suggestions.split("#")
-        if str(ressource_id) not in suggestions:
-            return True
         suggestions.remove(str(ressource_id))
+        user.ressource_suggestions = "#".join(suggestions)
+
+        if not self.ressource_management.user_management.save_user(user):
+            return False
         return True
 
     def vote_for_suggestion(self, user_id: int, ressource_id: int, vote: bool) -> bool:
@@ -363,7 +365,7 @@ class Ressource_Actions:
         if str(user_id) not in users_to_vote:
             return False
         else:
-            users_to_vote.remove(user_id)
+            users_to_vote.remove(str(user_id))
             
         # Abstimmen
         vote_accept = int(result["vote_accept"])
@@ -371,23 +373,24 @@ class Ressource_Actions:
         users_to_vote = "#".join(users_to_vote)
 
         if vote == True:
-            query = """UPDATE ressource_suggestions SET users_to_vote = %s, vote_accept = %s WHERE ressource_id = %s)"""
+            query = """UPDATE ressource_suggestions SET users_to_vote = %s, vote_accept = %s WHERE ressource_id = %s"""
             try:
                 vote_accept += 1
-                self.db_connection.execute_query(query, vote_accept, ressource_id)
+                self.db_connection.execute_query(query, (users_to_vote, vote_accept, ressource_id))
             except LookupError as e:
                 return False
                 
         else:
-            query = """UPDATE ressource_suggestions SET users_to_vote = %s, vote_reject = %s WHERE ressource_id = %s)"""
+            query = """UPDATE ressource_suggestions SET users_to_vote = %s, vote_reject = %s WHERE ressource_id = %s"""
             try:
                 vote_reject += 1
-                self.db_connection.execute_query(query, vote_reject, ressource_id)
+                self.db_connection.execute_query(query, (users_to_vote, vote_reject, ressource_id))
             except LookupError as e:
                 return False
                 
         # Prüfen ob Abstimmung fertig ist
         amount_voters = result["amount_voting_users"]
+        is_closed = False
         if vote_accept > amount_voters // 2:
             is_closed = True
             vote_result = True
@@ -407,10 +410,10 @@ class Ressource_Actions:
         
         #Ergebnisfolge
 
-        if vote_result:
-            self.publish_ressource(result[0]["ressource_id"])
-        else:
-            self.ressource_management.delete_ressource(result[0]["ressource_id"], "Abstimmung fehlgeschlagen")
+            if vote_result:
+                self.publish_ressource(result["ressource_id"])
+            else:
+                self.ressource_management.delete_ressource(result["ressource_id"], -100, "Abstimmung fehlgeschlagen")
 
         return True
 

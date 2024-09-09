@@ -180,9 +180,14 @@ class Ressource_Management:
 
         # -> Vorschlag erstellen
         if not is_published:
-            query = """SELECT LAST_INSERT_ID()"""
-            result = self.db_connection.execute_query(query)
-            ressource_id = result[0]['LAST_INSERT_ID()']
+            query = """SELECT MAX(ressource_id) AS max_id FROM ressources"""
+            try:
+                result = self.db_connection.execute_query(query)
+                ressource_id = result[0]['max_id']
+            except LookupError as e:
+                return False
+            if not ressource_id:
+                return False
 
             if not self.suggest_add_ressource(ressource_id, user_id):
                 return False
