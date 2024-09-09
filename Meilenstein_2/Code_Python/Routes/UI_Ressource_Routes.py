@@ -112,7 +112,7 @@ class Ressource_Routes:
 
                     # Like-Logik
                     is_liked = False
-                    user_id = int(session["user_id"])
+                    user_id = str(session["user_id"])
                     likes = ressource[0].likes.split("#")
 
                     if user_id in likes:
@@ -123,7 +123,7 @@ class Ressource_Routes:
                                     "ressource_link":           ressource[0].link,
                                     "ressource_created_by":     ressource[0].created_by,
                                     "ressource_faculty":        ressource[0].faculty,
-                                    "ressource_ressource_type": ressource[0].ressource_type,
+                                    "ressource_type":           ressource[0].ressource_type,
                                     "ressource_likes":          len(likes)-1,
                                     "ressource_opening_hours":  ressource[0].opening_hours,
                                     "ressource_is_published":   ressource[0].is_published,

@@ -42,7 +42,7 @@ class Admin_Panel_Routes:
         def UI_demote_user():
             if not session["role"] == "administrator":
                 flash("Du hast keine Rechte für diese Aktion", "error")
-                return redirect(url_for("UI_index_admin_panel"))
+                return redirect(url_for("UI_admin_panel"))
             
             if not self.um.demote_user(int(request.args.get("user_id"))):
                 flash("Fehler beim Ausführen der Aktion", "error")
@@ -62,7 +62,7 @@ class Admin_Panel_Routes:
         def UI_delete_user():
             if not session["role"] == "administrator":
                 flash("Du hast keine Rechte für diese Aktion", "error")
-                return redirect(url_for("UI_index"))
+                return redirect(url_for("UI_admin_panel"))
             
             try:
                 if not self.um.delete_user(request.args.get("user_id")):
@@ -133,14 +133,14 @@ class Admin_Panel_Routes:
                 flash("Fehler beim Löschen der Meldung")
                 return redirect(url_for("UI_admin_panel_2"))
 
-            flash(f"Ressource {request.args.get('ressource_id')} wurde veröffentlicht", "success")
+            flash(f"Meldung {request.args.get('report_id')} wurde geschlossen", "success")
             return redirect(url_for("UI_admin_panel_2"))
         
         @self.app.route("/revive_ressource", methods = ["POST"])
         def UI_revive_ressource():
-            if not session["role"] in ["administrator","moderator"] :
+            if not session["role"] == "administrator" :
                 flash("Du hast keine Rechte für diese Aktion", "error")
-                return redirect(url_for("UI_index"))
+                return redirect(url_for("UI_admin_panel_2"))
             
             if not self.ra.revive_ressource(int(request.args.get("ressource_id"))):
                 flash("Fehler beim Wiederherstellen der Meldung")
