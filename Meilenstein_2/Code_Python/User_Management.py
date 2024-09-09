@@ -10,7 +10,7 @@ class User_Management:
     # ------------------------------------------------- Database-Funnctions ------------------------------------------------- #
     # -> Gibt einen User anhand seiner ID zurück
     # -> ID ist Primärschlüssel, jeder Nutze hat einzigartige ID
-    def get_user_by_id(self, user_id) -> User:
+    def get_user_by_id(self, user_id: int) -> User:
 
         query = """SELECT * FROM users WHERE user_id = %s"""
         
@@ -34,7 +34,7 @@ class User_Management:
     # -> Gibt einen User anhand seines Namens zurück
     # -> Name ist Sekundärschlüssel (ausgenommen "Deleted"), jeder Nutze hat einzigartigen Namen
     # -> "Deleted" Nutzer darf nicht über diese Funktion aus DB geladen werden
-    def get_user_by_name(self, name) -> User:
+    def get_user_by_name(self, name: int) -> User:
 
         if name == "Deleted":
             raise ValueError("'Deleted'-Nutzer nicht mit dieser Funktion laden")
