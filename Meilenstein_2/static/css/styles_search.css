@@ -163,7 +163,7 @@ button:hover {
 
 .resourcen-formular {
     border: 2px solid #000;
-    height: 90px;
+    height: 83px;
     padding: 20px;
     margin: 5px;
 /*     width: 80%;
@@ -224,6 +224,7 @@ button:hover {
 /* ---------------------------------------------------------------------------------------------------------*/
 
 .navigation-buttons {
+    padding-bottom: 5%;
     bottom: 50px;
     width: 100%;
     display: flex;
