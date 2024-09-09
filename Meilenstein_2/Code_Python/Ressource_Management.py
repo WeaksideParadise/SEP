@@ -107,6 +107,7 @@ class Ressource_Management:
 
             try:
                 result = self.db_connection.execute_query(query, t)
+                return True
             except LookupError as e:
                 return False
             
@@ -178,13 +179,13 @@ class Ressource_Management:
             return False
 
         # -> Vorschlag erstellen
-        #if not is_published:
-        #    query = """SELECT LAST_INSERT_ID()"""
-        #    result = self.db_connection.execute_query(query)
-        #    ressource_id = result[0]['LAST_INSERT_ID()']
-#
-        #    if not self.suggest_add_ressource(ressource_id, user_id):
-        #        return False
+        if not is_published:
+            query = """SELECT LAST_INSERT_ID()"""
+            result = self.db_connection.execute_query(query)
+            ressource_id = result[0]['LAST_INSERT_ID()']
+
+            if not self.suggest_add_ressource(ressource_id, user_id):
+                return False
         return True
     
     def change_ressource(self, ressource_id: int, **kwargs) -> bool:
