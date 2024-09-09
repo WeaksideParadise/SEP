@@ -207,9 +207,9 @@ class Ressource_Routes:
                 flash("Melden Sie sich an, um diese Funktion zu nutzen", "error")
                 return redirect(url_for("UI_search"))
             
-            user_id = session.get("user_id")
-            ressource_id = request.args.get("ressource_id")
-            vote = request.args.get("vote")
+            user_id = int(session.get("user_id"))
+            ressource_id = int(request.args.get("ressource_id"))
+            vote = bool(int(request.args.get("vote")))
 
             if not self.ra.vote_for_suggestion(user_id, ressource_id, vote):
                 flash("Beim Abstimmen ist etwas schiefgelaufen", "error")

@@ -179,10 +179,10 @@
                     <div class="suggested-ressource-actions">
                         <button class="button" onclick="open_inspect_modal('{{ suggestion.ressource_id }}', { ressource_id: 'rs_i_ressource_id', description: 'rs_i_description', link: 'rs_i_link', name: 'rs_i_name', hours: 'rs_i_opening_hours', faculty: 'rs_i_faculty', ressource_type: 'rs_i_ressource_type', created_by: 'rs_i_created_by', like_count: 'rs_i_like_count', like_emoji: 'rs_i_like_emoji', is_published: 'rs_i_is_published'})">&#128065;</button>
                         <div class="vote-box">
-                            <form action="{{ url_for('UI_vote_suggestion', ressource_id = suggestion.ressource_id, vote = True) }}" method="post">
+                            <form action="{{ url_for('UI_vote_suggestion', ressource_id = suggestion.ressource_id, vote = 1) }}" method="post">
                                 <button class= "suggested-button-green" type="submit">&#10003;</button>
                             </form>
-                            <form action="{{ url_for('UI_vote_suggestion', ressource_id = suggestion.ressource_id, vote = False) }}" method="post">
+                            <form action="{{ url_for('UI_vote_suggestion', ressource_id = suggestion.ressource_id, vote = 0) }}" method="post">
                                 <button class= "button-red" type="submit">&#10006;</button>
                             </form>
                         </div>
