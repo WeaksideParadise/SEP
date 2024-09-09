@@ -40,7 +40,7 @@
         </div>
     </header>
 
-    <main>
+    <main style="overflow-y: scroll">
 
         <!-- Flash-Nachrichten anzeigen -->
         {% with messages = get_flashed_messages(with_categories=True) %}
@@ -77,12 +77,12 @@
                         <div class="list-content-box-actions actions-box">
                             <!-- Form for Befördern (Promote) -->
                             <form action="{{ url_for('UI_promote_user', user_id=user.user_id) }}" method="post" style="margin:2px">
-                                <button class="button-green" type="submit">Befördern</button>
+                                <button class="button-green" type="submit">Bef.</button>
                             </form>
                                 
                             <!-- Form for Degradieren (Demote) -->
                             <form action="{{ url_for('UI_demote_user', user_id=user.user_id) }}" method="post" style="margin:2px">
-                                <button class="button-green" type="submit">Degradieren</button>
+                                <button class="button-green" type="submit">Degr.</button>
                             </form>
                                 
                             <!-- Form for Löschen (Delete) -->
