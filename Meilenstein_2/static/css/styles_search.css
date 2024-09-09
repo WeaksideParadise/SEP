@@ -143,7 +143,7 @@ button:hover {
 
 .resourcen-formular {
     border: 2px solid #000;
-    height: 83px;  /* sollte in pixeln angegeben werden weil sonst die boxen kaputt gehen */
+    height: 87px;  /* sollte in pixeln angegeben werden weil sonst die boxen kaputt gehen  80 für immer ohne scrollen bei desktop*/
     padding: 20px;
     margin: 5px;
     width: 95%;
