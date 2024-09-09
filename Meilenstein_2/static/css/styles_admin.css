@@ -70,11 +70,13 @@
     overflow-y: scroll;
     margin: 10px;
     width: 40%;
+    height: 95%;
     background-color: #e7e7e7;
     border-radius: 15px;
 }
 
 .col-system {
+    height: 95%;
     margin: 10px;
     width: 30%;
     position: relative;

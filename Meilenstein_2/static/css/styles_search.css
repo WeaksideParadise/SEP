@@ -74,28 +74,6 @@ footer {
   
 }
 
-.sidebar {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-/*     justify-content: space-between; */
-    padding: 20px;
-    background-color: #ddd;
-    overflow: hidden; /* Verhindert jegliches Scrollen in der Sidebar */
-    height: 100%; /* Stellt sicher, dass .sidebar die volle H?he einnimmt */
-}
-
-.search-container {
-    display: flex;
-    height: 70%;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-.add-ressource-container {
-    margin-bottom: 20px;
-}
-
 .bottom-btn-container {
     display: flex;
     justify-content: center;
@@ -434,12 +412,34 @@ button:hover {
     color: white;
 }
 
+.sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+/*     justify-content: space-between; */
+    padding: 20px;
+    background-color: #ddd;
+    overflow-x: hidden; /* Verhindert jegliches Scrollen in der Sidebar */
+    height: 100%; /* Stellt sicher, dass .sidebar die volle H?he einnimmt */
+}
+
+.search-container {
+    display: flex;
+    /* height: 100%; */
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.add-ressource-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 
 .box-ressource-suggestions{
     border: 2px solid rgb(71, 71, 71);
     height: 100%;
-    margin-bottom: 20px;
-    margin-top: 5px;
+    /* margin-bottom: 20px; */
     padding: 5px;
     border-radius: 5px;
     display: flex;
