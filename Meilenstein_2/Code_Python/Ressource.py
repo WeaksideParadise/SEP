@@ -1,5 +1,5 @@
 class Ressource:
-    def __init__(self, ressource_id: int, name: str, is_published: bool, is_deleted: bool, description: str, link: str, created_by: str, faculty: str, ressource_type: str, opening_hours: str, likes: list[int], experience_reports: str, ressource_tags: list[str]):
+    def __init__(self, ressource_id: int, name: str, is_published: bool, is_deleted: bool, description: str, link: str, created_by: str, faculty: str, ressource_type: str, opening_hours: str, likes: str, experience_reports: str, ressource_tags: list[str]):
         self._ressource_id = ressource_id                # Primärschlüssel
         self._name = name                                # Maximal 128 Zeichen
         self._is_published = is_published                # 

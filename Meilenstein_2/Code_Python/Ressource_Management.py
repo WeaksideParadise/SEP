@@ -178,14 +178,13 @@ class Ressource_Management:
             return False
 
         # -> Vorschlag erstellen
-        if not is_published:
-
-            query = """SELECT LAST_INSERT_ID()"""
-            result = self.db_connection.execute_query(query)
-            ressource_id = result[0]['LAST_INSERT_ID()']
-
-            if not self.suggest_add_ressource(ressource_id, user_id):
-                return False
+        #if not is_published:
+        #    query = """SELECT LAST_INSERT_ID()"""
+        #    result = self.db_connection.execute_query(query)
+        #    ressource_id = result[0]['LAST_INSERT_ID()']
+#
+        #    if not self.suggest_add_ressource(ressource_id, user_id):
+        #        return False
         return True
     
     def change_ressource(self, ressource_id: int, **kwargs) -> bool:
@@ -278,7 +277,7 @@ class Ressource_Management:
         # Vorschlag bei Nutzer hinzufügen
         for user in random_users:
             suggestions = user.ressource_suggestions.split("#")
-            suggestions.append(ressource_id)
+            suggestions.append(str(ressource_id))
             user.ressource_suggestions = "#".join(suggestions)
         
         # Nutzer wieder speichern
@@ -289,10 +288,10 @@ class Ressource_Management:
         # Vorschlag in ressource_suggestions hinzufügen
         user_ids = []
         for user in random_users:
-            user_ids.append(user.user_id)
+            user_ids.append(str(user.user_id))
         users_to_vote = "#".join(user_ids)
 
-        query = """INSERT INTO ressource_suggestions (ressource_id, amount_voting_users, users_to_vote, vote_accept, vote_reject, is_closed)"""
+        query = """INSERT INTO ressource_suggestions (ressource_id, amount_voting_users, users_to_vote, vote_accept, vote_reject, is_closed) VALUES (%s, %s, %s, %s, %s, %s)"""
         try:
             self.db_connection.execute_query(query, (ressource_id, len(random_users), users_to_vote, 0, 0, 0))
             return True
