@@ -212,8 +212,8 @@ class Ressource_Routes:
             vote = request.args.get("vote")
 
             if not self.ra.vote_for_suggestion(user_id, ressource_id, vote):
-                flash("Beim Abstimmen ist etwas schiefgelaufen")
+                flash("Beim Abstimmen ist etwas schiefgelaufen", "error")
                 return redirect(url_for("UI_search"))
             
-            flash("Sie haben erfolgreich abgestimmt")
+            flash("Sie haben erfolgreich abgestimmt", "success")
             return redirect(url_for("UI_search"))

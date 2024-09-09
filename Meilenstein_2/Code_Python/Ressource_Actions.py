@@ -312,15 +312,15 @@ class Ressource_Actions:
     
     def vote_for_suggestion(self, user_id: int, ressource_id: int, vote: bool) -> bool:
         try:
-            user = self.ressource_management.user_management.get_user_by_id(user_id)
-            if not user:
-                return False
+           user = self.ressource_management.user_management.get_user_by_id(user_id)
+           if not user:
+              return False
         except LookupError as e:
             return False
     
-    # Schauen ob Nutzer diese überhaupt hat
+        # Schauen ob Nutzer diese überhaupt hat
         suggestions = user.ressource_suggestions.split("#")
-        if ressource_id not in suggestions:
+        if str(ressource_id) not in suggestions:
             return False
     
         # Suggestion aus DB holen
@@ -332,7 +332,7 @@ class Ressource_Actions:
             return False
         
         users_to_vote = result[0]["users_to_vote"].split("#")
-        if user_id not in users_to_vote:
+        if str(user_id) not in users_to_vote:
             return False
         else:
             users_to_vote.remove(user_id)
@@ -379,7 +379,7 @@ class Ressource_Actions:
 
         #Ergebnisfolge
 
-        if vote_accept:
+        if vote_result:
             self.publish_ressource(result[0]["ressource_id"])
         else:
             self.ressource_management.delete_ressource(result[0]["ressource_id"], "Abstimmung fehlgeschlagen")
