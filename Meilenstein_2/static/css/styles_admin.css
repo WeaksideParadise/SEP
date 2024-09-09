@@ -13,6 +13,91 @@
     text-align: center;
 }
 
+.reports-box {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 24%;
+    padding: 5px;
+    margin: 5px;
+}
+
+.reports-box-actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.reports-box-actions-button{
+    width: 50%;
+    height:100%;
+    margin: 1px;
+}
+
+.reports-box-header{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 1.9vh;   /* old: 1vw */
+    height: 40%;
+}
+
+.actions-box {
+    display: flex;
+    flex-direction: row;
+}
+
+.reports-box-name{
+    display: flex;
+    width: 83%;
+    height: 100%;
+    border: 1px solid grey;
+    border-radius: 5px;
+    align-items: center;    
+}
+
+/* GEHT AKTUELL NICHT; SORGT DAFÜR DASS DER TEXT AN DIE FEST BOXGRÖßE ANGEPASST WIRD,
+   ABER DAS ZERSTÖRT DIE FORMATIERUNG BEI KLEINEREN BILDSCHIRMEN */
+/* .reports-box-name-textbox{
+    display: block;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+} */
+
+.reason-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border: 1px solid grey;
+    border-radius: 5px;
+    font-size: 1.9vh;
+    margin-top: 7px;
+}
+
+.link-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+    margin: 5px;
+    width: 90%;
+    height: 7%;
+    border: 2px solid black;
+    border-radius: 5px;
+    align-items: center;   
+}
+
+.user-res-box {
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin: 5px;
+}
+
 .admin-actions {
     display: flex;
     flex-direction: row;
@@ -24,49 +109,44 @@
     overflow-y: scroll;
     background-color: #e7e7e7;
     margin: 10px;
+    width: 50%;
+    height: 95%;
+    border-radius: 15px;
+}
+
+.col-res-but-del {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+    height: 97%;
+}
+
+.col-ressources {
+    overflow-y: scroll;
+    margin: 10px;
+    width: 100%;
+    background-color: #e7e7e7;
+    border-radius: 15px;
+}
+
+
+.col-all-reports {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    background-color: #e7e7e7;
+    margin: 10px;
     width: 30%;
     height: 95%;
     border-radius: 15px;
 }
 
-.reports-box {
+.col-ressources-deleted {
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
-    border-radius: 10px;
-    height: 25%;
-}
-
-.actions-box {
-    display: flex;
-    flex-direction: row;
-}
-
-.reason-box {
-    width: 100%;
-    height: 100%;
-    border: 1px solid grey;
-    border-radius: 5px;
-}
-
-.link-box {
-    width: 93%;
-    height: 17%;
-    border: 1px solid grey;
-    border-radius: 5px;
-    margin: 5px;
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;   
-}
-
-.user-res-box {
-    border: 1px solid grey;
-    border-radius: 5px;
-    margin: 5px;
-}
-
-.col-ressources {
+    align-items: center;
     overflow-y: scroll;
     margin: 10px;
     width: 40%;
@@ -76,28 +156,23 @@
 }
 
 .col-system {
-    height: 95%;
-    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 97%;
     width: 30%;
-    position: relative;
+    align-items: center;
 }
 
-.row {
+.broken-links{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: #e7e7e7;
-    height: 48.5%;
+    height: 100%;
     width: 100%;
     border-radius: 15px;
-}
-
-.top-row {
     overflow-y: scroll;
-    position: absolute;
-    top: 0;
-}
-
-.bottom-row {
-    position: absolute;
-    bottom: 0;
+    margin: 10px;
 }
 
 .list-content-box {

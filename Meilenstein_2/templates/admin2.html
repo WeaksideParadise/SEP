@@ -65,60 +65,58 @@
 
             <div class="admin-actions">
 
-                <div class="col-users">
+                <div class="col-all-reports">
                     <h2>Liste aller Meldungen</h2>
 
                     {% for report in reports %}
-                    <div class="list-content-box-reports reports-box">
-                        <div class="list-content-box-name" style="display: flex; flex-direction: row;">
-                            <div class="reason-box">
-                                <b> Meldung von Ressource {{ report.ressource_id }} von {{ report.user_tag }}</b>
+                    <div class="reports-box">
+                        <div class="reports-box-header">
+                            <div class="reports-box-name">
+                                <div class="reports-box-name-textbox">
+                                    <b> Meldung von Ressource {{ report.ressource_id }} von {{ report.user_tag }}</b>
+                                </div>
                             </div>
 
-                            <div class="list-content-box-actions actions-box">
-                                    <button class="button-green" style="margin:3px" onclick="open_inspect_modal('{{ report.ressource_id }}', { ressource_id: 'admin2_i_ressource_id', description: 'admin2_i_description', link: 'admin2_i_link', name: 'admin2_i_name', hours: 'admin2_i_opening_hours', faculty: 'admin2_i_faculty', ressource_type: 'admin2_i_ressource_type', created_by: 'admin2_i_created_by', like_count: 'admin2_i_like_count', like_emoji: 'admin2_i_like_emoji', is_published: 'admin2_i_is_published'})">&#128065;</button>
-                                <form action="{{ url_for('UI_delete_report', report_id = report.report_id)}}" method="post" style="margin-top:3px; margin-bottom:3px">
-                                    <button class="button-red" type="submit">&#10006;</button>
+                            <div class="reports-box-actions">
+                                <button class="button-green reports-box-actions-button" onclick="open_inspect_modal('{{ report.ressource_id }}', { ressource_id: 'admin2_i_ressource_id', description: 'admin2_i_description', link: 'admin2_i_link', name: 'admin2_i_name', hours: 'admin2_i_opening_hours', faculty: 'admin2_i_faculty', ressource_type: 'admin2_i_ressource_type', created_by: 'admin2_i_created_by', like_count: 'admin2_i_like_count', like_emoji: 'admin2_i_like_emoji', is_published: 'admin2_i_is_published'})">&#128065;</button>
+                                <form action="{{ url_for('UI_delete_report', report_id = report.report_id)}}" method="post">
+                                    <button class="button-red reports-box-actions-button" type="submit">&#10006;</button>
                                 </form>
                             </div>
                         </div>
                     
-                        <div class="reason-box" style="margin-top: 7px">
+                        <div class="reason-box">
                             <b>Grund:</b>
-                            <br></br>
-                            <b>"{{ report.reason }}"</b>
+                            <text style="font-size:1.7vh">"{{ report.reason }}"</text>
                         </div>    
                         
                     </div>
                     {% endfor %}
                 </div>
 
-                <div class="col-ressources">
+                <div class="col-ressources-deleted">
                     <h2>Liste aller gelöschten Ressourcen</h2>
         
 
                     {% for resource in deleted_ressources %}
-                    <div class="list-content-box-reports reports-box">
-
-                        <div class="list-content-box-name" style="display: flex; flex-direction: row;">
-
-                            <div class="reason-box">
+                    <div class="reports-box">
+                        <div class="reports-box-header">
+                            <div class="reports-box-name">
                                 <b>Ressource {{ resource.ressource_id }} gelöscht von Nutzer {{resource.user_id}}</b>
                             </div>
 
-                            <div class="list-content-box-actions actions-box">
+                            <div class="reports-box-actions">
 
-                                <button class="button-green" style="margin:3px" onclick="open_inspect_modal('{{ resource.ressource_id }}', { ressource_id: 'admin2_i_ressource_id', description: 'admin2_i_description', link: 'admin2_i_link', name: 'admin2_i_name', hours: 'admin2_i_opening_hours', faculty: 'admin2_i_faculty', ressource_type: 'admin2_i_ressource_type', created_by: 'admin2_i_created_by', like_count: 'admin2_i_like_count', like_emoji: 'admin2_i_like_emoji', is_published: 'admin2_i_is_published'})">&#128065;</button>
-                                <form action="{{ url_for('UI_revive_ressource', ressource_id = resource.ressource_id)}}" method="post" style="margin-top:3px; font-size:15px">
-                                    <button class="button-green" style="font-size: 15px" type="submit">Wiederherstellen</button>
+                                <button class="button-green reports-box-actions-button" onclick="open_inspect_modal('{{ resource.ressource_id }}', { ressource_id: 'admin2_i_ressource_id', description: 'admin2_i_description', link: 'admin2_i_link', name: 'admin2_i_name', hours: 'admin2_i_opening_hours', faculty: 'admin2_i_faculty', ressource_type: 'admin2_i_ressource_type', created_by: 'admin2_i_created_by', like_count: 'admin2_i_like_count', like_emoji: 'admin2_i_like_emoji', is_published: 'admin2_i_is_published'})">&#128065;</button>
+                                <form action="{{ url_for('UI_revive_ressource', ressource_id = resource.ressource_id)}}" method="post">
+                                    <button class="button-green reports-box-actions-button" type="submit">Wiederherstellen</button>
                                 </form>                            
                             </div>
                         </div>
 
-                        <div class="reason-box" style="margin-top: 7px">
-                            <b>Grund:</b>
-                            <br></br>                            
-                            <b>"{{resource.reason}}"</b>
+                        <div class="reason-box">
+                            <b>Grund:</b>                         
+                            <text style="font-size:1.7vh">"{{resource.reason}}"</text>
                         </div>
 
                     </div>
@@ -129,7 +127,7 @@
                 </div>
 
                 <div class="col-system">
-                    <div class="row top-row">
+                    <div class="broken-links">
                         <div class="link-header">
                             <h2>Liste aller defekten Links</h2>
                             <form action="{{ url_for('UI_check_links') }}" method="post" style="margin: 5px">
@@ -139,27 +137,26 @@
 
 
                         {% for report in reports %}
-                        <div class="list-content-box link-box">
-                            <div class="list-content-box-name" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">
-                                <text>{{ report.id }}: {{report.ressource_id}} Link: {{ report.invalid_link }}</text>
+                        <div class="link-box">
+                            <div style="display: flex; flex-direction: row;overflow: hidden; text-overflow: ellipsis; white-space: nowrap">
+                                <b>{{ report.id }}: {{report.ressource_id}} Link: </b>
+                                <text> {{ report.invalid_link }} </text>
                             </div>
 
-                            <div class="list-content-box-actions actions-box" style="margin:3px">
-                                <button class="button-green" style="margin:3px" onclick="open_inspect_modal('{{ report.ressource_id }}', { ressource_id: 'admin_i_ressource_id', description: 'admin_i_description', link: 'admin_i_link', name: 'admin_i_name', hours: 'admin_i_opening_hours', faculty: 'admin_i_faculty', ressource_type: 'admin_i_ressource_type', created_by: 'admin_i_created_by', like_count: 'admin_i_like_count', like_emoji: 'admin_i_like_emoji', is_published: 'admin_i_is_published'})">&#128065;</button>
-                                <form action="{{ url_for('UI_publish_ressource', ressource_id = report.ressource_id) }}" method="post" style="margin: 3px; font-size: 16px">
-                                    <button class= "button-green" style="font-size: 15px" type="submit">Veröffentlichen</button>
+                            <div class="reports-box-actions">
+                                <button class="button-green reports-box-actions-button" onclick="open_inspect_modal('{{ report.ressource_id }}', { ressource_id: 'admin_i_ressource_id', description: 'admin_i_description', link: 'admin_i_link', name: 'admin_i_name', hours: 'admin_i_opening_hours', faculty: 'admin_i_faculty', ressource_type: 'admin_i_ressource_type', created_by: 'admin_i_created_by', like_count: 'admin_i_like_count', like_emoji: 'admin_i_like_emoji', is_published: 'admin_i_is_published'})">&#128065;</button>
+                                <form action="{{ url_for('UI_publish_ressource', ressource_id = report.ressource_id) }}" method="post">
+                                    <button class= "button-green reports-box-actions-button"type="submit">Veröffentlichen</button>
                                 </form>
                             </div>
                         </div>
                         {% endfor %}
                     </div>
-                    
-                    <div class="row bottom-row">
-                        <h2>Systemeinstellungen</h2>
-                        <form action="{{ url_for('UI_admin_panel',)}}" method="post" style="display:inline;">
-                            <button class="button-green" type="submit">Zurück zur Nutzer- und Ressourcenverwaltung</button>
-                        </form>
-                    </div>
+
+                    <form action="{{ url_for('UI_admin_panel',)}}" method="post" style="display:inline; width:100%">
+                        <button class="button-green" type="submit" >Zurück zur Nutzer- und Ressourcenverwaltung</button>
+                    </form>
+
                 </div>
 
             </div>
