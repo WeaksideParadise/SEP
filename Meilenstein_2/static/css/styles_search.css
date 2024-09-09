@@ -86,14 +86,13 @@ footer {
 }
 
 .search-container {
+    display: flex;
     height: 70%;
     flex-direction: column;
     justify-content: flex-start;
 }
 
 .add-ressource-container {
-    flex-direction: column;
-    justify-content: flex-start;
     margin-bottom: 20px;
 }
 
@@ -158,17 +157,18 @@ button:hover {
 /* ---------------------------------------------------------------------------------------------------------*/
 
 .ressourcen-formular-container{
+    display: flex;
+    flex-direction: column;
     height: 95%;
+    align-items: center;
 }
 
 .resourcen-formular {
     border: 2px solid #000;
-    height: 83px;
+    height: 83px;  /* sollte in pixeln angegeben werden weil sonst die boxen kaputt gehen */
     padding: 20px;
     margin: 5px;
-/*     width: 80%;
-    max-width: 800px; */ /* Maximalbreite des Formulars */
-    width: 96%;
+    width: 95%;
     background-color: #fff;
     border-radius: 8px;
     position: relative;
