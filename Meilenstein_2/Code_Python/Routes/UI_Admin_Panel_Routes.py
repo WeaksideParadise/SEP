@@ -29,7 +29,7 @@ class Admin_Panel_Routes:
         def UI_promote_user():
             if not session["role"] == "administrator":
                 flash("Du hast keine Rechte für diese Aktion", "error")
-                return redirect(url_for("UI_index"))
+                return redirect(url_for("UI_admin_panel"))
             
             if not self.um.promote_user_to_Moderator(int(request.args.get("user_id"))):
                 flash("Fehler beim Ausführen der Aktion", "error")
@@ -42,7 +42,7 @@ class Admin_Panel_Routes:
         def UI_demote_user():
             if not session["role"] == "administrator":
                 flash("Du hast keine Rechte für diese Aktion", "error")
-                return redirect(url_for("UI_index"))
+                return redirect(url_for("UI_index_admin_panel"))
             
             if not self.um.demote_user(int(request.args.get("user_id"))):
                 flash("Fehler beim Ausführen der Aktion", "error")
