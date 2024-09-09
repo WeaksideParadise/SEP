@@ -25,17 +25,17 @@ function open_inspect_modal(ressource_id, elementIds) {
             // Like basierte Anzeige
             if (data.ressource_is_liked) {
                 document.getElementById(elementIds.like_emoji).innerHTML = '&#10084';
-                document.getElementById(elementIds.like_emoji).style.color = 'red'
+                document.getElementById(elementIds.like_emoji).style.color = 'red';
             } else {
                 document.getElementById(elementIds.like_emoji).innerHTML = '&#10084';
-                document.getElementById(elementIds.like_emoji).style.color = 'white'
+                document.getElementById(elementIds.like_emoji).style.color = 'white';
             }
 
             // Rechte basierte Anzeige
             if(data.has_rights){
                 if(data.ressource_is_published){
                     document.getElementById(elementIds.is_published).value = 'ist veröffentlicht';
-                    document.getElementById(elementIds.is_published).style.backgroundColor  = '#4CAF86'
+                    document.getElementById(elementIds.is_published).style.backgroundColor  = '#4CAF86';
                 }
                 else{
                     document.getElementById(elementIds.is_published).value = 'ist nicht veröffentlicht';
@@ -74,11 +74,11 @@ function like_ressource(elementIds) {
                 // Abfrage ob nicht geliked
                 if (document.getElementById(elementIds.like_emoji).style.color == 'white'){
                     document.getElementById(elementIds.like_emoji).style.color = 'red';
-                    document.getElementById(elementIds.like_count).innerHTML = parseInt(document.getElementById(elementIds.like_count).innerHTML) + 1
+                    document.getElementById(elementIds.like_count).innerHTML = parseInt(document.getElementById(elementIds.like_count).innerHTML) + 1;
                 }
                 else {
                     document.getElementById(elementIds.like_emoji).style.color = 'white';
-                    document.getElementById(elementIds.like_count).innerHTML = parseInt(document.getElementById(elementIds.like_count).innerHTML) - 1
+                    document.getElementById(elementIds.like_count).innerHTML = parseInt(document.getElementById(elementIds.like_count).innerHTML) - 1;
                 }
             } else {
                 alert("Fehler");
