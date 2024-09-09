@@ -174,7 +174,7 @@ button:hover {
     align-items: center;
     width: 40px;
     height: 40px;
-    background-color: #005F50;
+    background-color: #017463;
     color: #fff;
     text-align: center;
     line-height: 40px;
@@ -187,7 +187,7 @@ button:hover {
 }
 
 .resourcen-formular  button:hover {
-    background-color: #004238;
+    background-color: #025247;
 }
 
 .resourcen-formular .fields-container {
