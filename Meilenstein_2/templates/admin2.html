@@ -24,7 +24,7 @@
                         <li><a href="search">Ressourcen</a></li>
                 
                         <!-- Admin-spezifische Links, die nur angezeigt werden, wenn die Rolle 'administrator' ist -->
-                        {% if session.get('role') == 'administrator' %}
+                        {% if session.get('role') == 'administrator' or session.get('role') == 'moderator' %}
                         <li><a href="admin">Admin-Bereich</a></li>
                         {% endif %}
                 
