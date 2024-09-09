@@ -310,37 +310,66 @@ class Ressource_Actions:
             return False
         return True
     
-    def vote_for_suggestion(self, user_id: int, ressource_id: int, vote: bool) -> bool:
+    def get_suggestion_for_user(self, user_id: int, ressource_id: int) -> dict[str, any]:
         try:
            user = self.ressource_management.user_management.get_user_by_id(user_id)
            if not user:
-              return False
+              return []
         except LookupError as e:
-            return False
+            return []
     
         # Schauen ob Nutzer diese überhaupt hat
         suggestions = user.ressource_suggestions.split("#")
         if str(ressource_id) not in suggestions:
-            return False
+            return []
     
         # Suggestion aus DB holen
         query = """SELECT FROM ressource_suggestions WHERE ressource_id = %s"""
 
         try:
             result = self.db_connection.execute_query(query, (ressource_id,))
+            return result[0]
+        except LookupError as e:
+            return []
+        
+    def remove_suggestions_for_user(self, user_id: int, ressource_id: int) -> bool:
+        try:
+           user = self.ressource_management.user_management.get_user_by_id(user_id)
+           if not user:
+              return False
         except LookupError as e:
             return False
         
-        users_to_vote = result[0]["users_to_vote"].split("#")
+        suggestions = user.ressource_suggestions.split("#")
+        if str(ressource_id) not in suggestions:
+            return True
+        suggestions.remove(str(ressource_id))
+        return True
+
+    def vote_for_suggestion(self, user_id: int, ressource_id: int, vote: bool) -> bool:
+
+        result = self.get_suggestion_for_user(user_id, ressource_id)
+
+        if not result:
+            return False
+        
+        #(am Anfang prüfen ob bereits closed)
+        if result["is_closed"]:
+            if not self.remove_suggestions_for_user(user_id, ressource_id):
+                return False
+            return True
+        
+        users_to_vote = result["users_to_vote"].split("#")
         if str(user_id) not in users_to_vote:
             return False
         else:
             users_to_vote.remove(user_id)
             
         # Abstimmen
-        vote_accept = int(result[0]["vote_accept"])
-        vote_reject = int(result[0]["vote_reject"])
+        vote_accept = int(result["vote_accept"])
+        vote_reject = int(result["vote_reject"])
         users_to_vote = "#".join(users_to_vote)
+
         if vote == True:
             query = """UPDATE ressource_suggestions SET users_to_vote = %s, vote_accept = %s WHERE ressource_id = %s)"""
             try:
@@ -358,7 +387,7 @@ class Ressource_Actions:
                 return False
                 
         # Prüfen ob Abstimmung fertig ist
-        amount_voters = result[0]["amount_voting_users"]
+        amount_voters = result["amount_voting_users"]
         if vote_accept > amount_voters // 2:
             is_closed = True
             vote_result = True
@@ -366,17 +395,16 @@ class Ressource_Actions:
             is_closed = True
             vote_result = False
 
+        if not self.remove_suggestions_for_user(user_id, ressource_id):
+            return False
+
         if is_closed:
-            query = """UPDATE ressource_suggestions SET is_closed =%s WHERE ressource_id = %s"""
+            query = """UPDATE ressource_suggestions SET is_closed = %s WHERE ressource_id = %s"""
             try: 
                 self.db_connection.execute_query(query, (True, ressource_id))
             except LookupError as e:
                 return False
-        else:
-            return True
-                
-        # Abstimmung bei restlichen Nutzer entfernen TODO (am Anfang prüfen ob bereits closed)
-
+        
         #Ergebnisfolge
 
         if vote_result:
