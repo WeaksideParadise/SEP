@@ -399,18 +399,37 @@ button:hover {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    width: 50%;
 }
+
+.admin-only-box-button{
+    width: 50%;
+}
+
+
 
 .published-color-green{
     text-align: center;
     background-color: #4CAF86;
+    /* background-color: #B4312E; */ /* Farbe für Roten Button */
     color: white;
 }
 
-.published-color-red{
+.published-color-green:hover{
+    background-color: #2d6b51;
+    /* background-color: #70201f; */ /* Farbe für Roten Button Hover */
+}
+
+/* .published-color-red{
+    text-align: center;
     background-color: #B4312E;
     color: white;
 }
+
+.published-color-red:hover{
+    background-color: #70201f;
+}
+ */
 
 .sidebar {
     flex: 1;

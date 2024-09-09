@@ -70,10 +70,16 @@
 
                     {% for user in users %}
                     <div class="list-content-box user-res-box" style="align-items:center">
-                        <div class="list-content-box-name" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">
-                            <b>{{ user.user_id }}#{{ user.name }}</b>
+                        <div class="user-list-box-name-and-checkbox">
+                            <div class="admin-and-mod-checkbox">
+                                <text style="color:red"> A </text>   <!-- "&nbsp; &nbsp;" einfügen wenn kein admin oder mod!!! -> leerzeichen -->
+                            </div>
+                            <div class="admin-and-mod-checkbox">
+                                <text style="color:rgb(0, 114, 104)"> M </text>
+                            </div>
+                            <b> &nbsp; {{ user.user_id }}#{{ user.name }}</b> 
                             <!-- Für User/Moderator/Admin Tag -->
-                            <text style="color:red">A</text>
+                            
                         </div>
 
                         <div class="list-content-box-actions actions-box">
@@ -157,13 +163,13 @@
                         {% if session.get('role') == 'administrator' or session.get('role') == 'moderator' %} 
                             <div class="admin-only-box">
 
-                                <button class="published-color-green" style="margin-bottom:0px; margin-right: 10px;" type="button" onclick="toggle_published({is_published: 'admin_i_is_published'})">
-                                    <text id="admin_i_is_published">asasa </text>
+                                <button class="published-color-green" style="width: 50%; margin: 5px;" id="admin_i_is_published" type="button" onclick="toggle_published({is_published: 'admin_i_is_published'})">
+                                    <!-- <text id="admin_i_is_published">ist veröffentlicht</text> -->
+                                    ist veröffentlicht
                                 </button>
     
-                                <div class="form-group" style="margin-bottom:10px">
-                                    <button class="button-green" type="submit">Änderungen speichern</button>
-                                </div>
+                                <button class="button-green" style="width: 50%; margin: 5px;" type="submit">Änderungen speichern</button>
+
                             </div>
                         {% endif %}
                         <!-- ENDE DER ADMIN BOX -->

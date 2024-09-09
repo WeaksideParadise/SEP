@@ -188,6 +188,24 @@
     padding: 5px;
 }
 
+
+.user-list-box-name-and-checkbox{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+}
+
+.admin-and-mod-checkbox{
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+}
+
 .button-green {
     display: flex;
     justify-content: center;
@@ -233,3 +251,4 @@
 .bigger-icon {
    font-size: 20px;
 }
+
