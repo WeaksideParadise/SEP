@@ -8,6 +8,9 @@ main{
 }
 
 footer{
+    display: flex;
+    justify-content:space-between;
+    width: 100%;
     position: absolute;
     bottom: 0;
     height: 2%;
