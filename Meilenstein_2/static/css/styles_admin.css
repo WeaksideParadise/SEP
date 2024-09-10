@@ -3,6 +3,7 @@
     flex-direction: column;
     background-color: #fff;
     padding: 30px;
+    padding-top: 0px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     width: 1700px;
@@ -11,6 +12,7 @@
     max-height: 100%;
     box-sizing: border-box;
     text-align: center;
+    
 }
 
 .reports-box {

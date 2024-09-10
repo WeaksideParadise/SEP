@@ -375,6 +375,23 @@ button:hover {
     font-family: Arial, sans-serif;
 }
 
+.textarea-report-system{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1.9vh;
+    font-family: Arial, sans-serif;
+    height: 8.3vw;
+
+}
+
+@media only screen and (max-height: 800px){
+    .textarea-report-system{
+        height: 3.8vw;
+    }
+}
 
 .report-system {
     display: flex;
