@@ -70,7 +70,7 @@
 
                 {% for resource in results %}
                 <div class="resourcen-formular">
-                    <button class="button" onclick="open_inspect_modal('{{ resource.ressource_id }}', { ressource_id: 'rs_i_ressource_id', description: 'rs_i_description', link: 'rs_i_link', name: 'rs_i_name', hours: 'rs_i_opening_hours', faculty: 'rs_i_faculty', ressource_type: 'rs_i_ressource_type', created_by: 'rs_i_created_by', like_count: 'rs_i_like_count', like_emoji: 'rs_i_like_emoji', is_published: 'rs_i_is_published'})">&#128065;</button> <!-- Knopf mit Augensymbol -->
+                    <button class="button" onclick="open_inspect_modal('{{ resource.ressource_id }}', 'user', { ressource_id: 'rs_i_ressource_id', description: 'rs_i_description', link: 'rs_i_link', name: 'rs_i_name', hours: 'rs_i_opening_hours', faculty: 'rs_i_faculty', ressource_type: 'rs_i_ressource_type', created_by: 'rs_i_created_by', like_count: 'rs_i_like_count', like_emoji: 'rs_i_like_emoji', is_published: 'rs_i_is_published'})">&#128065;</button> <!-- Knopf mit Augensymbol -->
                     <div>
                         <label for="name">Titel: {{ resource.name }}</label>
                     </div>
@@ -177,7 +177,7 @@
                     </div>
                     
                     <div class="suggested-ressource-actions">
-                        <button class="button" onclick="open_inspect_modal('{{ suggestion.ressource_id }}', { ressource_id: 'rs_i_ressource_id', description: 'rs_i_description', link: 'rs_i_link', name: 'rs_i_name', hours: 'rs_i_opening_hours', faculty: 'rs_i_faculty', ressource_type: 'rs_i_ressource_type', created_by: 'rs_i_created_by', like_count: 'rs_i_like_count', like_emoji: 'rs_i_like_emoji', is_published: 'rs_i_is_published'})">&#128065;</button>
+                        <button class="button" onclick="open_inspect_modal('{{ suggestion.ressource_id }}', 'user', { ressource_id: 'rs_i_ressource_id', description: 'rs_i_description', link: 'rs_i_link', name: 'rs_i_name', hours: 'rs_i_opening_hours', faculty: 'rs_i_faculty', ressource_type: 'rs_i_ressource_type', created_by: 'rs_i_created_by', like_count: 'rs_i_like_count', like_emoji: 'rs_i_like_emoji', is_published: 'rs_i_is_published'})">&#128065;</button>
                         <div class="vote-box">
                             <form action="{{ url_for('UI_vote_suggestion', ressource_id = suggestion.ressource_id, vote = 1) }}" method="post">
                                 <button class= "suggested-button-green" type="submit">&#10003;</button>
@@ -216,20 +216,6 @@
                 <div class="modal-header">
                     <h1>Ressourcen-Details</h1>
 
-
-                    <!-- DIESE BOX SIEHT NUR DER ADMIN -->
-                    {% if session.get('role') == 'administrator' or session.get('role') == 'moderator' %} 
-                        <div class="admin-only-box">
-                            
-                            <div class="form-group" style="margin-bottom:0px; margin-right: 10px;">
-                                <input class="published-color-green" id="rs_i_is_published" type="text" name="veroeffentlicht" value="0" readonly>
-                            </div>
-
-                        </div>
-                    {% endif %}
-                    <!-- ENDE DER ADMIN BOX -->
-
-                    
                     <div class="form-group" style="margin-bottom:10px;">
                         <button onclick="close_inspect_modal()">&#10006;</button>
                     </div>
