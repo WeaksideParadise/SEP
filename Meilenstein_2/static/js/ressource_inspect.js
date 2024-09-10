@@ -1,4 +1,4 @@
-function open_inspect_modal(ressource_id, elementIds) {
+function open_inspect_modal(ressource_id, view, elementIds) {
 
     // Fetch-API zum Senden der Anfrage an die Flask-Route
     fetch('/inspect_ressource', {
@@ -32,7 +32,7 @@ function open_inspect_modal(ressource_id, elementIds) {
             }
 
             // Rechte basierte Anzeige
-            if(data.has_rights){
+            if(data.has_rights && view == "admin"){
                 if(data.ressource_is_published){
                     document.getElementById(elementIds.is_published).innerText = 'ist veröffentlicht';
                     document.getElementById(elementIds.is_published).style.backgroundColor  = '#4CAF86';
@@ -121,12 +121,12 @@ function report_ressource(elementIds) {
 }
 
 function toggle_published(elementId){
-    if(document.getElementById(elementId).innerText == 'ist veröffentlicht'){
-        document.getElementById(elementId).innerText = 'ist nicht veröffentlicht';
-        document.getElementById(elementId).backgroundColor = '#B4312E';
+    if(document.getElementById(elementId.is_published).innerText == 'ist veröffentlicht'){
+        document.getElementById(elementId.is_published).innerText = 'ist nicht veröffentlicht';
+        document.getElementById(elementId.is_published).style.backgroundColor = '#B4312E';
     }
     else{
-        document.getElementById(elementId).innerText = 'ist veröffentlicht';
-        document.getElementById(elementId).backgroundColor = '#4CAF86';
+        document.getElementById(elementId.is_published).innerText = 'ist veröffentlicht';
+        document.getElementById(elementId.is_published).style.backgroundColor = '#4CAF86';
     }
 }
