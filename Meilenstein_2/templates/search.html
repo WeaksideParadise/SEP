@@ -213,92 +213,96 @@
             <!-- Content-Bereich für Ressource-Informationen -->
             <div class="modal-body">
 
-                <div class="modal-header">
-                    <h1>Ressourcen-Details</h1>
-
-                    <div class="form-group" style="margin-bottom:10px;">
-                        <button onclick="close_inspect_modal()">&#10006;</button>
-                    </div>
-
-                    <!-- <button style="width:5%;font-size: 35px;" onclick="close_inspect_modal()">&times;</button> --> 
-                </div>
-
                 <form class="resource-info">
 
+                    <div class="modal-header">
+
+                        <h1>Ressourcen-Details</h1>
+    
+                        <div class="form-group" style="margin-bottom:10px;">
+                            <button onclick="close_inspect_modal()">&#10006;</button>
+                        </div>
+                    </div>
+
+
                     <div class="id-name-like-x">
-                        <div class="form-group" style="width:80%">
+                        <div class="form-group font-scaler" style="width:80%">
                             <label for="name">Name:</label>
                             <input type="text" id="rs_i_name" name="name" readonly>
                         </div>
-                        <div class="form-group" style="width:5%">
+                        <div class="form-group font-scaler" style="width:5%">
                             <label for="id">ID:</label>
-                            <input type="text" id="rs_i_ressource_id" name="link" readonly>
+                            <input style="padding-left:0; padding-right: 0;text-align:center;" type="text" id="rs_i_ressource_id" name="link" readonly>
                         </div>
-                        <div class="form-group" style="width:10%">
+                        <div class="form-group font-scaler" style="width:10%">
                             <label>Likes:</label>
                             <button class="like-button" style="margin-top: 0px" type="button" onclick="like_ressource({ressource_id: 'rs_i_ressource_id', like_count: 'rs_i_like_count', like_emoji: 'rs_i_like_emoji'})">
                                 <text id="rs_i_like_emoji"> </text>
                                 <text id="rs_i_like_count"> </text>
                             </button>
-    
                         </div>
 
                     </div>
 
-                    <div class="below-id-name-like-x">
-                        <div class="desk-times-link">
-                            <div class="desc-times">
-                                <div class="desc-box" style="width: 65%">
-                                    <div class="form-group">
-                                        <label for="beschreibung">Beschreibung:</label>
-                                        <textarea type="text" id="rs_i_description" style="resize: none; height: 355px; width: 100%"name="beschreibung" readonly></textarea>
-                                    </div>
-                                </div>
-                                <div class="times-box" style="width: 30%">
-                                    <div class="form-group">
-                                        <label for="offnungzeit">Öffnungszeiten:</label>
-                                        <textarea type="text" id="rs_i_opening_hours" style="resize: none; height: 355px; width: 100%"name="offnungzeit" readonly></textarea>
-                                    </div>
-                                </div>
+                     <!-- Beschreibung + Öffnungszeiten + Fakultät-Block -->
 
-                            </div>
-                            <div class="form-group">
-                                <label for="link">Link:</label>
-                                <input type="text" id="rs_i_link" name="link" readonly>
+
+                     <div class="desc-times font-scaler">
+                        <div class="desc-box">
+                            <div class="form-group textarea-height-tall">
+                                <label for="beschreibung">Beschreibung:</label>
+                                <textarea class="textarea-width  textarea-height-tall" type="text" id="rs_i_description" name="beschreibung" readonly></textarea>
                             </div>
                         </div>
-                        
-                        <div class="fak-type-created-pub-report">
-                            <div class="fak-type-created-pub">
-                                <div class="form-group">
-                                    <label for="fakultaet">Fakultät:</label>
-                                    <input type="text" id="rs_i_faculty" name="fakultaet" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="typ">Typ:</label>
-                                    <input type="text" id="rs_i_ressource_type" name="typ" readonly>
-                                </div>
-                                <div class="created-pub">
-                                    <div class="form-group" style="width:100%">
-                                        <label for="ersteller">Ersteller:</label>
-                                        <input type="text" id="rs_i_created_by" name="ersteller" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-report-system">
-                                <div class="form-group">
-                                    <label for="Grund">Grund:</label>
-                                    <textarea style="resize: none; height: 150px" type="text" id="rs_i_report_reason" name="Grund"></textarea>
 
-                                    <button onclick="report_ressource({ressource_id: 'rs_i_ressource_id', reason: 'rs_i_report_reason'})" class="button-green" type="button" >Ressource melden</button>
-                                </div>
-                            </div>  
+                        <div class="times-box font-scaler">
+                            <div class="form-group textarea-height-tall">
+                                <label for="offnungzeit">Öffnungszeiten:</label>
+                                <textarea class="textarea-width  textarea-height-tall" type="text" id="rs_i_opening_hours" name="offnungzeit" readonly></textarea>
+                            </div>
                         </div>
+
+                        <!-- Fakultät + Typ + Ersteller -->
+                        <div class="fak-type-created-pub font-scaler">
+                            <div class="form-group formgroup-height" style="margin-bottom: 0px;">
+                                <label for="fakultaet">Fakultät:</label>
+                                <input class="textarea-width" style="height: 2.8vw;" type="text" id="rs_i_faculty" name="fakultaet" readonly>
+                            </div>
+                            <div class="form-group formgroup-height" style="margin-bottom: 0px;">
+                                <label for="typ">Typ:</label>
+                                <input class="textarea-width" style="height: 2.8vw;" type="text" id="rs_i_ressource_type" name="typ" readonly>
+                            </div>
+                            <div class="form-group formgroup-height" style="margin-bottom: 0px;">
+                                <label for="ersteller">Ersteller:</label>
+                                <input class="textarea-width" style="height: 2.8vw;" type="text" id="rs_i_created_by" name="ersteller" readonly>
+                            </div>
+                        </div>
+
                     </div>
+
+
+                    <!-- Link -->
+                    <div class="form-group font-scaler">
+                        <label for="link">Link:</label>
+                        <input type="text" id="rs_i_link" name="link" readonly>
+                    </div>
+
+                    <!-- Reportleiste -->
+                    <div class="form-group font-scaler">
+                        <label for="Grund2">Grund für Ressourcenmeldung:</label>
+                        <div class="modal-report-system" name="Grund2">
+                            <input class="modal-report-system-input" type="text" id="rs_i_report_reason" name="Grund"></input>
+                            <button style="width: 30%; margin-top: 0px;" type="button" onclick="report_ressource({ressource_id: 'rs_i_ressource_id', reason: 'rs_i_report_reason'})" class="button-green" type="button" >Ressource melden</button>
+                        </div>
+                    </div>  
+          
+
                 </form>
             </div>
         </div>
     </div>
+
+
 
     <div id="addModal" class="modal">
         <div class="modal-content" style="overflow:hidden">

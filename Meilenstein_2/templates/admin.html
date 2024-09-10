@@ -177,11 +177,9 @@
                         {% if session.get('role') == 'administrator' or session.get('role') == 'moderator' %} 
                             <div class="admin-only-box">
 
-                                <button class="published-color-green font-scaler" style="width: 50%; margin: 5px;" id="admin_i_is_published" type="button" onclick="toggle_published({is_published: 'admin_i_is_published'})">
-                                    ist veröffentlicht
-                                </button>
+                                <button class="published-color-green font-scaler" style="width: 50%; margin: 5px;" id="admin_i_is_published" type="button" onclick="toggle_published({is_published: 'admin_i_is_published'})"></button>
     
-                                <button class="button-green font-scaler" style="width: 50%; margin: 5px;" type="submit">Änderungen speichern</button>
+                                <button class="button-green font-scaler" style="width: 50%; margin: 5px;" type="submit">Änd. speichern</button>
 
                             </div>
                         {% endif %}
@@ -200,7 +198,7 @@
                         </div>
                         <div class="form-group font-scaler" style="width:5%">
                             <label for="id">ID:</label>
-                            <input type="text" id="admin_i_ressource_id" name="ressource_id" readonly>
+                            <input style="padding-left:0; padding-right: 0;text-align:center;" type="text" id="admin_i_ressource_id" name="ressource_id" readonly>
                         </div>
                         <div class="form-group font-scaler" style="width:10%">
                             <label>Likes:</label>
@@ -212,56 +210,58 @@
 
                     </div>
 
-                    <div class="below-id-name-like-x">
-                        <div class="desk-times-link">
-                            <div class="desc-times font-scaler">
-                                <div class="desc-box" style="width: 65%">
-                                    <div class="form-group">
-                                        <label for="beschreibung">Beschreibung:</label>
-                                        <textarea type="text" id="admin_i_description" style="resize: none; height: 20vw; width: 100%;"name="description"></textarea>
-                                    </div>
-                                </div>
-                                <div class="times-box font-scaler" style="width: 30%">
-                                    <div class="form-group">
-                                        <label for="offnungzeit">Öffnungszeiten:</label>
-                                        <textarea type="text" id="admin_i_opening_hours" style="resize: none; height: 20vw; width: 100%;"name="opening_hours"></textarea>
-                                    </div>
-                                </div>
+                    <!-- Beschreibung + Öffnungszeiten + Fakultät-Block -->
 
+                    <div class="desc-times font-scaler">
+                        <div class="desc-box">
+                            <div class="form-group textarea-height-tall">
+                                <label for="beschreibung">Beschreibung:</label>
+                                <textarea class="textarea-width  textarea-height-tall" type="text" id="admin_i_description" name="description"></textarea>
                             </div>
-                            <div class="form-group font-scaler">
-                                <label for="link">Link:</label>
-                                <input type="text" id="admin_i_link" name="link">
+                        </div>
+
+                        <div class="times-box font-scaler">
+                            <div class="form-group textarea-height-tall">
+                                <label for="offnungzeit">Öffnungszeiten:</label>
+                                <textarea class="textarea-width  textarea-height-tall" type="text" id="admin_i_opening_hours" name="opening_hours"></textarea>
                             </div>
                         </div>
                         
-                        <div class="fak-type-created-pub-report">
-                            <div class="fak-type-created-pub">
-                                <div class="form-group font-scaler">
-                                    <label for="fakultaet">Fakultät:</label>
-                                    <input type="text" id="admin_i_faculty" name="faculty">
-                                </div>
-                                <div class="form-group font-scaler">
-                                    <label for="typ">Typ:</label>
-                                    <input type="text" id="admin_i_ressource_type" name="ressource_type">
-                                </div>
-                                <div class="created-pub font-scaler">
-                                    <div class="form-group font-scaler" style="width:100%">
-                                        <label for="ersteller">Ersteller:</label>
-                                        <input type="text" id="admin_i_created_by" name="ersteller" readonly>
-                                    </div>
-                                </div>
+                        <!-- Fakultät + Typ + Ersteller -->
+                        <div class="fak-type-created-pub font-scaler">
+                            <div class="form-group formgroup-height" style="margin-bottom: 0px;">
+                                <label for="fakultaet">Fakultät:</label>
+                                <input class="textarea-width" style="height: 2.8vw;" type="text" id="admin_i_faculty" name="faculty"></input>
                             </div>
-                            <div class="modal-report-system">
-                                <div class="form-group font-scaler">
-                                    <label for="Grund">Grund:</label>
-                                    <textarea class="textarea-report-system" style="resize: none; " type="text" id="admin_i_report_reason" name="Grund"></textarea>
+                            <div class="form-group formgroup-height" style="margin-bottom: 0px;">
+                                <label for="typ">Typ:</label>
+                                <input class="textarea-width" style="height: 2.8vw;"  type="text" id="admin_i_ressource_type" name="ressource_type"></input>
+                            </div>
+                            <div class="form-group formgroup-height" style="margin-bottom: 0px;">
+                                <label for="ersteller">Ersteller:</label>
+                                <input class="textarea-width" style="height: 2.8vw;" type="text" id="admin_i_created_by" name="ersteller" readonly></input>
+                            </div>
+                        </div>
 
-                                    <button class="font-scaler"type="button"8 onclick="report_ressource({ressource_id: 'admin_i_ressource_id', reason: 'admin_i_report_reason'})" class="button-green" type="button" >Ressource melden</button>
-                                </div>
-                            </div>  
+                    </div>
+
+
+                    <!-- Link  -->
+                    <div class="form-group font-scaler">
+                        <label for="link">Link:</label>
+                        <input type="text" id="admin_i_link" name="link">
+                    </div>
+
+                    <!-- Reportleiste -->
+                    <div class="form-group font-scaler">
+                        <label for="Grund2">Grund für Ressourcenmeldung:</label>
+                        <div class="modal-report-system" name="Grund2">
+                            <input class="modal-report-system-input" type="text" id="admin_i_report_reason" name="Grund"></input>
+                            <button style="width: 30%; margin-top: 0px;" type="button" onclick="report_ressource({ressource_id: 'admin_i_ressource_id', reason: 'admin_i_report_reason'})" class="button-green" type="button" >Ressource melden</button>
                         </div>
                     </div>
+                     
+
                 </form>
             </div>
         </div>
