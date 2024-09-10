@@ -256,4 +256,22 @@ class User_Management:
         
         return not user.is_logged_in
     
+    def sort_users_by_role(self, users: list[User]) -> list[User]:
+        to_return = []
+
+        #Admins
+        for user in users:
+            if user.is_administrator:
+                to_return.append(user)
+
+        #Mods
+        for user in users:
+            if not user.is_administrator and user.is_moderator:
+                to_return.append(user)  
+
+        #Users
+        for user in users:
+            if not user.is_administrator and not user.is_moderator:
+                to_return.append(user)
     
+        return to_return

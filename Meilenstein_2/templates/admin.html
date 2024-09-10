@@ -71,12 +71,17 @@
                     {% for user in users %}
                     <div class="list-content-box user-res-box" style="align-items:center">
                         <div class="user-list-box-name-and-checkbox">
-                            <div class="admin-and-mod-checkbox">
-                                <text style="color:red"> A </text>   <!-- "&nbsp; &nbsp;" einfügen wenn kein admin oder mod!!! -> leerzeichen -->
-                            </div>
-                            <div class="admin-and-mod-checkbox">
-                                <text style="color:rgb(0, 114, 104)"> M </text>
-                            </div>
+                            {% if user.is_administrator %}
+                                <div class="admin-and-mod-checkbox">
+                                    <text style="color:red"> A </text>   <!-- "&nbsp; &nbsp;" einfügen wenn kein admin oder mod!!! -> leerzeichen -->
+                                </div>
+                            {% elif user.is_moderator %}
+                                <div class="admin-and-mod-checkbox">
+                                    <text style="color:rgb(0, 114, 104)"> M </text>
+                                </div>
+                            {% else %}
+                                <b> &nbsp; &nbsp; &nbsp;</b>
+                            {% endif %}
                             <b> &nbsp; {{ user.user_id }}#{{ user.name }}</b> 
                             <!-- Für User/Moderator/Admin Tag -->
                             
@@ -164,7 +169,6 @@
                             <div class="admin-only-box">
 
                                 <button class="published-color-green font-scaler" style="width: 50%; margin: 5px;" id="admin_i_is_published" type="button" onclick="toggle_published({is_published: 'admin_i_is_published'})">
-                                    <!-- <text id="admin_i_is_published">ist veröffentlicht</text> -->
                                     ist veröffentlicht
                                 </button>
     

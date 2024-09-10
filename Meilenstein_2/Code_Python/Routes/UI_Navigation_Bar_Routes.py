@@ -37,6 +37,7 @@ class Navigation_Bar_Routes:
                 
                 try:
                     users = self.um.get_users_by_query("SELECT * FROM users")
+                    users = self.um.sort_users_by_role(users)
                 except LookupError as e:
                     flash("Beim Laden der Nutzer ist ein Fehler aufgetreten", "error")
                     return redirect(url_for("UI_index"))
