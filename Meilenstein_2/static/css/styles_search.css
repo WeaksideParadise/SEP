@@ -254,6 +254,7 @@ button:hover {
 }
 
 .modal-header {
+    font-size: 1.9vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -340,14 +341,13 @@ button:hover {
 .modal-body {
     display: flex;
     flex-direction: column; /* Informationen untereinander anordnen */
-    margin-top: 20px;
+    margin-top: 5px;
     flex-wrap: wrap; /* Elemente umbrechen */
     gap: 10px; /* Abstand zwischen den Feldern */
 }
 
 .resource-info {
     width: 100%;
-    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
 }
@@ -370,9 +370,11 @@ button:hover {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    font-size: 15px;
+/*     font-size: 15px; */
+    font-size: 1.9vh;
     font-family: Arial, sans-serif;
 }
+
 
 .report-system {
     display: flex;
@@ -404,6 +406,10 @@ button:hover {
 
 .admin-only-box-button{
     width: 50%;
+}
+
+.font-scaler{
+   font-size: 1.9vh;
 }
 
 
