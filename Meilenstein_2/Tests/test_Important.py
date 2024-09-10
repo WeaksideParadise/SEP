@@ -9,7 +9,6 @@ import Code_Python.Ressource_Actions
 import Code_Python.User_Interface
 from Code_Python.Ressource import Ressource
 
-
 class test_Important(unittest.TestCase):
     #wichtige tests, auf dem tatsächlichen code ausgeführt/manuell kontrolliert
     def test_RessourceActions(self):
@@ -18,8 +17,7 @@ class test_Important(unittest.TestCase):
         rm.test_check_trustworthyness_trusted()
         rm.test_check_trustworthyness_untrusted()
         rm.test_is_link_functional_success()
-        rm.test_is_link_functional_failure()
-        
+        rm.test_is_link_functional_failure() 
 
     def setUp(self):
         """Set up database, user management, and resource management for tests."""       
