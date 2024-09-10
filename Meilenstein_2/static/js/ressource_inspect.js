@@ -34,11 +34,11 @@ function open_inspect_modal(ressource_id, elementIds) {
             // Rechte basierte Anzeige
             if(data.has_rights){
                 if(data.ressource_is_published){
-                    document.getElementById(elementIds.is_published).value = 'ist veröffentlicht';
+                    document.getElementById(elementIds.is_published).innerText = 'ist veröffentlicht';
                     document.getElementById(elementIds.is_published).style.backgroundColor  = '#4CAF86';
                 }
                 else{
-                    document.getElementById(elementIds.is_published).value = 'ist nicht veröffentlicht';
+                    document.getElementById(elementIds.is_published).innerText = 'ist nicht veröffentlicht';
                     document.getElementById(elementIds.is_published).style.backgroundColor = '#B4312E';
                 }
                 // document.getElementById(elementIds.is_published).visibility  = ....
@@ -121,12 +121,12 @@ function report_ressource(elementIds) {
 }
 
 function toggle_published(elementId){
-    if(document.getElementById(elementId).innerHTML == "ist veröffentlicht"){
-        document.getElementById(elementId).innerHTML =  "ist nicht veröffentlicht";
+    if(document.getElementById(elementId).innerText == 'ist veröffentlicht'){
+        document.getElementById(elementId).innerText = 'ist nicht veröffentlicht';
         document.getElementById(elementId).backgroundColor = '#B4312E';
     }
     else{
-        document.getElementById(elementId).innerHTML =  "ist veröffentlicht";
+        document.getElementById(elementId).innerText = 'ist veröffentlicht';
         document.getElementById(elementId).backgroundColor = '#4CAF86';
     }
 }

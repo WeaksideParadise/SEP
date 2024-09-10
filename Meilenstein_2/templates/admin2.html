@@ -188,10 +188,8 @@
                         {% if session.get('role') == 'administrator' or session.get('role') == 'moderator' %} 
                             <div class="admin-only-box">
 
-                                <button class="form-group" style="margin-bottom:0px; margin-right: 10px;" type="button" onclick="toggle_published({is_published: 'admin2_i_is_published'})">
-                                    <text id="admin2_i_is_published"> </text>
-                                </button>
-    
+                                <button class="published-color-green font-scaler" style="width: 50%; margin: 5px;" id="admin2_i_is_published" type="button" onclick="toggle_published({is_published: 'admin2_i_is_published'})"></button>
+
                                 <div class="form-group" style="margin-bottom:10px">
                                     <button class="button-green" type="submit">Änderungen speichern</button>
                                 </div>
