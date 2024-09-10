@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Startseite - Ressourcen-Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_search.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_general.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_flash.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_ressources.css') }}">
@@ -70,12 +71,14 @@
                     <div class="most-liked-box-container">
                         <h2>Die aktuell beliebtesten Ressourcen:</h2>
                         <div class="most-liked-item-box">
-                            <div class="item-box-likes">
-                                <button class="button-green">&#10084;</button>
-                                <div class="item-box-likes-counter">
-                                    <text>193</text>
-                                </div>
+
+                            <div class="font-scaler item-box-likes">
+                                <button class="like-button button-green" type="button" onclick="like_ressource({ressource_id: 'admin_i_ressource_id', like_count: 'admin_i_like_count', like_emoji: 'admin_i_like_emoji'})">
+                                    <text id="admin_i_like_emoji"> Herz </text>
+                                    <text id="admin_i_like_count"> Likes </text>
+                                </button>
                             </div>
+
                             <div class="item-box-name">
                                 <text>Ressource 1</text>
                             </div>

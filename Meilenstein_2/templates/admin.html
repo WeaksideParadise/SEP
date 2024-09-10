@@ -72,12 +72,12 @@
                     <div class="list-content-box user-res-box" style="align-items:center">
                         <div class="user-list-box-name-and-checkbox">
                             {% if user.is_administrator %}
-                                <div class="admin-and-mod-checkbox">
-                                    <text style="color:red"> A </text>   <!-- "&nbsp; &nbsp;" einfügen wenn kein admin oder mod!!! -> leerzeichen -->
+                                <div class="admin-and-mod-checkbox admin-box">
+                                    <text> A </text>   <!-- "&nbsp; &nbsp;" einfügen wenn kein admin oder mod!!! -> leerzeichen -->
                                 </div>
                             {% elif user.is_moderator %}
-                                <div class="admin-and-mod-checkbox">
-                                    <text style="color:rgb(0, 114, 104)"> M </text>
+                                <div class="admin-and-mod-checkbox moderator-box">
+                                    <text> M </text>
                                 </div>
                             {% else %}
                                 <b> &nbsp; &nbsp; &nbsp;</b>
@@ -114,19 +114,28 @@
     
                         {% for resource in resources %}
                         <div class="list-content-box user-res-box" style="align-items:center;">
-                            <div class="list-content-box-name" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">
-                                <b>Ressource {{ resource.ressource_id }}</b>
+                            <div class="list-ressources-title-box">
+                                <b>ID: {{ resource.ressource_id }}, {{ resource.name }}</b>
+                            </div>
+
+                            <div class="deleted-published-box">
+                                <div class="res-deleted-box">
+                                    gel.
+                                </div>
+                                <div class="res-published-box">
+                                    n. veröff.
+                                </div>
                             </div>
     
-                            <div class="list-content-box-actions actions-box" style="align-items:center;">
+                            <div class="actions-box list-ressources-actions-box" style="align-items:center;">
                                 <!-- Form zum Anzeigen (Inspect) -->
                                 <div style="margin:2px">
                                     <button class="button-green" onclick="open_inspect_modal('{{ resource.ressource_id }}', 'admin', { ressource_id: 'admin_i_ressource_id', description: 'admin_i_description', link: 'admin_i_link', name: 'admin_i_name', hours: 'admin_i_opening_hours', faculty: 'admin_i_faculty', ressource_type: 'admin_i_ressource_type', created_by: 'admin_i_created_by', like_count: 'admin_i_like_count', like_emoji: 'admin_i_like_emoji', is_published: 'admin_i_is_published'})">&#128065;</button>
                                 </div>
                                 
                                 <!-- Form for Löschen (Delete) -->
-                                <form action="{{ url_for('UI_delete_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:2px; display: flex; flex-direction: rowM">
-                                    <input class="form-group" style="width:100%; margin-bottom: 0px;" type="text" id="reason" name="reason" placeholder="Grund für die Löschung" required >
+                                <form action="{{ url_for('UI_delete_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:2px; display: flex; flex-direction: row">
+                                    <input class="form-group del-ressource-input-form" type="text" id="reason" name="reason" placeholder="Grund für die Löschung" required >
                                     <button class="button-green" type="submit" style="font-size: 15px; width: 80px;">Löschen</button>
                                 </form>
                             </div>
@@ -199,7 +208,6 @@
                                 <text id="admin_i_like_emoji"> </text>
                                 <text id="admin_i_like_count"> </text>
                             </button>
-    
                         </div>
 
                     </div>
