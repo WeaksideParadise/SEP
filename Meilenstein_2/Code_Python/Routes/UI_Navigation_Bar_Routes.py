@@ -1,6 +1,8 @@
 from Code_Python.Ressource_Actions import Ressource_Actions
 from Code_Python.User_Management   import User_Management
 from flask import *
+import os
+import subprocess
 
 class Navigation_Bar_Routes:
     def __init__(self, app, um: User_Management, ra: Ressource_Actions ):
@@ -19,6 +21,25 @@ class Navigation_Bar_Routes:
         @self.app.route("/login", methods = ["GET","POST"])
         def UI_login():
             return render_template("login.html")
+
+        @self.app.route("/docs", methods = ["GET","POST"])
+        def UI_docs():
+            file_path = __file__
+
+            # Split the path into components
+            path_parts = file_path.split('\\')  # Use '\\' for Windows paths
+
+            # Remove the last two folders
+            new_path_parts = path_parts[:-4]  # Keep all except the last two parts
+
+            # Join the parts back into a path
+            new_path = '\\'.join(new_path_parts)
+
+            # If the original path had a trailing separator, add it back
+            if file_path.endswith('\\'):
+                new_path += '\\'
+            subprocess.run(['start', new_path + r"/Meilenstein_3/docs/_build/index.html"], shell=True, creationflags=subprocess.CREATE_NO_WINDOW)
+            return redirect("/") #idealer wäre hier die vorher geöffnete seite wieder zu öffnen
         
         @self.app.route("/register", methods = ["GET","POST"])
         def UI_register():
