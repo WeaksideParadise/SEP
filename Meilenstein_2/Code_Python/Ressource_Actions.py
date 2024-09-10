@@ -15,15 +15,19 @@ class Ressource_Actions:
 
     def is_link_functional(self, link: str) -> bool:
         """Controls if a Link gives an Error when trying to reach it."""
+                
         try:
-            # Make a request to the link to check its status
-            response = requests.head(link, allow_redirects=True, timeout=5)
-            # Check if the status code is in the range of 200-299
-            return response.status_code >= 200 and response.status_code < 300
-        except requests.RequestException:
-            # If there is any request exception, the link is not functional
-            return False
-        
+            response = requests.options(link)
+            if response.ok:   # alternatively you can use response.status_code == 200
+                return True
+            else:
+                print(f"Failure - API is accessible but sth is not right. Response codde : {response.status_code}")
+        except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError) as e:
+            print(f"Failure - Unable to establish connection: {e}.")
+        except Exception as e:
+            print(f"Failure - Unknown error occurred: {e}.")
+        return False
+
     # -> Wird von Administrator / Moderator gerufen
     # -> Geht automatisch alle nicht gelöschten Ressourcen durch und prüft Links
     # -> Alle nicht funktionierenden Links werden für Administratoren gesammelt
