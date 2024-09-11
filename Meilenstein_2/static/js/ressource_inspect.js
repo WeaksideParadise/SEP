@@ -109,9 +109,10 @@ function report_ressource(elementIds) {
     .then(data => {
         if (data.status) {
             document.getElementById(elementIds.reason).value = "";
+            flashMessage("Ressource wurde erfolgreich gemeldet", "success")
         } 
         else{
-            alert(data.message)
+            flashMessage("Fehler beim Melden der Ressource", "error")
         }
     })
 
@@ -120,13 +121,15 @@ function report_ressource(elementIds) {
     });
 }
 
-function toggle_published(elementId){
-    if(document.getElementById(elementId.is_published).innerText == 'ist veröffentlicht'){
-        document.getElementById(elementId.is_published).innerText = 'ist nicht veröffentlicht';
-        document.getElementById(elementId.is_published).style.backgroundColor = '#B4312E';
+function toggle_published(elementIds){
+    if(document.getElementById(elementIds.is_published).innerText == 'ist veröffentlicht'){
+        document.getElementById(elementIds.is_published).innerText = 'ist nicht veröffentlicht';
+        document.getElementById(elementIds.is_published).style.backgroundColor = '#B4312E';
+        document.getElementById(elementIds.hidden_is_published).value = '0';
     }
     else{
-        document.getElementById(elementId.is_published).innerText = 'ist veröffentlicht';
-        document.getElementById(elementId.is_published).style.backgroundColor = '#4CAF86';
+        document.getElementById(elementIds.is_published).innerText = 'ist veröffentlicht';
+        document.getElementById(elementIds.is_published).style.backgroundColor = '#4CAF86';
+        document.getElementById(elementIds.hidden_is_published).value = '1';
     }
 }

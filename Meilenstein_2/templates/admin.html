@@ -42,7 +42,15 @@
 
     <main style="overflow-y: scroll">
 
-        <!-- Flash-Nachrichten anzeigen -->
+        <!-- Flash-Nachrichten durch JS gerufen-->
+            <div class="flash-messages" style="top:50px; display:none; z-index:1001;" id="admin_flash_js" >
+                <div class="flash success" id="admin_flash_js_type">
+                        
+                <span class="close-btn">&times;</span>
+                </div>
+            </div>
+        
+        <!-- Flash-Nachrichten durch Python gerufen-->
         {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}
                 <div class="flash-messages">
@@ -119,12 +127,19 @@
                             </div>
 
                             <div class="deleted-published-box">
+                            {% if resource.is_deleted or not resource.is_published %}
+                            
+                                {% if resource.is_deleted %}
                                 <div class="res-deleted-box">
-                                    gel.
+                                    gelöscht
                                 </div>
+                                {% endif %}
+                                {% if not resource.is_deleted and not resource.is_published %}
                                 <div class="res-published-box">
-                                    n. veröff.
+                                    n. veröff.  <!-- Bitte so lassen, sonst ist die formatierung am laptop doof -->
                                 </div>
+                                {% endif %}
+                            {% endif %}
                             </div>
     
                             <div class="actions-box list-ressources-actions-box" style="align-items:center;">
@@ -136,7 +151,7 @@
                                 <!-- Form for Löschen (Delete) -->
                                 <form action="{{ url_for('UI_delete_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:2px; display: flex; flex-direction: row">
                                     <input class="form-group del-ressource-input-form" type="text" id="reason" name="reason" placeholder="Grund für die Löschung" required >
-                                    <button class="button-green" type="submit" style="font-size: 15px; width: 80px;">Löschen</button>
+                                    <button class="button-green" type="submit" style="font-size: 15px; width: 70px;">Löschen</button>
                                 </form>
                             </div>
                         </div>
@@ -178,8 +193,9 @@
                         {% if session.get('role') == 'administrator' or session.get('role') == 'moderator' %} 
                             <div class="admin-only-box">
 
-                                <button class="published-color-green font-scaler" style="width: 50%; margin: 5px;" id="admin_i_is_published" type="button" onclick="toggle_published({is_published: 'admin_i_is_published'})"></button>
-    
+                                <button class="published-color-green font-scaler" style="width: 50%; margin: 5px;" id="admin_i_is_published" name="is_published" type="button" onclick="toggle_published({is_published: 'admin_i_is_published', hidden_is_published: 'admin_i_hidden_published'})"></button>
+                                <input type="hidden" id="admin_i_hidden_published" name="hidden_is_published" value = "">
+
                                 <button class="button-green font-scaler" style="width: 50%; margin: 5px;" type="submit">Änd. speichern</button>
 
                             </div>

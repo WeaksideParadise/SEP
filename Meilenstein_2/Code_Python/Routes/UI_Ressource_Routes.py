@@ -175,6 +175,10 @@ class Ressource_Routes:
                 faculty         = request.form.get("add_faculty")
                 opening_hours   = request.form.get("add_opening_hours")
 
+                if self.ra.check_if_already_exists(link):
+                    flash("Ressource wurde automatisch abgelehnt, da sie bereits existiert oder gelöscht wurde", "error")
+                    return redirect(url_for("UI_search"))
+
                 
                 if self.ra.ressource_management.add_ressource(user_id, name, description, link, faculty, ressource_type, opening_hours):
                     flash("Ressource erfolgreich angelegt", "success")
