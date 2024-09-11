@@ -126,8 +126,9 @@
                                 <b>ID: {{ resource.ressource_id }}, {{ resource.name }}</b>
                             </div>
 
-                            {% if resource.is_deleted or not resource.is_published %}
                             <div class="deleted-published-box">
+                            {% if resource.is_deleted or not resource.is_published %}
+                            
                                 {% if resource.is_deleted %}
                                 <div class="res-deleted-box">
                                     gelöscht
@@ -135,11 +136,11 @@
                                 {% endif %}
                                 {% if not resource.is_deleted and not resource.is_published %}
                                 <div class="res-published-box">
-                                    nicht veröff.
+                                    n. veröff.  <!-- Bitte so lassen, sonst ist die formatierung am laptop doof -->
                                 </div>
                                 {% endif %}
-                            </div>
                             {% endif %}
+                            </div>
     
                             <div class="actions-box list-ressources-actions-box" style="align-items:center;">
                                 <!-- Form zum Anzeigen (Inspect) -->
@@ -150,7 +151,7 @@
                                 <!-- Form for Löschen (Delete) -->
                                 <form action="{{ url_for('UI_delete_ressource', ressource_id=resource.ressource_id) }}" method="post" style="margin:2px; display: flex; flex-direction: row">
                                     <input class="form-group del-ressource-input-form" type="text" id="reason" name="reason" placeholder="Grund für die Löschung" required >
-                                    <button class="button-green" type="submit" style="font-size: 15px; width: 80px;">Löschen</button>
+                                    <button class="button-green" type="submit" style="font-size: 15px; width: 70px;">Löschen</button>
                                 </form>
                             </div>
                         </div>

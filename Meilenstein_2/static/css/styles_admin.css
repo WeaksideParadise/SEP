@@ -205,8 +205,8 @@
 .deleted-published-box{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: auto;
+    justify-content: center;
+    width: 20%;
     align-items: center;
 }
 
