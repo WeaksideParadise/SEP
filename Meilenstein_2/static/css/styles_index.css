@@ -76,7 +76,9 @@ footer{
     border: 1px solid black;
     border-radius: 5px;
     justify-content: space-between;
-    padding: 5px;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
     margin: 7px;
 }
 
@@ -98,14 +100,8 @@ footer{
 }
 
 .item-box-name{
-    display: flex;
-    align-items: center;
     width: 75%;
-    height: 80%;
-    border: 1px solid grey;
     border-radius: 5px;
-
-
     overflow: hidden; 
     text-overflow: ellipsis; 
     white-space: nowrap;

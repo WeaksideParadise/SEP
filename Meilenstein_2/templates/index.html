@@ -98,7 +98,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="item-box-name">{{ resource.name }}</div>
+                                    <div class="item-box-name">
+                                        <b>{{ resource.name }}</b>
+                                    </div>
                                     
                                     <div class="item-box-inspect">
                                         <button class="button-green reports-box-actions-button" onclick="open_inspect_modal('{{ resource.ressource_id }}', 'user', { ressource_id: 'index_i_ressource_id', description: 'index_i_description', link: 'index_i_link', name: 'index_i_name', hours: 'index_i_opening_hours', faculty: 'index_i_faculty', ressource_type: 'index_i_ressource_type', created_by: 'index_i_created_by', like_count: 'index_i2_like_count', like_emoji: 'index_i2_like_emoji', is_published: 'index_i_is_published'})">&#128065;</button>
