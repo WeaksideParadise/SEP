@@ -42,7 +42,15 @@
 
     <main style="overflow-y: scroll">
 
-        <!-- Flash-Nachrichten anzeigen -->
+        <!-- Flash-Nachrichten durch JS gerufen-->
+            <div class="flash-messages" style="top:50px; display:none; z-index:1001;" id="admin_flash_js" >
+                <div class="flash success" id="admin_flash_js_type">
+                        
+                <span class="close-btn">&times;</span>
+                </div>
+            </div>
+        
+        <!-- Flash-Nachrichten durch Python gerufen-->
         {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}
                 <div class="flash-messages">
