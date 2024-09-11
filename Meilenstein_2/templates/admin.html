@@ -118,14 +118,20 @@
                                 <b>ID: {{ resource.ressource_id }}, {{ resource.name }}</b>
                             </div>
 
+                            {% if resource.is_deleted or not resource.is_published %}
                             <div class="deleted-published-box">
+                                {% if resource.is_deleted %}
                                 <div class="res-deleted-box">
                                     gel.
                                 </div>
+                                {% endif %}
+                                {% if not resource.is_deleted and not resource.is_published %}
                                 <div class="res-published-box">
                                     n. veröff.
                                 </div>
+                                {% endif %}
                             </div>
+                            {% endif %}
     
                             <div class="actions-box list-ressources-actions-box" style="align-items:center;">
                                 <!-- Form zum Anzeigen (Inspect) -->
