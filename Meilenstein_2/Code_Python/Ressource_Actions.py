@@ -467,5 +467,18 @@ class Ressource_Actions:
                 to_return.append(False)
 
         return to_return
+    
+    def check_if_already_exists(self, link: str) -> bool:
+        query = """SELECT * FROM ressources WHERE link = %s"""
+
+        try:
+            result = self.ressource_management.get_ressources_by_query(query, [link])
+        except LookupError as e:
+            return True
+
+        if result:
+            return True
+        return False
+
 
             
