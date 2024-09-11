@@ -56,6 +56,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Ressource_Actions Module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.add_experience_report"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.add_experience_report()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.check_if_already_exists"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.check_if_already_exists()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.check_links"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.check_links()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.check_ressource_suggestions"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.check_ressource_suggestions()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.check_trustworthyness"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.check_trustworthyness()</span></code></a></li>
@@ -63,11 +64,17 @@
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.fetch_5_random_ressources"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.fetch_5_random_ressources()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.fetch_deleted_ressources"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.fetch_deleted_ressources()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.fetch_invalid_link_reports"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.fetch_invalid_link_reports()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.fetch_most_liked_ressources"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.fetch_most_liked_ressources()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.fetch_ressource_reports"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.fetch_ressource_reports()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.fetch_suggestions"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.fetch_suggestions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.get_suggestion_for_user"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.get_suggestion_for_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.inspect_ressource"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.inspect_ressource()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.is_liked_by_user"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.is_liked_by_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.is_link_functional"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.is_link_functional()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.like_ressource"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.like_ressource()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.list_likes"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.list_likes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.publish_ressource"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.publish_ressource()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.remove_suggestions_for_user"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.remove_suggestions_for_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.report_ressource"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.report_ressource()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.revive_ressource"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.revive_ressource()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Code_Python.Ressource_Actions.Ressource_Actions.search_ressources"><code class="docutils literal notranslate"><span class="pre">Ressource_Actions.search_ressources()</span></code></a></li>
@@ -110,96 +117,445 @@
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Code_Python.Ressource_Actions.</span></span><span class="sig-name descname"><span class="pre">Ressource_Actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_connection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Database.html#Code_Python.Database.Database" title="Code_Python.Database.Database"><span class="pre">Database</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ressource_management</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Ressource_Management.html#Code_Python.Ressource_Management.Ressource_Management" title="Code_Python.Ressource_Management.Ressource_Management"><span class="pre">Ressource_Management</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Klasse zur Verwaltung von Aktionen im Zusammenhang mit Ressourcen, einschließlich der Überprüfung von Links,
+Berichterstattung, Abstimmungen und Veröffentlichung.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.add_experience_report">
 <span class="sig-name descname"><span class="pre">add_experience_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.add_experience_report"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.add_experience_report" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Füge einen Like oder entferne ihn für eine Ressource, abhängig davon, ob der Benutzer die Ressource bereits geliked hat.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ressource_id</strong> (<em>int</em>) – Die ID der Ressource.</p></li>
+<li><p><strong>user_id</strong> (<em>int</em>) – Die ID des Benutzers.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn die Operation erfolgreich war, ansonsten False.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.check_if_already_exists">
+<span class="sig-name descname"><span class="pre">check_if_already_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.check_if_already_exists"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.check_if_already_exists" title="Link to this definition"></a></dt>
+<dd><p>Überprüft, ob eine Ressource mit dem angegebenen Link bereits existiert.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>link</strong> (<em>str</em>) – Der Link der Ressource, die überprüft werden soll.</p>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn die Ressource bereits existiert, ansonsten False.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.check_links">
 <span class="sig-name descname"><span class="pre">check_links</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.check_links"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.check_links" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Überprüft alle nicht gelöschten Ressourcen auf funktionierende Links, sammelt ungültige Links und markiert
+die Ressource als nicht veröffentlicht, wenn der Link nicht funktioniert.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True, wenn der Prozess ohne Fehler abgeschlossen wurde, False, wenn nicht.</p>
+</dd>
+<dt class="field-even">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.check_ressource_suggestions">
 <span class="sig-name descname"><span class="pre">check_ressource_suggestions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource"><span class="pre">Ressource</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.check_ressource_suggestions"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.check_ressource_suggestions" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Überprüft, ob es Benutzervorschläge für eine bestimmte Ressource gibt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ressource</strong> (<a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource"><em>Ressource</em></a>) – Das Ressourcenobjekt.</p>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn Vorschläge existieren, False, wenn nicht.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.check_trustworthyness">
 <span class="sig-name descname"><span class="pre">check_trustworthyness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.check_trustworthyness"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.check_trustworthyness" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Überprüft, ob der angegebene Link von einer vertrauenswürdigen Domain stammt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>link</strong> (<em>str</em>) – Die zu überprüfende URL.</p>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn der Link zu einer vertrauenswürdigen Domain gehört, False, wenn nicht.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.delete_report">
 <span class="sig-name descname"><span class="pre">delete_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">report_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.delete_report"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.delete_report" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Fügt einen Erfahrungsbericht zu einer Ressource hinzu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ressource_id</strong> (<em>int</em>) – Die ID der Ressource, zu der der Bericht hinzugefügt werden soll.</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – Der Text des Erfahrungsberichts.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn der Bericht erfolgreich hinzugefügt wurde, ansonsten False.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.fetch_5_random_ressources">
 <span class="sig-name descname"><span class="pre">fetch_5_random_ressources</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource"><span class="pre">Ressource</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.fetch_5_random_ressources"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.fetch_5_random_ressources" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Ruft 5 zufällige, nicht gelöschte und veröffentlichte Ressourcen aus der Datenbank ab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Eine Liste von bis zu 5 zufälligen Ressourcen.</p>
+</dd>
+<dt class="field-even">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[<a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource">Ressource</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.fetch_deleted_ressources">
 <span class="sig-name descname"><span class="pre">fetch_deleted_ressources</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.fetch_deleted_ressources"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.fetch_deleted_ressources" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Holt alle gelöschten Ressourcen.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Liste der gelöschten Ressourcen.</p>
+</dd>
+<dt class="field-even">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.fetch_invalid_link_reports">
 <span class="sig-name descname"><span class="pre">fetch_invalid_link_reports</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.fetch_invalid_link_reports"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.fetch_invalid_link_reports" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Ruft alle Berichte über ungültige Links aus der Datenbank ab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Eine Liste von Datensätzen mit ungültigen Links.</p>
+</dd>
+<dt class="field-even">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.fetch_most_liked_ressources">
+<span class="sig-name descname"><span class="pre">fetch_most_liked_ressources</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource"><span class="pre">Ressource</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.fetch_most_liked_ressources"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.fetch_most_liked_ressources" title="Link to this definition"></a></dt>
+<dd><p>Holt die fünf am meisten gelikten Ressourcen.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Liste der fünf am meisten gelikten Ressourcen.</p>
+</dd>
+<dt class="field-even">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[<a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource">Ressource</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.fetch_ressource_reports">
 <span class="sig-name descname"><span class="pre">fetch_ressource_reports</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.fetch_ressource_reports"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.fetch_ressource_reports" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Holt alle Ressourcennachberichte, bei denen der Bericht noch nicht geschlossen ist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Liste der Ressourcennachberichte.</p>
+</dd>
+<dt class="field-even">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.fetch_suggestions">
+<span class="sig-name descname"><span class="pre">fetch_suggestions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource"><span class="pre">Ressource</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.fetch_suggestions"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.fetch_suggestions" title="Link to this definition"></a></dt>
+<dd><p>Holt alle Vorschläge für Ressourcen eines Benutzers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_id</strong> (<em>int</em>) – Die ID des Benutzers, dessen Vorschläge abgerufen werden sollen.</p>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>Liste der Ressourcen, die als Vorschläge des Benutzers vorhanden sind.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource">Ressource</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.get_suggestion_for_user">
+<span class="sig-name descname"><span class="pre">get_suggestion_for_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.get_suggestion_for_user"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.get_suggestion_for_user" title="Link to this definition"></a></dt>
+<dd><p>Holt den Vorschlag für eine Ressource eines Benutzers, falls dieser existiert.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_id</strong> (<em>int</em>) – Die ID des Benutzers.</p></li>
+<li><p><strong>ressource_id</strong> (<em>int</em>) – Die ID der Ressource, für die der Vorschlag geholt werden soll.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>Der Vorschlag als Dictionary, falls vorhanden; andernfalls eine leere Liste.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, any]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.inspect_ressource">
 <span class="sig-name descname"><span class="pre">inspect_ressource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource"><span class="pre">Ressource</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.inspect_ressource"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.inspect_ressource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Ruft die Details einer bestimmten Ressource anhand ihrer ID ab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ressource_id</strong> (<em>int</em>) – Die ID der Ressource.</p>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>Eine Liste, die die inspizierte Ressource enthält, oder eine leere Liste, wenn nicht gefunden.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource">Ressource</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.is_liked_by_user">
+<span class="sig-name descname"><span class="pre">is_liked_by_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ressources</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource"><span class="pre">Ressource</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.is_liked_by_user"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.is_liked_by_user" title="Link to this definition"></a></dt>
+<dd><p>Überprüft, ob eine Ressource von einem bestimmten Benutzer geliked wurde.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_id</strong> (<em>int</em>) – Die ID des Benutzers.</p></li>
+<li><p><strong>ressources</strong> (<em>list</em><em>[</em><a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource"><em>Ressource</em></a><em>]</em>) – Liste der Ressourcen, die überprüft werden sollen.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>Liste von Boolean-Werten, die angeben, ob jede Ressource vom Benutzer geliked wurde.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[bool]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.is_link_functional">
 <span class="sig-name descname"><span class="pre">is_link_functional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.is_link_functional"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.is_link_functional" title="Link to this definition"></a></dt>
-<dd><p>Controls if a Link gives an Error when trying to reach it.</p>
+<dd><p>Überprüft, ob ein Link funktionsfähig ist, indem eine HTTP OPTIONS-Anfrage gesendet wird.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>link</strong> (<em>str</em>) – Die zu überprüfende URL.</p>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn der Link funktionsfähig ist, False, wenn nicht.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.like_ressource">
 <span class="sig-name descname"><span class="pre">like_ressource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.like_ressource"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.like_ressource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Holt alle gelöschten Ressourcen.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Liste der gelöschten Ressourcen.</p>
+</dd>
+<dt class="field-even">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.list_likes">
+<span class="sig-name descname"><span class="pre">list_likes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressources</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource"><span class="pre">Ressource</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.list_likes"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.list_likes" title="Link to this definition"></a></dt>
+<dd><p>Gibt die Anzahl der Likes für jede Ressource in der Liste zurück.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ressources</strong> (<em>list</em><em>[</em><a class="reference internal" href="Ressource.html#Code_Python.Ressource.Ressource" title="Code_Python.Ressource.Ressource"><em>Ressource</em></a><em>]</em>) – Liste der Ressourcen, für die die Anzahl der Likes ermittelt werden soll.</p>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>Liste der Anzahl der Likes für jede Ressource.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[int]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.publish_ressource">
 <span class="sig-name descname"><span class="pre">publish_ressource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.publish_ressource"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.publish_ressource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Veröffentlicht eine Ressource, indem das is_published-Flag auf True gesetzt und sie ggf.
+aus der Liste der ungültigen Links entfernt wird.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ressource_id</strong> (<em>int</em>) – Die ID der zu veröffentlichenden Ressource.</p>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn die Ressource erfolgreich veröffentlicht wurde, False, wenn nicht.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.remove_suggestions_for_user">
+<span class="sig-name descname"><span class="pre">remove_suggestions_for_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.remove_suggestions_for_user"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.remove_suggestions_for_user" title="Link to this definition"></a></dt>
+<dd><p>Entfernt einen Vorschlag für eine Ressource von einem Benutzer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_id</strong> (<em>int</em>) – Die ID des Benutzers.</p></li>
+<li><p><strong>ressource_id</strong> (<em>int</em>) – Die ID der Ressource, für die der Vorschlag entfernt werden soll.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn der Vorschlag erfolgreich entfernt wurde, ansonsten False.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.report_ressource">
 <span class="sig-name descname"><span class="pre">report_ressource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.report_ressource"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.report_ressource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Ermöglicht Benutzern, eine Ressource mit einem bestimmten Grund zu melden.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ressource_id</strong> (<em>int</em>) – Die ID der Ressource.</p></li>
+<li><p><strong>user_id</strong> (<em>int</em>) – Die ID des Benutzers, der die Ressource meldet.</p></li>
+<li><p><strong>reason</strong> (<em>str</em>) – Der Grund für die Meldung.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn die Meldung erfolgreich erfasst wurde, False, wenn nicht.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.revive_ressource">
 <span class="sig-name descname"><span class="pre">revive_ressource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.revive_ressource"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.revive_ressource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Macht eine gelöschte Ressource wieder aktiv, indem der Löschstatus zurückgesetzt und die Ressource aus der Liste der gelöschten Ressourcen entfernt wird.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ressource_id</strong> (<em>int</em>) – Die ID der Ressource, die wiederhergestellt werden soll.</p>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn die Ressource erfolgreich wiederhergestellt wurde, ansonsten False.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.search_ressources">
 <span class="sig-name descname"><span class="pre">search_ressources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ressource_type_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">faculty_tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.search_ressources"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.search_ressources" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Sucht nach Ressourcen basierend auf der Suchanfrage, dem Ressourcentyp und den Fakultätstags,
+unter Ausschluss von unveröffentlichten Ressourcen.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>search_query</strong> (<em>str</em>) – Suchbegriff oder -phrase.</p></li>
+<li><p><strong>ressource_type_tag</strong> (<em>str</em>) – Tag, der sich auf den Ressourcentyp bezieht.</p></li>
+<li><p><strong>faculty_tag</strong> (<em>str</em>) – Tag, der sich auf die Fakultät bezieht.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>Eine Liste von übereinstimmenden Ressourcen.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.suggest_change_ressource">
 <span class="sig-name descname"><span class="pre">suggest_change_ressource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.suggest_change_ressource"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.suggest_change_ressource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Erlaubt Benutzern, Änderungen an einer Ressource vorzuschlagen, und speichert die Vorschläge in der Datenbank.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ressource_id</strong> (<em>int</em>) – Die ID der Ressource.</p></li>
+<li><p><strong>user_id</strong> (<em>int</em>) – Die ID des Benutzers, der Änderungen vorschlägt.</p></li>
+<li><p><strong>**kwargs</strong> – Die vorgeschlagenen Änderungen in Schlüssel-Wert-Paaren (Feld: neuer Wert).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn der Vorschlag erfolgreich erfasst wurde, False, wenn nicht.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Actions.Ressource_Actions.vote_for_suggestion">
-<span class="sig-name descname"><span class="pre">vote_for_suggestion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suggestion_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vote</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.vote_for_suggestion"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.vote_for_suggestion" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">vote_for_suggestion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vote</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Actions.html#Ressource_Actions.vote_for_suggestion"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Actions.Ressource_Actions.vote_for_suggestion" title="Link to this definition"></a></dt>
+<dd><p>Gibt eine Stimme für einen Vorschlag ab oder entfernt die Stimme, falls der Vorschlag bereits geschlossen ist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_id</strong> (<em>int</em>) – Die ID des Benutzers, der abstimmt.</p></li>
+<li><p><strong>ressource_id</strong> (<em>int</em>) – Die ID der Ressource, für die abgestimmt wird.</p></li>
+<li><p><strong>vote</strong> (<em>bool</em>) – True für eine Zustimmung, False für eine Ablehnung.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn die Abstimmung erfolgreich war, ansonsten False.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

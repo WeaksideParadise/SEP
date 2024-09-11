@@ -249,7 +249,18 @@ class Ressource_Management:
             return False
         
     def suggest_add_ressource(self, ressource_id: int, user_id: int) -> bool:
+        """
+        Fügt einen Vorschlag für eine Ressource hinzu, indem eine Umfrage erstellt wird und eine zufällige Auswahl von Nutzern zur Abstimmung eingeladen wird.
 
+        Überprüft zunächst, ob bereits eine Umfrage für die Ressource existiert. Falls nicht, werden Nutzer ausgewählt (außer der Ersteller und gelöschte Nutzer), die dann zur Abstimmung eingeladen werden. Schließlich wird die Umfrage in der Datenbank gespeichert.
+
+        :param ressource_id: Die ID der Ressource, für die der Vorschlag erstellt werden soll.
+        :type ressource_id: int
+        :param user_id: Die ID des Benutzers, der den Vorschlag erstellt.
+        :type user_id: int
+        :return: True, wenn der Vorschlag erfolgreich hinzugefügt wurde, ansonsten False.
+        :rtype: bool
+        """
         # Checken ob Umfrage für die Ressource exisitiert
         query = """SELECT * FROM ressource_suggestions WHERE ressource_id = %s"""
         try:

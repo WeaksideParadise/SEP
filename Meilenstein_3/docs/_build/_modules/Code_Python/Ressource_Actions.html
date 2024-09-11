@@ -92,24 +92,46 @@
 <div class="viewcode-block" id="Ressource_Actions">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions">[Doku]</a>
 <span class="k">class</span> <span class="nc">Ressource_Actions</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Klasse zur Verwaltung von Aktionen im Zusammenhang mit Ressourcen, einschließlich der Überprüfung von Links, </span>
+<span class="sd">    Berichterstattung, Abstimmungen und Veröffentlichung.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">:</span> <span class="n">Database</span><span class="p">,</span> <span class="n">ressource_management</span><span class="p">:</span> <span class="n">Ressource_Management</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialisiert die Ressource_Actions-Klasse mit einer Datenbankverbindung und Ressourcenverwaltung.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            db_connection (Database): Datenbankverbindung.</span>
+<span class="sd">            ressource_management (Ressource_Management): Ressourcenverwaltungsinstanz.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span> <span class="o">=</span> <span class="n">db_connection</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span> <span class="o">=</span> <span class="n">ressource_management</span>
 
 <div class="viewcode-block" id="Ressource_Actions.is_link_functional">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.is_link_functional">[Doku]</a>
     <span class="k">def</span> <span class="nf">is_link_functional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Controls if a Link gives an Error when trying to reach it.&quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># Make a request to the link to check its status</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-            <span class="c1"># Check if the status code is in the range of 200-299</span>
-            <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&gt;=</span> <span class="mi">200</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&lt;</span> <span class="mi">300</span>
-        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span><span class="p">:</span>
-            <span class="c1"># If there is any request exception, the link is not functional</span>
-            <span class="k">return</span> <span class="kc">False</span></div>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Überprüft, ob ein Link funktionsfähig ist, indem eine HTTP OPTIONS-Anfrage gesendet wird.</span>
 
-        
+<span class="sd">        Args:</span>
+<span class="sd">            link (str): Die zu überprüfende URL.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True, wenn der Link funktionsfähig ist, False, wenn nicht.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>   <span class="c1"># alternatively you can use response.status_code == 200</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failure - API is accessible but sth is not right. Response codde : </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">,</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ConnectionError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failure - Unable to establish connection: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failure - Unknown error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
     <span class="c1"># -&gt; Wird von Administrator / Moderator gerufen</span>
     <span class="c1"># -&gt; Geht automatisch alle nicht gelöschten Ressourcen durch und prüft Links</span>
     <span class="c1"># -&gt; Alle nicht funktionierenden Links werden für Administratoren gesammelt</span>
@@ -118,7 +140,13 @@
 <div class="viewcode-block" id="Ressource_Actions.check_links">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.check_links">[Doku]</a>
     <span class="k">def</span> <span class="nf">check_links</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Überprüft alle nicht gelöschten Ressourcen auf funktionierende Links, sammelt ungültige Links und markiert </span>
+<span class="sd">        die Ressource als nicht veröffentlicht, wenn der Link nicht funktioniert.</span>
 
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True, wenn der Prozess ohne Fehler abgeschlossen wurde, False, wenn nicht.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT * FROM ressources WHERE is_deleted != </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
             <span class="n">ressources</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">get_ressources_by_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -156,7 +184,12 @@
 <div class="viewcode-block" id="Ressource_Actions.fetch_5_random_ressources">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.fetch_5_random_ressources">[Doku]</a>
     <span class="k">def</span> <span class="nf">fetch_5_random_ressources</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Ressource</span><span class="p">]:</span>
-        
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ruft 5 zufällige, nicht gelöschte und veröffentlichte Ressourcen aus der Datenbank ab.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[Ressource]: Eine Liste von bis zu 5 zufälligen Ressourcen.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">get_ressources_by_query</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM ressources WHERE is_deleted = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -178,7 +211,18 @@
 <div class="viewcode-block" id="Ressource_Actions.search_ressources">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.search_ressources">[Doku]</a>
     <span class="k">def</span> <span class="nf">search_ressources</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search_query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ressource_type_tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">faculty_tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-        
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sucht nach Ressourcen basierend auf der Suchanfrage, dem Ressourcentyp und den Fakultätstags, </span>
+<span class="sd">        unter Ausschluss von unveröffentlichten Ressourcen.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            search_query (str): Suchbegriff oder -phrase.</span>
+<span class="sd">            ressource_type_tag (str): Tag, der sich auf den Ressourcentyp bezieht.</span>
+<span class="sd">            faculty_tag (str): Tag, der sich auf die Fakultät bezieht.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: Eine Liste von übereinstimmenden Ressourcen.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rs</span> <span class="o">=</span> <span class="n">Ressource_Search</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="p">,</span> <span class="n">search_query</span><span class="p">,</span> <span class="n">faculty_tag</span><span class="p">,</span> <span class="n">ressource_type_tag</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         
         <span class="k">try</span><span class="p">:</span>
@@ -197,7 +241,15 @@
 <div class="viewcode-block" id="Ressource_Actions.inspect_ressource">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.inspect_ressource">[Doku]</a>
     <span class="k">def</span> <span class="nf">inspect_ressource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Ressource</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ruft die Details einer bestimmten Ressource anhand ihrer ID ab.</span>
 
+<span class="sd">        Args:</span>
+<span class="sd">            ressource_id (int): Die ID der Ressource.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[Ressource]: Eine Liste, die die inspizierte Ressource enthält, oder eine leere Liste, wenn nicht gefunden.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">ressource</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">get_ressource_by_id</span><span class="p">(</span><span class="n">ressource_id</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -210,6 +262,15 @@
 <div class="viewcode-block" id="Ressource_Actions.check_ressource_suggestions">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.check_ressource_suggestions">[Doku]</a>
     <span class="k">def</span> <span class="nf">check_ressource_suggestions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource</span><span class="p">:</span> <span class="n">Ressource</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Überprüft, ob es Benutzervorschläge für eine bestimmte Ressource gibt.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ressource (Ressource): Das Ressourcenobjekt.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True, wenn Vorschläge existieren, False, wenn nicht.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT suggestions FROM users WHERE ressource_suggestions LIKE </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># The % around the ressource_id is used to match any string that contains the ressource_id</span>
@@ -225,7 +286,16 @@
 <div class="viewcode-block" id="Ressource_Actions.publish_ressource">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.publish_ressource">[Doku]</a>
     <span class="k">def</span> <span class="nf">publish_ressource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Veröffentlicht eine Ressource, indem das is_published-Flag auf True gesetzt und sie ggf. </span>
+<span class="sd">        aus der Liste der ungültigen Links entfernt wird.</span>
 
+<span class="sd">        Args:</span>
+<span class="sd">            ressource_id (int): Die ID der zu veröffentlichenden Ressource.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True, wenn die Ressource erfolgreich veröffentlicht wurde, False, wenn nicht.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">ressource</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">get_ressource_by_id</span><span class="p">(</span><span class="n">ressource_id</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -251,6 +321,17 @@
 <div class="viewcode-block" id="Ressource_Actions.suggest_change_ressource">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.suggest_change_ressource">[Doku]</a>
     <span class="k">def</span> <span class="nf">suggest_change_ressource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Erlaubt Benutzern, Änderungen an einer Ressource vorzuschlagen, und speichert die Vorschläge in der Datenbank.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ressource_id (int): Die ID der Ressource.</span>
+<span class="sd">            user_id (int): Die ID des Benutzers, der Änderungen vorschlägt.</span>
+<span class="sd">            **kwargs: Die vorgeschlagenen Änderungen in Schlüssel-Wert-Paaren (Feld: neuer Wert).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True, wenn der Vorschlag erfolgreich erfasst wurde, False, wenn nicht.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Convert kwargs into a string format, for example: &quot;field_name:value#field_name:value...&quot;</span>
         <span class="n">suggestions</span> <span class="o">=</span> <span class="s2">&quot;#&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
         
@@ -278,7 +359,15 @@
 <div class="viewcode-block" id="Ressource_Actions.check_trustworthyness">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.check_trustworthyness">[Doku]</a>
     <span class="k">def</span> <span class="nf">check_trustworthyness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Überprüft, ob der angegebene Link von einer vertrauenswürdigen Domain stammt.</span>
 
+<span class="sd">        Args:</span>
+<span class="sd">            link (str): Die zu überprüfende URL.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True, wenn der Link zu einer vertrauenswürdigen Domain gehört, False, wenn nicht.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Predefined list of trusted domains</span>
         <span class="n">trusted_domains</span> <span class="o">=</span> <span class="p">[</span>
             <span class="s2">&quot;tu-chemnitz.de&quot;</span><span class="p">,</span> 
@@ -302,6 +391,17 @@
 <div class="viewcode-block" id="Ressource_Actions.report_ressource">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.report_ressource">[Doku]</a>
     <span class="k">def</span> <span class="nf">report_ressource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ermöglicht Benutzern, eine Ressource mit einem bestimmten Grund zu melden.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ressource_id (int): Die ID der Ressource.</span>
+<span class="sd">            user_id (int): Die ID des Benutzers, der die Ressource meldet.</span>
+<span class="sd">            reason (str): Der Grund für die Meldung.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True, wenn die Meldung erfolgreich erfasst wurde, False, wenn nicht.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO ressource_reports (ressource_id, user_tag, reason) VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
@@ -316,6 +416,12 @@
 <div class="viewcode-block" id="Ressource_Actions.fetch_invalid_link_reports">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.fetch_invalid_link_reports">[Doku]</a>
     <span class="k">def</span> <span class="nf">fetch_invalid_link_reports</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ruft alle Berichte über ungültige Links aus der Datenbank ab.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: Eine Liste von Datensätzen mit ungültigen Links.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT * FROM invalid_links&quot;&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
@@ -328,6 +434,12 @@
 <div class="viewcode-block" id="Ressource_Actions.fetch_ressource_reports">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.fetch_ressource_reports">[Doku]</a>
     <span class="k">def</span> <span class="nf">fetch_ressource_reports</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Holt alle Ressourcennachberichte, bei denen der Bericht noch nicht geschlossen ist.</span>
+
+<span class="sd">        :return: Liste der Ressourcennachberichte.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT * FROM ressource_reports WHERE report_closed = 0&quot;&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
@@ -340,6 +452,12 @@
 <div class="viewcode-block" id="Ressource_Actions.fetch_deleted_ressources">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.fetch_deleted_ressources">[Doku]</a>
     <span class="k">def</span> <span class="nf">fetch_deleted_ressources</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Holt alle gelöschten Ressourcen.</span>
+
+<span class="sd">        :return: Liste der gelöschten Ressourcen.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT * FROM deleted_ressources&quot;&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
@@ -355,7 +473,12 @@
 <div class="viewcode-block" id="Ressource_Actions.like_ressource">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.like_ressource">[Doku]</a>
     <span class="k">def</span> <span class="nf">like_ressource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Holt alle gelöschten Ressourcen.</span>
+
+<span class="sd">        :return: Liste der gelöschten Ressourcen.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">ressource</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">get_ressource_by_id</span><span class="p">(</span><span class="n">ressource_id</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">ressource</span><span class="p">:</span>
@@ -384,7 +507,16 @@
 <div class="viewcode-block" id="Ressource_Actions.add_experience_report">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.add_experience_report">[Doku]</a>
     <span class="k">def</span> <span class="nf">add_experience_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Füge einen Like oder entferne ihn für eine Ressource, abhängig davon, ob der Benutzer die Ressource bereits geliked hat.</span>
 
+<span class="sd">        :param ressource_id: Die ID der Ressource.</span>
+<span class="sd">        :type ressource_id: int</span>
+<span class="sd">        :param user_id: Die ID des Benutzers.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        :return: True, wenn die Operation erfolgreich war, ansonsten False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">ressource</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">get_ressource_by_id</span><span class="p">(</span><span class="n">ressource_id</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -421,7 +553,16 @@
 <div class="viewcode-block" id="Ressource_Actions.delete_report">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.delete_report">[Doku]</a>
     <span class="k">def</span> <span class="nf">delete_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Fügt einen Erfahrungsbericht zu einer Ressource hinzu.</span>
 
+<span class="sd">            :param ressource_id: Die ID der Ressource, zu der der Bericht hinzugefügt werden soll.</span>
+<span class="sd">            :type ressource_id: int</span>
+<span class="sd">            :param text: Der Text des Erfahrungsberichts.</span>
+<span class="sd">            :type text: str</span>
+<span class="sd">            :return: True, wenn der Bericht erfolgreich hinzugefügt wurde, ansonsten False.</span>
+<span class="sd">            :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE ressource_reports SET report_closed = 1 WHERE report_id = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">report_id</span><span class="p">,))</span>
@@ -433,7 +574,14 @@
 <div class="viewcode-block" id="Ressource_Actions.revive_ressource">
 <a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.revive_ressource">[Doku]</a>
     <span class="k">def</span> <span class="nf">revive_ressource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Macht eine gelöschte Ressource wieder aktiv, indem der Löschstatus zurückgesetzt und die Ressource aus der Liste der gelöschten Ressourcen entfernt wird.</span>
 
+<span class="sd">        :param ressource_id: Die ID der Ressource, die wiederhergestellt werden soll.</span>
+<span class="sd">        :type ressource_id: int</span>
+<span class="sd">        :return: True, wenn die Ressource erfolgreich wiederhergestellt wurde, ansonsten False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">ressource_query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE ressources SET is_deleted = 0 WHERE ressource_id = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">ressource_query</span><span class="p">,</span> <span class="p">(</span><span class="n">ressource_id</span><span class="p">,))</span>
@@ -444,56 +592,126 @@
         <span class="k">return</span> <span class="kc">True</span></div>
 
     
-<div class="viewcode-block" id="Ressource_Actions.vote_for_suggestion">
-<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.vote_for_suggestion">[Doku]</a>
-    <span class="k">def</span> <span class="nf">vote_for_suggestion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">suggestion_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">vote</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="Ressource_Actions.get_suggestion_for_user">
+<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.get_suggestion_for_user">[Doku]</a>
+    <span class="k">def</span> <span class="nf">get_suggestion_for_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Holt den Vorschlag für eine Ressource eines Benutzers, falls dieser existiert.</span>
+
+<span class="sd">        :param user_id: Die ID des Benutzers.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        :param ressource_id: Die ID der Ressource, für die der Vorschlag geholt werden soll.</span>
+<span class="sd">        :type ressource_id: int</span>
+<span class="sd">        :return: Der Vorschlag als Dictionary, falls vorhanden; andernfalls eine leere Liste.</span>
+<span class="sd">        :rtype: dict[str, any]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">user_management</span><span class="o">.</span><span class="n">get_user_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">False</span>
+           <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">user_management</span><span class="o">.</span><span class="n">get_user_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+           <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
+              <span class="k">return</span> <span class="p">[]</span>
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="p">[]</span>
     
-    <span class="c1"># Schauen ob Nutzer diese überhaupt hat</span>
+        <span class="c1"># Schauen ob Nutzer diese überhaupt hat</span>
         <span class="n">suggestions</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">ressource_suggestions</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">suggestion_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">suggestions</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">ressource_id</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">suggestions</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
     
         <span class="c1"># Suggestion aus DB holen</span>
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT FROM ressource_suggestions WHERE id= </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT * FROM ressource_suggestions WHERE ressource_id = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
+
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">suggestion_id</span><span class="p">,))</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">ressource_id</span><span class="p">,))</span>
+            <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+        
+<div class="viewcode-block" id="Ressource_Actions.remove_suggestions_for_user">
+<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.remove_suggestions_for_user">[Doku]</a>
+    <span class="k">def</span> <span class="nf">remove_suggestions_for_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Entfernt einen Vorschlag für eine Ressource von einem Benutzer.</span>
+
+<span class="sd">        :param user_id: Die ID des Benutzers.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        :param ressource_id: Die ID der Ressource, für die der Vorschlag entfernt werden soll.</span>
+<span class="sd">        :type ressource_id: int</span>
+<span class="sd">        :return: True, wenn der Vorschlag erfolgreich entfernt wurde, ansonsten False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+           <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">user_management</span><span class="o">.</span><span class="n">get_user_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+           <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
+              <span class="k">return</span> <span class="kc">False</span>
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
         
-        <span class="n">users_to_vote</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;users_to_vote&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">user_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">users_to_vote</span><span class="p">:</span>
+        <span class="n">suggestions</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">ressource_suggestions</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+        <span class="n">suggestions</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ressource_id</span><span class="p">))</span>
+        <span class="n">user</span><span class="o">.</span><span class="n">ressource_suggestions</span> <span class="o">=</span> <span class="s2">&quot;#&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">suggestions</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">user_management</span><span class="o">.</span><span class="n">save_user</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Ressource_Actions.vote_for_suggestion">
+<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.vote_for_suggestion">[Doku]</a>
+    <span class="k">def</span> <span class="nf">vote_for_suggestion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">vote</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt eine Stimme für einen Vorschlag ab oder entfernt die Stimme, falls der Vorschlag bereits geschlossen ist.</span>
+
+<span class="sd">        :param user_id: Die ID des Benutzers, der abstimmt.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        :param ressource_id: Die ID der Ressource, für die abgestimmt wird.</span>
+<span class="sd">        :type ressource_id: int</span>
+<span class="sd">        :param vote: True für eine Zustimmung, False für eine Ablehnung.</span>
+<span class="sd">        :type vote: bool</span>
+<span class="sd">        :return: True, wenn die Abstimmung erfolgreich war, ansonsten False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_suggestion_for_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        
+        <span class="c1">#(am Anfang prüfen ob bereits closed)</span>
+        <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;is_closed&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_suggestions_for_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        
+        <span class="n">users_to_vote</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;users_to_vote&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">users_to_vote</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">users_to_vote</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+            <span class="n">users_to_vote</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">user_id</span><span class="p">))</span>
             
         <span class="c1"># Abstimmen</span>
-        <span class="n">vote_accept</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;vote_accept&quot;</span><span class="p">])</span>
-        <span class="n">vote_reject</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;vote_reject&quot;</span><span class="p">])</span>
+        <span class="n">vote_accept</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;vote_accept&quot;</span><span class="p">])</span>
+        <span class="n">vote_reject</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;vote_reject&quot;</span><span class="p">])</span>
         <span class="n">users_to_vote</span> <span class="o">=</span> <span class="s2">&quot;#&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">users_to_vote</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">vote</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE ressource_suggestions SET users_to_vote = </span><span class="si">%s</span><span class="s2">, vote_accept = </span><span class="si">%s</span><span class="s2"> WHERE id = </span><span class="si">%s</span><span class="s2">)&quot;&quot;&quot;</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE ressource_suggestions SET users_to_vote = </span><span class="si">%s</span><span class="s2">, vote_accept = </span><span class="si">%s</span><span class="s2"> WHERE ressource_id = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">vote_accept</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">vote_accept</span><span class="p">,</span> <span class="n">suggestion_id</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">users_to_vote</span><span class="p">,</span> <span class="n">vote_accept</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">))</span>
             <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">False</span>
                 
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE ressource_suggestions SET users_to_vote = </span><span class="si">%s</span><span class="s2">, vote_reject = </span><span class="si">%s</span><span class="s2"> WHERE id = </span><span class="si">%s</span><span class="s2">)&quot;&quot;&quot;</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE ressource_suggestions SET users_to_vote = </span><span class="si">%s</span><span class="s2">, vote_reject = </span><span class="si">%s</span><span class="s2"> WHERE ressource_id = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">vote_reject</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">vote_reject</span><span class="p">,</span> <span class="n">suggestion_id</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">users_to_vote</span><span class="p">,</span> <span class="n">vote_reject</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">))</span>
             <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">False</span>
                 
         <span class="c1"># Prüfen ob Abstimmung fertig ist</span>
-        <span class="n">amount_voters</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;amount_voting_users&quot;</span><span class="p">]</span>
+        <span class="n">amount_voters</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;amount_voting_users&quot;</span><span class="p">]</span>
+        <span class="n">is_closed</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="n">vote_accept</span> <span class="o">&gt;</span> <span class="n">amount_voters</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span>
             <span class="n">is_closed</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">vote_result</span> <span class="o">=</span> <span class="kc">True</span>
@@ -501,28 +719,147 @@
             <span class="n">is_closed</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">vote_result</span> <span class="o">=</span> <span class="kc">False</span>
 
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_suggestions_for_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
         <span class="k">if</span> <span class="n">is_closed</span><span class="p">:</span>
-            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE ressource_suggestions SET is_closed =</span><span class="si">%s</span><span class="s2"> WHERE id = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;UPDATE ressource_suggestions SET is_closed = </span><span class="si">%s</span><span class="s2"> WHERE ressource_id = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
             <span class="k">try</span><span class="p">:</span> 
-                <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">suggestion_id</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">))</span>
             <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">True</span>
-                
-        <span class="c1"># Abstimmung bei restlichen Nutzer entfernen TODO (am Anfang prüfen ob bereits closed)</span>
-
+        
         <span class="c1">#Ergebnisfolge</span>
 
-        <span class="k">if</span> <span class="n">vote_accept</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">publish_ressource</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;ressource_id&quot;</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">delete_ressource</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;ressource_id&quot;</span><span class="p">],</span> <span class="s2">&quot;Abstimmung fehlgeschlagen&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">vote_result</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">publish_ressource</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;ressource_id&quot;</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">delete_ressource</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;ressource_id&quot;</span><span class="p">],</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;Abstimmung fehlgeschlagen&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Ressource_Actions.fetch_suggestions">
+<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.fetch_suggestions">[Doku]</a>
+    <span class="k">def</span> <span class="nf">fetch_suggestions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Ressource</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Holt alle Vorschläge für Ressourcen eines Benutzers.</span>
+
+<span class="sd">        :param user_id: Die ID des Benutzers, dessen Vorschläge abgerufen werden sollen.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        :return: Liste der Ressourcen, die als Vorschläge des Benutzers vorhanden sind.</span>
+<span class="sd">        :rtype: list[Ressource]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">user_management</span><span class="o">.</span><span class="n">get_user_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">LookupError</span>
+        <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">LookupError</span>
+        
+        <span class="n">suggestions</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">ressource_suggestions</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+
+        <span class="n">suggestions_to_return</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">suggestions</span><span class="p">)):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ressource</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">get_ressource_by_id</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">suggestions</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">ressource</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">LookupError</span>
+            <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">LookupError</span>
+            <span class="n">suggestions_to_return</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ressource</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">suggestions_to_return</span></div>
+
+    
+<div class="viewcode-block" id="Ressource_Actions.fetch_most_liked_ressources">
+<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.fetch_most_liked_ressources">[Doku]</a>
+    <span class="k">def</span> <span class="nf">fetch_most_liked_ressources</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Ressource</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Holt die fünf am meisten gelikten Ressourcen.</span>
+
+<span class="sd">        :return: Liste der fünf am meisten gelikten Ressourcen.</span>
+<span class="sd">        :rtype: list[Ressource]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT * FROM ressources WHERE is_published = </span><span class="si">%s</span><span class="s2"> and is_deleted = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
+        
+        <span class="n">ressources</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">get_ressources_by_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ressources</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        
+        <span class="n">sorted_by_likes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ressources</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span> <span class="k">lambda</span> <span class="n">ressource</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">ressource</span><span class="o">.</span><span class="n">likes</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)),</span> <span class="n">reverse</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">sorted_by_likes</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span></div>
+
+    
+<div class="viewcode-block" id="Ressource_Actions.list_likes">
+<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.list_likes">[Doku]</a>
+    <span class="k">def</span> <span class="nf">list_likes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressources</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Ressource</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt die Anzahl der Likes für jede Ressource in der Liste zurück.</span>
+
+<span class="sd">        :param ressources: Liste der Ressourcen, für die die Anzahl der Likes ermittelt werden soll.</span>
+<span class="sd">        :type ressources: list[Ressource]</span>
+<span class="sd">        :return: Liste der Anzahl der Likes für jede Ressource.</span>
+<span class="sd">        :rtype: list[int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">to_return</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ressource</span> <span class="ow">in</span> <span class="n">ressources</span><span class="p">:</span>
+            <span class="n">to_return</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ressource</span><span class="o">.</span><span class="n">likes</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">to_return</span></div>
+
+    
+<div class="viewcode-block" id="Ressource_Actions.is_liked_by_user">
+<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.is_liked_by_user">[Doku]</a>
+    <span class="k">def</span> <span class="nf">is_liked_by_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ressources</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Ressource</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bool</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Überprüft, ob eine Ressource von einem bestimmten Benutzer geliked wurde.</span>
+
+<span class="sd">        :param user_id: Die ID des Benutzers.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        :param ressources: Liste der Ressourcen, die überprüft werden sollen.</span>
+<span class="sd">        :type ressources: list[Ressource]</span>
+<span class="sd">        :return: Liste von Boolean-Werten, die angeben, ob jede Ressource vom Benutzer geliked wurde.</span>
+<span class="sd">        :rtype: list[bool]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">to_return</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ressource</span> <span class="ow">in</span> <span class="n">ressources</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ressource</span><span class="o">.</span><span class="n">likes</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
+                <span class="n">to_return</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">to_return</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">to_return</span></div>
+
+    
+<div class="viewcode-block" id="Ressource_Actions.check_if_already_exists">
+<a class="viewcode-back" href="../../Ressource_Actions.html#Code_Python.Ressource_Actions.Ressource_Actions.check_if_already_exists">[Doku]</a>
+    <span class="k">def</span> <span class="nf">check_if_already_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Überprüft, ob eine Ressource mit dem angegebenen Link bereits existiert.</span>
+
+<span class="sd">        :param link: Der Link der Ressource, die überprüft werden soll.</span>
+<span class="sd">        :type link: str</span>
+<span class="sd">        :return: True, wenn die Ressource bereits existiert, ansonsten False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT * FROM ressources WHERE link = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ressource_management</span><span class="o">.</span><span class="n">get_ressources_by_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">[</span><span class="n">link</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
 </div>
 
 
+
+            
 </pre></div>
 
            </div>

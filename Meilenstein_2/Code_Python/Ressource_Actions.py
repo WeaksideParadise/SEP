@@ -331,6 +331,12 @@ class Ressource_Actions:
         return result
     
     def fetch_deleted_ressources(self) -> list:
+        """
+        Holt alle gelöschten Ressourcen.
+
+        :return: Liste der gelöschten Ressourcen.
+        :rtype: list
+        """
         query = """SELECT * FROM deleted_ressources"""
 
         try:
@@ -591,6 +597,14 @@ class Ressource_Actions:
         return True
 
     def fetch_suggestions(self, user_id: int) -> list[Ressource]:
+        """
+        Holt alle Vorschläge für Ressourcen eines Benutzers.
+
+        :param user_id: Die ID des Benutzers, dessen Vorschläge abgerufen werden sollen.
+        :type user_id: int
+        :return: Liste der Ressourcen, die als Vorschläge des Benutzers vorhanden sind.
+        :rtype: list[Ressource]
+        """
         try:
             user = self.ressource_management.user_management.get_user_by_id(user_id)
             if not user:
@@ -614,6 +628,12 @@ class Ressource_Actions:
         return suggestions_to_return
     
     def fetch_most_liked_ressources(self) -> list[Ressource]:
+        """
+        Holt die fünf am meisten gelikten Ressourcen.
+
+        :return: Liste der fünf am meisten gelikten Ressourcen.
+        :rtype: list[Ressource]
+        """
         query = """SELECT * FROM ressources WHERE is_published = %s and is_deleted = %s"""
         
         ressources = self.ressource_management.get_ressources_by_query(query, [True, False])
@@ -625,6 +645,14 @@ class Ressource_Actions:
         return sorted_by_likes[0:5]
     
     def list_likes(self, ressources: list[Ressource]) -> list[int]:
+        """
+        Gibt die Anzahl der Likes für jede Ressource in der Liste zurück.
+
+        :param ressources: Liste der Ressourcen, für die die Anzahl der Likes ermittelt werden soll.
+        :type ressources: list[Ressource]
+        :return: Liste der Anzahl der Likes für jede Ressource.
+        :rtype: list[int]
+        """
         to_return = []
         for ressource in ressources:
             to_return.append(len(ressource.likes.split("#"))-1)
@@ -632,6 +660,16 @@ class Ressource_Actions:
         return to_return
     
     def is_liked_by_user(self, user_id: int, ressources: list[Ressource]) -> list[bool]:
+        """
+        Überprüft, ob eine Ressource von einem bestimmten Benutzer geliked wurde.
+
+        :param user_id: Die ID des Benutzers.
+        :type user_id: int
+        :param ressources: Liste der Ressourcen, die überprüft werden sollen.
+        :type ressources: list[Ressource]
+        :return: Liste von Boolean-Werten, die angeben, ob jede Ressource vom Benutzer geliked wurde.
+        :rtype: list[bool]
+        """
         to_return = []
         for ressource in ressources:
             if str(user_id) in ressource.likes.split("#"):
@@ -642,6 +680,14 @@ class Ressource_Actions:
         return to_return
     
     def check_if_already_exists(self, link: str) -> bool:
+        """
+        Überprüft, ob eine Ressource mit dem angegebenen Link bereits existiert.
+
+        :param link: Der Link der Ressource, die überprüft werden soll.
+        :type link: str
+        :return: True, wenn die Ressource bereits existiert, ansonsten False.
+        :rtype: bool
+        """
         query = """SELECT * FROM ressources WHERE link = %s"""
 
         try:
