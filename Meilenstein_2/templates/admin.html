@@ -118,14 +118,20 @@
                                 <b>ID: {{ resource.ressource_id }}, {{ resource.name }}</b>
                             </div>
 
+                            {% if resource.is_deleted or not resource.is_published %}
                             <div class="deleted-published-box">
+                                {% if resource.is_deleted %}
                                 <div class="res-deleted-box">
                                     gel.
                                 </div>
+                                {% endif %}
+                                {% if not resource.is_deleted and not resource.is_published %}
                                 <div class="res-published-box">
                                     n. veröff.
                                 </div>
+                                {% endif %}
                             </div>
+                            {% endif %}
     
                             <div class="actions-box list-ressources-actions-box" style="align-items:center;">
                                 <!-- Form zum Anzeigen (Inspect) -->
@@ -178,8 +184,9 @@
                         {% if session.get('role') == 'administrator' or session.get('role') == 'moderator' %} 
                             <div class="admin-only-box">
 
-                                <button class="published-color-green font-scaler" style="width: 50%; margin: 5px;" id="admin_i_is_published" type="button" onclick="toggle_published({is_published: 'admin_i_is_published'})"></button>
-    
+                                <button class="published-color-green font-scaler" style="width: 50%; margin: 5px;" id="admin_i_is_published" name="is_published" type="button" onclick="toggle_published({is_published: 'admin_i_is_published', hidden_is_published: 'admin_i_hidden_published'})"></button>
+                                <input type="hidden" id="admin_i_hidden_published" name="hidden_is_published" value = "">
+
                                 <button class="button-green font-scaler" style="width: 50%; margin: 5px;" type="submit">Änd. speichern</button>
 
                             </div>

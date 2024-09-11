@@ -439,4 +439,33 @@ class Ressource_Actions:
             suggestions_to_return.append(ressource)
         
         return suggestions_to_return
+    
+    def fetch_most_liked_ressources(self) -> list[Ressource]:
+        query = """SELECT * FROM ressources WHERE is_published = %s and is_deleted = %s"""
+        
+        ressources = self.ressource_management.get_ressources_by_query(query, [True, False])
+        if not ressources:
+            return []
+        
+        sorted_by_likes = sorted(ressources, key= lambda ressource : len(ressource.likes.split("#")), reverse = True)
+
+        return sorted_by_likes[0:5]
+    
+    def list_likes(self, ressources: list[Ressource]) -> list[int]:
+        to_return = []
+        for ressource in ressources:
+            to_return.append(len(ressource.likes.split("#"))-1)
+
+        return to_return
+    
+    def is_liked_by_user(self, user_id: int, ressources: list[Ressource]) -> list[bool]:
+        to_return = []
+        for ressource in ressources:
+            if str(user_id) in ressource.likes.split("#"):
+                to_return.append(True)
+            else:
+                to_return.append(False)
+
+        return to_return
+
             

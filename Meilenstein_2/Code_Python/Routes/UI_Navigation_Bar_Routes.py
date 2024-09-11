@@ -16,7 +16,11 @@ class Navigation_Bar_Routes:
         
         @self.app.route("/", methods = ["GET","POST"])
         def UI_index():
-            return render_template("index.html")
+            most_liked_ressources = self.ra.fetch_most_liked_ressources()
+            likes = self.ra.list_likes(most_liked_ressources)
+            is_liked = self.ra.is_liked_by_user(int(session["user_id"]), most_liked_ressources)
+            
+            return render_template("index.html", most_liked_ressources = most_liked_ressources, likes = likes, is_liked = is_liked)
         
         @self.app.route("/login", methods = ["GET","POST"])
         def UI_login():

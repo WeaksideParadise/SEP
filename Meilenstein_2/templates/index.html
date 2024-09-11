@@ -70,23 +70,33 @@
                 <div class="most-liked-box">
                     <div class="most-liked-box-container">
                         <h2>Die aktuell beliebtesten Ressourcen:</h2>
-                        <div class="most-liked-item-box">
+                        {% for i in range(most_liked_ressources|length) %}
+                            {% with resource = most_liked_ressources[i] %}
+                                <div class="most-liked-item-box">
 
-                            <div class="font-scaler item-box-likes">
-                                <button class="like-button button-green" type="button" onclick="like_ressource({ressource_id: 'admin_i_ressource_id', like_count: 'admin_i_like_count', like_emoji: 'admin_i_like_emoji'})">
-                                    <text id="admin_i_like_emoji"> Herz </text>
-                                    <text id="admin_i_like_count"> Likes </text>
-                                </button>
-                            </div>
+                                    <span id="index_ihidden_ressource_id{{i}}" value="{{resource.ressource_id}}" style="display: none;"></span>
 
-                            <div class="item-box-name">
-                                <text>Ressource 1</text>
-                            </div>
-                            <div>
-                                <button class="button-green">&#128065;</button>
-                            </div>
+                                    <div class="font-scaler item-box-likes">
+                                        <button class="like-button button-green" type="button" onclick="like_ressource({ressource_id: 'index_ihidden_ressource_id{{i}}', like_count: 'index_i_like_count{{i}}', like_emoji: 'index_i_like_emoji{{i}}'})">
+                                            {% if is_liked[i] %}
+                                                <span id="index_i_like_emoji{{i}}" style="color: red;">&#10084; &nbsp; </span>
+                                            {% else %}
+                                                <span id="index_i_like_emoji{{i}}" style="color: white;">&#10084; &nbsp; </span>
+                                            {% endif %}
+                                            <text id="index_i_like_count{{i}}">{{likes[i]}}</text>
 
-                        </div>
+                                        </button>
+                                    </div>
+
+                                    <div class="item-box-name">
+                                        <text>{{ resource.name }}</text>
+                                     </div>
+                                    <div>
+                                        <button class="button-green reports-box-actions-button" onclick="open_inspect_modal('{{ resource.ressource_id }}', 'user', { ressource_id: 'index_i_ressource_id', description: 'index_i_description', link: 'index_i_link', name: 'index_i_name', hours: 'index_i_opening_hours', faculty: 'index_i_faculty', ressource_type: 'index_i_ressource_type', created_by: 'index_i_created_by', like_count: 'index_i2_like_count', like_emoji: 'index_i2_like_emoji', is_published: 'index_i_is_published'})">&#128065;</button>
+                                    </div>
+                                </div>
+                            {% endwith %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -99,6 +109,105 @@
         <text style="margin-left: 50px">&copy; 2024 Ressourcen-Portal. Alle Rechte vorbehalten.</text>
         <a style="margin-right: 50px; color: white" href="docs">API-Dokumentation</a>
     </footer>
+
+    <!-- Modal-Fenster zum Anzeigen von Ressourcen -->
+    <div id="resourceModal" class="modal">
+        <div class="modal-content">
+
+            <!-- Content-Bereich für Ressource-Informationen -->
+            <div class="modal-body">
+
+                <form class="resource-info">
+
+                    <div class="modal-header">
+
+                        <h1>Ressourcen-Details</h1>
+    
+                        <div class="form-group" style="margin-bottom:10px;">
+                            <button onclick="close_inspect_modal()">&#10006;</button>
+                        </div>
+                    </div>
+
+
+                    <div class="id-name-like-x">
+                        <div class="form-group font-scaler" style="width:80%">
+                            <label for="name">Name:</label>
+                            <input type="text" id="index_i_name" name="name" readonly>
+                        </div>
+                        <div class="form-group font-scaler" style="width:5%">
+                            <label for="id">ID:</label>
+                            <input style="padding-left:0; padding-right: 0;text-align:center;" type="text" id="index_i_ressource_id" name="link" readonly>
+                        </div>
+                        <div class="form-group font-scaler" style="width:10%">
+                            <label>Likes:</label>
+                            <button class="like-button" style="margin-top: 0px" type="button" onclick="like_ressource({ressource_id: 'index_i_ressource_id', like_count: 'index_i2_like_count', like_emoji: 'index_i2_like_emoji'})">
+                                <text id="index_i2_like_emoji"> </text>
+                                <text id="index_i2_like_count"> </text>
+                            </button>
+                        </div>
+
+                    </div>
+
+                     <!-- Beschreibung + Öffnungszeiten + Fakultät-Block -->
+
+
+                     <div class="desc-times font-scaler">
+                        <div class="desc-box">
+                            <div class="form-group textarea-height-tall">
+                                <label for="beschreibung">Beschreibung:</label>
+                                <textarea class="textarea-width  textarea-height-tall" type="text" id="index_i_description" name="beschreibung" readonly></textarea>
+                            </div>
+                        </div>
+
+                        <div class="times-box font-scaler">
+                            <div class="form-group textarea-height-tall">
+                                <label for="offnungzeit">Öffnungszeiten:</label>
+                                <textarea class="textarea-width  textarea-height-tall" type="text" id="index_i_opening_hours" name="offnungzeit" readonly></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Fakultät + Typ + Ersteller -->
+                        <div class="fak-type-created-pub font-scaler">
+                            <div class="form-group formgroup-height" style="margin-bottom: 0px;">
+                                <label for="fakultaet">Fakultät:</label>
+                                <input class="textarea-width" style="height: 2.8vw;" type="text" id="index_i_faculty" name="fakultaet" readonly>
+                            </div>
+                            <div class="form-group formgroup-height" style="margin-bottom: 0px;">
+                                <label for="typ">Typ:</label>
+                                <input class="textarea-width" style="height: 2.8vw;" type="text" id="index_i_ressource_type" name="typ" readonly>
+                            </div>
+                            <div class="form-group formgroup-height" style="margin-bottom: 0px;">
+                                <label for="ersteller">Ersteller:</label>
+                                <input class="textarea-width" style="height: 2.8vw;" type="text" id="index_i_created_by" name="ersteller" readonly>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Link -->
+                    <div class="form-group font-scaler">
+                        <label for="link">Link:</label>
+                        <input type="text" id="index_i_link" name="link" readonly>
+                    </div>
+
+                    <!-- Reportleiste -->
+                    <div class="form-group font-scaler">
+                        <label for="Grund2">Grund für Ressourcenmeldung:</label>
+                        <div class="modal-report-system" name="Grund2">
+                            <input class="modal-report-system-input" type="text" id="index_i_report_reason" name="Grund"></input>
+                            <button style="width: 30%; margin-top: 0px;" type="button" onclick="report_ressource({ressource_id: 'index_i_ressource_id', reason: 'index_i_report_reason'})" class="button-green" type="button" >Ressource melden</button>
+                        </div>
+                    </div>  
+          
+
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ url_for('static', filename='js/flash_messages.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ressource_inspect.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ressource_add.js') }}"></script>
 </body>
 </html>
