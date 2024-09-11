@@ -112,7 +112,7 @@ function report_ressource(elementIds) {
             flashMessage("Ressource wurde erfolgreich gemeldet", "success")
         } 
         else{
-            alert(data.message)
+            flashMessage("Fehler beim Melden der Ressource", "error")
         }
     })
 
