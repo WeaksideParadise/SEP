@@ -109,6 +109,7 @@ function report_ressource(elementIds) {
     .then(data => {
         if (data.status) {
             document.getElementById(elementIds.reason).value = "";
+            flashMessage("Ressource wurde erfolgreich gemeldet", "success")
         } 
         else{
             alert(data.message)
