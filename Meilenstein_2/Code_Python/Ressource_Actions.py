@@ -441,9 +441,9 @@ class Ressource_Actions:
         return suggestions_to_return
     
     def fetch_most_liked_ressources(self) -> list[Ressource]:
-        query = """SELECT * FROM ressources WHERE name != %s and is_deleted = %s"""
+        query = """SELECT * FROM ressources WHERE is_published = %s and is_deleted = %s"""
         
-        ressources = self.ressource_management.get_ressources_by_query(query, ["Deleted", False])
+        ressources = self.ressource_management.get_ressources_by_query(query, [True, False])
         if not ressources:
             return []
         
