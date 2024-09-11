@@ -213,7 +213,23 @@ Andernfalls wird ein Vorschlag erstellt.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Code_Python.Ressource_Management.Ressource_Management.suggest_add_ressource">
 <span class="sig-name descname"><span class="pre">suggest_add_ressource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ressource_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/Code_Python/Ressource_Management.html#Ressource_Management.suggest_add_ressource"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Code_Python.Ressource_Management.Ressource_Management.suggest_add_ressource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Fügt einen Vorschlag für eine Ressource hinzu, indem eine Umfrage erstellt wird und eine zufällige Auswahl von Nutzern zur Abstimmung eingeladen wird.</p>
+<p>Überprüft zunächst, ob bereits eine Umfrage für die Ressource existiert. Falls nicht, werden Nutzer ausgewählt (außer der Ersteller und gelöschte Nutzer), die dann zur Abstimmung eingeladen werden. Schließlich wird die Umfrage in der Datenbank gespeichert.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameter<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ressource_id</strong> (<em>int</em>) – Die ID der Ressource, für die der Vorschlag erstellt werden soll.</p></li>
+<li><p><strong>user_id</strong> (<em>int</em>) – Die ID des Benutzers, der den Vorschlag erstellt.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rückgabe<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, wenn der Vorschlag erfolgreich hinzugefügt wurde, ansonsten False.</p>
+</dd>
+<dt class="field-odd">Rückgabetyp<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

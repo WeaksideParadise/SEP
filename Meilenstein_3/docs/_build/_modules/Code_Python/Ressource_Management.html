@@ -198,6 +198,7 @@
 
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
             <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">False</span>
             
@@ -273,10 +274,14 @@
 
         <span class="c1"># -&gt; Vorschlag erstellen</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_published</span><span class="p">:</span>
-
-            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT LAST_INSERT_ID()&quot;&quot;&quot;</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
-            <span class="n">ressource_id</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;LAST_INSERT_ID()&#39;</span><span class="p">]</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT MAX(ressource_id) AS max_id FROM ressources&quot;&quot;&quot;</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+                <span class="n">ressource_id</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;max_id&#39;</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ressource_id</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">suggest_add_ressource</span><span class="p">(</span><span class="n">ressource_id</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
                 <span class="k">return</span> <span class="kc">False</span>
@@ -347,7 +352,18 @@
 <div class="viewcode-block" id="Ressource_Management.suggest_add_ressource">
 <a class="viewcode-back" href="../../Ressource_Management.html#Code_Python.Ressource_Management.Ressource_Management.suggest_add_ressource">[Doku]</a>
     <span class="k">def</span> <span class="nf">suggest_add_ressource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fügt einen Vorschlag für eine Ressource hinzu, indem eine Umfrage erstellt wird und eine zufällige Auswahl von Nutzern zur Abstimmung eingeladen wird.</span>
 
+<span class="sd">        Überprüft zunächst, ob bereits eine Umfrage für die Ressource existiert. Falls nicht, werden Nutzer ausgewählt (außer der Ersteller und gelöschte Nutzer), die dann zur Abstimmung eingeladen werden. Schließlich wird die Umfrage in der Datenbank gespeichert.</span>
+
+<span class="sd">        :param ressource_id: Die ID der Ressource, für die der Vorschlag erstellt werden soll.</span>
+<span class="sd">        :type ressource_id: int</span>
+<span class="sd">        :param user_id: Die ID des Benutzers, der den Vorschlag erstellt.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        :return: True, wenn der Vorschlag erfolgreich hinzugefügt wurde, ansonsten False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Checken ob Umfrage für die Ressource exisitiert</span>
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT * FROM ressource_suggestions WHERE ressource_id = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
@@ -381,7 +397,7 @@
         <span class="c1"># Vorschlag bei Nutzer hinzufügen</span>
         <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">random_users</span><span class="p">:</span>
             <span class="n">suggestions</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">ressource_suggestions</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-            <span class="n">suggestions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ressource_id</span><span class="p">)</span>
+            <span class="n">suggestions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ressource_id</span><span class="p">))</span>
             <span class="n">user</span><span class="o">.</span><span class="n">ressource_suggestions</span> <span class="o">=</span> <span class="s2">&quot;#&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">suggestions</span><span class="p">)</span>
         
         <span class="c1"># Nutzer wieder speichern</span>
@@ -392,10 +408,10 @@
         <span class="c1"># Vorschlag in ressource_suggestions hinzufügen</span>
         <span class="n">user_ids</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">random_users</span><span class="p">:</span>
-            <span class="n">user_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">user_id</span><span class="p">)</span>
+            <span class="n">user_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">user_id</span><span class="p">))</span>
         <span class="n">users_to_vote</span> <span class="o">=</span> <span class="s2">&quot;#&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">user_ids</span><span class="p">)</span>
 
-        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO ressource_suggestions (ressource_id, amount_voting_users, users_to_vote, vote_accept, vote_reject, is_closed)&quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO ressource_suggestions (ressource_id, amount_voting_users, users_to_vote, vote_accept, vote_reject, is_closed) VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">ressource_id</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">random_users</span><span class="p">),</span> <span class="n">users_to_vote</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
             <span class="k">return</span> <span class="kc">True</span>

@@ -86,7 +86,17 @@
 <div class="viewcode-block" id="User_Management">
 <a class="viewcode-back" href="../../User_Management.html#Code_Python.User_Management.User_Management">[Doku]</a>
 <span class="k">class</span> <span class="nc">User_Management</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Diese Klasse verwaltet Benutzeroperationen, einschließlich Benutzererstellung, -speicherung, -abfrage und -authentifizierung.</span>
+<span class="sd">    Sie enthält Methoden zum Hinzufügen, Löschen und Ändern von Benutzern sowie für die Anmeldung und Abmeldung.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">:</span> <span class="n">Database</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialisiert die User_Management-Klasse mit einer Datenbankverbindung.</span>
+
+<span class="sd">        :param db_connection: Eine Instanz der Database-Klasse zur Interaktion mit der Datenbank.</span>
+<span class="sd">        :type db_connection: Database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span> <span class="o">=</span> <span class="n">db_connection</span>
 
 
@@ -95,8 +105,15 @@
     <span class="c1"># -&gt; ID ist Primärschlüssel, jeder Nutze hat einzigartige ID</span>
 <div class="viewcode-block" id="User_Management.get_user_by_id">
 <a class="viewcode-back" href="../../User_Management.html#Code_Python.User_Management.User_Management.get_user_by_id">[Doku]</a>
-    <span class="k">def</span> <span class="nf">get_user_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">User</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_user_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">User</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt einen Benutzer anhand seiner ID zurück.</span>
 
+<span class="sd">        :param user_id: Die ID des Benutzers.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        :return: Der Benutzer mit der angegebenen ID oder None, wenn kein Benutzer gefunden wurde.</span>
+<span class="sd">        :rtype: User</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT * FROM users WHERE user_id = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
         
         <span class="k">try</span><span class="p">:</span>
@@ -122,8 +139,16 @@
     <span class="c1"># -&gt; &quot;Deleted&quot; Nutzer darf nicht über diese Funktion aus DB geladen werden</span>
 <div class="viewcode-block" id="User_Management.get_user_by_name">
 <a class="viewcode-back" href="../../User_Management.html#Code_Python.User_Management.User_Management.get_user_by_name">[Doku]</a>
-    <span class="k">def</span> <span class="nf">get_user_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">User</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_user_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">User</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt einen Benutzer anhand seines Namens zurück.</span>
 
+<span class="sd">        :param name: Der Name des Benutzers.</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        :return: Der Benutzer mit dem angegebenen Namen oder None, wenn kein Benutzer gefunden wurde.</span>
+<span class="sd">        :rtype: User</span>
+<span class="sd">        :raises ValueError: Wenn der Name &quot;Deleted&quot; ist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;Deleted&quot;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;Deleted&#39;-Nutzer nicht mit dieser Funktion laden&quot;</span><span class="p">)</span>
 
@@ -153,7 +178,15 @@
 <div class="viewcode-block" id="User_Management.get_users_by_query">
 <a class="viewcode-back" href="../../User_Management.html#Code_Python.User_Management.User_Management.get_users_by_query">[Doku]</a>
     <span class="k">def</span> <span class="nf">get_users_by_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">User</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt eine Liste von Benutzern basierend auf einer benutzerdefinierten SQL-Abfrage zurück.</span>
 
+<span class="sd">        :param query: Die SQL-Abfrage zur Auswahl von Benutzern.</span>
+<span class="sd">        :type query: str</span>
+<span class="sd">        :param args: Die Argumente für die SQL-Abfrage.</span>
+<span class="sd">        :return: Eine Liste von Benutzern, die der Abfrage entsprechen.</span>
+<span class="sd">        :rtype: list[User]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">t</span> <span class="o">=</span> <span class="p">()</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
             <span class="n">t</span> <span class="o">+=</span> <span class="p">(</span><span class="n">element</span><span class="p">,)</span>
@@ -182,14 +215,21 @@
 <div class="viewcode-block" id="User_Management.save_user">
 <a class="viewcode-back" href="../../User_Management.html#Code_Python.User_Management.User_Management.save_user">[Doku]</a>
     <span class="k">def</span> <span class="nf">save_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">User</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Speichert einen Benutzer in der Datenbank.</span>
+
+<span class="sd">        :param user: Der Benutzer, der gespeichert werden soll.</span>
+<span class="sd">        :type user: User</span>
+<span class="sd">        :return: True, wenn der Benutzer erfolgreich gespeichert wurde, andernfalls False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># -&gt; Neuen Nutzer anlegen, alle nicht aufgezählten Variablen werden automatisch von DB angelegt</span>
         <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">user_id</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO users (name, hashed_password) </span>
-<span class="s2">                       VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;&quot;&quot;</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO users (name, hashed_password, ressource_suggestions) </span>
+<span class="s2">                       VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&quot;&quot;&quot;</span>
             
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">.</span><span class="n">hashed_password</span><span class="p">))</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">.</span><span class="n">hashed_password</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">))</span>
             <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">False</span>
             
@@ -217,7 +257,16 @@
 <div class="viewcode-block" id="User_Management.add_user">
 <a class="viewcode-back" href="../../User_Management.html#Code_Python.User_Management.User_Management.add_user">[Doku]</a>
     <span class="k">def</span> <span class="nf">add_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">hashed_password</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fügt einen neuen Benutzer zur Datenbank hinzu.</span>
+
+<span class="sd">        :param name: Der Name des neuen Benutzers.</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        :param hashed_password: Das gehashte Passwort des neuen Benutzers.</span>
+<span class="sd">        :type hashed_password: str</span>
+<span class="sd">        :return: True, wenn der Benutzer erfolgreich hinzugefügt wurde, andernfalls False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">hashed_password</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_user</span><span class="p">(</span><span class="n">user</span><span class="p">)</span></div>
 
@@ -228,7 +277,15 @@
 <div class="viewcode-block" id="User_Management.delete_user">
 <a class="viewcode-back" href="../../User_Management.html#Code_Python.User_Management.User_Management.delete_user">[Doku]</a>
     <span class="k">def</span> <span class="nf">delete_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Löscht einen Benutzer, indem bestimmte Attribute auf feste Werte gesetzt werden.</span>
+
+<span class="sd">        :param user_id: Die ID des zu löschenden Benutzers.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        :return: True, wenn der Benutzer erfolgreich gelöscht wurde, andernfalls False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :raises ValueError: Wenn der Benutzer Administratorrechte hat.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_user_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">LookupError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -254,7 +311,18 @@
 <div class="viewcode-block" id="User_Management.register_user">
 <a class="viewcode-back" href="../../User_Management.html#Code_Python.User_Management.User_Management.register_user">[Doku]</a>
     <span class="k">def</span> <span class="nf">register_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">suggested_password</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Registriert einen neuen Benutzer, indem Name und Passwort überprüft und in der Datenbank gespeichert werden.</span>
+
+<span class="sd">        :param name: Der Name des neuen Benutzers.</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        :param suggested_password: Das Passwort des neuen Benutzers.</span>
+<span class="sd">        :type suggested_password: str</span>
+<span class="sd">        :return: True, wenn der Benutzer erfolgreich registriert wurde, andernfalls False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :raises NameError: Wenn der Name bereits existiert.</span>
+<span class="sd">        :raises ValueError: Wenn das Passwort kürzer als 4 Zeichen ist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_user_by_name</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;Benutzername exisitiert bereits&quot;</span><span class="p">)</span>         <span class="c1"># Requirement E1/BM.3 erfüllt - keine doppelten Benutzernamen</span>
@@ -277,7 +345,14 @@
 <div class="viewcode-block" id="User_Management.promote_user_to_Admin">
 <a class="viewcode-back" href="../../User_Management.html#Code_Python.User_Management.User_Management.promote_user_to_Admin">[Doku]</a>
     <span class="k">def</span> <span class="nf">promote_user_to_Admin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vergibt Administratorrechte an einen Benutzer.</span>
+
+<span class="sd">        :param user_id: Die ID des Benutzers, der zum Administrator befördert werden soll.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        :return: True, wenn der Benutzer erfolgreich zum Administrator befördert wurde, andernfalls False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_user_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
@@ -296,7 +371,14 @@
 <div class="viewcode-block" id="User_Management.promote_user_to_Moderator">
 <a class="viewcode-back" href="../../User_Management.html#Code_Python.User_Management.User_Management.promote_user_to_Moderator">[Doku]</a>
     <span class="k">def</span> <span class="nf">promote_user_to_Moderator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vergibt Moderatorrechte an einen Benutzer.</span>
 
+<span class="sd">        :param user_id: Die ID des Benutzers, der zum Moderator befördert werden soll.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        :return: True, wenn der Benutzer erfolgreich zum Moderator befördert wurde, andernfalls False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_user_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
@@ -315,7 +397,14 @@
 <div class="viewcode-block" id="User_Management.demote_user">
 <a class="viewcode-back" href="../../User_Management.html#Code_Python.User_Management.User_Management.demote_user">[Doku]</a>
     <span class="k">def</span> <span class="nf">demote_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Entfernt Moderator- und Administratorrechte von einem Benutzer.</span>
+
+<span class="sd">        :param user_id: Die ID des Benutzers, dem die Rechte entzogen werden sollen.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        :return: True, wenn die Rechte erfolgreich entfernt wurden, andernfalls False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_user_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
@@ -334,7 +423,17 @@
 <div class="viewcode-block" id="User_Management.login_user">
 <a class="viewcode-back" href="../../User_Management.html#Code_Python.User_Management.User_Management.login_user">[Doku]</a>
     <span class="k">def</span> <span class="nf">login_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Meldet einen Benutzer an, indem das Passwort überprüft und die Anmeldeinformationen aktualisiert werden.</span>
 
+<span class="sd">        :param username: Der Name des Benutzers.</span>
+<span class="sd">        :type username: str</span>
+<span class="sd">        :param password: Das Passwort des Benutzers.</span>
+<span class="sd">        :type password: str</span>
+<span class="sd">        :return: True, wenn der Benutzer erfolgreich angemeldet wurde, andernfalls False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :raises LookupError: Wenn der Benutzer nicht gefunden werden kann.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_user_by_name</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
@@ -359,7 +458,14 @@
 <div class="viewcode-block" id="User_Management.logout_user">
 <a class="viewcode-back" href="../../User_Management.html#Code_Python.User_Management.User_Management.logout_user">[Doku]</a>
     <span class="k">def</span> <span class="nf">logout_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-                
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Meldet einen Benutzer ab, indem die Anmeldeinformationen aktualisiert werden.</span>
+
+<span class="sd">        :param user_id: Die ID des Benutzers, der sich abmelden möchte.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        :return: True, wenn der Benutzer erfolgreich abgemeldet wurde, andernfalls False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>  
         <span class="k">try</span><span class="p">:</span>
             <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_user_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
@@ -373,10 +479,39 @@
             <span class="k">return</span> <span class="kc">False</span>
         
         <span class="k">return</span> <span class="ow">not</span> <span class="n">user</span><span class="o">.</span><span class="n">is_logged_in</span></div>
-</div>
 
     
+<div class="viewcode-block" id="User_Management.sort_users_by_role">
+<a class="viewcode-back" href="../../User_Management.html#Code_Python.User_Management.User_Management.sort_users_by_role">[Doku]</a>
+    <span class="k">def</span> <span class="nf">sort_users_by_role</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">users</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">User</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">User</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sortiert eine Liste von Benutzern nach ihren Rollen: Administratoren, Moderatoren und normale Benutzer.</span>
+
+<span class="sd">        :param users: Die Liste der Benutzer, die sortiert werden sollen.</span>
+<span class="sd">        :type users: list[User]</span>
+<span class="sd">        :return: Eine Liste von Benutzern, sortiert nach ihren Rollen.</span>
+<span class="sd">        :rtype: list[User]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">to_return</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1">#Admins</span>
+        <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">users</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">is_administrator</span><span class="p">:</span>
+                <span class="n">to_return</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+
+        <span class="c1">#Mods</span>
+        <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">users</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="o">.</span><span class="n">is_administrator</span> <span class="ow">and</span> <span class="n">user</span><span class="o">.</span><span class="n">is_moderator</span><span class="p">:</span>
+                <span class="n">to_return</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>  
+
+        <span class="c1">#Users</span>
+        <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">users</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="o">.</span><span class="n">is_administrator</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">user</span><span class="o">.</span><span class="n">is_moderator</span><span class="p">:</span>
+                <span class="n">to_return</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
     
+        <span class="k">return</span> <span class="n">to_return</span></div>
+</div>
+
 </pre></div>
 
            </div>

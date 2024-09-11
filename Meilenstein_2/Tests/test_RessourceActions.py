@@ -23,7 +23,7 @@ class test_RessourceActions(unittest.TestCase):
     def test_is_link_functional_failure(self):
         with patch('requests.head') as mock_head:
             mock_head.return_value.status_code = 404
-            self.assertFalse(self.ressource_actions.is_link_functional("http://example.com"))
+            self.assertFalse(self.ressource_actions.is_link_functional("http://examplehvuvgvgvhgg.com"))
 
     def test_is_link_functional_exception(self):
         with patch('requests.head', side_effect=requests.RequestException):

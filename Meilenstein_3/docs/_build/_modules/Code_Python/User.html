@@ -82,7 +82,28 @@
 <div class="viewcode-block" id="User">
 <a class="viewcode-back" href="../../User.html#Code_Python.User.User">[Doku]</a>
 <span></span><span class="k">class</span> <span class="nc">User</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Diese Klasse repräsentiert einen Benutzer im System mit verschiedenen Attributen, einschließlich Anmelde-Status, Name, Passwort und Berechtigungen.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">is_logged_in</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">hashed_password</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_administrator</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">is_moderator</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">ressource_suggestions</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialisiert einen neuen Benutzer mit den angegebenen Attributen.</span>
+
+<span class="sd">        :param user_id: Die ID des Benutzers (Primärschlüssel). Wird nur verwendet, um den Benutzer anzumelden.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        :param is_logged_in: Gibt an, ob der Benutzer angemeldet ist.</span>
+<span class="sd">        :type is_logged_in: bool</span>
+<span class="sd">        :param name: Der Name des Benutzers. Maximale Länge = 40 Zeichen.</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        :param hashed_password: Das gehashte Passwort des Benutzers (MD5 Hash).</span>
+<span class="sd">        :type hashed_password: str</span>
+<span class="sd">        :param is_administrator: Gibt an, ob der Benutzer Administratorrechte hat.</span>
+<span class="sd">        :type is_administrator: bool</span>
+<span class="sd">        :param is_moderator: Gibt an, ob der Benutzer Moderatorrechte hat (Bonus).</span>
+<span class="sd">        :type is_moderator: bool</span>
+<span class="sd">        :param ressource_suggestions: Vorschläge des Benutzers zu neuen Ressourcen.</span>
+<span class="sd">        :type ressource_suggestions: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_user_id</span> <span class="o">=</span> <span class="n">user_id</span>                             <span class="c1"># Primärschlüssel - Setter wird nur genutzt, um Gast anzumelden</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_logged_in</span> <span class="o">=</span> <span class="n">is_logged_in</span>                   <span class="c1">#</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>                                   <span class="c1"># Maximale Länge = 40 Zeichen</span>
@@ -95,60 +116,144 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">user_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt die ID des Benutzers zurück.</span>
+
+<span class="sd">        :return: Die ID des Benutzers.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user_id</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_logged_in</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt an, ob der Benutzer angemeldet ist.</span>
+
+<span class="sd">        :return: True, wenn der Benutzer angemeldet ist, andernfalls False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_logged_in</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt den Namen des Benutzers zurück.</span>
+
+<span class="sd">        :return: Der Name des Benutzers.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">hashed_password</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt das gehashte Passwort des Benutzers zurück.</span>
+
+<span class="sd">        :return: Das gehashte Passwort des Benutzers (MD5 Hash).</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hashed_password</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_administrator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt an, ob der Benutzer Administratorrechte hat.</span>
+
+<span class="sd">        :return: True, wenn der Benutzer Administratorrechte hat, andernfalls False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_administrator</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_moderator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt an, ob der Benutzer Moderatorrechte hat.</span>
+
+<span class="sd">        :return: True, wenn der Benutzer Moderatorrechte hat, andernfalls False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_moderator</span>
     
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ressource_suggestions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt die Vorschläge des Benutzers zu neuen Ressourcen zurück.</span>
+
+<span class="sd">        :return: Die Vorschläge des Benutzers zu neuen Ressourcen.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ressource_suggestions</span>
 
     <span class="c1">#  -------------------------- Setters --------------------------</span>
 
     <span class="nd">@user_id</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">user_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt die ID des Benutzers.</span>
+
+<span class="sd">        :param user_id: Die neue ID des Benutzers.</span>
+<span class="sd">        :type user_id: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_user_id</span> <span class="o">=</span> <span class="n">user_id</span>
 
     <span class="nd">@is_logged_in</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">is_logged_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_logged_in</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt den Anmelde-Status des Benutzers.</span>
+
+<span class="sd">        :param is_logged_in: Der neue Anmelde-Status des Benutzers.</span>
+<span class="sd">        :type is_logged_in: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_logged_in</span> <span class="o">=</span> <span class="n">is_logged_in</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt den Namen des Benutzers.</span>
+
+<span class="sd">        :param name: Der neue Name des Benutzers.</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
 
     <span class="nd">@hashed_password</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">hashed_password</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hashed_password</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt das gehashte Passwort des Benutzers.</span>
+
+<span class="sd">        :param hashed_password: Das neue gehashte Passwort des Benutzers (MD5 Hash).</span>
+<span class="sd">        :type hashed_password: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_hashed_password</span> <span class="o">=</span> <span class="n">hashed_password</span>
 
     <span class="nd">@is_administrator</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">is_administrator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_administrator</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt, ob der Benutzer Administratorrechte hat.</span>
+
+<span class="sd">        :param is_administrator: Der neue Wert für Administratorrechte.</span>
+<span class="sd">        :type is_administrator: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_administrator</span> <span class="o">=</span> <span class="n">is_administrator</span>
 
     <span class="nd">@is_moderator</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">is_moderator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_moderator</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt, ob der Benutzer Moderatorrechte hat.</span>
+
+<span class="sd">        :param is_moderator: Der neue Wert für Moderatorrechte.</span>
+<span class="sd">        :type is_moderator: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_moderator</span> <span class="o">=</span> <span class="n">is_moderator</span>
 
-    <span class="nd">@is_moderator</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@ressource_suggestions</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">ressource_suggestions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_suggestions</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt die Vorschläge des Benutzers zu neuen Ressourcen.</span>
+
+<span class="sd">        :param ressource_suggestions: Die neuen Vorschläge des Benutzers zu neuen Ressourcen.</span>
+<span class="sd">        :type ressource_suggestions: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ressource_suggestions</span> <span class="o">=</span> <span class="n">ressource_suggestions</span></div>
 
 </pre></div>

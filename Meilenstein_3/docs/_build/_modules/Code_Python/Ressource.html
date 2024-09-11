@@ -82,7 +82,40 @@
 <div class="viewcode-block" id="Ressource">
 <a class="viewcode-back" href="../../Ressource.html#Code_Python.Ressource.Ressource">[Doku]</a>
 <span></span><span class="k">class</span> <span class="nc">Ressource</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_published</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">is_deleted</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">link</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">created_by</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">faculty</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ressource_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">opening_hours</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">likes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">experience_reports</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ressource_tags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Diese Klasse repräsentiert eine Ressource mit verschiedenen Attributen, einschließlich Name, Beschreibung, Link und weiteren Metadaten.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_published</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">is_deleted</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">link</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">created_by</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">faculty</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ressource_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">opening_hours</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">likes</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">experience_reports</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ressource_tags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialisiert eine neue Ressource mit den angegebenen Attributen.</span>
+
+<span class="sd">        :param ressource_id: Die ID der Ressource (Primärschlüssel).</span>
+<span class="sd">        :type ressource_id: int</span>
+<span class="sd">        :param name: Der Name der Ressource, maximal 128 Zeichen.</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        :param is_published: Gibt an, ob die Ressource veröffentlicht ist.</span>
+<span class="sd">        :type is_published: bool</span>
+<span class="sd">        :param is_deleted: Gibt an, ob die Ressource gelöscht ist.</span>
+<span class="sd">        :type is_deleted: bool</span>
+<span class="sd">        :param description: Eine Beschreibung der Ressource, maximal 512 Zeichen.</span>
+<span class="sd">        :type description: str</span>
+<span class="sd">        :param link: Ein Link zur Ressource. Darf nicht None sein.</span>
+<span class="sd">        :type link: str</span>
+<span class="sd">        :param created_by: Der Ersteller der Ressource (Name oder Benutzer-ID).</span>
+<span class="sd">        :type created_by: str</span>
+<span class="sd">        :param faculty: Die Fakultät oder der Bereich, dem die Ressource zugeordnet ist.</span>
+<span class="sd">        :type faculty: str</span>
+<span class="sd">        :param ressource_type: Der Typ der Ressource.</span>
+<span class="sd">        :type ressource_type: str</span>
+<span class="sd">        :param opening_hours: Die Öffnungszeiten der Ressource, Struktur nicht festgelegt.</span>
+<span class="sd">        :type opening_hours: str</span>
+<span class="sd">        :param likes: Eine Optionale Angabe von Likes zur Ressource (Bonus).</span>
+<span class="sd">        :type likes: str</span>
+<span class="sd">        :param experience_reports: Erfahrungsberichte zur Ressource (Bonus).</span>
+<span class="sd">        :type experience_reports: str</span>
+<span class="sd">        :param ressource_tags: Tags, die die Ressource beschreiben (Bonus).</span>
+<span class="sd">        :type ressource_tags: list[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ressource_id</span> <span class="o">=</span> <span class="n">ressource_id</span>                <span class="c1"># Primärschlüssel</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>                                <span class="c1"># Maximal 128 Zeichen</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_published</span> <span class="o">=</span> <span class="n">is_published</span>                <span class="c1"># </span>
@@ -101,104 +134,254 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ressource_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt die ID der Ressource zurück.</span>
+
+<span class="sd">        :return: Die ID der Ressource.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ressource_id</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt den Namen der Ressource zurück.</span>
+
+<span class="sd">        :return: Der Name der Ressource.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_published</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt an, ob die Ressource veröffentlicht ist.</span>
+
+<span class="sd">        :return: True, wenn die Ressource veröffentlicht ist, andernfalls False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_published</span>
     
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_deleted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt an, ob die Ressource gelöscht ist.</span>
+
+<span class="sd">        :return: True, wenn die Ressource gelöscht ist, andernfalls False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_deleted</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt die Beschreibung der Ressource zurück.</span>
+
+<span class="sd">        :return: Die Beschreibung der Ressource.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">link</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt den Link zur Ressource zurück.</span>
+
+<span class="sd">        :return: Der Link zur Ressource.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_link</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">created_by</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt den Ersteller der Ressource zurück.</span>
+
+<span class="sd">        :return: Der Ersteller der Ressource.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_created_by</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">faculty</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt die Fakultät oder den Bereich der Ressource zurück.</span>
+
+<span class="sd">        :return: Die Fakultät oder der Bereich der Ressource.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_faculty</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ressource_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt den Typ der Ressource zurück.</span>
+
+<span class="sd">        :return: Der Typ der Ressource.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ressource_type</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">opening_hours</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt die Öffnungszeiten der Ressource zurück.</span>
+
+<span class="sd">        :return: Die Öffnungszeiten der Ressource.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opening_hours</span>
     
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">likes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt die Likes der Ressource zurück (optional).</span>
+
+<span class="sd">        :return: Die Likes der Ressource.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_likes</span>
     
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">experience_reports</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt die Erfahrungsberichte zur Ressource zurück (optional).</span>
+
+<span class="sd">        :return: Die Erfahrungsberichte zur Ressource.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_experience_reports</span>
     
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ressource_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt die Tags der Ressource zurück (optional).</span>
+
+<span class="sd">        :return: Die Tags der Ressource.</span>
+<span class="sd">        :rtype: list[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ressource_tags</span>
 
     <span class="c1"># Setters</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt den Namen der Ressource.</span>
+
+<span class="sd">        :param name: Der neue Name der Ressource.</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
 
     <span class="nd">@is_published</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">is_published</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_published</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt den Veröffentlichungsstatus der Ressource.</span>
+
+<span class="sd">        :param is_published: Der neue Veröffentlichungsstatus.</span>
+<span class="sd">        :type is_published: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_published</span> <span class="o">=</span> <span class="n">is_published</span>
 
     <span class="nd">@is_deleted</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">is_deleted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_deleted</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt den Löschstatus der Ressource.</span>
+
+<span class="sd">        :param is_deleted: Der neue Löschstatus.</span>
+<span class="sd">        :type is_deleted: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_deleted</span> <span class="o">=</span> <span class="n">is_deleted</span>
 
     <span class="nd">@description</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt die Beschreibung der Ressource.</span>
+
+<span class="sd">        :param description: Die neue Beschreibung der Ressource.</span>
+<span class="sd">        :type description: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_description</span> <span class="o">=</span> <span class="n">description</span>
 
     <span class="nd">@link</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt den Link zur Ressource.</span>
+
+<span class="sd">        :param link: Der neue Link zur Ressource.</span>
+<span class="sd">        :type link: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_link</span> <span class="o">=</span> <span class="n">link</span>
 
     <span class="nd">@created_by</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">created_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">created_by</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt den Ersteller der Ressource.</span>
+
+<span class="sd">        :param created_by: Der neue Ersteller der Ressource.</span>
+<span class="sd">        :type created_by: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_created_by</span> <span class="o">=</span> <span class="n">created_by</span>
 
     <span class="nd">@faculty</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">faculty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">faculty</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt die Fakultät oder den Bereich der Ressource.</span>
+
+<span class="sd">        :param faculty: Die neue Fakultät oder den neuen Bereich.</span>
+<span class="sd">        :type faculty: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_faculty</span> <span class="o">=</span> <span class="n">faculty</span>
 
     <span class="nd">@ressource_type</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">ressource_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt den Typ der Ressource.</span>
+
+<span class="sd">        :param ressource_type: Der neue Typ der Ressource.</span>
+<span class="sd">        :type ressource_type: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ressource_type</span> <span class="o">=</span> <span class="n">ressource_type</span>
 
     <span class="nd">@opening_hours</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">opening_hours</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opening_hours</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt die Öffnungszeiten der Ressource.</span>
+
+<span class="sd">        :param opening_hours: Die neuen Öffnungszeiten der Ressource.</span>
+<span class="sd">        :type opening_hours: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_opening_hours</span> <span class="o">=</span> <span class="n">opening_hours</span>
 
     <span class="nd">@likes</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">likes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">likes</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt die Likes der Ressource (optional).</span>
+
+<span class="sd">        :param likes: Die neuen Likes der Ressource.</span>
+<span class="sd">        :type likes: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_likes</span> <span class="o">=</span> <span class="n">likes</span>
 
     <span class="nd">@experience_reports</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">experience_reports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experience_reports</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt die Erfahrungsberichte zur Ressource (optional).</span>
+
+<span class="sd">        :param experience_reports: Die neuen Erfahrungsberichte zur Ressource.</span>
+<span class="sd">        :type experience_reports: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_experience_reports</span> <span class="o">=</span> <span class="n">experience_reports</span>
 
     <span class="nd">@ressource_tags</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">ressource_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ressource_tags</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setzt die Tags der Ressource (optional).</span>
+
+<span class="sd">        :param ressource_tags: Die neuen Tags der Ressource.</span>
+<span class="sd">        :type ressource_tags: list[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ressource_tags</span> <span class="o">=</span> <span class="n">ressource_tags</span></div>
 
 </pre></div>
