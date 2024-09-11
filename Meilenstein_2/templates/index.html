@@ -86,8 +86,14 @@
 
                                     <span id="index_ihidden_ressource_id{{i}}" value="{{resource.ressource_id}}" style="display: none;"></span>
 
+
+
+                                    <div class="item-box-name">
+                                        <b>{{ resource.name }}</b>
+                                    </div>
+
                                     <div class="item-box-likes">
-                                        <div class="box-green ">
+                                        <div class="box-green font-scaler">
                                             {% if is_liked[i] %}
                                                 <span id="index_i_like_emoji{{i}}" style="color: red;">&#10084; &nbsp; </span>
                                             {% else %}
@@ -97,13 +103,9 @@
 
                                         </div>
                                     </div>
-
-                                    <div class="item-box-name">
-                                        <b>{{ resource.name }}</b>
-                                    </div>
                                     
                                     <div class="item-box-inspect">
-                                        <button class="button-green reports-box-actions-button" onclick="open_inspect_modal('{{ resource.ressource_id }}', 'user', { ressource_id: 'index_i_ressource_id', description: 'index_i_description', link: 'index_i_link', name: 'index_i_name', hours: 'index_i_opening_hours', faculty: 'index_i_faculty', ressource_type: 'index_i_ressource_type', created_by: 'index_i_created_by', like_count: 'index_i2_like_count', like_emoji: 'index_i2_like_emoji', is_published: 'index_i_is_published'})">&#128065;</button>
+                                        <button class="button-green reports-box-actions-button" style="margin: 0px; font-size: 1.9vh" onclick="open_inspect_modal('{{ resource.ressource_id }}', 'user', { ressource_id: 'index_i_ressource_id', description: 'index_i_description', link: 'index_i_link', name: 'index_i_name', hours: 'index_i_opening_hours', faculty: 'index_i_faculty', ressource_type: 'index_i_ressource_type', created_by: 'index_i_created_by', like_count: 'index_i2_like_count', like_emoji: 'index_i2_like_emoji', is_published: 'index_i_is_published'})">&#128065;</button>
                                     </div>
                                 </div>
                             {% endwith %}
