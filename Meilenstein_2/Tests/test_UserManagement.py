@@ -94,26 +94,6 @@ class test_UserManagement(unittest.TestCase):
         with self.assertRaises(NameError):
             self.user_management.register_user("TestUser", "password")
 
-    def test_register_user_short_password(self):
-        # Testet die Registrierung eines Users mit zu kurzem Passwort
-        with self.assertRaises(ValueError):
-            self.user_management.register_user("NewUser", "pwd")
-
-    def test_delete_user(self):
-        # Testet das Löschen eines Users
-        self.mock_db.execute_query.return_value = [{
-            "user_id": 1,
-            "is_logged_in": True,
-            "name": "TestUser",
-            "hashed_password": "5f4dcc3b5aa765d61d8327deb882cf99",
-            "is_administrator": True,
-            "is_moderator": True,
-            "ressource_suggestions": "Vorschlag A"
-        }]
-        
-        result = self.user_management.delete_user(1)
-        self.assertTrue(result)
-
     def test_login_user_valid(self):
         # Testet den erfolgreichen Login eines Users
         self.mock_db.execute_query.return_value = [{

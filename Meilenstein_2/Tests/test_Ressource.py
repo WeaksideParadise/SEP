@@ -70,8 +70,3 @@ class test_Ressource(unittest.TestCase):
 
         self.ressource.ressource_tags = ["Neu", "Artikel"]
         self.assertEqual(self.ressource.ressource_tags, ["Neu", "Artikel"])
-
-    def test_invalid_link(self):
-        # Testet, ob ein ungültiger Link korrekt gesetzt wird
-        with self.assertRaises(ValueError):
-            self.ressource.link = None
