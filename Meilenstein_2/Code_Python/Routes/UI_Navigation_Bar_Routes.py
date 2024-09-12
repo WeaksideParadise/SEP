@@ -42,7 +42,10 @@ class Navigation_Bar_Routes:
             # If the original path had a trailing separator, add it back
             if file_path.endswith('\\'):
                 new_path += '\\'
-            subprocess.run(['start', new_path + r"/Meilenstein_3/docs/_build/index.html"], shell=True, creationflags=subprocess.CREATE_NO_WINDOW)
+
+            new_path += r"/Meilenstein_3/docs/_build/index.html"
+
+            subprocess.run(['start', new_path], shell=True, creationflags=subprocess.CREATE_NO_WINDOW)
             return redirect("/") #idealer wäre hier die vorher geöffnete seite wieder zu öffnen
         
         @self.app.route("/register", methods = ["GET","POST"])
