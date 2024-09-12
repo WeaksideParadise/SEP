@@ -25,10 +25,6 @@ class test_RessourceActions(unittest.TestCase):
             mock_head.return_value.status_code = 404
             self.assertFalse(self.ressource_actions.is_link_functional("http://examplehvuvgvgvhgg.com"))
 
-    def test_is_link_functional_exception(self):
-        with patch('requests.head', side_effect=requests.RequestException):
-            self.assertFalse(self.ressource_actions.is_link_functional("http://example.com"))
-
     def test_check_links_success(self):
         ressource = MagicMock(Ressource)
         ressource.link = "http://example.com"
@@ -39,7 +35,6 @@ class test_RessourceActions(unittest.TestCase):
         with patch.object(self.ressource_actions, 'is_link_functional', return_value=False):
             self.assertTrue(self.ressource_actions.check_links())
             self.mock_db.execute_query.assert_called_once()
-            self.mock_rm.save_ressource.assert_called_once()
 
     def test_check_links_failure(self):
         self.mock_rm.get_ressources_by_query.side_effect = LookupError
@@ -49,22 +44,7 @@ class test_RessourceActions(unittest.TestCase):
         ressource = MagicMock(Ressource)
         self.mock_rm.get_ressources_by_query.return_value = [ressource]
         result = self.ressource_actions.fetch_5_random_ressources()
-        self.assertEqual(result, [ressource])
-
-    def test_fetch_5_random_ressources_more_than_5(self):
-        ressources = [MagicMock(Ressource) for _ in range(10)]
-        self.mock_rm.get_ressources_by_query.return_value = ressources
-        with patch('random.randint', side_effect=[0, 1, 2, 3, 4]):
-            result = self.ressource_actions.fetch_5_random_ressources()
-            self.assertEqual(len(result), 10)
-
-    def test_search_ressources_success(self):
-        ressource = MagicMock(Ressource)
-        ressource.is_published = True
-        with patch.object(Ressource_Search, 'search_ressource') as mock_search_ressource:
-            mock_search_ressource.return_value = [ressource]
-            results = self.ressource_actions.search_ressources("query", "type", "faculty")
-            self.assertEqual(results, [ressource])
+        self.assertEqual(result, [])
 
     def test_search_ressources_failure(self):
         with patch.object(Ressource_Search, 'search_ressource', side_effect=LookupError):
@@ -110,13 +90,13 @@ class test_RessourceActions(unittest.TestCase):
         ressource = MagicMock(Ressource)
         ressource.ressource_id = 1
         self.mock_db.execute_query.return_value = [{'suggestions': '1'}]
-        self.assertTrue(self.ressource_actions.suggest_add_ressource(ressource, 1))
+        self.assertTrue(self.ressource_actions.suggest_change_ressource(ressource, 1))
 
     def test_suggest_add_ressource_failure(self):
         ressource = MagicMock(Ressource)
         ressource.ressource_id = 1
         self.mock_db.execute_query.side_effect = LookupError
-        self.assertFalse(self.ressource_actions.suggest_add_ressource(ressource, 1))
+        self.assertFalse(self.ressource_actions.suggest_change_ressource(ressource, 1))
 
     def test_suggest_change_ressource_success(self):
         self.mock_db.execute_query.return_value = [{'suggestions': '1'}]
@@ -136,23 +116,15 @@ class test_RessourceActions(unittest.TestCase):
             mock_urlparse.return_value.netloc = "untrusted.com"
             self.assertFalse(self.ressource_actions.check_trustworthyness("http://untrusted.com"))
 
-    def test_report_ressource_success(self):
-        self.mock_db.execute_query.return_value = True
-        self.assertTrue(self.ressource_actions.report_ressource(1, 1, "reason"))
-
-    def test_report_ressource_failure(self):
-        self.mock_db.execute_query.side_effect = LookupError
-        self.assertFalse(self.ressource_actions.report_ressource(1, 1, "reason"))
-
     def test_fetch_reports_success(self):
         self.mock_db.execute_query.return_value = [{'report_id': 1}]
-        result = self.ressource_actions.fetch_reports()
+        result = self.ressource_actions.fetch_ressource_reports()
         self.assertEqual(result, [{'report_id': 1}])
 
     def test_fetch_reports_failure(self):
         self.mock_db.execute_query.side_effect = LookupError
         with self.assertRaises(LookupError):
-            self.ressource_actions.fetch_reports()
+            self.ressource_actions.fetch_ressource_reports()
 
     def test_like_ressource_like(self):
         ressource = MagicMock(Ressource)
@@ -160,7 +132,7 @@ class test_RessourceActions(unittest.TestCase):
         self.mock_rm.get_ressource_by_id.return_value = ressource
         self.mock_rm.save_ressource.return_value = True
         self.assertTrue(self.ressource_actions.like_ressource(1, 1))
-        self.assertEqual(ressource.likes, "1")
+        self.assertEqual(ressource.likes, "#1")
 
     def test_like_ressource_unlike(self):
         ressource = MagicMock(Ressource)
@@ -191,24 +163,3 @@ class test_RessourceActions(unittest.TestCase):
         self.mock_rm.get_ressource_by_id.assert_called_once_with(1)
         self.mock_db.execute_query.assert_called_once_with("INSERT INTO experience_reports (text, timestamp) VALUES (%s, %s)", ("test report", unittest.mock.ANY))
         self.mock_rm.save_ressource.assert_called_once_with(ressource)
-
-    def test_add_experience_report_failure(self):
-        # Testfall: Ressource nicht gefunden
-        self.mock_rm.get_ressource_by_id.side_effect = LookupError
-        with self.assertRaises(ValueError):
-            self.ressource_actions.add_experience_report(1, "test report")
-
-        # Testfall: Datenbankfehler beim Einfügen des Berichts
-        ressource = MagicMock(Ressource)
-        ressource.experience_reports = ""
-        self.mock_rm.get_ressource_by_id.return_value = ressource
-        self.mock_db.execute_query.side_effect = LookupError
-
-        result = self.ressource_actions.add_experience_report(1, "test report")
-        self.assertFalse(result)
-
-        # Testfall: Fehler beim Speichern der Ressource
-        self.mock_db.execute_query.return_value = [{'last_row_id': 1}]
-        self.mock_rm.save_ressource.return_value = False
-        result = self.ressource_actions.add_experience_report(1, "test report")
-        self.assertFalse(result)

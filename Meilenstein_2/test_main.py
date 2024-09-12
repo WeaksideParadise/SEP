@@ -5,13 +5,13 @@ from Tests import test_Database, test_Ressource, test_RessourceActions, test_Res
 if __name__ == '__main__':
     # Load all tests from the test_classes
     test_classes = [
-        #test_Database.test_Database,
-        #test_Ressource.test_Ressource,
-        #test_RessourceActions.test_RessourceActions,
-        #test_RessourceManagement.test_RessourceManagement,
-        #test_RessourceSearch.test_RessourceSearch,
-        #test_User.test_User,
-        #test_UserManagement.test_UserManagement,
+        test_Database.test_Database,
+        test_Ressource.test_Ressource,
+        test_RessourceActions.test_RessourceActions,
+        test_RessourceManagement.test_RessourceManagement,
+        test_RessourceSearch.test_RessourceSearch,
+        test_User.test_User,
+        test_UserManagement.test_UserManagement,
         test_Important.test_Important,
     ]
 

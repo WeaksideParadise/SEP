@@ -51,7 +51,7 @@ class User_Management:
     # -> Gibt einen User anhand seines Namens zurück
     # -> Name ist Sekundärschlüssel (ausgenommen "Deleted"), jeder Nutze hat einzigartigen Namen
     # -> "Deleted" Nutzer darf nicht über diese Funktion aus DB geladen werden
-    def get_user_by_name(self, name: int) -> User:
+    def get_user_by_name(self, name: str) -> User:
         """
         Gibt einen Benutzer anhand seines Namens zurück.
 

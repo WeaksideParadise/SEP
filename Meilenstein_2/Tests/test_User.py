@@ -46,4 +46,4 @@ class test_User(unittest.TestCase):
         self.assertTrue(self.user.is_moderator)
 
         self.user.ressource_suggestions = 'Vorschlag B'
-        self.assertEqsual(self.user.ressource_suggestions, 'Vorschlag B')
+        self.assertEqual(self.user.ressource_suggestions, 'Vorschlag B')
