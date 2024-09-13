@@ -191,6 +191,8 @@ class Ressource_Routes:
         def UI_like_ressource():
             
             user_id = session["user_id"]
+            if user_id == -1:
+                return jsonify({"status": 0})
             
             if request.method == "POST":
                 data = request.get_json()
