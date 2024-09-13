@@ -39,11 +39,11 @@ class Ressource_Actions:
             if response.ok:   # alternatively you can use response.status_code == 200
                 return True
             else:
-                print(f"Failure - API is accessible but sth is not right. Response codde : {response.status_code}")
+                {}#print(f"Failure - API is accessible but sth is not right. Response codde : {response.status_code}")
         except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError) as e:
-            print(f"Failure - Unable to establish connection: {e}.")
+            {}#print(f"Failure - Unable to establish connection: {e}.")
         except Exception as e:
-            print(f"Failure - Unknown error occurred: {e}.")
+            {}#print(f"Failure - Unknown error occurred: {e}.")
         return False
 
     # -> Wird von Administrator / Moderator gerufen
