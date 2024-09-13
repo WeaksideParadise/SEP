@@ -26,6 +26,7 @@ footer{
     background-size: cover;
     background-position: center;
     background-position: 0px 0px;
+    /* box-shadow: inset 0 0 0 100vmax rgba(0,0,0,.3); */
 }
 
 .index-content{
@@ -33,7 +34,7 @@ footer{
     flex-direction: row;
     height: 95vh; 
     width: 100vw;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.2) 0%,rgba(255, 255, 255, 0.9) 50%);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.6) 0%,rgba(255, 255, 255, 0.9) 50%); /* 0.2 start */
 }
 
 .welcome-box{
