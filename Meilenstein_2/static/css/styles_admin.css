@@ -138,6 +138,7 @@
     flex-direction: column;
     align-items: center;
     overflow-y: scroll;
+    overflow-x: hidden;
     background-color: #e7e7e7;
     margin: 10px;
     width: 30%;

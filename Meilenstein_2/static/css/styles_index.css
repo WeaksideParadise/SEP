@@ -20,7 +20,7 @@ footer{
     display: flex;
     align-items: center;
     justify-content: center;  
-    height: 95vh; 
+    /* height: 95vh;  */
     width: 100%;
     background-image: url('/static/img/homepage.jpg');
     background-size: cover;
@@ -43,11 +43,14 @@ footer{
     height:100%;
     align-items:center;
     text-align: center;
-    padding: 50px;
-
+    padding-left: 50px;
+    padding-right: 50px;
+    justify-content: center;
 }
 
 .most-liked-box{
+    display: flex;
+    flex-direction: column;
     width: 50%;
     height: 100%;
 }
@@ -63,6 +66,7 @@ footer{
     padding: 20px;
     margin: 50px;
     margin-top: 70px;
+    margin-bottom: 10px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -123,4 +127,15 @@ footer{
 .item-box-inspect{
     width: 7%;
     height: 80%;
+}
+
+.hint-box{
+    border: 1px solid grey;
+    border-radius: 10px;
+    background-color: rgba(60, 146, 122, 0.616);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin: 50px;
+    margin-top: 20px;
 }
