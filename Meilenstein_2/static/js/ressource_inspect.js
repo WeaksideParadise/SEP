@@ -81,7 +81,7 @@ function like_ressource(elementIds) {
                     document.getElementById(elementIds.like_count).innerHTML = parseInt(document.getElementById(elementIds.like_count).innerHTML) - 1;
                 }
             } else {
-                alert("Fehler");
+                flashMessage("Melden Sie sich an um diese Funktion zu nutzen", "error");
             }
         })
 

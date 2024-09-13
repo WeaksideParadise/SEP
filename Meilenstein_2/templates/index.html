@@ -68,13 +68,14 @@
         <div class="picture-background">
             <div class="index-content">
                 <div class="welcome-box font-scaler">
-                    <h1>Willkommen im Ressourcen-Portal</h1>
-                    <p>Hier können Sie auf verschiedene Ressourcen zugreifen und Ihre Aufgaben verwalten.</p>
+                    <h1>Willkommen im Ressourcenportal</h1>
+                    <p>Hier können Sie auf verschiedene für ihr Studium relevante Ressourcen zugreifen</p>
                     <text>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata 
-                        sanctus est Lorem ipsum dolor sit amet, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
-                        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                       Als Einzelperson hat man oft Schwierigkeiten bestimmte Dokumente, Webseiten und Vorlagen im Bezug auf die TU Chemnitz zu finden.
+                       Durch die oftmals sehr unterschiedlichen Dokumentenstrukturen der einzelnen Professuren wird das Finden bestimmer Ressourcen sehr zeitaufwendig.
+                       Gleichzeitig gehen sehr gute Ressourcen unter, da sie niemand findet. Das Ressourcenportal versucht einen klaren Weg durch diesen Jungel zu bieten.
+                       <br>
+                       Unser Motto zur Ressourcensuche lautet: Einfach, Schnell, Direkt! 
                     </text>
                 </div>
                 <div class="most-liked-box">
@@ -113,9 +114,13 @@
                     </div>
 
                     <div class="hint-box font-scaler">
-                        <b>Hinweis: Sie haben 5 neue Ressourcenvorschläge</b>
-                        <br>
-                        <b>Hinweis: Melden Sie sich an um die volle Funktionalität zu erhalten</b>
+                        {% if session["role"] %}
+                            <b style="color: red">Hinweis:</b>
+                            <b>Sie haben 5 neue Ressourcenvorschläge. Bitte nehmen Sie sich etwas Zeit und bearbeiten Sie die Vorschläge nach bestem Gewissen, um die Seite mit sinnvollen Ressourcen zu ergänzen.</b>
+                        {% else %}
+                            <b style="color: red">Hinweis:</b>
+                            <b>Sehr geehrter Gast, registrieren Sie sich noch heute, um volle Funktionalität im Tool zu erhalten. Das Hinzufügen, Liken und Melden von Ressourcen ist nur als registrierter Nutzer möglich.</b>
+                        {% endif %}
                     </div>
 
 
