@@ -19,8 +19,9 @@ class Navigation_Bar_Routes:
             most_liked_ressources = self.ra.fetch_most_liked_ressources()
             likes = self.ra.list_likes(most_liked_ressources)
             is_liked = self.ra.is_liked_by_user(int(session["user_id"]), most_liked_ressources)
+            amount_suggestions = len(self.ra.fetch_suggestions(session["user_id"]))
             
-            return render_template("index.html", most_liked_ressources = most_liked_ressources, likes = likes, is_liked = is_liked)
+            return render_template("index.html", most_liked_ressources = most_liked_ressources, likes = likes, is_liked = is_liked, amount_suggestions = amount_suggestions)
         
         @self.app.route("/login", methods = ["GET","POST"])
         def UI_login():
