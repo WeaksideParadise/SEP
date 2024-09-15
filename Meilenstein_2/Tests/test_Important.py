@@ -74,13 +74,13 @@ class test_Important(unittest.TestCase):
         results = self.ra.search_ressources('StudiTV', None, None)
         assert len(results) == 1
         # Teste eine Suche ohne Eingabe
-        results = self.ra.search_ressources('StudiTV', 'Bericht' , None)
+        results = self.ra.search_ressources('StudiTV', 'Sonstige' , None)
         assert len(results) == 1
         # Teste eine Suche ohne Eingabe
         results = self.ra.search_ressources('StudiTV', None, 'Informatik')
         assert len(results) == 1
         # Teste eine Suche ohne Eingabe
-        results = self.ra.search_ressources('StudiTV', 'Bericht' , 'Informatik')
+        results = self.ra.search_ressources('StudiTV', 'Sonstige' , 'Informatik')
         assert len(results) == 1
 
     
