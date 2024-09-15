@@ -40,9 +40,14 @@ class Admin_Panel_Routes:
         
         @self.app.route("/demote_user", methods = ["GET","POST"])
         def UI_demote_user():
+
             if not session["role"] == "administrator":
                 flash("Du hast keine Rechte für diese Aktion", "error")
                 return redirect(url_for("UI_admin_panel"))
+            
+            if int(session["user_id"]) == int(request.args.get("user_id")):
+                flash("Du kannst dich nicht selbst degradieren", "error")
+                return redirect(url_for("UI_admin_panel")) 
             
             if not self.um.demote_user(int(request.args.get("user_id"))):
                 flash("Fehler beim Ausführen der Aktion", "error")
@@ -63,6 +68,10 @@ class Admin_Panel_Routes:
             if not session["role"] == "administrator":
                 flash("Du hast keine Rechte für diese Aktion", "error")
                 return redirect(url_for("UI_admin_panel"))
+
+            if int(session["user_id"]) == int(request.args.get("user_id")):
+                flash("Du kannst dich nicht selbst löschen", "error")
+                return redirect(url_for("UI_admin_panel")) 
             
             try:
                 if not self.um.delete_user(request.args.get("user_id")):
