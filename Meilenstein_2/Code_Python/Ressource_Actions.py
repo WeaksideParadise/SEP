@@ -605,6 +605,9 @@ class Ressource_Actions:
         :return: Liste der Ressourcen, die als Vorschläge des Benutzers vorhanden sind.
         :rtype: list[Ressource]
         """
+        if user_id == -1:
+            return []
+        
         try:
             user = self.ressource_management.user_management.get_user_by_id(user_id)
             if not user:
@@ -672,7 +675,7 @@ class Ressource_Actions:
         """
         to_return = []
         for ressource in ressources:
-            if str(user_id) in ressource.likes.split("#"):
+            if user_id and str(user_id) in ressource.likes.split("#"):
                 to_return.append(True)
             else:
                 to_return.append(False)
