@@ -18,7 +18,13 @@ class Navigation_Bar_Routes:
         def UI_index():
             most_liked_ressources = self.ra.fetch_most_liked_ressources()
             likes = self.ra.list_likes(most_liked_ressources)
-            is_liked = self.ra.is_liked_by_user(int(session["user_id"]), most_liked_ressources)
+            
+            try:
+                newIsLiked = session["user_id"]
+            except:
+                newIsLiked = False
+
+            is_liked = self.ra.is_liked_by_user(int(newIsLiked), most_liked_ressources)
             
             return render_template("index.html", most_liked_ressources = most_liked_ressources, likes = likes, is_liked = is_liked)
         
